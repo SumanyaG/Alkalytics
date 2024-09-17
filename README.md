@@ -1,10 +1,12 @@
-# Project Name
+# EcoTracker
 
-Developer Names:
+Developer Names: Sumanya Gulati, Jason Tran, Jennifer Ye, Kate Min
 
-Date of project start:
+Date of project start: 16 September 2024
 
-This project is ...
+Supervisors: Dr. Charles De Lannoy, Bassel Abdelkader
+
+This project is a data management system to optimize CO2 capture experiments and support green chemical production for climate change solutions.
 
 The folders and files for this project are as follows:
 
