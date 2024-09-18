@@ -1,4 +1,4 @@
-# EcoTracker
+# Alkalytics
 
 **Developer Names**: Sumanya Gulati, Jason Tran, Jennifer Ye, Kate Min
 
