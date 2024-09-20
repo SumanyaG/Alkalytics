@@ -22,7 +22,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
+09-19-2024 & Jennifer Ye & Inital Rough Work \\
 Date2 & Name(s) & Description of changes\\
 ... & ... & ...\\
 \bottomrule
@@ -52,8 +52,49 @@ Use abstraction so that you can avoid details.}
 \wss{Hardware and software environment}
 
 \section{Goals}
+This project has a total of seven goals.
+\subsection*{Consolidated Organized Accurate Data with proper labels}
+The raw data input for this project is a csv file exported from Execl. With hundreds of experiments, 
+where each has ten or more attributes will account for thousands of data points. As the study gets larger, the current data collection format is not sustainable. 
+As such it is a goal to be able to migrate all the exisiting data to another solution where the solution is not only scalable but also extendable.
+To migrate all the data also entails that the data is properly labeled as it had been originally. 
+
+\subsection*{Querying from Multiple Sets}
+The experiments has multiple pages of Exec sheets that data is recorded on. Although the data is seperate and organized across sheets, to be able to analyse the data queries will need to be made. 
+This project should be able to pull data across sheets quickly and efficently. Currently, retreaving the data is mannuel, slow and tedious. 
+This project strives to make data retreval easy and efficent.  
+
+\subsection*{Inter-Parameter Comparability}
+To futher aid the data analysis of the experiment data, the product should be able to compare multiple parameters. 
+This could be a simple binary comparison of two attriutes or more, but also narrowing down the search windows. 
+For example, the user could specify the time frame of when the expereiments where done. Within that time frame, they might want to compare three different attributes from those expereinces. 
+One of the goals for this project, is to be able to make the above example possible. 
+
+\subsection*{Web Interface}
+With a web interface, the user can easily interact with the backend processes.
+This interface should be user friendly and displays all the functions that are needed to input data, and return the appropriate data. 
+The returned data should be given in a readable way.
+
+\subsection*{Flexibility in Expansion (i.e., adding additional parameters)}
+Although a big portion of this project is to migrate the existing data into a better solution, the product should also be 
+built with the possibility of expansion. As the experiment grows, there could be a new parameter to be recorded. 
+There could also be the possibility for this tool to be used in other expereiments that do not follow the same format. The product should still be able to handle those new changes, among others. 
+It is our goal to be able to create a tool to be used as a general data recording tool. 
+
+\subsection*{Visual Plot of Specified Parameters + Results}
+The product should be able to use the data it retreaves to interperate it in a visual manner. 
+As the data will not be completely useful if it is not readable or understandable to the user. 
+The visual plot can be in the form a dashboard with a small written conclusion of the data requested. 
+The choice of visual plot can also be given to the user. 
 
 \section{Stretch Goals}
+
+auto-generation/download data from device automatically
+analysis
+dynamic dashboard to generate comparison report
+mobile development/accessibility
+machine learning
+
 
 \section{Challenge Level and Extras}
 
