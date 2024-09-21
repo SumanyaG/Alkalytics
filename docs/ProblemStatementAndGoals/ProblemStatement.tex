@@ -83,18 +83,34 @@ It is our goal to be able to create a tool to be used as a general data recordin
 
 \subsection*{Visual Plot of Specified Parameters + Results}
 The product should be able to use the data it retreaves to interperate it in a visual manner. 
+Thie product must be able to plot the data in the desired format of the user to then be exported. 
 As the data will not be completely useful if it is not readable or understandable to the user. 
-The visual plot can be in the form a dashboard with a small written conclusion of the data requested. 
-The choice of visual plot can also be given to the user. 
 
 \section{Stretch Goals}
+\subsection*{Automatically Download Data from Data Collection Device}
+The current state of the experiment requires a data collection device. This device only holds a certain number of experiment trials.
+This data must also be manually exported at the end of each day. If the device is powered off or hits the limit of total possible recorded experiments, all the data will be lost.
+As a stretch goal, the product could be connected to this device and upload the data either when it finishes collecting data per experiment or once it hits a limit.
+This is a stretch goal as it requires the team to go through how the device actually records the data.
 
-auto-generation/download data from device automatically
-analysis
-dynamic dashboard to generate comparison report
-mobile development/accessibility
-machine learning
 
+\subsection*{Dynamic Dashboard to Generate Comparison Reports}
+As an extension of one of the main project goals, the visual plot can be in the form of a dashboard with a small written conclusion of the data requested instead of just the plotted graph.
+The choice of visual plot can also be given to the user. The dashboard could change to dynamically to newly added information, user interactions and removals
+without having to regenerate the entire plot from scratch.  
+
+
+\subsection*{Mobile Development and Accessibility}
+This project is intended to have a website interface. As a stretch goal, the project could be extended to a mobile app for
+easy access and reachability. The website and mobile app could also incorporate more accessibility features for those with disabilities.
+This may be but not limited to colour contrasts, screen readers, big fonts and responsiveness to those who have trouble seeing.
+ 
+\subsection*{Machine Learning Analysis and Projections}
+One major stretch goal is to incorporate an artificial intelligence machine learning to data analysis.
+In hopes to make data analysis easier for the user and more adaptable to any possible analysis.
+By introducing an machine learning algorithm, it would be able to automatically query the data, customise that query,
+analyse the data and create a customizable dashboard board as well based on any sort of prompt. The machine learning 
+aspect can also automatically return conclusions based on prompts
 
 \section{Challenge Level and Extras}
 
