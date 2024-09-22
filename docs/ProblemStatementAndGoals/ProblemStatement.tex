@@ -29,112 +29,150 @@ Date2 & Name(s) & Description of changes\\
 \end{tabularx}
 \end{table}
 
+
 \section{Problem Statement}
-This project aims to aid in the data managment and analysis of an ocean alkalinity enhancement and bipolar membrane electrodialysis experiment process. 
+This project aims to aid in the data management and analysis of an ocean
+alkalinity enhancement and bipolar membrane electrodialysis experiment process.
+
 
 \subsection{Background}
-The goal is to develop a scalable process to capture CO\textsubscript{2} using a combination of electric fields and membranes.
-The experiment process creates a very dilute base using this very efficent method. 
-Despite being thermodynamically efficient, the low concentration limits practical applications. However, as earth's temperature rises, so does the ocean's. This affects its ability to 
-absorb CO\textsubscript{2}. However, the resulting product of this process
-can be used increase the CO\textsubscript{2} absorption by adding the very dilute base from the experiment back into the ocean. This could be a great additional solution to the battle of climate change. 
-This would require a massive volume of solution to have a significant impact. 
+The goal is to develop a scalable process to capture CO\textsubscript{2} using a
+combination of electric fields and membranes. The experiment process creates a
+very dilute base using this very efficient method. Despite being
+thermodynamically efficient, the low concentration limits practical
+applications. However, as earth's temperature rises, so does the ocean's. This
+affects its ability to absorb CO\textsubscript{2}. However, the resulting
+product of this process can be used to increase the CO\textsubscript{2}
+absorption by adding the very dilute base from the experiment back into the
+ocean. This could be a great additional solution to the battle of climate
+change. This would require a massive volume of solution to have a significant
+impact.
 
 \subsection{Problem}
-As this process is still on a small scale. It is currently being prefected which means many more experiments must be done to be able to being it to a global scale. 
-The process has many niche technical challenges which requires high precision for success.
-Optimization of data is critical to improve process efficiency. This is a big data software problem requiring the ability to find and fine-tune specific parameters. 
+As this process is still on a small scale, it is currently being perfected which
+means many more experiments must be done to be able to bring it to a global
+scale. The process has many niche technical challenges which requires high
+precision for success. Optimization of data is critical to improve process
+efficiency. This is a big data software problem requiring the ability to find
+and fine-tune specific parameters.
 \newline
-As such, this team aims to provide a solution to be able to hold and manage large amounts of data being collected in the ongoing experimental system.
-It must be labeled, organized and have the ability to search and comapre across datasets for detials efficently.
+As such, this team aims to provide a solution to be able to hold and manage
+large amounts of data being collected in the ongoing experimental system. The
+data must be labeled, organized and have the ability to search and compare
+across datasets for details efficiently.
 \newline
 
 \subsection{Inputs and Outputs}
-Currently the data is being stored across Execl sheets. However, the data can be exported to a cvs file. This will be the main input for the Alkalytic project. 
-The data collection device will also export the data as a csv file. There is no other input file types. 
-\newline 
-The output of this project may be a varaity of possibilitles depending on the users' needs. It could be an exportable csv file of the desired data. 
-It could be a visual plot based off the data.  
+Currently the data is being stored across Excel sheets. However, the data can be
+exported to a csv file. This will be the main input for the Alkalytic project.
+The data collection device will also export the data as a csv file. There are no
+other input file types.
+\newline
+There are two possible outputs of this project. The exact choice will depend on
+the users' needs. The output could be an exportable csv file of the desired
+data. It could be a visual plot based on the data. Both are outputs, but which
+one will be outputed is up to the user
+
 
 \subsection{Stakeholders}
-Since this experiment study is still on-going, it is of small scale. \newline 
+Since this experiment study is still on-going, it is of small scale. \newline
 The main stakeholders currently are:
 \begin{itemize}
-    \item Dr. Charles De Lannoy
+    \item Dr.\ Charles De Lannoy
     \item Bassel Abdelkader
-    \item Current students/members of the lab working on the study 
-    \item The founder of the study 
+    \item Current students/members of the lab working on the study
+    \item The founder of the study
 \end{itemize}
 
 \subsection{Environment}
-This software will be compatable with any browser with a computer that is connected to internet. 
-This software will also be compatable with Windows 10 and 11. There is no hardware component. 
+This software will be compatible with any browser with a computer that is
+connected to the internet. This software will also be compatible with Windows 10
+and 11. There is no hardware component.
+
 
 \section{Goals}
 This project has a total of seven goals.
 \subsection*{Consolidated Organized Accurate Data with proper labels}
-The raw data input for this project is a csv file exported from Excel. With hundreds of experiments,
-where each has ten or more attributes will account for thousands of data points. As the study gets larger, the current data collection format is not sustainable.
-As such it is a goal to be able to migrate all the existing data to another solution where the solution is not only scalable but also extendable.
-To migrate all the data also entails that the data is properly labelled as it had been originally.
-
+The raw data input for this project is a csv file exported from Excel. With
+hundreds of experiments, where each has ten or more attributes will account for
+thousands of data points. As the study gets larger, the current data collection
+format is not sustainable. As such it is a goal to be able to migrate all the
+existing data to another solution where the solution is not only scalable but
+also extendable. To migrate all the data also entails that the data is properly
+labelled as it had been originally.
 
 \subsection*{Querying from Multiple Sets}
-The experiment has multiple pages of Exec sheets that data is recorded on. Although the data is separated and organised across sheets, to be able to analyse the data queries will need to be made.
-This project should be able to pull data across sheets quickly and efficiently. Currently, retrieving the data is manual, slow and tedious.
-This project strives to make data retrieval easy and efficient.  
-
+The experiment has multiple pages of Exec sheets that data is recorded on.
+Although the data is separated and organised across sheets, to be able to
+analyse the data queries will need to be made. This project should be able to
+pull data across sheets quickly and efficiently. Currently, retrieving the data
+is manual, slow and tedious. This project strives to make data retrieval easy
+and efficient.  
 
 \subsection*{Inter-Parameter Comparability}
-To further aid the data analysis of the experiment data, the product should be able to compare multiple parameters.
-This could be a simple binary comparison of two attributes or more, but also narrowing down the search windows.
-For example, the user could specify the time frame of when the experiments were done. Within that time frame, they might want to compare three different attributes from those experiences.
-One of the goals for this project is to be able to make the above example possible.
-
+To further aid the data analysis of the experiment data, the product should be
+able to compare multiple parameters. This could be a simple binary comparison of
+two attributes or more, but also narrowing down the search windows. For example,
+the user could specify the time frame of when the experiments were done. Within
+that time frame, they might want to compare three different attributes from
+those experiences. One of the goals for this project is to be able to make the
+above example possible.
 
 \subsection*{Web Interface}
 With a web interface, the user can easily interact with the backend processes.
-This interface should be user friendly and displays all the functions that are needed to input data, and return the appropriate data.
-The returned data should be given in a readable way.
+This interface should be user friendly and displays all the functions that are
+needed to input data, and return the appropriate data. The returned data should
+be given in a readable way.
 
-
-\subsection*{Flexibility in Expansion (i.e., adding additional parameters)}
-Although a big portion of this project is to migrate the existing data into a better solution, the product should also be
-built with the possibility of expansion. As the experiment grows, there could be a new parameter to be recorded.
-There could also be the possibility for this tool to be used in other experiments that do not follow the same format. The product should still be able to handle those new changes, among others.
-It is our goal to be able to create a tool to be used as a general data recording tool.
-
+\subsection*{Flexibility in Expansion (i.e.\ adding additional parameters)}
+Although a big portion of this project is to migrate the existing data into a
+better solution, the product should also be built with the possibility of
+expansion. As the experiment grows, there could be a new parameter to be
+recorded. There could also be the possibility for this tool to be used in other
+experiments that do not follow the same format. The product should still be able
+to handle those new changes, among others. It is our goal to be able to create a
+tool to be used as a general data recording tool.
 
 \subsection*{Visual Plot of Specified Parameters + Results}
-The product should be able to use the data it retrieves to interpret it in a visual manner.
-This product must be able to plot the data in the desired format of the user to then be exported.
-As the data will not be completely useful if it is not readable or understandable to the user.
+The product should be able to use the data it retrieves to interpret it in a
+visual manner. This product must be able to plot the data in the desired format
+of the user to then be exported. As the data will not be completely useful if it
+is not readable or understandable to the user.
 
 \section{Stretch Goals}
 \subsection*{Automatically Download Data from Data Collection Device}
-The current state of the experiment requires a data collection device. This device only holds a certain number of experiment trials.
-This data must also be manually exported at the end of each day. If the device is powered off or hits the limit of total possible recorded experiments, all the data will be lost.
-As a stretch goal, the product could be connected to this device and upload the data either when it finishes collecting data per experiment or once it hits a limit.
-This is a stretch goal as it requires the team to go through how the device actually records the data.
-
+The current state of the experiment requires a data collection device. This
+device only holds a certain number of experiment trials. This data must also be
+manually exported at the end of each day. If the device is powered off or hits
+the limit of total possible recorded experiments, all the data will be lost. As
+a stretch goal, the product could be connected to this device and upload the
+data either when it finishes collecting data per experiment or once it hits a
+limit. This is a stretch goal as it requires the team to go through how the
+device actually records the data.
 
 \subsection*{Dynamic Dashboard to Generate Comparison Reports}
-As an extension of one of the main project goals, the visual plot can be in the form of a dashboard with a small written conclusion of the data requested instead of just the plotted graph.
-The choice of visual plot can also be given to the user. The dashboard could change to dynamically to newly added information, user interactions and removals
-without having to regenerate the entire plot from scratch.  
-
+As an extension of one of the main project goals, the visual plot can be in the
+form of a dashboard with a small written conclusion of the data requested
+instead of just the plotted graph. The choice of visual plot can also be given
+to the user. The dashboard could change to dynamically to newly added
+information, user interactions and removals without having to regenerate the
+entire plot from scratch.  
 
 \subsection*{Mobile Development and Accessibility}
-This project is intended to have a website interface. As a stretch goal, the project could be extended to a mobile app for
-easy access and reachability. The website and mobile app could also incorporate more accessibility features for those with disabilities.
-This may be but not limited to colour contrasts, screen readers, big fonts and responsiveness to those who have trouble seeing.
+This project is intended to have a website interface. As a stretch goal, the
+project could be extended to a mobile app for easy access and reachability. The
+website and mobile app could also incorporate more accessibility features for
+those with disabilities. This may be but not limited to colour contrasts, screen
+readers, big fonts and responsiveness to those who have trouble seeing.
  
 \subsection*{Machine Learning Analysis and Projections}
-One major stretch goal is to incorporate an artificial intelligence machine learning to data analysis.
-In hopes to make data analysis easier for the user and more adaptable to any possible analysis.
-By introducing an machine learning algorithm, it would be able to automatically query the data, customise that query,
-analyse the data and create a customizable dashboard board as well based on any sort of prompt. The machine learning 
-aspect can also automatically return conclusions based on prompts
+One major stretch goal is to incorporate an artificial intelligence machine
+learning to data analysis. In hopes to make data analysis easier for the user
+and more adaptable to any possible analysis. By introducing an machine learning
+algorithm, it would be able to automatically query the data, customise that
+query, analyse the data and create a customizable dashboard board as well based
+on any sort of prompt. The machine learning aspect can also automatically return
+conclusions based on prompts
 
 \section{Challenge Level and Extras}
 
@@ -144,7 +182,8 @@ something else.  Usually the greater the novelty of a project the greater its
 challenge level.  You should include your rationale for the selected level.
 Approval of the level will be part of the discussion with the instructor for
 approving the project.  The challenge level, with the approval (or request) of
-the instructor, can be modified over the course of the term.}
+the instructor can be modified over the course of the term.}
+
 
 \wss{Teams may wish to include extras as either potential bonus grades, or to
 make up for a less advanced challenge level.  Potential extras include usability
@@ -163,7 +202,7 @@ instructor, can be modified over the course of the term.}
 \input{../Reflection.tex}
 
 \begin{enumerate}
-    \item What went well while writing this deliverable? 
+    \item What went well while writing this deliverable?
     \item What pain points did you experience during this deliverable, and how
     did you resolve them?
     \item How did you and your team adjust the scope of your goals to ensure
@@ -171,4 +210,6 @@ instructor, can be modified over the course of the term.}
     appropriate complexity for a senior design project)?
 \end{enumerate}  
 
+
 \end{document}
+
