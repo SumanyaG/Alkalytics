@@ -1,0 +1,85 @@
+name: LaTeX Build Check
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Cache LaTeX installation
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/texlive
+          key: ${{ runner.os }}-latex-2023
+          restore-keys: |
+            ${{ runner.os }}-latex-
+
+      - name: Install LaTeX
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: sudo apt-get update && sudo apt-get install -y texlive-full
+
+      - name: Identify changed LaTeX files
+        id: latex-files
+        run: |
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            changed_files=$(git diff --name-only HEAD^ HEAD | grep '^docs/.*\.tex$' || true)
+          else
+            changed_files=$(git diff --name-only HEAD | grep '^docs/.*\.tex$' || true)
+          fi
+          echo "Changed LaTeX files: $changed_files"
+          echo "::set-output name=changed_files::$changed_files"
+
+      - name: Compile changed LaTeX files
+        if: steps.latex-files.outputs.changed_files != ''
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in the directory:"
+          ls -l  
+          echo "Compiling files:"
+          for file in ${{ steps.latex-files.outputs.changed_files }}; do
+            # Extract the directory and filename
+            dir=$(dirname "$file")  # This will be "docs/DevelopmentPlan"
+            filename=$(basename "$file")  # This will be "DevelopmentPlan.tex"
+            
+            if [[ "$file" == docs/*.tex ]]; then
+              echo "Skipping $file in 'docs/' directory"
+              continue
+            fi
+
+            # Enter the child directory
+            cd "$dir"
+            echo "Compiling $filename in $(pwd)"
+            latexmk -pdf "$filename"  # Compile the file
+            
+            # Return to the docs directory
+            cd ../../  # Go back to the docs directory
+          done
+
+      - name: Verify PDF creation
+        if: steps.latex-files.outputs.changed_files != ''
+        run: |
+          for file in ${{ steps.latex-files.outputs.changed_files }}; do
+            if [[ "$file" == docs/*.tex ]]; then
+              echo "Skipping $file in 'docs/' directory"
+              continue
+            fi
+            
+            output_pdf="${file%.tex}.pdf"
+            if test -f "$output_pdf"; then
+              echo "PDF successfully created for $file: $output_pdf"
+            else
+              echo "PDF not found for $file" && exit 1
+            fi
+          done
