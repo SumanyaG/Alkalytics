@@ -422,17 +422,53 @@ The team will adhere to the coding standard in Table \ref{table:5} and the appro
 
 \section*{Appendix --- Reflection}
 
-\wss{Not required for CAS 741}
-
-\input{../Reflection.tex}
-
 \begin{enumerate}
-    \item Why is it important to create a development plan prior to starting the
-    project?
-    \item In your opinion, what are the advantages and disadvantages of using
-    CI/CD?
-    \item What disagreements did your group have in this deliverable, if any,
-    and how did you resolve them?
+    \item \textbf{Why is it important to create a development plan prior to starting the
+    project?}\\
+    \newline
+    It is important to create a development plan prior to starting the project because
+    it forces the team to have detailed conversations about the various aspects of the project.\\
+    \newline
+    Although our team spent a considerable amount of time discussing our experiences and the
+    technologies we thought would work the best for this project (taking into account the preferences
+    of our supervisors), creating a detailed development plan compelled us to decide on not just the 
+    technologies but also the QA factors that we had not considered discussing such as branch and commit 
+    naming conventions, coding standards and more.\\
+    \newline
+    Having a detailed conversation with our supervisors while coming up with a PoC Demonstration
+    Plan allowed us to communicate our goals more precisely and set clear expectations in terms of timelines
+    and first steps.
+    \item \textbf{In your opinion, what are the advantages and disadvantages of using
+    CI/CD?}\\
+    \newline
+    So far, our team has only implemented CI for the documentation parts of the project. This means that
+    all the checks created in GitHub Actions currently only relate to LaTeX syntax checks, pdf compilation
+    and other such conflicts. We plan on incorporating linters and other checks in our CI process over the
+    next couple of weeks.\\
+    \newline
+    The initial process of figuring out how CI can be used for our project and setting it up was painstakingly
+    painful. The learning curve that came with adopting the CI checks seemed comepletely unnecessary at times
+    especially because the checks take on average 10-12 minutes to complete.\\
+    \newline
+    With that said, however, we, as a team, do forsee the advantages of using CI. We have already run into a
+    couple of issues with naming conventions of the commits and branches so having a linter in place that can
+    flag style violations and auto-fix formatting issues to make the codebase consistent would be very useful.
+    \item \textbf{What disagreements did your group have in this deliverable, if any,
+    and how did you resolve them?}\\
+    \newline
+    Our group did not face any conflicts or disputes. Most of our disagreements were related to writing styles
+    (using third person as opposed to first person or avoiding repition of words) and naming conventions (following
+    the naming convention for all the branch names and the commit messages).\\
+    \newline
+    To be fair, it is an exaggeration to classify these issues as 'disagreements' because for the naming convention 
+    issue, it was mostly the novelty of these naming conventions that caused confusion. Once Jason (who set up CI and
+    suggested the convention style) explained how to do it in detail, we did not run into the issue again.\\
+    \newline
+    As for the incompatible writing styles -  our team decided to review all the PRs over a 2-hour call where the writing
+    style and formatting (indenting versus using newlines) discrepancies were brought up. All the team members were
+    receptive to the feedback and worked together to incorporate the suggestions. In instances where we had to make
+    decisions related to formatting, we held an informal vote and chose to proceed with the decided formatting style
+    for all our documents to avoid confusion and maintain consistency.
 \end{enumerate}
 
 \newpage{}
