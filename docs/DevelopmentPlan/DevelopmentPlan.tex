@@ -105,32 +105,32 @@ for deadlines.}
 \section{Proof of Concept Demonstration Plan}
 
 Currently, all the data collected from the various experiments is downloaded from the 
-apparatus in the form of comma-separated values (CSV) files. These files are then manually
+apparatus in the form of Comma-Separated Values (CSV) files. These files are then manually
 copied onto an existing Excel template where faulty data is deleted and the rest of the data points
 are labelled, filtered and then analysed. As the number of experiments and the data collected
-from each experiment increase size, this model of storing and analysing data has
+from each experiment increase in size, this model of storing and analysing data has
 become unsustainable.\\
 \newline
 \noindent Based on the goals outlined in section 2 of the Problem Statement and Goals document,
 the following key risks have been identified that must be mitigated in the early development
 stage to demonstrate the feasibility of this project:
 \begin{itemize}
-  \item \emph{Data Migration}: As described in section 2.1, it is critical to ensure that all existing 
+  \item \textbf{Data Migration}: As described in section 2.1, it is critical to ensure that all existing 
   data is migrated to a scalable and extendable database without losing integrity, labelling or structuring.
-  \item \emph{Performance in Querying}: As described in section 2.2, it must be ensured that the database can 
+  \item \textbf{Performance in Querying}: As described in section 2.2, it must be ensured that the database can 
   efficiently handle queries to avoid bottlenecks that could affect system usability.
-  \item \emph{Parameter Comparability}: To accomplish the analysis of the consolidated datapoints, it is essential
+  \item \textbf{Parameter Comparability}: To accomplish the analysis of the consolidated datapoints, it is essential
   that the database can facilitate complex inter-parameter comparisons, as defined in section 2.3.
 \end{itemize}
 
-\noindent Since the remaining goals (2.4 to 2.7) are built upon the assumotion of a functioning database that 
-allows efficient querying of the data, it must be demonstrated through the Proof of Concept (PoC) that the aforementioned 
+\noindent Since the remaining goals (2.4 to 2.7) are built upon the assumption of a functioning database that 
+allows efficient querying of the data, it must be demonstrated through the Proof of Concept (PoC) demonstration that the aforementioned 
 risks can be mitigated and that the project can be completed on schedule.\\
 \newline
 \noindent The success of the PoC Demonstration and thus, the feasibility of the project will be determined based 
 on the following criteria:
 \begin{itemize}
-  \item Ensuring that a 100\% of the existing data has been migrated without loss or error to the new database.
+  \item Ensuring that 100\% of the existing data has been migrated without loss or error to the new database.
   \item Demonstrating that querying of data from across multiple tables can be completed within a reasonable amount of time.
   \item Demonstrating that all existing inter-parameter comparisons in the Excel templates have been replicated in the database.
 \end{itemize}
@@ -202,20 +202,20 @@ Topics to discuss include the following:
     next couple of weeks.\\
     \newline
     The initial process of figuring out how CI can be used for our project and setting it up was painstakingly
-    painful. The learning curve that came with adopting the CI checks seemed comepletely unnecessary at times
+    arduous. The learning curve that came with adopting the CI checks seemed comepletely unnecessary at times
     especially because the checks take on average 10-12 minutes to complete.\\
     \newline
-    With that said, however, we, as a team, do forsee the advantages of using CI. We have already run into a
+    With that said, however, we do forsee the advantages of using CI. We have already run into a
     couple of issues with naming conventions of the commits and branches so having a linter in place that can
     flag style violations and auto-fix formatting issues to make the codebase consistent would be very useful.
     \item \textbf{What disagreements did your group have in this deliverable, if any,
     and how did you resolve them?}\\
     \newline
     Our group did not face any conflicts or disputes. Most of our disagreements were related to writing styles
-    (using third person as opposed to first person or avoiding repition of words) and naming conventions (following
+    (using third person as opposed to first person or avoiding repetition of words) and naming conventions (following
     the naming convention for all the branch names and the commit messages).\\
     \newline
-    To be fair, it is an exaggeration to classify these issues as 'disagreements' because for the naming convention 
+    To be fair, it is an exaggeration to classify these issues as `disagreements' because for the naming convention 
     issue, it was mostly the novelty of these naming conventions that caused confusion. Once Jason (who set up CI and
     suggested the convention style) explained how to do it in detail, we did not run into the issue again.\\
     \newline
