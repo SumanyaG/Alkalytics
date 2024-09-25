@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{array}
 
 \title{Development Plan\\\progname}
 
@@ -22,219 +23,563 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
+09-20-2024 & Kate Min & Added Team Meeting Plan\\
+09-21-2024 & Kate Min & Added Team Communication Plan and Roles\\
+09-22-2024 & Kate Min & Added Team Charter, License Information, and
+Introduction\\
+09-23-2024 & Jason Tran & Added Workflow Plan, Project Decomposition and Scheduling, Expected Technology and
+Coding Standard\\
+09-23-2024 & Sumanya Gulati & Added Proof of Concept Demonstration Plan\\
+09-24-2024 & Sumanya Gulati & Added Appendix - Reflection\\
 ... & ... & ...\\
 \bottomrule
+\label{table:1}
 \end{tabularx}
 \end{table}
 
 \newpage{}
 
-\wss{Put your introductory blurb here.  Often the blurb is a brief roadmap of
-what is contained in the report.}
+\noindent This document outlines Team Alkalytics' project development
+plan.\newline
 
-\wss{Additional information on the development plan can be found in the
-\href{https://gitlab.cas.mcmaster.ca/courses/capstone/-/blob/main/Lectures/L02b_POCAndDevPlan/POCAndDevPlan.pdf?ref_type=heads}
-{lecture slides}.}
+\noindent Administrative details such as copyright and Intellectual Property
+(IP) agreements, the team's meeting schedule, communication methods, and
+expected roles are thoroughly covered.\newline
 
-\section{Confidential Information?}
+\noindent This is followed by details about the team's planned workflow, project
+deliverables, scheduling, a Proof of Concept (POC) demonstration plan, and an
+expected technology stack for the project and relevant coding standards.\newline
 
-\wss{State whether your project has confidential information from industry, or
-not.  If there is confidential information, point to the agreement you have in
-place.}
+\noindent The appendices include a reflection on the writing process of this
+document as well as a team charter that outlines a few ground rules and
+expectations for the team.
 
-\wss{For most teams this section will just state that there is no confidential
-information to protect.}
+\section{Confidential Information}
+
+There is no confidential information to protect with respect to this project.
+
 \section{IP to Protect}
 
-\wss{State whether there is IP to protect.  If there is, point to the agreement.
-All students who are working on a project that requires an IP agreement are also
-required to sign the ``Intellectual Property Guide Acknowledgement.''}
+There is IP to protect with respect to this project. Currently, the type of
+agreement that the team may be required to sign is in discussion between the
+primary supervisor, Dr.\ Charles de Lannoy, and the Capstone course instructor,
+Dr.\ Spencer Smith. Once the agreement has been decided and signed, this section
+will be updated to reflect the terms of the agreement.
 
 \section{Copyright License}
 
-\wss{What copyright license is your team adopting.  Point to the license in your
-repo.}
+The project will be adopting the license decided by Dr.\ de Lannoy and Dr.\
+Smith. As this is still in discussion, the project will temporarily adopt the
+standard MIT license, provided
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/LICENSE}{here}. Once the
+appropriate license for the project has been decided, this section and the
+linked license file in the repository will be updated to reflect the proper
+license agreement.
 
 \section{Team Meeting Plan}
+This section provides detail on the team's internal and external meeting plans.
+\subsection{Weekly Meetings}
+The team will have weekly check-ins on Fridays from 3:30PM to 4:30PM, either
+in-person on campus or virtually, depending on member's availabilities. Virtual
+meetings will be hosted on Microsoft Teams. Additional meetings will be
+scheduled as needed.\newline
 
-\wss{How often will you meet? where?}
+\noindent The current meeting chair should open a GitHub issue prior to a
+meeting. During a meeting, the chair will go over each item on a prepared agenda
+and all members participate in the discussion. The notetaker will record meeting
+minutes and post them as a comment under the GitHub issue after the meeting, as
+well as a summary of task assignments.
 
-\wss{If the meeting is a physical location (not virtual), out of an abundance of
-caution for safety reasons you shouldn't put the location online}
+\subsection{Supervisor Meetings}
+The team will have biweekly or monthly meetings with the primary supervisor,
+Dr.\ Charles de Lannoy, depending on his availability. The team will use his
+Outlook calendar to arrange appropriate meeting dates. These meetings will be
+held either in his office or virtually on Microsoft Teams.\newline
 
-\wss{How often will you meet with your industry advisor?  when?  where?}
-
-\wss{Will meetings be virtual?  At least some meetings should likely be
-in-person.}
-
-\wss{How will the meetings be structured?  There should be a chair for all meetings.  There should be an agenda for all meetings.}
+\noindent Weekly meetings with the secondary supervisor, Bassel Abdelkader will
+be on Tuesdays from 3:30PM to 4:30PM, as he works closely with the data that
+must be integrated into the project. These meetings will be virtual due to his
+schedule.
 
 \section{Team Communication Plan}
 
-\wss{Issues on GitHub should be part of your communication plan.}
+The team uses an Instagram group chat for regular communication and a Microsoft
+Teams group chat for drafting emails and sharing resources.\newline
+
+\noindent Communication with supervisors will take place through email or
+scheduled meetings. The team liaison will be responsible for sending the emails
+and should Carbon Copy (CC) all team members.\newline
+
+\noindent All project-related communication will be done via GitHub issues. Each
+issue will track a specific task and assign team members. Every pull request
+should link to its corresponding issue(s), and feedback is expected from all
+team members when a pull request is created.
 
 \section{Team Member Roles}
 
-\wss{You should identify the types of roles you anticipate, like notetaker,
-leader, meeting chair, reviewer.  Assigning specific people to those roles is
-not necessary at this stage.  In a student team the role of the individuals will
-likely change throughout the year.}
+The team plans to rotate through the following roles between every stage,
+defined in Table \ref{table:2}:
+
+\begin{itemize}
+  \item \textbf{Meeting chair}: The meeting chair should prepare an agenda for
+  each meeting and open an issue for the meeting. The issue should contain an
+  attendance tracker, the agenda, and other topics that may need to be
+  discussed.
+  \item \textbf{Notetaker}: The notetaker will record meeting minutes during a
+  meeting and post it as a comment under the meeting issue, along with a summary
+  of task assignments.
+  \item \textbf{Primary reviewer for pull requests}: The primary reviewer will
+  give the official ``approval'' for pull requests. All members should review
+  pull requests and provide feedback, but the primary reviewer will make the
+  final decision to ensure a smooth workflow.
+\end{itemize}
+
+\noindent Once implementation begins, all members are expected to contribute as
+developers. However, the team anticipates appointing technical leads based on
+the stage of development and the members' skillsets, described below:
+
+\begin{itemize}
+  \item Sumanya has experience in data analytics and working with large
+  datasets, and will also serve as the main point of communication between the
+  team and the project's stakeholders.
+  \item Kate has experience in web development and programming in Python, as
+  well as proficiency in several Python libraries that may need to be used.
+  \item Jason has experience in MongoDB and machine learning, as well as
+  proficiency in full-stack development.
+  \item Jennifer has experience working with large datasets and employing data
+  visualization tools like PowerBI, along with a strong background in web
+  development.
+\end{itemize}
 
 \section{Workflow Plan}
 
+During each milestone, tasks will be delegated to the developers from the
+project board. To start developing, they will first create dedicated branches
+for their work and will develop independently, first by pulling changes from the
+main branch and then following the project's coding standards. Once their work
+is complete, they will submit a pull request for review, where it will be
+tested, reviewed by peers, and merged upon approval. This workflow ensures that
+development progresses smoothly, with ownership, and consistent quality.
+
+\subsection{Development with Git}
+
+Developers will adhere to the following convention and process.
+
+\subsubsection{Branches \& Commits}
+
+Each project milestone will be managed using a single overviewing pre-production
+branch. Developers will do \texttt{git checkout -B "branch-name"} off this
+branch to create their respective dedicated work branch to make commits,
+ensuring that progress is isolated and well-documented for each task.
+
 \begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classification, etc.?
-  \item Use of CI/CD
+    \item \textbf{Branch Naming Convention}: \texttt{branchType/branchDesc}
+        \begin{itemize}
+            \item Types:
+                \begin{itemize}
+                    \item \texttt{documentation}: new documentation
+                    \item \texttt{frontend-feat}: new high-level frontend
+                    implementation
+                    \item \texttt{backend-feat}: new high-level backend
+                    implementation
+                    \item \texttt{improvement}: an upgrade to an existing
+                    feature
+                    \item \texttt{bugfix}: a solution to an error
+                \end{itemize}
+            \item Example: \texttt{documentation/hazard-analysis}
+        \end{itemize}
+    \item \textbf{Commit Naming Convention}: \texttt{commitType(directory):
+    desc}
+        \begin{itemize}
+            \item Types:
+                \begin{itemize}
+                    \item \texttt{feat}: new feature added
+                    \item \texttt{fix}: a solution to an error
+                    \item \texttt{imp}: an upgrade to an existing feature
+                    \item \texttt{doc}: any documentation changes
+                \end{itemize}
+            \item Example: \texttt{fix(src): fix plot flickering during
+            rerender}
+        \end{itemize}
 \end{itemize}
+
+\subsubsection{Merging Strategy}
+
+Before a developer merges their individual branch into the milestone branch via
+a pull request, all commits within an overviewing directory will be squashed
+into a single commit. Creating a clean, consolidated history for the developer’s
+branch. However, when merging the milestone (pre-production) branch into the
+main release, individual commits will be preserved to maintain ownership of
+changes. Throughout the project, developers will use rebase and merge to keep a
+clean Git history, resolving conflicts locally before merging.
+
+\begin{itemize}
+    \item \textbf{Pull Requests}:  Is a request to merge code changes from
+    one branch into another. Each pull request requires the approval of at least two
+    reviewers before merging.
+    \begin{itemize}
+        \item \textbf{Code Review}: Reviewers must check for code quality,
+        adherence to the coding standard, and functional correctness before
+        approving a pull request. Any issues or discussions must be contained
+        within the pull request for tracking.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Continuous Integration (CI)}
+
+The team use automated tests and linting for both frontend, backend, and
+documentation (LaTeX). These will run on each pull request upon creation and must pass
+before requesting review from other developers.
+
+\subsection{Issue Management}
+
+Bugs and complications are inevitable during the development process, so it is
+best practice to address them in a standardized manner. Upon discovering an
+issue, developers are expected to open an \texttt{issue} on GitHub Projects and
+follow the following procedure:
+
+\subsubsection{Template}
+
+Create an \texttt{issue} on the project board with a title, description, labels,
+links, and any relevant information. Furthermore, categorize the issue to the
+respective milestone and assign it accordingly.
+
+\begin{itemize}
+    \item \textbf{Milestone}: Each stage is associated with a milestone. Issues
+    will be added to the respective milestones based on the scope.
+    \item \textbf{Assignee}: The developer responsible for addressing the issue.
+    \item \textbf{Title}: A short, high-level description of the issue.
+    \item \textbf{Description}: A detailed description of the issue.
+    \item \textbf{Labels}: Categorize using label(s) (e.g., \texttt{bug},
+    \texttt{feature}, \texttt{enhancement}, and etc). Priority labels will
+    indicate urgency and can be used at the team’s discretion.
+    \item \textbf{Links}: Link related issues if relevant to enable tracking.
+\end{itemize}
+
 
 \section{Project Decomposition and Scheduling}
 
-\begin{itemize}
-  \item How will you be using GitHub projects?
-  \item Include a link to your GitHub project
-\end{itemize}
+The project is organized around key milestones with overviewing stages (refer to Table \ref{table:2}) in which
+the team will rotate roles and responsibilities to allow dynamic and fluid
+progression. This will constantly use the team’s best strength and the rotation
+of the roles of team member will be at the team’s discretion.
 
-\wss{How will the project be scheduled?  This is the big picture schedule, not
-details. You will need to reproduce information that is in the course outline
-for deadlines.}
+\newpage
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Stage} & \textbf{Milestone} & \textbf{Deadline} \\
+    \hline
+    Stage 1 & Problem Statement, POC Plan, Development Plan & Sept 24 \\
+    \texttt{} & Requirements Document Revision 0 & Oct 9 \\
+    \hline
+    Stage 2 & Hazard Analysis & Oct 23 \\
+    \texttt{} & V\&V Plan Revision 0 & Nov 1 \\
+    \hline
+    Stage 3 & POC Demonstration & Nov 11 - 22 \\
+    \hline
+    Stage 4 & Design Document Revision 0 & Jan 15 \\
+    \hline
+    Stage 5 & Revision 0 Demonstration & Feb 3 - 14\\
+    \hline
+    Stage 6 & V\&V Report Revision 0 & Mar 7 \\
+    \hline
+    Stage 7 & Final Demonstration (Revision 1) & Mar 24 - 30\\
+    \texttt{} & EXPO Demonstration & Apr TBD \\
+    \texttt{} & Final Documentation (Revision 1) & Apr 2 \\
+    \hline
+    \end{tabular}
+    \caption{Project Decomposition and Deadlines}
+    \label{table:2}
+\end{table}
+
+\noindent Code development will start in Stage 2 once foundational requirements are
+concrete and will continue until the final demonstration.
+
+\subsection{GitHub Projects Usage}
+
+The \href{https://github.com/users/SumanyaG/projects/3}{project board} will follow a Kanban style with columns for \texttt{To-Do},
+\texttt{In Progress}, \texttt{Stuck}, \texttt{Under Review}, and \texttt{Done}.
+Tasks are divided into milestones and assigned to respective team members. Each
+task or issue will be represented as a card on the board, moving through the
+columns as work progresses.
 
 \section{Proof of Concept Demonstration Plan}
 
-What is the main risk, or risks, for the success of your project?  What will you
-demonstrate during your proof of concept demonstration to convince yourself that
-you will be able to overcome this risk?
-
-\section{Expected Technology}
-
-\wss{What programming language or languages do you expect to use?  What external
-libraries?  What frameworks?  What technologies.  Are there major components of
-the implementation that you expect you will implement, despite the existence of
-libraries that provide the required functionality.  For projects with machine
-learning, will you use pre-trained models, or be training your own model?  }
-
-\wss{The implementation decisions can, and likely will, change over the course
-of the project.  The initial documentation should be written in an abstract way;
-it should be agnostic of the implementation choices, unless the implementation
-choices are project constraints.  However, recording our initial thoughts on
-implementation helps understand the challenge level and feasibility of a
-project.  It may also help with early identification of areas where project
-members will need to augment their training.}
-
-Topics to discuss include the following:
-
+Currently, all the data collected from the various experiments is downloaded from the 
+apparatus in the form of Comma-Separated Values (CSV) files. These files are then manually
+copied onto an existing Excel template where faulty data is deleted and the rest of the data points
+are labelled, filtered and then analysed. As the number of experiments and the data collected
+from each experiment increase in size, this model of storing and analysing data has
+become unsustainable.\\
+\newline
+\noindent Based on the goals outlined in section 2 of the \href{https://github.com/SumanyaG/Alkalytics/blob/6efc4b2a5f37f2309be86f1e1bfc49c1ddfd097d/docs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem Statement and Goals} document,
+the following key risks have been identified that must be mitigated in the early development
+stage to demonstrate the feasibility of this project:
 \begin{itemize}
-\item Specific programming language
-\item Specific libraries
-\item Pre-trained models
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Tools you will likely be using?
+  \item \textbf{Data Migration}: As described in section 2.1, it is critical to ensure that all existing 
+  data is migrated to a scalable and extendable database without losing integrity, labelling or structuring.
+  \item \textbf{Performance in Querying}: As described in section 2.2, it must be ensured that the database can 
+  efficiently handle queries to avoid bottlenecks that could affect system usability.
+  \item \textbf{Parameter Comparability}: To accomplish the analysis of the consolidated datapoints, it is essential
+  that the database can facilitate complex inter-parameter comparisons, as defined in section 2.3.
+  \item \textbf{Basic Visualization}: To verify the accuracy of the data through graphs, all the parameters must 
+  be plotted with respect to time and an initial version of the graphs must be presented.
 \end{itemize}
 
-\wss{git, GitHub and GitHub projects should be part of your technology.}
+\noindent Since the remaining goals (2.4 to 2.7) are built upon the assumotion of a functioning database that 
+allows efficient querying of the data, it must be demonstrated through the Proof of Concept (PoC) that the aforementioned
+risks can be mitigated and that the project can be completed on schedule.\\
+\newline
+\noindent The success of the PoC Demonstration and thus, the feasibility of the project will be determined based 
+on the following criteria:
+\begin{itemize}
+  \item Ensuring that 100\% of the existing data has been migrated without loss or error to the new database.
+  \item Demonstrating that querying of data from across multiple tables can be completed within a reasonable amount of time.
+  \item Demonstrating that all existing inter-parameter comparisons in the Excel templates have been replicated in the database.
+\end{itemize}
+
+\section{Expected Technology}
+Table \ref{table:3} shows the expected technology for the development of this project.
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|}  
+    \hline
+    \textbf{Technology} & \textbf{Purpose} \\
+    \hline
+    Visual Studio & Integrated development environment for developing code \\
+    \hline
+    GitHub & For hosting repositories, collaboration, and project tracking \\
+    \hline
+    Git & Version control system for managing changes and branches \\
+    \hline
+    TypeScript & Typed superset of JavaScript used for building front-end \\
+    \hline
+    Python & General-purpose programming language for backend \\
+    \hline
+    MongoDB & NoSQL database for managing and storing datasets \\
+    \hline
+    \end{tabularx}
+    \caption{Expected Technology Overview}
+    \label{table:3}
+\end{table}
+
+\noindent The following, Table \ref{table:4}, shows potential but expected technology to be used and are subject
+to change according to the team’s discretion at any stage of the development.
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|}  
+    \hline
+    \textbf{Technology} & \textbf{Purpose} \\
+    \hline
+    React & JavaScript library for building dynamic user interfaces \\
+    \hline
+    Apollo Client & GraphQL client for managing queries and local state \\
+    \hline
+    Material-UI & Component library for creating user interfaces \\
+    \hline
+    GraphQL & Query language for APIs \\
+    \hline
+    Graphene & Python library for implementing GraphQL APIs \\
+    \hline
+    PyMongo & Python library for interacting with MongoDB \\
+    \hline
+    Pandas & Data analysis and manipulation library, used for CSV optimization
+    \\
+    \hline
+    ESLint & JavaScript linting tool for enforcing coding standards \\
+    \hline
+    Flake8 & Python linting tool for ensuring code standards \\
+    \hline
+    \end{tabularx}
+    \caption{Potential Technology Overview}
+    \label{table:4}
+\end{table}
+
+\newpage
 
 \section{Coding Standard}
 
-\wss{What coding standard will you adopt?}
+The team will adhere to the coding standard in Table \ref{table:5} and the appropriate linter will be in use.
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|}
+    \hline
+    \textbf{Category} & \textbf{Details} \\
+    \hline
+    Frontend & Adhere to \href{https://standardjs.com/}{StandardJS} for
+    TypeScript coding standard. \\
+    \hline
+    Backend & Adhere to
+    \href{https://www.python.org/dev/peps/pep-0008/}{PEP 8} for Python coding
+    standards. \\
+    \hline
+    \end{tabularx}
+    \caption{Coding Standards}
+    \label{table:5}
+\end{table}
+
 
 \newpage{}
 
 \section*{Appendix --- Reflection}
 
-\wss{Not required for CAS 741}
-
-\input{../Reflection.tex}
-
 \begin{enumerate}
-    \item Why is it important to create a development plan prior to starting the
-    project?
-    \item In your opinion, what are the advantages and disadvantages of using
-    CI/CD?
-    \item What disagreements did your group have in this deliverable, if any,
-    and how did you resolve them?
+    \item \textbf{Why is it important to create a development plan prior to starting the
+    project?}\\
+    \newline
+    It is important to create a development plan prior to starting the project because
+    it forces the team to have detailed conversations about the various aspects of the project.\\
+    \newline
+    Although our team spent a considerable amount of time discussing our experiences and the
+    technologies we thought would work the best for this project (taking into account the preferences
+    of our supervisors), creating a detailed development plan compelled us to decide on not just the 
+    technologies but also the QA factors that we had not considered discussing such as branch and commit 
+    naming conventions, coding standards and more.\\
+    \newline
+    Having a detailed conversation with our supervisors while coming up with a PoC Demonstration
+    Plan allowed us to communicate our goals more precisely and set clear expectations in terms of timelines
+    and first steps.
+    \item \textbf{In your opinion, what are the advantages and disadvantages of using
+    CI/CD?}\\
+    \newline
+    So far, our team has only implemented CI for the documentation parts of the project. This means that
+    all the checks created in GitHub Actions currently only relate to LaTeX syntax checks, pdf compilation
+    and other such conflicts. We plan on incorporating linters and other checks in our CI process over the
+    next couple of weeks.\\
+    \newline
+    The initial process of figuring out how CI can be used for our project and setting it up was painstakingly
+    arduous. The learning curve that came with adopting the CI checks seemed comepletely unnecessary at times
+    especially because the checks take on average 10-12 minutes to complete.\\
+    \newline
+    With that said, however, we do forsee the advantages of using CI. We have already run into a
+    couple of issues with naming conventions of the commits and branches so having a linter in place that can
+    flag style violations and auto-fix formatting issues to make the codebase consistent would be very useful.
+    \item \textbf{What disagreements did your group have in this deliverable, if any,
+    and how did you resolve them?}\\
+    \newline
+    Our group did not face any conflicts or disputes. Most of our disagreements were related to writing styles
+    (using third person as opposed to first person or avoiding repetition of words) and naming conventions (following
+    the naming convention for all the branch names and the commit messages).\\
+    \newline
+    To be fair, it is an exaggeration to classify these issues as `disagreements' because for the naming convention (following
+    the naming convention for all the branch names and the commit messages) issue, it was mostly the novelty of these naming 
+    conventions that caused confusion. Once Jason (who set up CI and suggested the convention style) explained how to do it in 
+    detail, we did not run into the issue again.\\
+    \newline
+    As for the incompatible writing styles -  our team decided to review all the PRs over a 2-hour call where the writing
+    style and formatting (indenting versus using newlines) discrepancies were brought up. All the team members were
+    receptive to the feedback and worked together to incorporate the suggestions. In instances where we had to make
+    decisions related to formatting, we held an informal vote and chose to proceed with the decided formatting style
+    for all our documents to avoid confusion and maintain consistency.
 \end{enumerate}
 
 \newpage{}
 
-\section*{Appendix --- Team Charter}
-
-\wss{borrows from
-\href{https://engineering.up.edu/industry_partnerships/files/team-charter.pdf}
-{University of Portland Team Charter}}
+\section*{Appendix --- Team Charter \cite{ref1}}
 
 \subsection*{External Goals}
 
-\wss{What are your team's external goals for this project? These are not the
-goals related to the functionality or quality fo the project.  These are the
-goals on what the team wishes to achieve with the project.  Potential goals are
-to win a prize at the Capstone EXPO, or to have something to talk about in
-interviews, or to get an A+, etc.}
+By the end of Capstone, our team wishes to deliver a project that is impactful
+and useful beyond graduation. We seek the personal satisfaction that comes from
+knowing the product could contribute to improvements in climate change. By
+achieving these goals, we thereby anticipate and hope for an excellent grade in
+the Capstone course.
 
 \subsection*{Attendance}
 
+This section lays out ground rules and expectations regarding team member
+attendance.
+
 \subsubsection*{Expectations}
 
-\wss{What are your team's expectations regarding meeting attendance (being on
-time, leaving early, missing meetings, etc.)?}
+All members are expected to attend all weekly check-in meetings, meetings with
+our supervisors, and maintain punctuality. We will not require full attendance
+at every Capstone lecture or tutorial, as long as at least one member from the
+team attends. All forms of attendance will be logged through GitHub Issues.
 
 \subsubsection*{Acceptable Excuse}
 
-\wss{What constitutes an acceptable excuse for missing a meeting or a deadline?
-What types of excuses will not be considered acceptable?}
+It will not be acceptable for a member to miss a meeting or a deadline without
+any prior communication. Missing a few meetings will be acceptable as long as
+the member communicates their absence to the rest of the team at least 1-2 hours
+in advance. There will be no acceptable excuses for missing a deadline unless
+they have an emergency. The guidelines for such a situation are outlined in the
+following section.
 
 \subsubsection*{In Case of Emergency}
 
-\wss{What process will team members follow if they have an emergency and cannot
-attend a team meeting or complete their individual work promised for a team
-deliverable?}
+If a team member has an emergency and cannot finish their work or meet a
+deadline, they are expected to communicate this as early as possible. The rest
+of the team will discuss potential accommodations and ensure that all tasks are
+completed by the deadline.
 
 \subsection*{Accountability and Teamwork}
 
+This section covers expectations for the team's collaboration efforts.
+
 \subsubsection*{Quality} 
 
-\wss{What are your team's expectations regarding the quality
-of team members' preparation for team meetings and the quality of the
-deliverables that members bring to the team?}
+All members should prepare for weekly check-ins and meetings by doing the
+following:
+
+\begin{itemize}
+  \item[(a)] Review the agenda prepared by the meeting chair in advance, and
+  \item[(b)] Prepare a short progress report and any questions/concerns that
+  were not already mentioned in the agenda.
+\end{itemize}
+
+\noindent Each member is expected to put in consistent effort and deliver
+high-quality work that meets or exceeds the expectations described in the
+applicable rubric. Code should be well-structured, well-documented, and adhere
+to the coding standards outlined in Section 11 of this document.
 
 \subsubsection*{Attitude}
 
-\wss{What are your team's expectations regarding team members' ideas,
-interactions with the team, cooperation, attitudes, and anything else regarding
-team member contributions?  Do you want to introduce a code of conduct?  Do you
-want a conflict resolution plan?  Can adopt existing codes of conduct.}
+All members are encouraged to share ideas, ask for feedback/help, and
+collaborate harmoniously. Feedback should always be clear, concise, and
+respectful. We do not necessitate a Code of Conduct, but if issues begin to
+arise over the course of the project, we may consider standardizing one as part
+of a conflict resolution plan.
 
 \subsubsection*{Stay on Track}
 
-\wss{What methods will be used to keep the team on track? How will your team
-ensure that members contribute as expected to the team and that the team
-performs as expected? How will your team reward members who do well and manage
-members whose performance is below expectations?  What are the consequences for
-someone not contributing their fair share?}
+We will track everything using GitHub and GitHub Projects. We have a Kanban
+board to track attendance and tasks for deliverables as GitHub Issues, and other
+metrics will be collected by the methods provided in the
+\href{https://github.com/SumanyaG/Alkalytics/tree/main/docs/projMngmnt}{projMngmnt}
+folder of the project repository (e.g., performance metrics).\newline
 
-\wss{You may wish to use the project management metrics collected for the TA and
-instructor for this.}
-
-\wss{You can set target metrics for attendance, commits, etc.  What are the
-consequences if someone doesn't hit their targets?  Do they need to bring the
-coffee to the next team meeting?  Does the team need to make an appointment with
-their TA, or the instructor?  Are there incentives for reaching targets early?}
+\noindent If uneven contribution becomes a pattern or a team member’s quality of
+work degrades over time, the team will try to resolve the issue internally by
+bringing it to that member’s attention. Uneven contribution may present itself
+in the form of fewer commits or fewer tasks completed despite being assigned,
+etc. If no improvement is seen after two internal discussions, the issue will be
+escalated to our assigned Teaching Assistant (TA). If there is still no
+improvement after the TA's involvement, it will be brought to the instructor's
+attention.
 
 \subsubsection*{Team Building}
 
-\wss{How will you build team cohesion (fun time, group rituals, etc.)? }
+We plan on building team cohesion through our interactions outside of the
+Capstone project. As we all have similar class schedules, we have numerous
+opportunities to interact and work with each other in environments that differ
+from the Capstone project. 
 
 \subsubsection*{Decision Making} 
 
-\wss{How will you make decisions in your group? Consensus?  Vote? How will you
-handle disagreements? }
+Decisions are to be made through a majority vote and should only be made after
+the team has had a thorough discussion. If there is a tie, we may approach our
+supervisors for their input if it is relevant for them.
+
+\newpage{}
+
+\begin{thebibliography}{1}
+  \bibitem{ref1} ``Senior Capstone Design Team Charter 2018'' [Online], Shiley
+  School of Engineering, University of Portland, Oregon, 2018. Available:
+  \url{https://engineering.up.edu/industry_partnerships/files/team-charter.pdf}
+\end{thebibliography}
 
 \end{document}
