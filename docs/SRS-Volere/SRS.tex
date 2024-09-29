@@ -1,0 +1,375 @@
+% THIS DOCUMENT IS FOLLOWS THE VOLERE TEMPLATE BY Suzanne Robertson and James Robertson
+% ONLY THE SECTION HEADINGS ARE PROVIDED
+%
+% Initial draft from https://github.com/Dieblich/volere
+%
+% Risks are removed because they are covered by the Hazard Analysis
+\documentclass[12pt]{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+      colorlinks=true,      % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+\newcommand{\lips}{\textit{Insert your content here.}}
+
+\input{../Comments}
+\input{../Common}
+
+\begin{document}
+
+\title{Software Requirements Specification for \progname: subtitle describing software} 
+\author{\authname}
+\date{\today}
+	
+\maketitle
+
+~\newpage
+
+\pagenumbering{roman}
+
+\tableofcontents
+
+~\newpage
+
+\section*{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Notes}}\\
+\midrule
+09-28-24 & 1.0 & Rough draft of sections 1,2,10,24\\
+Date 2 & 1.1 & Notes\\
+\bottomrule
+\end{tabularx}
+
+~\\
+
+~\newpage
+\section{Purpose of the Project}
+\subsection{User Business}
+\lips
+\subsection{Goals of the Project}
+This project aims to provide a unique solution to a data management and analysis
+problem. The project this solution is dedicated to supporting is an ocean
+alkalinity enhancement experiment process. \newline
+This platform will be able to consolidate and organize the data from the
+experiments with proper labeling acorss all given data sets allowing for a
+centeralize method of data storage that is both scalable and maintanable. On the
+platform users can request to see certain data points from anywhere from the
+inputted data sets given any specified order. Once the data is returned to the
+user the platform can show inter-parameter comparability to better aid data
+analysis. This comparability acts as a starting point to analysis. This will all
+be presented in a web interface where all the user functions will be displayed
+and can be shared among those involved in the experiemnt.   
+\section{Stakeholders}
+Anyone that has interest in the system 
+end user 
+indirect user
+client 
+different users have different requirments, different viewpoints 
+\subsection{Client}
+Dr. Charles De Lannoy serves as the main client for this project as he is the
+lead supervisor of the reseach study. Bassel Abdelkader is another client of
+this project as he is the person that works directly with the research data. One
+of his responsibilities is to record the resperiment data and upload them to
+their current data storage system, Micorsoft Excel. 
+\subsection{Customer}
+Although this project is a taliored solution to one research study, its
+application can be extended to any other situation where large sets of data is involved. 
+This could be shared among other reseachers to aid in their data managment and analysis as well. 
+\subsection{Other Stakeholders}
+Current students and members of the lab working on the study is can also be
+considered stakeholders for the same reasons as the clients. However, since they
+will only be working with the study for a short amount of time without daily or
+consistant itneraction, they do not serve as a main stakeholder. The founder of
+the study, who is currently funding the research project is another stakeholder.
+However, since they do not work directly with the processes of the study rather
+oversee the process, they may not have strong interest in the details of the solution. 
+\subsection{Hands-On Users of the Project}
+Dr. Charles De Lannon, Bassel Abdelkader and the students involved in the
+experiemnt process are all hands-on users of the project. They will be the ones
+who will be interacting directly with the project. 
+\subsection{Personas}
+\begin{itemize}
+  \item John Doe is an 23 year old McMaster undergraduate student who has a
+  research position on the ocean alkalinity research project. They have been
+  tasksed to aid the experiment data collection proces. After being told that
+  the data is being stored in a master Excel file, they find that is it hard to
+  use. Being an engineering student without much experience with Excel, they
+  struggle to find the data they want. Inputting data is still a managble
+  process but they find themselves to be spending a lot of time looking at Excel
+  documentation which they find frustrating as that time could be allocated to
+  being more productive during the school term. Although, they want to a better
+  way to manage the data, they know that it is not up to their decision on what
+  tools are being used but suggested that there could be another better solution
+  to use. 
+  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and
+  is working on her own research project for over five years. She has gathered
+  lots of data and thankfully she has always been great at Excel. However, other
+  the last two years she has found that Excel is becoming less sustainable. The
+  queries are a lot slower and sifting through pages and pages of data is
+  wasiting a lot of her time. She sees this more evidently through those that
+  work along side her as they are also facing the same struggles with even less
+  Excel experience as her. She wants to find a more scalable solution but she
+  fears that her lack of digital knowledge will do her more harm than good, as a
+  result she fears that if she introduces a new platform to serve her needs
+  better that she will find it hard and confusing to use. 
+  \item Dr.\ Alex Stark is a 30 year old associate professor who has recently
+  gotten funding for his innovative research idea and has been dedicating all
+  his time on prefecting its methodology. It has only been one year since his
+  research started but had recently found a great application of his ideas to
+  reach far more people and be more impactful that he had originally thought.
+  But with his current data managment set up, he quickly realises that it is not
+  sustainable. He finds that there are many other solutions on the market but
+  they do not exactly meet his needs and cost a lot more than what he can spend
+  on a tool. He decided that the best way is to create his own tool but lacks
+  the software knowledge to create something stable and realiable. 
+\end{itemize}
+    
+\subsection{Priorities Assigned to Users}
+\lips
+\subsection{User Participation}
+\lips
+\subsection{Maintenance Users and Service Technicians}
+\lips
+
+\section{Mandated Constraints}
+\subsection{Solution Constraints}
+\lips
+\subsection{Implementation Environment of the Current System}
+\lips
+\subsection{Partner or Collaborative Applications}
+\lips
+\subsection{Off-the-Shelf Software}
+\lips
+\subsection{Anticipated Workplace Environment}
+\lips
+\subsection{Schedule Constraints}
+\lips
+\subsection{Budget Constraints}
+\lips
+\subsection{Enterprise Constraints}
+\lips
+
+\section{Naming Conventions and Terminology}
+\subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
+involved in the Project}
+\lips
+
+\section{Relevant Facts And Assumptions}
+\subsection{Relevant Facts}
+\lips
+\subsection{Business Rules}
+\lips
+\subsection{Assumptions}
+\lips
+
+\section{The Scope of the Work}
+\subsection{The Current Situation}
+\lips
+\subsection{The Context of the Work}
+\lips
+\subsection{Work Partitioning}
+\lips
+\subsection{Specifying a Business Use Case (BUC)}
+\lips
+
+\section{Business Data Model and Data Dictionary}
+\subsection{Business Data Model}
+\lips
+\subsection{Data Dictionary}
+\lips
+
+\section{The Scope of the Product}
+\subsection{Product Boundary}
+\lips
+\subsection{Product Use Case Table}
+\lips
+\subsection{Individual Product Use Cases (PUC's)}
+\lips
+
+\section{Functional Requirements}
+\subsection{Functional Requirements}
+\lips
+
+\section{Look and Feel Requirements}
+\subsection{Appearance Requirements}
+\begin{itemize}
+  \item [AR1.]The website should have a simple and organized layout, with clearly defined
+  sections where all major functions should be easily accessible and viewable
+  \item [AR2.]The website shall be responsive on all computer and laptop screens aside from mobile screens
+  \item [AR3.] The website's functions and buttons shall be properly labeled
+  where no button is ambiguous to users
+  \item [AR4.]The produced plot from the data shall be properly labeled
+\end{itemize}
+
+\subsection{Style Requirements}
+\begin{itemize}
+  \item [SR1.] All icons on the website must be in the artistic style
+  \item [SR2.] All colours must match the theme of the website
+  \item [SR3.] All fonts are to be consistant throughout the website 
+
+\end{itemize}
+
+\section{Usability and Humanity Requirements}
+\subsection{Ease of Use Requirements}
+\lips
+\subsection{Personalization and Internationalization Requirements}
+\lips
+\subsection{Learning Requirements}
+\lips
+\subsection{Understandability and Politeness Requirements}
+\lips
+\subsection{Accessibility Requirements}
+\lips
+
+\section{Performance Requirements}
+\subsection{Speed and Latency Requirements}
+\lips
+\subsection{Safety-Critical Requirements}
+\lips
+\subsection{Precision or Accuracy Requirements}
+\lips
+\subsection{Robustness or Fault-Tolerance Requirements}
+\lips
+\subsection{Capacity Requirements}
+\lips
+\subsection{Scalability or Extensibility Requirements}
+\lips
+\subsection{Longevity Requirements}
+\lips
+
+\section{Operational and Environmental Requirements}
+\subsection{Expected Physical Environment}
+\lips
+\subsection{Wider Environment Requirements}
+\lips
+\subsection{Requirements for Interfacing with Adjacent Systems}
+\lips
+\subsection{Productization Requirements}
+\lips
+\subsection{Release Requirements}
+\lips
+
+\section{Maintainability and Support Requirements}
+\subsection{Maintenance Requirements}
+\lips
+\subsection{Supportability Requirements}
+\lips
+\subsection{Adaptability Requirements}
+\lips
+
+\section{Security Requirements}
+\subsection{Access Requirements}
+\lips
+\subsection{Integrity Requirements}
+\lips
+\subsection{Privacy Requirements}
+\lips
+\subsection{Audit Requirements}
+\lips
+\subsection{Immunity Requirements}
+\lips
+
+\section{Cultural Requirements}
+\subsection{Cultural Requirements}
+\lips
+
+\section{Compliance Requirements}
+\subsection{Legal Requirements}
+\lips
+\subsection{Standards Compliance Requirements}
+\lips
+
+\section{Open Issues}
+\lips
+
+\section{Off-the-Shelf Solutions}
+\subsection{Ready-Made Products}
+\lips
+\subsection{Reusable Components}
+\lips
+\subsection{Products That Can Be Copied}
+\lips
+
+\section{New Problems}
+\subsection{Effects on the Current Environment}
+\lips
+\subsection{Effects on the Installed Systems}
+\lips
+\subsection{Potential User Problems}
+\lips
+\subsection{Limitations in the Anticipated Implementation Environment That May
+Inhibit the New Product}
+\lips
+\subsection{Follow-Up Problems}
+\lips
+
+\section{Tasks}
+\subsection{Project Planning}
+\lips
+\subsection{Planning of the Development Phases}
+\lips
+
+\section{Migration to the New Product}
+\subsection{Requirements for Migration to the New Product}
+\lips
+\subsection{Data That Has to be Modified or Translated for the New System}
+\lips
+
+\section{Costs}
+\lips
+\section{User Documentation and Training}
+\subsection{User Documentation Requirements}
+User documentation will cover both the front-end and back-end features and functionalities.
+\subsubsection{Back-End}
+The backend user documentaion will include all the API end points that are created. \newline
+It wil show the base URL for the end points along with descriptions of each
+along with its required parameters and its types. These parameter will be those
+in the path, query and body. The response from the API call will inlcude what
+the expected body will be along with any error handeling. With this being a
+small project, a rate limit section may be included to ensure that it does not
+exceed the number of API calls. Versioning and support resources will be added
+for any additonal references missing. \newline
+
+\subsubsection{Front-End}
+The front end documentaion serves less as for developers but for the end user.
+This documentation will include how to add new attributes to the data set, how
+to request data plots and any major functionality features. 
+
+\subsection{Training Requirements}
+No training is required
+\section{Waiting Room}
+\lips
+
+\section{Ideas for Solution}
+\lips
+
+\newpage{}
+\section*{Appendix --- Reflection}
+
+The information in this section will be used to evaluate the team members on the
+graduate attribute of Lifelong Learning.  Please answer the following questions:
+
+\begin{enumerate}
+  \item What knowledge and skills will the team collectively need to acquire to
+  successfully complete this capstone project?  Examples of possible knowledge
+  to acquire include domain specific knowledge from the domain of your
+  application, or software engineering knowledge, mechatronics knowledge or
+  computer science knowledge.  Skills may be related to technology, or writing,
+  or presentation, or team management, etc.  You should look to identify at
+  least one item for each team member.
+  \item For each of the knowledge areas and skills identified in the previous
+  question, what are at least two approaches to acquiring the knowledge or
+  mastering the skill?  Of the identified approaches, which will each team
+  member pursue, and why did they make this choice?
+\end{enumerate}
+
+\end{document}
