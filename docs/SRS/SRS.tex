@@ -268,6 +268,10 @@ This section outlines functional requirements for one of the project's stretch g
 \item The system shall have a maximum latency of 2 seconds for typical search and queries.
 \item The system shall generate a visualization of the data within 5 seconds.
 \end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} Quick response times ensure efficiency and smooth user experience without disrupting the flow of the user's thought processes.
+  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+\end{itemize}
 
 \subsection{Safety-Critical Requirements}
 The product does not have safety-critical requirements to consider.
@@ -278,24 +282,38 @@ The product does not have safety-critical requirements to consider.
   \item All timestamps of experiment data shall be accurate to milliseconds. 
   \item Values on visual data plots shall be accurate to four decimal places.
 \end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} Accuracy of the data is critical for data analysis, prediction, and interpolation.
+  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+\end{itemize}
 
 \subsection{Robustness or Fault-Tolerance Requirements}
 \begin{enumerate}
   \item The application shall not terminate but display an error message if it loses connection to the backend server.
   \item The application shall provide basic functionality if it loses connection to the internet.
 \end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The system should not fail or crash when experiencing unexpected circumstances.
+\end{itemize}
 
 \subsection{Capacity Requirements}
 \begin{enumerate}
   \item The application shall allow for up to three simultaneous users.
   \item The system shall store up to x amount of data.
 \end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The system must be capable of storing and processing large amounts of data.
+  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+\end{itemize}
 
 \subsection{Scalability or Extensibility Requirements}
 \begin{enumerate}
   \item The system shall be able to process and store the existing data. The amount of data going into the system is expected to grow until the experiment study comes to an end.
   \item The system shall be able to add additional parameters that did not previously exist in the database at the discretion of the user.
 \end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The system must be able to expand to keep up with future experiments.
+\end{itemize}
 
 \subsection{Longevity Requirements}
 \begin{enumerate}
@@ -305,26 +323,39 @@ The product does not have safety-critical requirements to consider.
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
 \begin{enumerate}
-  \item The system shall operate in a typical office environment with internet connectivity.
-  \item The system shall be compatible with a desktop and laptop environment.
+  \item The application shall operate in a typical office environment with reliable internet connectivity.
+  \item The application shall be compatible with a desktop or laptop environment.
 \end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} Ensures functionality in environments where end-users are most likely to use the application, accomodating several screen sizes and operating systems. 
+  \item \textit{Fit Criterion:} Testing will be conducted on the two most common operating systems, Windows and macOS.
+\end{itemize}
 
 \subsection{Wider Environment Requirements}
 \lips
+
 \subsection{Requirements for Interfacing with Adjacent Systems}
 \begin{enumerate}
-  \item The system shall operate on the most recent versions of Google Chrome and Apple Safari.
+  \item The application shall operate on the most recent versions of Google Chrome and Apple Safari.
 \end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The application must be able to operate on these two most common web browsers, as these will be the primary platforms where it is hosted and accessed by users.
+  \item \textit{Fit Criterion:} Performance testing shall be done to ensure the application functions correctly.
+\end{itemize}
 
 \subsection{Productization Requirements}
 \begin{enumerate}
   \item The system shall be distributed as a web application.
   \item The system shall have an easy onboarding process with user documentation.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that users can use the application without needing frequent support.
+    \item \textit{Fit Criterion:} Usability testing shall be done to ensure users are able to onboard easily.
+  \end{itemize}
 \end{enumerate}
 
 \subsection{Release Requirements}
 \begin{enumerate}
-  \item The first version of the system shall be released once project completion is reached.
+  \item The first version of the system shall be released after project completion.
 \end{enumerate}
 
 \section{Maintainability and Support Requirements}
