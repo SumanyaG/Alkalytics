@@ -45,7 +45,7 @@
 \toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Notes}}\\
 \midrule
 09-28-24 & 1.0 & Rough draft of sections 1,2,10,24\\
-Date 2 & 1.1 & Notes\\
+09-29-24 & 1.0.1 & Adds more content on sections 1,2,10,24 to further explain points\\
 \bottomrule
 \end{tabularx}
 
@@ -54,56 +54,61 @@ Date 2 & 1.1 & Notes\\
 ~\newpage
 \section{Purpose of the Project}
 \subsection{User Business}
-\lips
+This project aims to aid in the data management and analysis of an ocean
+alkalinity enhancement experiment process. The research is working towards a
+scalable process to capture CO\textsubscript{2} using a combination of electric
+fields and membranes. The experiment's efficient generation process creates a
+very dilute base. The product serves a niche solution, to rebalance the ocean's
+PH levels to be able to absorb more CO\textsubscript{2}. As earth’s temperature
+rises, so does the ocean’s, affects its PH balance. As this process is still on
+a small scale, it is currently being perfected which means many more experiments
+must be done to be able to bring it to a global scale. However, this requires a
+massive production operation to do so. Optimization of the experimental data is
+critical to improve process efficiency. This is a big data software problem
+requiring the ability to find and fine-tune specific parameters. 
 \subsection{Goals of the Project}
-This project aims to provide a unique solution to a data management and analysis
-problem. The project this solution is dedicated to supporting is an ocean
-alkalinity enhancement experiment process. \newline
 This platform will be able to consolidate and organize the data from the
-experiments with proper labeling acorss all given data sets allowing for a
-centeralize method of data storage that is both scalable and maintanable. On the
+experiments with proper labeling across all given data sets allowing for a
+centralize method of data storage that is both scalable and maintainable. On the
 platform users can request to see certain data points from anywhere from the
 inputted data sets given any specified order. Once the data is returned to the
 user the platform can show inter-parameter comparability to better aid data
-analysis. This comparability acts as a starting point to analysis. This will all
-be presented in a web interface where all the user functions will be displayed
-and can be shared among those involved in the experiemnt.   
+analysis. This comparability acts as a starting point to analysis and is by no
+means show a final analysis of the data. This will all be presented in a web
+interface where all the user functions will be displayed and can be shared among
+those involved in the experiment.   
 \section{Stakeholders}
-Anyone that has interest in the system 
-end user 
-indirect user
-client 
-different users have different requirments, different viewpoints 
+
 \subsection{Client}
 Dr. Charles De Lannoy serves as the main client for this project as he is the
-lead supervisor of the reseach study. Bassel Abdelkader is another client of
-this project as he is the person that works directly with the research data. One
-of his responsibilities is to record the resperiment data and upload them to
-their current data storage system, Micorsoft Excel. 
+lead supervisor of the research study. This solution directly affects his work and
+is intended to be a custom solution for the problem. Bassel Abdelkader is
+another client of this project as he is the person that works directly with the
+research data. One of his responsibilities is to record the experimental data and
+upload them to their current data storage system, Microsoft Excel. 
 \subsection{Customer}
-Although this project is a taliored solution to one research study, its
+Although this project is a tailored solution to one research study, its
 application can be extended to any other situation where large sets of data is involved. 
-This could be shared among other reseachers to aid in their data managment and analysis as well. 
+This could be shared among other researchers to aid in their data management and analysis. 
 \subsection{Other Stakeholders}
 Current students and members of the lab working on the study is can also be
 considered stakeholders for the same reasons as the clients. However, since they
 will only be working with the study for a short amount of time without daily or
-consistant itneraction, they do not serve as a main stakeholder. The founder of
+consistent interaction, they do not serve as a main stakeholder. The founder of
 the study, who is currently funding the research project is another stakeholder.
 However, since they do not work directly with the processes of the study rather
 oversee the process, they may not have strong interest in the details of the solution. 
 \subsection{Hands-On Users of the Project}
-Dr. Charles De Lannon, Bassel Abdelkader and the students involved in the
-experiemnt process are all hands-on users of the project. They will be the ones
-who will be interacting directly with the project. 
+Potentially not applicable or useful for this document
+
 \subsection{Personas}
 \begin{itemize}
   \item John Doe is an 23 year old McMaster undergraduate student who has a
   research position on the ocean alkalinity research project. They have been
-  tasksed to aid the experiment data collection proces. After being told that
-  the data is being stored in a master Excel file, they find that is it hard to
+  tasked to aid the experiment data collection process. After being told that
+  the data is being stored in a master Excel file; they find that is it hard to
   use. Being an engineering student without much experience with Excel, they
-  struggle to find the data they want. Inputting data is still a managble
+  struggle to find the data they want. Inputting data is still a manageable
   process but they find themselves to be spending a lot of time looking at Excel
   documentation which they find frustrating as that time could be allocated to
   being more productive during the school term. Although, they want to a better
@@ -115,7 +120,7 @@ who will be interacting directly with the project.
   lots of data and thankfully she has always been great at Excel. However, other
   the last two years she has found that Excel is becoming less sustainable. The
   queries are a lot slower and sifting through pages and pages of data is
-  wasiting a lot of her time. She sees this more evidently through those that
+  wasting a lot of her time. She sees this more evidently through those that
   work along side her as they are also facing the same struggles with even less
   Excel experience as her. She wants to find a more scalable solution but she
   fears that her lack of digital knowledge will do her more harm than good, as a
@@ -123,22 +128,33 @@ who will be interacting directly with the project.
   better that she will find it hard and confusing to use. 
   \item Dr.\ Alex Stark is a 30 year old associate professor who has recently
   gotten funding for his innovative research idea and has been dedicating all
-  his time on prefecting its methodology. It has only been one year since his
+  his time on perfecting its methodology. It has only been one year since his
   research started but had recently found a great application of his ideas to
   reach far more people and be more impactful that he had originally thought.
-  But with his current data managment set up, he quickly realises that it is not
+  But with his current data management set up, he quickly realises that it is not
   sustainable. He finds that there are many other solutions on the market but
   they do not exactly meet his needs and cost a lot more than what he can spend
   on a tool. He decided that the best way is to create his own tool but lacks
-  the software knowledge to create something stable and realiable. 
+  the software knowledge to create something stable and reliable. 
 \end{itemize}
     
 \subsection{Priorities Assigned to Users}
-\lips
+\subsubsection{Primary Users}
+\begin{itemize}
+  \item Dr. Charles De Lannoy
+  \item Bassel Abdelkader
+  \item Students working on the experiment 
+\end{itemize}
+
+\subsubsection{Secondary Users}
+\begin{itemize}
+  \item Researcher with their own research studies 
+  \item The founder of the study
+\end{itemize}
 \subsection{User Participation}
-\lips
+Not a relevant section 
 \subsection{Maintenance Users and Service Technicians}
-\lips
+Not a relevant section 
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
@@ -200,22 +216,53 @@ involved in the Project}
 \lips
 
 \section{Look and Feel Requirements}
+All subitems in this sections are the fit criterion for its respective requirements. 
 \subsection{Appearance Requirements}
 \begin{itemize}
-  \item [AR1.]The website should have a simple and organized layout, with clearly defined
-  sections where all major functions should be easily accessible and viewable
-  \item [AR2.]The website shall be responsive on all computer and laptop screens aside from mobile screens
+  \item [AR1.]The website should have a simple and organized layout, with
+  clearly defined sections where all major functions should be easily accessible
+  and viewable 
+  \begin{itemize}
+    \item[AR1.1] A users should be able to identify all the major
+    functions of the website within five minuets of use.
+  \end{itemize}
+  \item [AR2.] The website shall be responsive on all computer and laptop screens
+  aside from mobile screens
+  \begin{itemize}
+    \item [AR2.1] The usability of website should be the same
+    as the default view on big and smaller computer, laptop and monitor screens
+  \end{itemize}
   \item [AR3.] The website's functions and buttons shall be properly labeled
-  where no button is ambiguous to users
-  \item [AR4.]The produced plot from the data shall be properly labeled
+  where no button is ambiguous to users 
+  \begin{itemize}
+    \item [AR3.1] A user should be able to tell what all buttons inherently does
+    without the needing to ask questions
+  \end{itemize}
+  \item [AR4.1]The produced plot from the data shall be properly labeled
+  \begin{itemize}
+    \item [AR4.1] The plots should not be ambiguous. Users should be able to understand
+    what is the plot about within five minuets of viewing it.
+  \end{itemize}
+  \subitem
 \end{itemize}
 
 \subsection{Style Requirements}
 \begin{itemize}
   \item [SR1.] All icons on the website must be in the artistic style
+  \begin{itemize}
+    \item [SR1.1] After a user's first encounter with the product, 90\% of users should
+    see that there is unity among all the icons on the website. 
+  \end{itemize}
   \item [SR2.] All colours must match the theme of the website
-  \item [SR3.] All fonts are to be consistant throughout the website 
-
+  \begin{itemize}
+    \item [SR2.1] After a user's first encounter with the product, 80\% of users
+    should agree that there is a common theme throughout the website.
+  \end{itemize}
+  \item [SR3.] All fonts are to be consistent throughout the website 
+  \begin{itemize}
+    \item [SR3.1] After a user's first encounter with the product, there should
+    be no user who feels that any fonts do not belong on the website. 
+  \end{itemize}
 \end{itemize}
 
 \section{Usability and Humanity Requirements}
@@ -330,22 +377,31 @@ Inhibit the New Product}
 \subsection{User Documentation Requirements}
 User documentation will cover both the front-end and back-end features and functionalities.
 \subsubsection{Back-End}
-The backend user documentaion will include all the API end points that are created. \newline
-It wil show the base URL for the end points along with descriptions of each
-along with its required parameters and its types. These parameter will be those
-in the path, query and body. The response from the API call will inlcude what
-the expected body will be along with any error handeling. With this being a
-small project, a rate limit section may be included to ensure that it does not
-exceed the number of API calls. Versioning and support resources will be added
-for any additonal references missing. \newline
+The backend user documentation will include all the API end points that are created. \newline
+It will show the base URL for the end points along with descriptions of each
+along with its required parameters and its types. These parameters will be those
+in the path, query and body. The response from the API call will include what
+the expected body will be along with any error handling. With this being a small
+project, a rate limit section may be included to ensure that it does not exceed
+the number of API calls. Versioning and support resources will be added for any
+additional references missing. \newline
+This document is intended to be passed on to the research lead or to any other
+group who would like to understand how the back-end processes work along. It
+will also be written such that someone else may use it to extend the current
+functionalities or to troubleshoot any errors that may arise in the future after
+this project has been passed on. 
 
 \subsubsection{Front-End}
-The front end documentaion serves less as for developers but for the end user.
+The front end documentation serves less as for developers but for the end user.
 This documentation will include how to add new attributes to the data set, how
-to request data plots and any major functionality features. 
+to request data plots and any major functionality features. \newline
+This document is intended to be a help/tutorial for the end users who will be
+using the site for its functionalities.
 
 \subsection{Training Requirements}
-No training is required
+No training is required to use the end product. 
+
+
 \section{Waiting Room}
 \lips
 
