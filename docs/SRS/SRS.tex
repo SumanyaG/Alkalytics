@@ -201,31 +201,71 @@ This section outlines functional requirements for one of the project's stretch g
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
-\lips
+\begin{enumerate}
+\item The system shall store new data or parameters within 60 seconds of input.
+\item The system shall retrieve data from the database within 50ms for typical search and queries.
+\item The interaction between the interface and the user shall have a maximum response time of 2 seconds.
+\item The system shall have a maximum latency of 2 seconds for typical search and queries.
+\item The system shall generate a visualization of the data within 5 seconds.
+\end{enumerate}
+
 \subsection{Safety-Critical Requirements}
-\lips
+The product does not have safety-critical requirements to consider.
+
 \subsection{Precision or Accuracy Requirements}
-\lips
+\begin{enumerate}
+  \item All parameter values shall be accurate to four decimal places.
+  \item All timestamps of experiment data shall be accurate to milliseconds. 
+  \item Values on visual data plots shall be accurate to four decimal places.
+\end{enumerate}
+
 \subsection{Robustness or Fault-Tolerance Requirements}
-\lips
+\begin{enumerate}
+  \item The application shall not terminate but display an error message if it loses connection to the backend server.
+  \item The application shall provide basic functionality if it loses connection to the internet.
+\end{enumerate}
+
 \subsection{Capacity Requirements}
-\lips
+\begin{enumerate}
+  \item The application shall allow for up to three simultaneous users.
+  \item The system shall store up to x amount of data.
+\end{enumerate}
+
 \subsection{Scalability or Extensibility Requirements}
-\lips
+\begin{enumerate}
+  \item The system shall be able to process and store the existing data. The amount of data going into the system is expected to grow until the experiment study comes to an end.
+  \item The system shall be able to add additional parameters that did not previously exist in the database at the discretion of the user.
+\end{enumerate}
+
 \subsection{Longevity Requirements}
-\lips
+\begin{enumerate}
+  \item The system shall operate for the duration of the experiment study.
+\end{enumerate}
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\lips
+\begin{enumerate}
+  \item The system shall operate in a typical office environment with internet connectivity.
+  \item The system shall be compatible with a desktop and laptop environment.
+\end{enumerate}
+
 \subsection{Wider Environment Requirements}
 \lips
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\lips
+\begin{enumerate}
+  \item The system shall operate on the most recent versions of Google Chrome and Apple Safari.
+\end{enumerate}
+
 \subsection{Productization Requirements}
-\lips
+\begin{enumerate}
+  \item The system shall be distributed as a web application.
+  \item The system shall have an easy onboarding process with user documentation.
+\end{enumerate}
+
 \subsection{Release Requirements}
-\lips
+\begin{enumerate}
+  \item The first version of the system shall be released once project completion is reached.
+\end{enumerate}
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
