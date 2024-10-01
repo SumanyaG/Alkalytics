@@ -25,7 +25,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for \progname: subtitle describing software} 
+\title{Software Requirements Specification for \progname: Alkalytics} 
 \author{\authname}
 \date{\today}
 	
@@ -77,21 +77,43 @@ Date 2 & 1.1 & Notes\\
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
-\lips
+\textbf{Description}: The product must accept Comma-Separated Value (CSV) files as input.\\
+\textbf{Rationale}: The lab apparatus generates and stores results as CSV files.\\
+\textbf{Fit Criterion}: The product's input process (the processing and acceptance of input data) into the database shall be approved by testers and developers.
+
 \subsection{Implementation Environment of the Current System}
-\lips
-\subsection{Partner or Collaborative Applications}
-\lips
+\textbf{Description}: The product must be able to run on a Windows machine.\\
+\textbf{Rationale}: Currently, the lab has a Windows machine that is used to operate the machine and analyse the produced results.\\
+\textbf{Fit Criterion}: The product shall be approved as Windows compliant by testers and developers.
+
 \subsection{Off-the-Shelf Software}
-\lips
+\textbf{Description}: \href{https://www.mongodb.com/}{MongoDB} - a document-oriented, NoSQL database product shall be used to store the datapoints.\\
+\textbf{Rationale}: Using an existing, verstaile and scalable solution like MongoDB that does not use SQL and is thus, non-relational, will allow greater flexibility in storing datapoints.\\
+
 \subsection{Anticipated Workplace Environment}
-\lips
+\textbf{Description}: The product shall be used in the Chemical Engineering Lab run by Dr. Charles de Lannoy and Bassel Abdelkader.
+
+\subsection{Partner or Collaborative Applications}
+\textbf{Description}: The product shall be used in collaboration with the \emph{name of lab software}.\\
+\textbf{Rationale}: The \emph{name of lab software} is used to retrieve data from the lab apparatus. The retrieved data shall be used as input for the product.
+
 \subsection{Schedule Constraints}
-\lips
+\textbf{Description}: The project must be finished within the course of the current academic year.\\
+\textbf{Rationale}: The finished product, as outlined in the project requirements, must be submitted by the end of the academic year.\\
+\newline
+A few relevant deadlines include:
+\begin{itemize}
+  \item Proof of Concept Demonstration: November 11 to 22, 2024
+  \item Revision 0 Demonstration: February 3 to 14, 2025
+  \item Final Demonstration (Revision 1): March 24 to 30, 2025
+\end{itemize}
+
 \subsection{Budget Constraints}
-\lips
+\textbf{Description}: The total cost of the project must not exceed \$750.\\
+\textbf{Rationale}: The product must be economically feasible and all teams must have an equal budget to ensure conformity and equality in terms of access of resources.
+
 \subsection{Enterprise Constraints}
-\lips
+\emph{N/A}
 
 \section{Naming Conventions and Terminology}
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
