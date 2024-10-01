@@ -131,8 +131,115 @@ involved in the Project}
 \lips
 
 \section{Functional Requirements}
-\subsection{Functional Requirements}
-\lips
+\subsection{Data Input Requirements}
+  \begin{enumerate}
+    \item[\textbf{FR-1.}] The system shall allow the user to input new experiment data or parameters.
+    \begin{itemize}
+    \item \textit{Rationale:} The system needs to be kept up-to-date with ongoing experiments, which may include new parameters that did not exist previously.
+    \item \textit{Fit Criterion:} The user should be able to input new data and parameters with 0 errors.
+    \end{itemize}
+    \item[\textbf{FR-2.}] The system shall store experiment data in the database with all associated parameters and values correctly labelled.
+    \begin{itemize}
+      \item \textit{Rationale:} Ensures that data retrieval and analysis will be correct and accurate.
+      \item \textit{Fit Criterion:} The system database parameters and values shall match the original experiment data parameters and values.
+    \end{itemize}
+  \end{enumerate}
+
+\subsection{Data Migration and Organization Requirements}
+  \begin{enumerate}
+    \item[\textbf{FR-3.}] The system shall read existing experiment data stored in .CSV files.
+    \begin{itemize}
+      \item \textit{Rationale:} Existing experiment data is stored in Excel spreadsheets and must be integrated into the new system for continuity and analysis.
+      \item \textit{Fit Criterion:} The system shall read and import the data files with 0 errors.
+    \end{itemize}
+    \item[\textbf{FR-4.}] The system shall organize experiment data by timestamps and experiment ID for unique identification.
+    \begin{itemize}
+      \item \textit{Rationale:} Each experiment needs to be separately identified for quick retrieval of data and efficiency in search or query actions.
+      \item \textit{Fit Criterion:} Each ID and timestamp shall be traceable to one experiment.
+    \end{itemize}
+  \end{enumerate}
+
+\subsection{Data Search and Query Requirements}
+\begin{enumerate}
+  \item[\textbf{FR-5.}] The system shall allow the user to search for specific datasets based on different parameters.
+  \begin{itemize}
+    \item \textit{Rationale:} Allows for quick look-ups of certain experiments and their results.
+    \item \textit{Fit Criterion:} The system shall retrieve the correct experiments based on the matching parameters.
+  \end{itemize}
+  \item[\textbf{FR-6.}] The system shall allow the user to query two or more parameters or datasets for comparison and analysis.
+  \begin{itemize}
+    \item \textit{Rationale:} Allows for direct comparisons between different experiment parameters and/or results, which is necessary for analysis.
+    \item \textit{Fit Criterion:} The system shall retrieve the correct parameters and/or experiments based on the query inputs.
+  \end{itemize}
+  \item[\textbf{FR-7.}] The system shall display the results of a user’s selected search or query in a format that is readable to the user.
+  \begin{itemize}
+    \item \textit{Rationale:} The user needs to see the results in a format that they can interpret.
+    \item \textit{Fit Criterion:} The results shall be displayed in a table with all labels correct and legible.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Data Visualization Requirements}
+\begin{enumerate}
+  \item[\textbf{FR-8.}] The system shall generate visual graphs based on selected parameters and datasets.
+  \begin{itemize}
+    \item \textit{Rationale:} Visual representation of the data allows for easy interpretation and graphical analysis.
+    \item \textit{Fit Criterion:} The result should display a graphical plot with a title, axes, labels, and a legend.
+  \end{itemize}
+  \item[\textbf{FR-9.}] The system shall allow the user to customize the data visualization by adjusting axes, data ranges, labels, etc.
+  \begin{itemize}
+    \item \textit{Rationale:} Allows the user to adjust the graphical representation to their needs for their analysis.
+    \item \textit{Fit Criterion:} Modifications to axes, data ranges, labels should be reflected in the generated graph in real-time.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Data Analysis Requirements}
+\begin{enumerate}
+    \item[\textbf{FR-10.}] The system shall analyze patterns and trends in the experiment data based on the user’s selected parameters.
+    \begin{itemize}
+      \item \textit{Rationale:} Trend analysis is critical for the user to discover important findings pertaining to the experiment.
+      \item \textit{Fit Criterion:} The system shall generate a result of the analysis to display to the user.
+    \end{itemize}
+    \item[\textbf{FR-11.}] The system shall use machine learning algorithms to predict and interpolate the data.
+    \begin{itemize}
+      \item \textit{Rationale:} Allows for future predictions of data and efficiency in running future experiments.
+      \item \textit{Fit Criterion:} The system shall generate a report of value predictions or interpolate a graph and provide the interpolated data points.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Error Tracking Requirements}
+This section outlines functional requirements for one of the project's stretch goals.
+\begin{enumerate}
+  \item[\textbf{FR-12.}] The system shall track and log errors in the experiment data.
+  \begin{itemize}
+    \item \textit{Rationale:} Helps users identify irrelevant or missing parameters.
+    \item \textit{Fit Criterion:} Missing values from input data should be flagged.
+  \end{itemize}
+  \item[\textbf{FR-13.}] The system shall remove data logged as errors.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures data is organized and produce accurate results in analysis.
+    \item \textit{Fit Criterion:} Flagged data should be removed from the database after user confirmation.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{User Access Management Requirements}
+This section outlines functional requirements for one of the project's stretch goals.
+\begin{enumerate}
+  \item[\textbf{FR-14.}] The system shall allow the user to sign in with valid credentials.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the data can only be accessed and modified by authorized users.
+    \item \textit{Fit Criterion:} The user shall be able to log in with a username and password.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Data Export Requirements}
+This section outlines functional requirements for one of the project's stretch goals.
+\begin{enumerate}
+  \item[\textbf{FR-15.}] The system shall generate a report of queries in a session for the user to save or download.
+  \begin{itemize}
+    \item \textit{Rationale:} Allows user to keep a record of their findings for future use or reference.
+    \item \textit{Fit Criterion:} The report should be exported in CSV or PDF format.
+  \end{itemize}
+\end{enumerate}
 
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
@@ -154,31 +261,102 @@ involved in the Project}
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
-\lips
+\begin{enumerate}
+\item The system shall store new data or parameters within 60 seconds of input.
+\item The system shall retrieve data from the database within 50ms for typical search and queries.
+\item The interaction between the interface and the user shall have a maximum response time of 2 seconds.
+\item The system shall have a maximum latency of 2 seconds for typical search and queries.
+\item The system shall generate a visualization of the data within 5 seconds.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} Quick response times ensure efficiency and smooth user experience without disrupting the flow of the user's thought processes.
+  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+\end{itemize}
+
 \subsection{Safety-Critical Requirements}
-\lips
+The product does not have safety-critical requirements to consider.
+
 \subsection{Precision or Accuracy Requirements}
-\lips
+\begin{enumerate}
+  \item All parameter values shall be accurate to four decimal places.
+  \item All timestamps of experiment data shall be accurate to milliseconds. 
+  \item Values on visual data plots shall be accurate to four decimal places.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} Accuracy of the data is critical for data analysis, prediction, and interpolation.
+  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+\end{itemize}
+
 \subsection{Robustness or Fault-Tolerance Requirements}
-\lips
+\begin{enumerate}
+  \item The application shall not terminate but display an error message if it loses connection to the backend server.
+  \item The application shall provide basic functionality if it loses connection to the internet.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The system should not fail or crash when experiencing unexpected circumstances.
+\end{itemize}
+
 \subsection{Capacity Requirements}
-\lips
+\begin{enumerate}
+  \item The application shall allow for up to three simultaneous users.
+  \item The system shall store up to x amount of data.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The system must be capable of storing and processing large amounts of data.
+  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+\end{itemize}
+
 \subsection{Scalability or Extensibility Requirements}
-\lips
+\begin{enumerate}
+  \item The system shall be able to process and store the existing data. The amount of data going into the system is expected to grow until the experiment study comes to an end.
+  \item The system shall be able to add additional parameters that did not previously exist in the database at the discretion of the user.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The system must be able to expand to keep up with future experiments.
+\end{itemize}
+
 \subsection{Longevity Requirements}
-\lips
+\begin{enumerate}
+  \item The system shall operate for the duration of the experiment study.
+\end{enumerate}
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\lips
+\begin{enumerate}
+  \item The application shall operate in a typical office environment with reliable internet connectivity.
+  \item The application shall be compatible with a desktop or laptop environment.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} Ensures functionality in environments where end-users are most likely to use the application, accomodating several screen sizes and operating systems. 
+  \item \textit{Fit Criterion:} Testing will be conducted on the two most common operating systems, Windows and macOS.
+\end{itemize}
+
 \subsection{Wider Environment Requirements}
 \lips
+
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\lips
+\begin{enumerate}
+  \item The application shall operate on the most recent versions of Google Chrome and Apple Safari.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} The application must be able to operate on these two most common web browsers, as these will be the primary platforms where it is hosted and accessed by users.
+  \item \textit{Fit Criterion:} Performance testing shall be done to ensure the application functions correctly.
+\end{itemize}
+
 \subsection{Productization Requirements}
-\lips
+\begin{enumerate}
+  \item The system shall be distributed as a web application.
+  \item The system shall have an easy onboarding process with user documentation.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that users can use the application without needing frequent support.
+    \item \textit{Fit Criterion:} Usability testing shall be done to ensure users are able to onboard easily.
+  \end{itemize}
+\end{enumerate}
+
 \subsection{Release Requirements}
-\lips
+\begin{enumerate}
+  \item The first version of the system shall be released after project completion.
+\end{enumerate}
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
