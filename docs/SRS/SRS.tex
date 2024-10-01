@@ -462,9 +462,54 @@ Inhibit the New Product}
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
-\lips
+\textbf{Q}: Will you use a phased implementation to install the new system? if so, describe which requirements 
+will be implemented by eahc of the major phases?\\
+\textbf{A}: No, the system will be installed in a single go after being tested and approved.\\
+\emph{Note}: Include cross-references between development tasks, project phases and the Product Use Cases and atomic requirements.\\
+\newline
+\textbf{Q}: What kind of data conversion is necessary? Must special programs be written to transport data from an 
+existing system to a new one? If so, describe the requirements for these programs here.\\
+\textbf{A}: Currently, the files are stored in the CSV format. In order to make them compatiable for migration to the 
+new database (MongoDB), the files must be converted into JavaScript Object Notaion (JSON) format. Yes, a special program 
+must be written to transport the data as the new system will only accept JSON files. This means that when the file is inputted to the new 
+system (in CSV format), a special program must first convert it to JSON so that the data can be entered in the database.\\
+\newline
+\textbf{Q}: What kind of manual backup is needed while the new system is installed?\\
+\textbf{A}: The installation of the new program should not be a long process and can be accomplished on a day when there are no experiments
+being run in the lab. This means, no manual backup would be necessary while the new system is being installed.\\
+\newline
+\textbf{Q}: When are each of the major components to be put in place? When are the phases of the implementation to be 
+released?\\
+\textbf{A}: No phases of implementation to be released. Major components will be put in place based on this timeline - 
+\begin{itemize}
+  \item Database with migrated data and funtionality to compare parameters: Proof of Concept Demonstration
+  \item Interface that allows inputting data and adding new parameters: End of December (before Christmas break)
+  \item Dashboard that allows analysis of data and visualizing graphs: End of January 
+\end{itemize}
+\ \\
+\textbf{Q}: Is there a need to run the new product in parallel with the existing product?\\
+\textbf{A}: No, there is no need to run the new product in parallel with the existing product. Data can be migrated at regular intervals once
+the database is up and running.\\
+\newline
+\textbf{Q}: Is there any special effort needed to decomission the old product?\\
+\textbf{A}: The old product is essentially a collection of spreadsheets so no special effort is needed to decomission them. A visual inspection
+and testing might be required after data is migrated to the new product to ensure the accuracy and integrity of the data.
+
 \subsection{Data That Has to be Modified or Translated for the New System}
-\lips
+\textbf{Q}: Description of current technology that holds data.\\
+\textbf{A}: Currently the data is retreived in the form of CSV files and copied onto existing Excel templates that are used to sort and analyse 
+the data. Although the templates are sophisticated and well-deisgned, a lot of manual work is involved to flag incorrect data (rows of zeroes for 
+all parameters), remove redundant data (the data file is sometimes split into multiple CSV files that might contain some overlapping data) and more.\\
+\newline
+Some of the collected paramteric data is also inaccurate (such as the power voltage and density module) and so those columns of data are ignored.
+To compare different experiments, the user is required to switch between experiment files to view their respective graphs. This is cumbersome and as 
+the number of experiments increase, unsustainable in the long-term.\\
+\newline
+\textbf{Q}: Description of data translation tasks.\\
+\textbf{A}: A scirpt will be written to automate the translation of files from CSV to JSON format.\\
+\newline
+\textbf{Q}: Foreseeable Problems.\\
+\textbf{A}: N/A
 
 \section{Costs}
 \lips
