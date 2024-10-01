@@ -52,8 +52,109 @@ Date 2 & 1.1 & Notes\\
 ~\\
 
 ~\newpage
-git pull --rebase origin documentation/SRS
-\section{Mandated Constraints}
+\section{Purpose of the Project}
+\subsection{User Business}
+This project aims to aid in the data management and analysis of an ocean
+alkalinity enhancement experiment process. The research is working towards a
+scalable process to capture CO\textsubscript{2} using a combination of electric
+fields and membranes. The experiment's efficient generation process creates a
+very dilute base. The product serves a niche solution, to rebalance the ocean's
+PH levels to be able to absorb more CO\textsubscript{2}. As earth’s temperature
+rises, so does the ocean’s, affects its PH balance. As this process is still on
+a small scale, it is currently being perfected which means many more experiments
+must be done to be able to bring it to a global scale. However, this requires a
+massive production operation to do so. Optimization of the experimental data is
+critical to improve process efficiency. This is a big data software problem
+requiring the ability to find and fine-tune specific parameters. 
+\subsection{Goals of the Project}
+This platform will be able to consolidate and organize the data from the
+experiments with proper labeling across all given data sets allowing for a
+centralize method of data storage that is both scalable and maintainable. On the
+platform users can request to see certain data points from anywhere from the
+inputted data sets given any specified order. Once the data is returned to the
+user the platform can show inter-parameter comparability to better aid data
+analysis. This comparability acts as a starting point to analysis and is by no
+means show a final analysis of the data. This will all be presented in a web
+interface where all the user functions will be displayed and can be shared among
+those involved in the experiment.   
+\section{Stakeholders}
+
+\subsection{Client}
+Dr. Charles De Lannoy serves as the main client for this project as he is the
+lead supervisor of the research study. This solution directly affects his work and
+is intended to be a custom solution for the problem. Bassel Abdelkader is
+another client of this project as he is the person that works directly with the
+research data. One of his responsibilities is to record the experimental data and
+upload them to their current data storage system, Microsoft Excel. 
+\subsection{Customer}
+Although this project is a tailored solution to one research study, its
+application can be extended to any other situation where large sets of data is involved. 
+This could be shared among other researchers to aid in their data management and analysis. 
+\subsection{Other Stakeholders}
+Current students and members of the lab working on the study is can also be
+considered stakeholders for the same reasons as the clients. However, since they
+will only be working with the study for a short amount of time without daily or
+consistent interaction, they do not serve as a main stakeholder. The founder of
+the study, who is currently funding the research project is another stakeholder.
+However, since they do not work directly with the processes of the study rather
+oversee the process, they may not have strong interest in the details of the solution. 
+\subsection{Hands-On Users of the Project}
+Potentially not applicable or useful for this document
+
+\subsection{Personas}
+\begin{itemize}
+  \item John Doe is an 23 year old McMaster undergraduate student who has a
+  research position on the ocean alkalinity research project. They have been
+  tasked to aid the experiment data collection process. After being told that
+  the data is being stored in a master Excel file; they find that is it hard to
+  use. Being an engineering student without much experience with Excel, they
+  struggle to find the data they want. Inputting data is still a manageable
+  process but they find themselves to be spending a lot of time looking at Excel
+  documentation which they find frustrating as that time could be allocated to
+  being more productive during the school term. Although, they want to a better
+  way to manage the data, they know that it is not up to their decision on what
+  tools are being used but suggested that there could be another better solution
+  to use. 
+  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and
+  is working on her own research project for over five years. She has gathered
+  lots of data and thankfully she has always been great at Excel. However, other
+  the last two years she has found that Excel is becoming less sustainable. The
+  queries are a lot slower and sifting through pages and pages of data is
+  wasting a lot of her time. She sees this more evidently through those that
+  work along side her as they are also facing the same struggles with even less
+  Excel experience as her. She wants to find a more scalable solution but she
+  fears that her lack of digital knowledge will do her more harm than good, as a
+  result she fears that if she introduces a new platform to serve her needs
+  better that she will find it hard and confusing to use. 
+  \item Dr.\ Alex Stark is a 30 year old associate professor who has recently
+  gotten funding for his innovative research idea and has been dedicating all
+  his time on perfecting its methodology. It has only been one year since his
+  research started but had recently found a great application of his ideas to
+  reach far more people and be more impactful that he had originally thought.
+  But with his current data management set up, he quickly realises that it is not
+  sustainable. He finds that there are many other solutions on the market but
+  they do not exactly meet his needs and cost a lot more than what he can spend
+  on a tool. He decided that the best way is to create his own tool but lacks
+  the software knowledge to create something stable and reliable. 
+\end{itemize}
+    
+\subsection{Priorities Assigned to Users}
+\subsubsection{Primary Users}
+\begin{itemize}
+  \item Dr. Charles De Lannoy
+  \item Bassel Abdelkader
+  \item Students working on the experiment 
+\end{itemize}
+
+\subsubsection{Secondary Users}
+\begin{itemize}
+  \item Researcher with their own research studies 
+  \item The founder of the study
+\end{itemize}
+\subsection{User Participation}
+Not a relevant section 
+\subsection{Maintenance Users and Service Technicians}
+Not a relevant section \section{Mandated Constraints}
 \subsection{Solution Constraints}
 \textbf{Description}: The product must accept Comma-Separated Value (CSV) files as input.\\
 \textbf{Rationale}: The lab apparatus generates and stores results as CSV files.\\
