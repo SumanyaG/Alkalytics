@@ -563,14 +563,11 @@ administrator.
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}
-\item The system shall store new data or parameters within 60 seconds of input.
-\item The system shall retrieve data from the database within 50ms for typical
-search and queries.
-\item The interaction between the interface and the user shall have a maximum
-response time of 2 seconds.
-\item The system shall have a maximum latency of 2 seconds for typical search
-and queries.
-\item The system shall generate a visualization of the data within 5 seconds.
+\item[PR-1.] The system shall store new data or parameters within 60 seconds of input.
+\item[PR-2.] The system shall retrieve data from the database within 50ms for typical search and queries.
+\item[PR-3.] The interaction between the interface and the user shall have a maximum response time of 2 seconds.
+\item[PR-4.] The system shall have a maximum latency of 2 seconds for typical search and queries.
+\item[P4-5.] The system shall generate a visualization of the data within 5 seconds.
 \end{enumerate}
 \begin{itemize}
   \item \textit{Rationale:} Quick response times ensure efficiency and smooth
@@ -583,9 +580,9 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Precision or Accuracy Requirements}
 \begin{enumerate}
-  \item All parameter values shall be accurate to four decimal places.
-  \item All timestamps of experiment data shall be accurate to milliseconds. 
-  \item Values on visual data plots shall be accurate to four decimal places.
+  \item[PR-6.] All parameter values shall be accurate to four decimal places.
+  \item[PR-7.] All timestamps of experiment data shall be accurate to milliseconds. 
+  \item[PR-8.] Values on visual data plots shall be accurate to four decimal places.
 \end{enumerate}
 \begin{itemize}
   \item \textit{Rationale:} Accuracy of the data is critical for data analysis,
@@ -595,10 +592,8 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Robustness or Fault-Tolerance Requirements}
 \begin{enumerate}
-  \item The application shall not terminate but display an error message if it
-  loses connection to the backend server.
-  \item The application shall provide basic functionality if it loses connection
-  to the internet.
+  \item[PR-9.] The application shall not terminate but display an error message if it loses connection to the backend server.
+  \item[PR-10.] The application shall provide basic functionality if it loses connection to the internet.
 \end{enumerate}
 \begin{itemize}
   \item \textit{Rationale:} The system should not fail or crash when
@@ -607,8 +602,8 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Capacity Requirements}
 \begin{enumerate}
-  \item The application shall allow for up to three simultaneous users.
-  \item The system shall store up to x amount of data.
+  \item[PR-11.] The application shall allow for up to three simultaneous users.
+  \item[PR-12.] The system shall be capable of storing data for up to 300 experiments.
 \end{enumerate}
 \begin{itemize}
   \item \textit{Rationale:} The system must be capable of storing and processing
@@ -618,11 +613,8 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Scalability or Extensibility Requirements}
 \begin{enumerate}
-  \item The system shall be able to process and store the existing data. The
-  amount of data going into the system is expected to grow until the experiment
-  study comes to an end.
-  \item The system shall be able to add additional parameters that did not
-  previously exist in the database at the discretion of the user.
+  \item[PR-13.] The system shall be able to process and store the existing data. The amount of data going into the system is expected to grow until the experiment study comes to an end.
+  \item[PR-14.] The system shall be able to add additional parameters that did not previously exist in the database at the discretion of the user.
 \end{enumerate}
 \begin{itemize}
   \item \textit{Rationale:} The system must be able to expand to keep up with
@@ -631,32 +623,30 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Longevity Requirements}
 \begin{enumerate}
-  \item The system shall operate for the duration of the experiment study.
+  \item[PR-15.] The system shall operate for the duration of the experiment study.
 \end{enumerate}
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
 \begin{enumerate}
-  \item The application shall operate in a typical office environment with
-  reliable internet connectivity.
-  \item The application shall be compatible with a desktop or laptop
-  environment.
+  \item[OE-1.] The application shall operate in a typical lab environment with reliable internet connectivity.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} Ensures functionality in environments where
-  end-users are most likely to use the application, accomodating several screen
-  sizes and operating systems. 
-  \item \textit{Fit Criterion:} Testing will be conducted on the two most common
-  operating systems, Windows and macOS.
+  \item \textit{Rationale:} Ensures functionality in environments where end-users are most likely to use the application. 
 \end{itemize}
 
 \subsection{Wider Environment Requirements}
-\lips
+\begin{enumerate}
+  \item[OE-2.] The application shall be compatible with desktop environments running Windows.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationale:} Ensures functionality in the technological environment the product is expected to run on.
+  \item \textit{Fit Criterion:} Testing will be conducted on the Windows operating system.
+\end{itemize}
 
 \subsection{Requirements for Interfacing with Adjacent Systems}
 \begin{enumerate}
-  \item The application shall operate on the most recent versions of Google
-  Chrome and Apple Safari.
+  \item[OE-3.] The application shall operate on the most recent versions of Google Chrome and Apple Safari.
 \end{enumerate}
 \begin{itemize}
   \item \textit{Rationale:} The application must be able to operate on these two
@@ -668,9 +658,8 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Productization Requirements}
 \begin{enumerate}
-  \item The system shall be distributed as a web application.
-  \item The system shall have an easy onboarding process with user
-  documentation.
+  \item[OE-4.] The system shall be distributed as a web application.
+  \item[OE-5.] The system shall have an easy onboarding process with user documentation.
   \begin{itemize}
     \item \textit{Rationale:} Ensures that users can use the application without
     needing frequent support.
@@ -681,8 +670,7 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Release Requirements}
 \begin{enumerate}
-  \item The first version of the system shall be released after project
-  completion.
+  \item[OE-6.] The first version of the system shall be released after project completion.
 \end{enumerate}
 
 \section{Maintainability and Support Requirements}
