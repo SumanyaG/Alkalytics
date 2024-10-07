@@ -9,10 +9,9 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
-\hypersetup{
-    bookmarks=true,         % show bookmarks bar?
+\hypersetup{ bookmarks=true,         % show bookmarks bar?
     colorlinks=true,      % false: boxed links; true: colored links
-    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    linkcolor=red,          % color of internal links (change box color with
     citecolor=green,        % color of links to bibliography
     filecolor=magenta,      % color of file links
     urlcolor=cyan           % color of external links
@@ -81,15 +80,16 @@ those involved in the experiment.
 
 \subsection{Client}
 Dr. Charles De Lannoy serves as the main client for this project as he is the
-lead supervisor of the research study. This solution directly affects his work and
-is intended to be a custom solution for the problem. Bassel Abdelkader is
+lead supervisor of the research study. This solution directly affects his work
+and is intended to be a custom solution for the problem. Bassel Abdelkader is
 another client of this project as he is the person that works directly with the
-research data. One of his responsibilities is to record the experimental data and
-upload them to their current data storage system, Microsoft Excel. 
+research data. One of his responsibilities is to record the experimental data
+and upload them to their current data storage system, Microsoft Excel. 
 \subsection{Customer}
 Although this project is a tailored solution to one research study, its
-application can be extended to any other situation where large sets of data is involved. 
-This could be shared among other researchers to aid in their data management and analysis. 
+application can be extended to any other situation where large sets of data is
+involved. This could be shared among other researchers to aid in their data
+management and analysis. 
 \subsection{Other Stakeholders}
 Current students and members of the lab working on the study is can also be
 considered stakeholders for the same reasons as the clients. However, since they
@@ -97,7 +97,8 @@ will only be working with the study for a short amount of time without daily or
 consistent interaction, they do not serve as a main stakeholder. The founder of
 the study, who is currently funding the research project is another stakeholder.
 However, since they do not work directly with the processes of the study rather
-oversee the process, they may not have strong interest in the details of the solution. 
+oversee the process, they may not have strong interest in the details of the
+solution. 
 \subsection{Hands-On Users of the Project}
 Potentially not applicable or useful for this document
 
@@ -115,10 +116,10 @@ Potentially not applicable or useful for this document
   way to manage the data, they know that it is not up to their decision on what
   tools are being used but suggested that there could be another better solution
   to use. 
-  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and
-  is working on her own research project for over five years. She has gathered
-  lots of data and thankfully she has always been great at Excel. However, other
-  the last two years she has found that Excel is becoming less sustainable. The
+  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and is
+  working on her own research project for over five years. She has gathered lots
+  of data and thankfully she has always been great at Excel. However, other the
+  last two years she has found that Excel is becoming less sustainable. The
   queries are a lot slower and sifting through pages and pages of data is
   wasting a lot of her time. She sees this more evidently through those that
   work along side her as they are also facing the same struggles with even less
@@ -131,11 +132,11 @@ Potentially not applicable or useful for this document
   his time on perfecting its methodology. It has only been one year since his
   research started but had recently found a great application of his ideas to
   reach far more people and be more impactful that he had originally thought.
-  But with his current data management set up, he quickly realises that it is not
-  sustainable. He finds that there are many other solutions on the market but
-  they do not exactly meet his needs and cost a lot more than what he can spend
-  on a tool. He decided that the best way is to create his own tool but lacks
-  the software knowledge to create something stable and reliable. 
+  But with his current data management set up, he quickly realises that it is
+  not sustainable. He finds that there are many other solutions on the market
+  but they do not exactly meet his needs and cost a lot more than what he can
+  spend on a tool. He decided that the best way is to create his own tool but
+  lacks the software knowledge to create something stable and reliable. 
 \end{itemize}
     
 \subsection{Priorities Assigned to Users}
@@ -156,29 +157,45 @@ Not a relevant section
 \subsection{Maintenance Users and Service Technicians}
 Not a relevant section \section{Mandated Constraints}
 \subsection{Solution Constraints}
-\textbf{Description}: The product must accept Comma-Separated Value (CSV) files as input.\\
-\textbf{Rationale}: The lab apparatus generates and stores results as CSV files.\\
-\textbf{Fit Criterion}: The product's input process (the processing and acceptance of input data) into the database shall be approved by testers and developers.
+\textbf{Description}: The product must accept Comma-Separated Value (CSV) files
+as input.\\
+\textbf{Rationale}: The lab apparatus generates and stores results as CSV
+files.\\
+\textbf{Fit Criterion}: The product's input process (the processing and
+acceptance of input data) into the database shall be approved by testers and
+developers.
 
 \subsection{Implementation Environment of the Current System}
 \textbf{Description}: The product must be able to run on a Windows machine.\\
-\textbf{Rationale}: Currently, the lab has a Windows machine that is used to operate the machine and analyse the produced results.\\
-\textbf{Fit Criterion}: The product shall be approved as Windows compliant by testers and developers.
+\textbf{Rationale}: Currently, the lab has a Windows machine that is used to
+operate the machine and analyse the produced results.\\
+\textbf{Fit Criterion}: The product shall be approved as Windows compliant by
+testers and developers.
 
 \subsection{Off-the-Shelf Software}
-\textbf{Description}: \href{https://www.mongodb.com/}{MongoDB} - a document-oriented, NoSQL database product shall be used to store the datapoints.\\
-\textbf{Rationale}: Using an existing, verstaile and scalable solution like MongoDB that does not use SQL and is thus, non-relational, will allow greater flexibility in storing datapoints.\\
+\textbf{Description}: \href{https://www.mongodb.com/}{MongoDB} - a
+document-oriented, NoSQL database product shall be used to store the
+datapoints.\\
+\textbf{Rationale}: Using an existing, verstaile and scalable solution like
+MongoDB that does not use SQL and is thus, non-relational, will allow greater
+flexibility in storing datapoints.\\
 
 \subsection{Anticipated Workplace Environment}
-\textbf{Description}: The product shall be used in the Chemical Engineering Lab run by Dr. Charles de Lannoy and Bassel Abdelkader.
+\textbf{Description}: The product shall be used in the Chemical Engineering Lab
+run by Dr. Charles de Lannoy and Bassel Abdelkader.
 
 \subsection{Partner or Collaborative Applications}
-\textbf{Description}: The product shall be used in collaboration with the \emph{name of lab software}.\\
-\textbf{Rationale}: The \emph{name of lab software} is used to retrieve data from the lab apparatus. The retrieved data shall be used as input for the product.
+\textbf{Description}: The product shall be used in collaboration with the
+\emph{name of lab software}.\\
+\textbf{Rationale}: The \emph{name of lab software} is used to retrieve data
+from the lab apparatus. The retrieved data shall be used as input for the
+product.
 
 \subsection{Schedule Constraints}
-\textbf{Description}: The project must be finished within the course of the current academic year.\\
-\textbf{Rationale}: The finished product, as outlined in the project requirements, must be submitted by the end of the academic year.\\
+\textbf{Description}: The project must be finished within the course of the
+current academic year.\\
+\textbf{Rationale}: The finished product, as outlined in the project
+requirements, must be submitted by the end of the academic year.\\
 \newline
 A few relevant deadlines include:
 \begin{itemize}
@@ -189,7 +206,9 @@ A few relevant deadlines include:
 
 \subsection{Budget Constraints}
 \textbf{Description}: The total cost of the project must not exceed \$750.\\
-\textbf{Rationale}: The product must be economically feasible and all teams must have an equal budget to ensure conformity and equality in terms of access of resources.
+\textbf{Rationale}: The product must be economically feasible and all teams must
+have an equal budget to ensure conformity and equality in terms of access of
+resources.
 
 \subsection{Enterprise Constraints}
 \emph{N/A}
@@ -249,8 +268,9 @@ A few relevant deadlines include:
 Currently, two sources of data input are used -
 \begin{itemize}
   \item The CSV files that contain datapoints generated by the apparatus.
-  \item The initial parameter values for each experiment such as power voltage, age of membrane, density module and more. These values are manually inputted by the user 
-  and remain constant throughout each experiment.
+  \item The initial parameter values for each experiment such as power voltage,
+  age of membrane, density module and more. These values are manually inputted
+  by the user and remain constant throughout each experiment.
 \end{itemize}
 
 \subsection{Business Rules}
@@ -285,130 +305,182 @@ Currently, two sources of data input are used -
 \section{Functional Requirements}
 \subsection{Data Input Requirements}
   \begin{enumerate}
-    \item[\textbf{FR-1.}] The system shall allow the user to input new experiment data or parameters.
+    \item[\textbf{FR-1.}] The system shall allow the user to input new
+    experiment data or parameters.
     \begin{itemize}
-    \item \textit{Rationale:} The system needs to be kept up-to-date with ongoing experiments, which may include new parameters that did not exist previously.
-    \item \textit{Fit Criterion:} The user should be able to input new data and parameters with 0 errors.
+    \item \textit{Rationale:} The system needs to be kept up-to-date with
+    ongoing experiments, which may include new parameters that did not exist
+    previously.
+    \item \textit{Fit Criterion:} The user should be able to input new data and
+    parameters with 0 errors.
     \end{itemize}
-    \item[\textbf{FR-2.}] The system shall store experiment data in the database with all associated parameters and values correctly labelled.
+    \item[\textbf{FR-2.}] The system shall store experiment data in the database
+    with all associated parameters and values correctly labelled.
     \begin{itemize}
-      \item \textit{Rationale:} Ensures that data retrieval and analysis will be correct and accurate.
-      \item \textit{Fit Criterion:} The system database parameters and values shall match the original experiment data parameters and values.
+      \item \textit{Rationale:} Ensures that data retrieval and analysis will be
+      correct and accurate.
+      \item \textit{Fit Criterion:} The system database parameters and values
+      shall match the original experiment data parameters and values.
     \end{itemize}
   \end{enumerate}
 
 \subsection{Data Migration and Organization Requirements}
   \begin{enumerate}
-    \item[\textbf{FR-3.}] The system shall read existing experiment data stored in .CSV files.
+    \item[\textbf{FR-3.}] The system shall read existing experiment data stored
+    in .CSV files.
     \begin{itemize}
-      \item \textit{Rationale:} Existing experiment data is stored in Excel spreadsheets and must be integrated into the new system for continuity and analysis.
-      \item \textit{Fit Criterion:} The system shall read and import the data files with 0 errors.
+      \item \textit{Rationale:} Existing experiment data is stored in Excel
+      spreadsheets and must be integrated into the new system for continuity and
+      analysis.
+      \item \textit{Fit Criterion:} The system shall read and import the data
+      files with 0 errors.
     \end{itemize}
-    \item[\textbf{FR-4.}] The system shall organize experiment data by timestamps and experiment ID for unique identification.
+    \item[\textbf{FR-4.}] The system shall organize experiment data by
+    timestamps and experiment ID for unique identification.
     \begin{itemize}
-      \item \textit{Rationale:} Each experiment needs to be separately identified for quick retrieval of data and efficiency in search or query actions.
-      \item \textit{Fit Criterion:} Each ID and timestamp shall be traceable to one experiment.
+      \item \textit{Rationale:} Each experiment needs to be separately
+      identified for quick retrieval of data and efficiency in search or query
+      actions.
+      \item \textit{Fit Criterion:} Each ID and timestamp shall be traceable to
+      one experiment.
     \end{itemize}
   \end{enumerate}
 
 \subsection{Data Search and Query Requirements}
 \begin{enumerate}
-  \item[\textbf{FR-5.}] The system shall allow the user to search for specific datasets based on different parameters.
+  \item[\textbf{FR-5.}] The system shall allow the user to search for specific
+  datasets based on different parameters.
   \begin{itemize}
-    \item \textit{Rationale:} Allows for quick look-ups of certain experiments and their results.
-    \item \textit{Fit Criterion:} The system shall retrieve the correct experiments based on the matching parameters.
+    \item \textit{Rationale:} Allows for quick look-ups of certain experiments
+    and their results.
+    \item \textit{Fit Criterion:} The system shall retrieve the correct
+    experiments based on the matching parameters.
   \end{itemize}
-  \item[\textbf{FR-6.}] The system shall allow the user to query two or more parameters or datasets for comparison and analysis.
+  \item[\textbf{FR-6.}] The system shall allow the user to query two or more
+  parameters or datasets for comparison and analysis.
   \begin{itemize}
-    \item \textit{Rationale:} Allows for direct comparisons between different experiment parameters and/or results, which is necessary for analysis.
-    \item \textit{Fit Criterion:} The system shall retrieve the correct parameters and/or experiments based on the query inputs.
+    \item \textit{Rationale:} Allows for direct comparisons between different
+    experiment parameters and/or results, which is necessary for analysis.
+    \item \textit{Fit Criterion:} The system shall retrieve the correct
+    parameters and/or experiments based on the query inputs.
   \end{itemize}
-  \item[\textbf{FR-7.}] The system shall display the results of a user’s selected search or query in a format that is readable to the user.
+  \item[\textbf{FR-7.}] The system shall display the results of a user’s
+  selected search or query in a format that is readable to the user.
   \begin{itemize}
-    \item \textit{Rationale:} The user needs to see the results in a format that they can interpret.
-    \item \textit{Fit Criterion:} The results shall be displayed in a table with all labels correct and legible.
+    \item \textit{Rationale:} The user needs to see the results in a format that
+    they can interpret.
+    \item \textit{Fit Criterion:} The results shall be displayed in a table with
+    all labels correct and legible.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Data Visualization Requirements}
 \begin{enumerate}
-  \item[\textbf{FR-8.}] The system shall generate visual graphs based on selected parameters and datasets.
+  \item[\textbf{FR-8.}] The system shall generate visual graphs based on
+  selected parameters and datasets.
   \begin{itemize}
-    \item \textit{Rationale:} Visual representation of the data allows for easy interpretation and graphical analysis.
-    \item \textit{Fit Criterion:} The result should display a graphical plot with a title, axes, labels, and a legend.
+    \item \textit{Rationale:} Visual representation of the data allows for easy
+    interpretation and graphical analysis.
+    \item \textit{Fit Criterion:} The result should display a graphical plot
+    with a title, axes, labels, and a legend.
   \end{itemize}
-  \item[\textbf{FR-9.}] The system shall allow the user to customize the data visualization by adjusting axes, data ranges, labels, etc.
+  \item[\textbf{FR-9.}] The system shall allow the user to customize the data
+  visualization by adjusting axes, data ranges, labels, etc.
   \begin{itemize}
-    \item \textit{Rationale:} Allows the user to adjust the graphical representation to their needs for their analysis.
-    \item \textit{Fit Criterion:} Modifications to axes, data ranges, labels should be reflected in the generated graph in real-time.
+    \item \textit{Rationale:} Allows the user to adjust the graphical
+    representation to their needs for their analysis.
+    \item \textit{Fit Criterion:} Modifications to axes, data ranges, labels
+    should be reflected in the generated graph in real-time.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Data Analysis Requirements}
 \begin{enumerate}
-    \item[\textbf{FR-10.}] The system shall analyze patterns and trends in the experiment data based on the user’s selected parameters.
+    \item[\textbf{FR-10.}] The system shall analyze patterns and trends in the
+    experiment data based on the user’s selected parameters.
     \begin{itemize}
-      \item \textit{Rationale:} Trend analysis is critical for the user to discover important findings pertaining to the experiment.
-      \item \textit{Fit Criterion:} The system shall generate a result of the analysis to display to the user.
+      \item \textit{Rationale:} Trend analysis is critical for the user to
+      discover important findings pertaining to the experiment.
+      \item \textit{Fit Criterion:} The system shall generate a result of the
+      analysis to display to the user.
     \end{itemize}
-    \item[\textbf{FR-11.}] The system shall use machine learning algorithms to predict and interpolate the data.
+    \item[\textbf{FR-11.}] The system shall use machine learning algorithms to
+    predict and interpolate the data.
     \begin{itemize}
-      \item \textit{Rationale:} Allows for future predictions of data and efficiency in running future experiments.
-      \item \textit{Fit Criterion:} The system shall generate a report of value predictions or interpolate a graph and provide the interpolated data points.
+      \item \textit{Rationale:} Allows for future predictions of data and
+      efficiency in running future experiments.
+      \item \textit{Fit Criterion:} The system shall generate a report of value
+      predictions or interpolate a graph and provide the interpolated data
+      points.
     \end{itemize}
 \end{enumerate}
 
 \subsection{Error Tracking Requirements}
-This section outlines functional requirements for one of the project's stretch goals.
+This section outlines functional requirements for one of the project's stretch
+goals.
 \begin{enumerate}
-  \item[\textbf{FR-12.}] The system shall track and log errors in the experiment data.
+  \item[\textbf{FR-12.}] The system shall track and log errors in the experiment
+  data.
   \begin{itemize}
-    \item \textit{Rationale:} Helps users identify irrelevant or missing parameters.
-    \item \textit{Fit Criterion:} Missing values from input data should be flagged.
+    \item \textit{Rationale:} Helps users identify irrelevant or missing
+    parameters.
+    \item \textit{Fit Criterion:} Missing values from input data should be
+    flagged.
   \end{itemize}
   \item[\textbf{FR-13.}] The system shall remove data logged as errors.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures data is organized and produce accurate results in analysis.
-    \item \textit{Fit Criterion:} Flagged data should be removed from the database after user confirmation.
+    \item \textit{Rationale:} Ensures data is organized and produce accurate
+    results in analysis.
+    \item \textit{Fit Criterion:} Flagged data should be removed from the
+    database after user confirmation.
   \end{itemize}
 \end{enumerate}
 
 \subsection{User Access Management Requirements}
-This section outlines functional requirements for one of the project's stretch goals.
+This section outlines functional requirements for one of the project's stretch
+goals.
 \begin{enumerate}
-  \item[\textbf{FR-14.}] The system shall allow the user to sign in with valid credentials.
+  \item[\textbf{FR-14.}] The system shall allow the user to sign in with valid
+  credentials.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures the data can only be accessed and modified by authorized users.
-    \item \textit{Fit Criterion:} The user shall be able to log in with a username and password.
+    \item \textit{Rationale:} Ensures the data can only be accessed and modified
+    by authorized users.
+    \item \textit{Fit Criterion:} The user shall be able to log in with a
+    username and password.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Data Export Requirements}
-This section outlines functional requirements for one of the project's stretch goals.
+This section outlines functional requirements for one of the project's stretch
+goals.
 \begin{enumerate}
-  \item[\textbf{FR-15.}] The system shall generate a report of queries in a session for the user to save or download.
+  \item[\textbf{FR-15.}] The system shall generate a report of queries in a
+  session for the user to save or download.
   \begin{itemize}
-    \item \textit{Rationale:} Allows user to keep a record of their findings for future use or reference.
-    \item \textit{Fit Criterion:} The report should be exported in CSV or PDF format.
+    \item \textit{Rationale:} Allows user to keep a record of their findings for
+    future use or reference.
+    \item \textit{Fit Criterion:} The report should be exported in CSV or PDF
+    format.
   \end{itemize}
 \end{enumerate}
 
 \section{Look and Feel Requirements}
-All subitems in this sections are the fit criterion for its respective requirements. 
+All subitems in this sections are the fit criterion for its respective
+requirements. 
 \subsection{Appearance Requirements}
 \begin{itemize}
   \item [AR1.]The website should have a simple and organized layout, with
   clearly defined sections where all major functions should be easily accessible
   and viewable 
   \begin{itemize}
-    \item[AR1.1] A users should be able to identify all the major
-    functions of the website within five minuets of use.
+    \item[AR1.1] A users should be able to identify all the major functions of
+    the website within five minuets of use.
   \end{itemize}
-  \item [AR2.] The website shall be responsive on all computer and laptop screens
-  aside from mobile screens
+  \item [AR2.] The website shall be responsive on all computer and laptop
+  screens aside from mobile screens
   \begin{itemize}
-    \item [AR2.1] The usability of website should be the same
-    as the default view on big and smaller computer, laptop and monitor screens
+    \item [AR2.1] The usability of website should be the same as the default
+    view on big and smaller computer, laptop and monitor screens
   \end{itemize}
   \item [AR3.] The website's functions and buttons shall be properly labeled
   where no button is ambiguous to users 
@@ -418,8 +490,8 @@ All subitems in this sections are the fit criterion for its respective requireme
   \end{itemize}
   \item [AR4.1]The produced plot from the data shall be properly labeled
   \begin{itemize}
-    \item [AR4.1] The plots should not be ambiguous. Users should be able to understand
-    what is the plot about within five minuets of viewing it.
+    \item [AR4.1] The plots should not be ambiguous. Users should be able to
+    understand what is the plot about within five minuets of viewing it.
   \end{itemize}
   \subitem
 \end{itemize}
@@ -428,8 +500,8 @@ All subitems in this sections are the fit criterion for its respective requireme
 \begin{itemize}
   \item [SR1.] All icons on the website must be in the artistic style
   \begin{itemize}
-    \item [SR1.1] After a user's first encounter with the product, 90\% of users should
-    see that there is unity among all the icons on the website. 
+    \item [SR1.1] After a user's first encounter with the product, 90\% of users
+    should see that there is unity among all the icons on the website. 
   \end{itemize}
   \item [SR2.] All colours must match the theme of the website
   \begin{itemize}
@@ -445,24 +517,41 @@ All subitems in this sections are the fit criterion for its respective requireme
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
-\textbf{Description}: The product must be easy to navigate and use for individuals with basic computer literacy.\\
-\textbf{Rationale}: The product must be user-friendly. In the context of this project, basic computer literacy is defined to encompass five computer skills - using a keyboard
-to type, using a mouse to navigate, understanding basic software applications such as word processing and spreadsheets, browsing the internet, and managaing files and folders.\\ 
-\textbf{Fit Criterion}: An individual with basic computer literacy must be able to launch the application and upload an input file without any assistance from the administrator.
+\textbf{Description}: The product must be easy to navigate and use for
+individuals with basic computer literacy.\\
+\textbf{Rationale}: The product must be user-friendly. In the context of this
+project, basic computer literacy is defined to encompass five computer skills -
+using a keyboard to type, using a mouse to navigate, understanding basic
+software applications such as word processing and spreadsheets, browsing the
+internet, and managaing files and folders.\\ 
+\textbf{Fit Criterion}: An individual with basic computer literacy must be able
+to launch the application and upload an input file without any assistance from
+the administrator.
 
 \subsection{Personalization and Internationalization Requirements}
-\textbf{Description}: The current version of the product will only be available in English (EN-US) and more languages can be added in the later versions.\\
-\textbf{Rationale}: Currently, the product is only expected to be used by McMaster faculty and staff who are fluent in English.\\
+\textbf{Description}: The current version of the product will only be available
+in English (EN-US) and more languages can be added in the later versions.\\
+\textbf{Rationale}: Currently, the product is only expected to be used by
+McMaster faculty and staff who are fluent in English.\\
 \newline
-\textbf{Description}: The product must recognize commonly used scientific and mathematical symbols.\\
-\textbf{Rationale}: The product shall be used to store scientific parameters as datapoints so the product must be able to recognize commonly used symbols used to specify scientific properties.\\
-\textbf{Fit Criterion}: The product must be able to recognize the uppercase and lowercase Greek Alphabet.
+\textbf{Description}: The product must recognize commonly used scientific and
+mathematical symbols.\\
+\textbf{Rationale}: The product shall be used to store scientific parameters as
+datapoints so the product must be able to recognize commonly used symbols used
+to specify scientific properties.\\
+\textbf{Fit Criterion}: The product must be able to recognize the uppercase and
+lowercase Greek Alphabet.
 
 \subsection{Learning Requirements}
-\textbf{Description}: Users must be able to use the product without any formal training and with minimal guidance.\\
-\textbf{Rationale}: The product shall be intuitive to use. Users must be able to freely naviagte and experiment with the product after a simple product walkthrough.\\
-\textbf{Fit Criterion}: A new user with basic computer literacy skills should be able to upload an input file, enter initial experiment parameters, select fields to be compared and view their graph
-after a simple product walkthrough by the administrator.
+\textbf{Description}: Users must be able to use the product without any formal
+training and with minimal guidance.\\
+\textbf{Rationale}: The product shall be intuitive to use. Users must be able to
+freely naviagte and experiment with the product after a simple product
+walkthrough.\\
+\textbf{Fit Criterion}: A new user with basic computer literacy skills should be
+able to upload an input file, enter initial experiment parameters, select fields
+to be compared and view their graph after a simple product walkthrough by the
+administrator.
 
 \subsection{Understandability and Politeness Requirements}
 \emph{N/A}
@@ -474,13 +563,17 @@ after a simple product walkthrough by the administrator.
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}
 \item The system shall store new data or parameters within 60 seconds of input.
-\item The system shall retrieve data from the database within 50ms for typical search and queries.
-\item The interaction between the interface and the user shall have a maximum response time of 2 seconds.
-\item The system shall have a maximum latency of 2 seconds for typical search and queries.
+\item The system shall retrieve data from the database within 50ms for typical
+search and queries.
+\item The interaction between the interface and the user shall have a maximum
+response time of 2 seconds.
+\item The system shall have a maximum latency of 2 seconds for typical search
+and queries.
 \item The system shall generate a visualization of the data within 5 seconds.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} Quick response times ensure efficiency and smooth user experience without disrupting the flow of the user's thought processes.
+  \item \textit{Rationale:} Quick response times ensure efficiency and smooth
+  user experience without disrupting the flow of the user's thought processes.
   \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
 \end{itemize}
 
@@ -494,17 +587,21 @@ The product does not have safety-critical requirements to consider.
   \item Values on visual data plots shall be accurate to four decimal places.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} Accuracy of the data is critical for data analysis, prediction, and interpolation.
+  \item \textit{Rationale:} Accuracy of the data is critical for data analysis,
+  prediction, and interpolation.
   \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
 \end{itemize}
 
 \subsection{Robustness or Fault-Tolerance Requirements}
 \begin{enumerate}
-  \item The application shall not terminate but display an error message if it loses connection to the backend server.
-  \item The application shall provide basic functionality if it loses connection to the internet.
+  \item The application shall not terminate but display an error message if it
+  loses connection to the backend server.
+  \item The application shall provide basic functionality if it loses connection
+  to the internet.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} The system should not fail or crash when experiencing unexpected circumstances.
+  \item \textit{Rationale:} The system should not fail or crash when
+  experiencing unexpected circumstances.
 \end{itemize}
 
 \subsection{Capacity Requirements}
@@ -513,17 +610,22 @@ The product does not have safety-critical requirements to consider.
   \item The system shall store up to x amount of data.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} The system must be capable of storing and processing large amounts of data.
+  \item \textit{Rationale:} The system must be capable of storing and processing
+  large amounts of data.
   \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
 \end{itemize}
 
 \subsection{Scalability or Extensibility Requirements}
 \begin{enumerate}
-  \item The system shall be able to process and store the existing data. The amount of data going into the system is expected to grow until the experiment study comes to an end.
-  \item The system shall be able to add additional parameters that did not previously exist in the database at the discretion of the user.
+  \item The system shall be able to process and store the existing data. The
+  amount of data going into the system is expected to grow until the experiment
+  study comes to an end.
+  \item The system shall be able to add additional parameters that did not
+  previously exist in the database at the discretion of the user.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} The system must be able to expand to keep up with future experiments.
+  \item \textit{Rationale:} The system must be able to expand to keep up with
+  future experiments.
 \end{itemize}
 
 \subsection{Longevity Requirements}
@@ -534,12 +636,17 @@ The product does not have safety-critical requirements to consider.
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
 \begin{enumerate}
-  \item The application shall operate in a typical office environment with reliable internet connectivity.
-  \item The application shall be compatible with a desktop or laptop environment.
+  \item The application shall operate in a typical office environment with
+  reliable internet connectivity.
+  \item The application shall be compatible with a desktop or laptop
+  environment.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} Ensures functionality in environments where end-users are most likely to use the application, accomodating several screen sizes and operating systems. 
-  \item \textit{Fit Criterion:} Testing will be conducted on the two most common operating systems, Windows and macOS.
+  \item \textit{Rationale:} Ensures functionality in environments where
+  end-users are most likely to use the application, accomodating several screen
+  sizes and operating systems. 
+  \item \textit{Fit Criterion:} Testing will be conducted on the two most common
+  operating systems, Windows and macOS.
 \end{itemize}
 
 \subsection{Wider Environment Requirements}
@@ -547,26 +654,34 @@ The product does not have safety-critical requirements to consider.
 
 \subsection{Requirements for Interfacing with Adjacent Systems}
 \begin{enumerate}
-  \item The application shall operate on the most recent versions of Google Chrome and Apple Safari.
+  \item The application shall operate on the most recent versions of Google
+  Chrome and Apple Safari.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} The application must be able to operate on these two most common web browsers, as these will be the primary platforms where it is hosted and accessed by users.
-  \item \textit{Fit Criterion:} Performance testing shall be done to ensure the application functions correctly.
+  \item \textit{Rationale:} The application must be able to operate on these two
+  most common web browsers, as these will be the primary platforms where it is
+  hosted and accessed by users.
+  \item \textit{Fit Criterion:} Performance testing shall be done to ensure the
+  application functions correctly.
 \end{itemize}
 
 \subsection{Productization Requirements}
 \begin{enumerate}
   \item The system shall be distributed as a web application.
-  \item The system shall have an easy onboarding process with user documentation.
+  \item The system shall have an easy onboarding process with user
+  documentation.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures that users can use the application without needing frequent support.
-    \item \textit{Fit Criterion:} Usability testing shall be done to ensure users are able to onboard easily.
+    \item \textit{Rationale:} Ensures that users can use the application without
+    needing frequent support.
+    \item \textit{Fit Criterion:} Usability testing shall be done to ensure
+    users are able to onboard easily.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Release Requirements}
 \begin{enumerate}
-  \item The first version of the system shall be released after project completion.
+  \item The first version of the system shall be released after project
+  completion.
 \end{enumerate}
 
 \section{Maintainability and Support Requirements}
@@ -760,14 +875,92 @@ The product does not have safety-critical requirements to consider.
 
 \section{Open Issues}
 \lips
-
 \section{Off-the-Shelf Solutions}
+
+Off-the-shelf solutions are evaluated to explore whether existing products can
+meet the project’s needs or if custom development is required. By comparing
+available options, the team can determine which aspects of these products
+satisfy the project's requirements while also identifying their limitations.
+
 \subsection{Ready-Made Products}
-\lips
+
+Products that could meet most or all of the project’s requirements without
+significant customization:
+
+\begin{itemize}
+    \item \textbf{Microsoft Power BI}: A business analytics tool capable of
+    handling large datasets, offering data import from CSV files and advanced
+    visualizations.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Supports CSV imports and data querying.
+            \item Scalable data handling.
+            \item Generates dynamic visualizations.
+        \end{itemize}
+
+        \item \textbf{Limitations:}
+        \begin{itemize}
+            \item High-cost licensing for continuous use.
+            \item Real-time CSV data updates might be challenging to implement.
+            \item Lacks flexibility for scientific applications, especially
+            niche inter-parameter comparability.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Tableau}: A data visualization tool known for creating
+    interactive dashboards from large datasets.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Powerful querying.
+            \item Generates dynamic visualizations.
+            \item Interactive dashboards with advanced analytics.
+        \end{itemize}
+
+        \item \textbf{Limitations:}
+        \begin{itemize}
+            \item High-cost licensing for continuous use.
+            \item Lacks support for scientific-specific customization.
+            \item Not designed for handling algorithmic data comparisons or
+            extending to new experimental parameters.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
 \subsection{Reusable Components}
-\lips
-\subsection{Products That Can Be Copied}
-\lips
+
+Products that could be used by the project.
+
+
+\begin{itemize}
+    \item \textbf{D3.js}: A JavaScript library for creating dynamic, interactive
+    visualizations.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Highly customizable for complex data visualizations.
+            \item Integrates with web technologies (e.g., React).
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Plotly.js}: A JavaScript library for building interactive
+    plots and graphs in web applications.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Customizable graphs and charts for web interfaces.
+            \item Supports real-time updates.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+
+
 
 \section{New Problems}
 \subsection{Effects on the Current Environment}
@@ -840,88 +1033,124 @@ implementation efforts. Each phase is focused on achieving significant technical
 progress that works alongside the milestones to allow for incremental progress
 and continuous refinement.
 
+\newpage
 \begin{table}[htbp]
   \centering
   \begin{tabular}{|l|l|l|}
-\hline
-\textbf{Stage} & \textbf{Milestone} & \textbf{Deadline} \\
-\hline
-Phase 1 & POC & November 11 \\
-\hline
-Phase 2 & Revision 0 Demonstration & February 3 \\
-\hline
-Phase 3 & Revision 1 Final Demonstration & March 24 \\
-\hline
-\end{tabular}
-\caption{Development Phases and Deadlines}
+  \hline
+  \textbf{Stage} & \textbf{Milestone} & \textbf{Deadline} \\
+  \hline
+  Phase 1 & Backend Database Development & Nov 1 \\
+  \texttt{} & Data Migration Algorithm & Nov 8 \\
+  \texttt{} & POC Functional Testing & Nov 10 \\
+  \texttt{} & POC Demonstration & Nov 11 \\
+  \hline
+  Phase 2 & Backend Refinement \& Bug Fixes & Dec 6 \\
+  \texttt{} & Basic Frontend Development & Jan 3 \\
+  \texttt{} & Frontend-Backend Integration & Jan 17 \\
+  \texttt{} & Preliminary Testing \& Bug Resolution & Jan 24 \\
+  \texttt{} & Revision 0 Demonstration & Feb 3 \\
+  \hline
+  Phase 3 & Final Frontend Features Development & Feb 14 \\
+  \texttt{} & Backend Optimization & Feb 21 \\
+  \texttt{} & Full System Testing \& Debugging & March 21 \\
+  \texttt{} & Revision 1 Final Demonstration & March 24 \\
+  \hline
+  \end{tabular}
+  \caption{Project Development Phases and Deadlines}
 \end{table}
 
-\textbf{Phase 1} focuses on the Proof of Concept (POC), where the team is
-expected to develop and present a functional prototype that demonstrates the
+\noindent\textbf{Phase 1} focuses on the Proof of Concept (POC), where the team
+is expected to develop and present a functional prototype that demonstrates the
 core features and feasibility of the project. This phase focuses on the backend,
 including building a database capable of querying and sorting data, and
 implementing an algorithm to transfer data from a CSV file into the database
-format.
-
-\textbf{Phase 2} involves the Revision 0 Demonstration, where the backend is
-expected to be fully completed according to the project requirements. In
-addition, a basic frontend will be developed and integrated into a website to
+format.\newline\newline
+\noindent\textbf{Phase 2} involves the Revision 0 Demonstration, where the
+backend is expected to be fully completed according to the project requirements.
+In addition, a basic frontend will be developed and integrated into a website to
 allow interaction with the backend functionality. It is expected that some bugs
-or issues will be displayed.
-
-\textbf{Phase 3} is the Revision 1 Final Demonstration, where the final version
-of the project is presented. This phase represents the culmination of all
-development efforts, with a fully functioning product that meets all
-requirements. Ultimately, it highlights the project's readiness for production.
+or issues will be displayed. \newline\newline
+\noindent\textbf{Phase 3} Phase 3 is the Revision 1 Final Demonstration, where
+the final version of the project is presented. During this phase, final frontend
+features will be developed to improve the user interface. The backend will be
+optimized for performance. Full system testing and debugging will address any
+outstanding issues.  This phase represents the culmination of all development
+efforts, with a fully functioning product that meets all requirements.
+Ultimately, it highlights the project's readiness for production.
 
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
-\textbf{Q}: Will you use a phased implementation to install the new system? if so, describe which requirements 
-will be implemented by eahc of the major phases?\\
-\textbf{A}: No, the system will be installed in a single go after being tested and approved.\\
-\emph{Note}: Include cross-references between development tasks, project phases and the Product Use Cases and atomic requirements.\\
+\textbf{Q}: Will you use a phased implementation to install the new system? if
+so, describe which requirements will be implemented by eahc of the major
+phases?\\
+\textbf{A}: No, the system will be installed in a single go after being tested
+and approved.\\
+\emph{Note}: Include cross-references between development tasks, project phases
+and the Product Use Cases and atomic requirements.\\
 \newline
-\textbf{Q}: What kind of data conversion is necessary? Must special programs be written to transport data from an 
-existing system to a new one? If so, describe the requirements for these programs here.\\
-\textbf{A}: Currently, the files are stored in the CSV format. In order to make them compatiable for migration to the 
-new database (MongoDB), the files must be converted into JavaScript Object Notaion (JSON) format. Yes, a special program 
-must be written to transport the data as the new system will only accept JSON files. This means that when the file is inputted to the new 
-system (in CSV format), a special program must first convert it to JSON so that the data can be entered in the database.\\
+\textbf{Q}: What kind of data conversion is necessary? Must special programs be
+written to transport data from an existing system to a new one? If so, describe
+the requirements for these programs here.\\
+\textbf{A}: Currently, the files are stored in the CSV format. In order to make
+them compatiable for migration to the new database (MongoDB), the files must be
+converted into JavaScript Object Notaion (JSON) format. Yes, a special program
+must be written to transport the data as the new system will only accept JSON
+files. This means that when the file is inputted to the new system (in CSV
+format), a special program must first convert it to JSON so that the data can be
+entered in the database.\\
 \newline
-\textbf{Q}: What kind of manual backup is needed while the new system is installed?\\
-\textbf{A}: The installation of the new program should not be a long process and can be accomplished on a day when there are no experiments
-being run in the lab. This means, no manual backup would be necessary while the new system is being installed.\\
+\textbf{Q}: What kind of manual backup is needed while the new system is
+installed?\\
+\textbf{A}: The installation of the new program should not be a long process and
+can be accomplished on a day when there are no experiments being run in the lab.
+This means, no manual backup would be necessary while the new system is being
+installed.\\
 \newline
-\textbf{Q}: When are each of the major components to be put in place? When are the phases of the implementation to be 
-released?\\
-\textbf{A}: No phases of implementation to be released. Major components will be put in place based on this timeline - 
+\textbf{Q}: When are each of the major components to be put in place? When are
+the phases of the implementation to be released?\\
+\textbf{A}: No phases of implementation to be released. Major components will be
+put in place based on this timeline - 
 \begin{itemize}
-  \item Database with migrated data and funtionality to compare parameters: Proof of Concept Demonstration
-  \item Interface that allows inputting data and adding new parameters: End of December (before Christmas break)
-  \item Dashboard that allows analysis of data and visualizing graphs: End of January 
+  \item Database with migrated data and funtionality to compare parameters:
+  Proof of Concept Demonstration
+  \item Interface that allows inputting data and adding new parameters: End of
+  December (before Christmas break)
+  \item Dashboard that allows analysis of data and visualizing graphs: End of
+  January 
 \end{itemize}
 \ \\
-\textbf{Q}: Is there a need to run the new product in parallel with the existing product?\\
-\textbf{A}: No, there is no need to run the new product in parallel with the existing product. Data can be migrated at regular intervals once
-the database is up and running.\\
+\textbf{Q}: Is there a need to run the new product in parallel with the existing
+product?\\
+\textbf{A}: No, there is no need to run the new product in parallel with the
+existing product. Data can be migrated at regular intervals once the database is
+up and running.\\
 \newline
 \textbf{Q}: Is there any special effort needed to decomission the old product?\\
-\textbf{A}: The old product is essentially a collection of spreadsheets so no special effort is needed to decomission them. A visual inspection
-and testing might be required after data is migrated to the new product to ensure the accuracy and integrity of the data.
+\textbf{A}: The old product is essentially a collection of spreadsheets so no
+special effort is needed to decomission them. A visual inspection and testing
+might be required after data is migrated to the new product to ensure the
+accuracy and integrity of the data.
 
 \subsection{Data That Has to be Modified or Translated for the New System}
 \textbf{Q}: Description of current technology that holds data.\\
-\textbf{A}: Currently the data is retreived in the form of CSV files and copied onto existing Excel templates that are used to sort and analyse 
-the data. Although the templates are sophisticated and well-deisgned, a lot of manual work is involved to flag incorrect data (rows of zeroes for 
-all parameters), remove redundant data (the data file is sometimes split into multiple CSV files that might contain some overlapping data) and more.\\
+\textbf{A}: Currently the data is retreived in the form of CSV files and copied
+onto existing Excel templates that are used to sort and analyse the data.
+Although the templates are sophisticated and well-deisgned, a lot of manual work
+is involved to flag incorrect data (rows of zeroes for all parameters), remove
+redundant data (the data file is sometimes split into multiple CSV files that
+might contain some overlapping data) and more.\\
 \newline
-Some of the collected paramteric data is also inaccurate (such as the power voltage and density module) and so those columns of data are ignored.
-To compare different experiments, the user is required to switch between experiment files to view their respective graphs. This is cumbersome and as 
-the number of experiments increase, unsustainable in the long-term.\\
+Some of the collected paramteric data is also inaccurate (such as the power
+voltage and density module) and so those columns of data are ignored. To compare
+different experiments, the user is required to switch between experiment files
+to view their respective graphs. This is cumbersome and as the number of
+experiments increase, unsustainable in the long-term.\\
 \newline
 \textbf{Q}: Description of data translation tasks.\\
-\textbf{A}: A scirpt will be written to automate the translation of files from CSV to JSON format.\\
+\textbf{A}: A scirpt will be written to automate the translation of files from
+CSV to JSON format.\\
 \newline
 \textbf{Q}: Foreseeable Problems.\\
 \textbf{A}: N/A
@@ -929,21 +1158,22 @@ the number of experiments increase, unsustainable in the long-term.\\
 \section{Costs}
 \lips
 \section{Look and Feel Requirements}
-All subitems in this sections are the fit criterion for its respective requirements. 
+All subitems in this sections are the fit criterion for its respective
+requirements. 
 \subsection{Appearance Requirements}
 \begin{itemize}
   \item [AR1.]The website should have a simple and organized layout, with
   clearly defined sections where all major functions should be easily accessible
   and viewable 
   \begin{itemize}
-    \item[AR1.1] A users should be able to identify all the major
-    functions of the website within five minuets of use.
+    \item[AR1.1] A users should be able to identify all the major functions of
+    the website within five minuets of use.
   \end{itemize}
-  \item [AR2.] The website shall be responsive on all computer and laptop screens
-  aside from mobile screens
+  \item [AR2.] The website shall be responsive on all computer and laptop
+  screens aside from mobile screens
   \begin{itemize}
-    \item [AR2.1] The usability of website should be the same
-    as the default view on big and smaller computer, laptop and monitor screens
+    \item [AR2.1] The usability of website should be the same as the default
+    view on big and smaller computer, laptop and monitor screens
   \end{itemize}
   \item [AR3.] The website's functions and buttons shall be properly labeled
   where no button is ambiguous to users 
@@ -953,8 +1183,8 @@ All subitems in this sections are the fit criterion for its respective requireme
   \end{itemize}
   \item [AR4.1]The produced plot from the data shall be properly labeled
   \begin{itemize}
-    \item [AR4.1] The plots should not be ambiguous. Users should be able to understand
-    what is the plot about within five minuets of viewing it.
+    \item [AR4.1] The plots should not be ambiguous. Users should be able to
+    understand what is the plot about within five minuets of viewing it.
   \end{itemize}
   \subitem
 \end{itemize}
@@ -963,8 +1193,8 @@ All subitems in this sections are the fit criterion for its respective requireme
 \begin{itemize}
   \item [SR1.] All icons on the website must be in the artistic style
   \begin{itemize}
-    \item [SR1.1] After a user's first encounter with the product, 90\% of users should
-    see that there is unity among all the icons on the website. 
+    \item [SR1.1] After a user's first encounter with the product, 90\% of users
+    should see that there is unity among all the icons on the website. 
   \end{itemize}
   \item [SR2.] All colours must match the theme of the website
   \begin{itemize}
@@ -979,27 +1209,39 @@ All subitems in this sections are the fit criterion for its respective requireme
 \end{itemize}
 
 \section{Waiting Room}
-The following requirements are beyond the sophistication of, or time allowed for, initial release of the product.
+The following requirements are beyond the sophistication of, or time allowed
+for, initial release of the product.
 \subsection{Automatically Download Data from Lab Apparatus}
-\textbf{Description}: The product shall automatically download the CSV data files from the lab apparatus and after conversion, upload them to the database.\\
-\textbf{Rationale}: Currently, the data has to be manually exported from the machine at the end of every week to ensure that the data does not get lost or overwritten.\\
+\textbf{Description}: The product shall automatically download the CSV data
+files from the lab apparatus and after conversion, upload them to the
+database.\\
+\textbf{Rationale}: Currently, the data has to be manually exported from the
+machine at the end of every week to ensure that the data does not get lost or
+overwritten.\\
 \textbf{Expected Version}: Version 2
 
 \subsection{Dynamic Dashboard to Generate Comparison Reports}
-\textbf{Description}: The product shall include a dashboard that hosts multiple visual plots that are dynamically updated based on changes in the data.\\
-\textbf{Rationale}: For the initial release, only basic plots that are already being used by the user will be available for viewing. Whenever data is modified, the graph
-must be regenerated to view the updated plot.\\
+\textbf{Description}: The product shall include a dashboard that hosts multiple
+visual plots that are dynamically updated based on changes in the data.\\
+\textbf{Rationale}: For the initial release, only basic plots that are already
+being used by the user will be available for viewing. Whenever data is modified,
+the graph must be regenerated to view the updated plot.\\
 \textbf{Expected Version}: Version 2
 
 \subsection{Machine Learning Analysis and Projections}
-\textbf{Description}: The product shall use machine learning algorithms to automatically compare parameters and generate visual graphs based on simple text prompts.\\
-\textbf{Rationale}: The idea is to use artificial intelligence to suggest parametric comparisons or visual graphs that the user might not have though of. The aim is to
-explore analyses that might not have been considered by a user.\\
+\textbf{Description}: The product shall use machine learning algorithms to
+automatically compare parameters and generate visual graphs based on simple text
+prompts.\\
+\textbf{Rationale}: The idea is to use artificial intelligence to suggest
+parametric comparisons or visual graphs that the user might not have though of.
+The aim is to explore analyses that might not have been considered by a user.\\
 \textbf{Expected Version}: Version 3
 
 \subsection{Mobile Development and Accessibility}
-\textbf{Description}: The product shall comply with relevant accessibility standards both for the web version and the mobile version.\\
-\textbf{Rationale}: The project can be extended to include a mobile application version of the product to increase accessibility and reachability.\\
+\textbf{Description}: The product shall comply with relevant accessibility
+standards both for the web version and the mobile version.\\
+\textbf{Rationale}: The project can be extended to include a mobile application
+version of the product to increase accessibility and reachability.\\
 \textbf{Expected Version}: Version 4
 
 \section{Ideas for Solution}
