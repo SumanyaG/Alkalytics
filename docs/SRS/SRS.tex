@@ -9,7 +9,9 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
-\hypersetup{ bookmarks=true,         % show bookmarks bar?
+\usepackage{graphicx}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
     colorlinks=true,      % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links (change box color with
     citecolor=green,        % color of links to bibliography
@@ -296,12 +298,124 @@ Currently, two sources of data input are used -
 \lips
 
 \section{The Scope of the Product}
+The following section will highlight use cases of the product and how users and
+stakeholders will interact with the product.  
 \subsection{Product Boundary}
-\lips
+Below is a use case diagram involving the two clients and major customers. The
+diagram includes the back end database as an actor as it interacts with the
+interface system. It is added for clarity of the system.
+\begin{center}
+  \includegraphics[scale=0.35]{capstoneUseCase.png}
+\end{center}
+
+
 \subsection{Product Use Case Table}
-\lips
-\subsection{Individual Product Use Cases (PUC's)}
-\lips
+The product use case table (PUC) is an extention of the use case diagram in the pervious section. The table aims to provide more 
+\begin{center}
+  \begin{table}[]
+    \centering
+    \begin{tabular}{|p{0.08\linewidth}|p{0.3\linewidth}|l|p{0.4\linewidth}|}
+      \hline
+    \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor/s} & \textbf{Input \& Output}\\
+    \hline
+    1 & Output CSV& \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Downloadable CSV file with\\ appropriate data (out)\\ Success or failure message\\ (out)\end{tabular}                                               \\
+    \hline
+    2 & Output Visual Plot & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}downloadable portable network\\ graphic (PNG) or portable\\ document format (PDF) file \\(out)\\ Online viewable plot graphic \\(out)\end{tabular}      \\
+    \hline
+    3 & Compare Return Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Online viewable table of result \\(out)\\ Data analysis results of\\ involved data(out)\end{tabular}                                                \\
+    \hline
+    4 & Upload Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}CSV file in expected format \\and attributes (in)\\ Success or failure user message \\(out)\\ Update database with inputted\\ data (out)\end{tabular} \\
+    \hline
+    5 & Add New Attributes to Dataset & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Update database with the new \\attribute (out)\\ Success or failure user message \\(out)\\ Attribute name of string type \\(in)\end{tabular}          \\
+    \hline
+    6 & Query for Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Visual online table with the \\queried data (out)\\ Selected attribute(s), dates,\\ restrictions (in)\end{tabular}\\
+    \hline
+    \end{tabular}
+  \end{table}  
+\end{center}
+
+\newpage  \subsection{Individual Product Use Cases (PUC's)}
+\subsubsection{Output CSV}
+\begin{itemize}
+  \item Description: The user can export/output the data that they have received
+  from any function on the website system
+  \item Pre-condition: There must be some data in the database. The information
+  the user wants to output must also be able to be stored in a CSV file 
+  \item Post-condition: The user will get to download the desired CSV file
+  containing data from the database. If the download file has been sent to the
+  system, the user will receive a success or failure message.
+  \item Basic path: Download CSV button 
+\end{itemize}
+
+\subsubsection{Output Visual Plot}
+\begin{itemize}
+  \item Description: The user is able to generate a graphical plot based on data
+  from the database. The contents of the graph can be customized to include any
+  sort of data that the user decides from the data base. The graph type can be determined by the user. 
+  \item Pre-condition: There must be some selected data to be used to plot a graph.
+  \item Post-condition: A online view of the plot will be generated and
+  displayed on the website. There will also be an option for downloadable version. 
+  \item Basic path: After querying the database for desired data, the user can
+  pick the option to plot the returned data. The website will then generate a
+  graphical plot based on the returned data.
+\end{itemize}
+
+\subsubsection{Compare Return Data}
+\begin{itemize}
+  \item Description: This use case will allow the user to compare two sets of
+  data such as differences or similarities among other criteria.
+  \item Pre-condition: There must be two sets of data and what attribute(s) are
+  being compared. 
+  \item Post-condition: The analysis of the data will be presented in a visual
+  manner. Possible outcome may include colour coded elements or a small statement. 
+  \item Basic path: After querying the database for desired data, the user can
+  choose to enable the compare function. The user will then need to pick what
+  attributes they would like to compare and then continue with the website
+  prompts which will eventually give the data analysis result.
+\end{itemize}
+
+\subsubsection{Upload Data}
+\begin{itemize}
+  \item Description: When the user has more experimental data and would like to
+  update the database, this function of the website will be used to take in the
+  data and update/add to the existing database.
+  \item Pre-condition: The file with the new data will be a CSV file and will
+  need to be uploaded through the website interface.
+  \item Post-condition: A success or failure message will be displayed to the
+  user once the file is done uploading and have been added to the database.
+  \item Basic path: The user will need to click on the upload data button and
+  find the file they wish to upload on their system and upload it through the
+  website's drop box. 
+\end{itemize}
+\subsubsection{Add New Attributes to Dataset}
+\begin{itemize}
+  \item Description: As the experiment and data become larger or changes have
+  been made, there will be times when the data set will need to be changed by
+  adding new attributes.  
+  \item Pre-condition: The user must specify which data set that they want to
+  edit. The user must then specify what is the attribute name is in the form of
+  a string type input. 
+  \item Post-condition: A success or failure message will be displayed to the
+  user once the new attribute has been added to the database. 
+  \item Basic path: The user will need to click on the edit data set button. The
+  user must then fill in the input fields with the correct information
+\end{itemize}
+
+\subsubsection{Query for Data}
+\begin{itemize}
+  \item Description: The user will want to get data from their past experiments.
+  To do so, they will need to decide what they want. This is one of the main use
+  case for any user/actor. 
+  \item Pre-condition: The database must have the some data. The user's query
+  request must be filled in through the input fields. The fields can range from
+  dates, to strings, to constraints. 
+  \item Post-condition: The returned data will be shown to the user through a
+  visual table representation and will be presented with a range of other
+  functions that the user can do with the returned data.  
+  \item Basic path: The user will need to click on the query function button.
+  They will then need to fill in the input fields, go through the user prompts
+  to then get the output.
+\end{itemize}
 
 \section{Functional Requirements}
 \subsection{Data Input Requirements}
@@ -1179,56 +1293,32 @@ CSV to JSON format.\\
 
 \section{Costs}
 \lips
-\section{Look and Feel Requirements}
-All subitems in this sections are the fit criterion for its respective
-requirements. 
-\subsection{Appearance Requirements}
-\begin{itemize}
-  \item [AR1.]The website should have a simple and organized layout, with
-  clearly defined sections where all major functions should be easily accessible
-  and viewable 
-  \begin{itemize}
-    \item[AR1.1] A users should be able to identify all the major functions of
-    the website within five minuets of use.
-  \end{itemize}
-  \item [AR2.] The website shall be responsive on all computer and laptop
-  screens aside from mobile screens
-  \begin{itemize}
-    \item [AR2.1] The usability of website should be the same as the default
-    view on big and smaller computer, laptop and monitor screens
-  \end{itemize}
-  \item [AR3.] The website's functions and buttons shall be properly labeled
-  where no button is ambiguous to users 
-  \begin{itemize}
-    \item [AR3.1] A user should be able to tell what all buttons inherently does
-    without the needing to ask questions
-  \end{itemize}
-  \item [AR4.1]The produced plot from the data shall be properly labeled
-  \begin{itemize}
-    \item [AR4.1] The plots should not be ambiguous. Users should be able to
-    understand what is the plot about within five minuets of viewing it.
-  \end{itemize}
-  \subitem
-\end{itemize}
+\subsection{User Documentation Requirements}
+User documentation will cover both the front-end and back-end features and functionalities.
+\subsubsection{Back-End}
+The backend user documentation will include all the API end points that are created. \newline
+It will show the base URL for the end points along with descriptions of each
+along with its required parameters and its types. These parameters will be those
+in the path, query and body. The response from the API call will include what
+the expected body will be along with any error handling. With this being a small
+project, a rate limit section may be included to ensure that it does not exceed
+the number of API calls. Versioning and support resources will be added for any
+additional references missing. \newline
+This document is intended to be passed on to the research lead or to any other
+group who would like to understand how the back-end processes work along. It
+will also be written such that someone else may use it to extend the current
+functionalities or to troubleshoot any errors that may arise in the future after
+this project has been passed on. 
 
-\subsection{Style Requirements}
-\begin{itemize}
-  \item [SR1.] All icons on the website must be in the artistic style
-  \begin{itemize}
-    \item [SR1.1] After a user's first encounter with the product, 90\% of users
-    should see that there is unity among all the icons on the website. 
-  \end{itemize}
-  \item [SR2.] All colours must match the theme of the website
-  \begin{itemize}
-    \item [SR2.1] After a user's first encounter with the product, 80\% of users
-    should agree that there is a common theme throughout the website.
-  \end{itemize}
-  \item [SR3.] All fonts are to be consistent throughout the website 
-  \begin{itemize}
-    \item [SR3.1] After a user's first encounter with the product, there should
-    be no user who feels that any fonts do not belong on the website. 
-  \end{itemize}
-\end{itemize}
+\subsubsection{Front-End}
+The front end documentation serves less as for developers but for the end user.
+This documentation will include how to add new attributes to the data set, how
+to request data plots and any major functionality features. \newline
+This document is intended to be a help/tutorial for the end users who will be
+using the site for its functionalities.
+
+\subsection{Training Requirements}
+No training is required to use the end product. 
 
 \section{Waiting Room}
 The following requirements are beyond the sophistication of, or time allowed
