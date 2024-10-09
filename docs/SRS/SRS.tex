@@ -219,9 +219,9 @@ resources.
 
 \begin{itemize}
     \item \textbf{Alkalinity Enhancement}: A process in ocean engineering to
-    increase the ocean's ability to absorb CO.
-    \item \textbf{CO}: Carbon Dioxide, a greenhouse gas that contributes to
-    global warming.
+    increase the ocean's ability to absorb CO\textsubscript{2}.
+    \item \textbf{CO\textsubscript{2}}: Carbon Dioxide, a greenhouse gas that
+    contributes to global warming.
     \item \textbf{Ion Exchange}: The process of exchanging ions between the
     dilute base and seawater to increase alkalinity.
     \item \textbf{pH Level}: A measure of acidity or alkalinity, critical in
@@ -251,10 +251,9 @@ resources.
     the frontend communicates with the backend, using GraphQL.
     \item \textbf{CI/CD (Continuous Integration/Continuous Deployment)}:
     Automating testing and deployment to ensure reliable updates.
-    \item \textbf{GitHub}: A platform for version control and collaboration on
-    code.
-    \item \textbf{Kanban}: A task management method used in GitHub Projects to
-    track progress.
+    \item \textbf{Git}: Distributed version control for tracking code changes
+    and enabling collaborative development.
+    \item \textbf{Kanban}: A task management method used in to track progress.
     \item \textbf{Branch}: A separate version of the codebase where changes are
     developed.
     \item \textbf{Commit}: A recorded change to the codebase.
@@ -685,183 +684,185 @@ The product does not have safety-critical requirements to consider.
 \end{enumerate}
 
 \section{Maintainability and Support Requirements}
+Maintenance requirements encompass the strategies and processes needed to ensure
+a system remains functional, efficient, and up-to-date throughout its lifecycle.
 
 \subsection{Maintenance Requirements}
-\begin{itemize}
-    \item The application’s maintenance must be the responsibility of the
-    development team with no involvement from the users.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures that skilled personnel handle
-        maintenance.
-    \end{itemize}
-    
-    \item Documentation must be provided to be referenced for future maintenance
-    and to enable seamless knowledge transfer to new developers.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures smooth onboarding and continuity
-        in development.
-        \item \textit{Fit Criterion}: The documentation must be updated with
-        every major release.
-    \end{itemize}
-    
-    \item The application must be designed to accommodate future development,
-    including the addition of new experimental parameters or features without
-    backwards progression.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures the application can scale and
-        evolve without compromising existing features.
-    \end{itemize}
-\end{itemize}
+\begin{enumerate}
+  \item[\textbf{MSR-1.}] The application’s maintenance must be the
+  responsibility of the development team with no involvement from the users.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that skilled personnel handle maintenance.
+  \end{itemize}
+
+  \item[\textbf{MSR-2.}] Documentation must be provided to be referenced for
+  future maintenance and to enable seamless knowledge transfer to new
+  developers.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures smooth onboarding and continuity in
+    development.
+    \item \textit{Fit Criterion:} The documentation must be updated with every
+    major release.
+  \end{itemize}
+
+  \item[\textbf{MSR-3.}] The application must be designed to accommodate future
+  development, including the addition of new experimental parameters or features
+  without backwards progression.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the application can scale and evolve
+    without compromising existing features.
+  \end{itemize}
+\end{enumerate}
 
 \subsection{Supportability Requirements}
-\begin{itemize}
-    \item The application must be self-supporting, featuring an intuitive user
-    interface that minimizes the need for external assistance.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures a user-friendly experience that
-        reduces the need for help desk support.
-        \item \textit{Fit Criterion}: At least 90\% of users should complete
-        tasks without needing support, as measured by usability testing.
-    \end{itemize}
-    
-    \item The application must have automated guidance, such as error messages,
-    to assist users in troubleshooting common issues.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures users can resolve issues on their
-        own, reducing the volume of support requests.
-        \item \textit{Fit Criterion}: The documentation must be updated with
-        every major release and reviewed quarterly to ensure accuracy.
-    \end{itemize}
-\end{itemize}
+\begin{enumerate}
+  \item[\textbf{MSR-4.}] 
+  The application must have an intuitive user interface that allows users to
+  operate it independently without requiring external assistance.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures a user-friendly experience that reduces
+    the need for help desk support.
+    \item \textit{Fit Criterion:} At least 90\% of users should complete tasks
+    without needing support, as measured by usability testing.
+  \end{itemize}
+
+  \item[\textbf{MSR-5.}] The application must have automated guidance, such as
+  error messages, to assist users in troubleshooting common issues.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures users can resolve issues on their own,
+    reducing the volume of support requests.
+    \item \textit{Fit Criterion:} The documentation must be updated with every
+    major release and reviewed quarterly to ensure accuracy.
+  \end{itemize}
+\end{enumerate}
 
 \subsection{Adaptability Requirements}
-\begin{itemize}
-    \item The application must be compatible with modern web browsers to ensure
-    widespread accessibility.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures the application is accessible to
-        a broad range of users and devices.
-        \item \textit{Fit Criterion}: The application should at least be able to
-        run on the latest version of Chromium-based web browsers.
-    \end{itemize}
-\end{itemize}
-
+\begin{enumerate}
+  \item[\textbf{MSR-6.}] The application must be compatible with modern web
+  browsers to ensure widespread accessibility.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the application is accessible to a broad
+    range of users and devices.
+    \item \textit{Fit Criterion:} The application should at least be able to run
+    on the latest version of Chromium-based web browsers.
+  \end{itemize}
+\end{enumerate}
 \section{Security Requirements}
+Security requirements focus on protecting data, controlling access, ensuring
+integrity, and auditing user actions within the application.
 
 \subsection{Access Requirements}
-\begin{itemize}
-    \item Access to the application must be restricted to authorized personnel,
-    with an authentication mechanism.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures that only authorized users can
-        interact with the application.
-        \item \textit{Fit Criterion}: Only users with valid credentials should
-        access the application.
-    \end{itemize}
-    
-    \item Only authenticated users should have the ability to query or modify
-    the data, and each user’s access must be limited to their capabilities
-    within the application.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures users can only perform actions
-        that align with their roles.
-        \item \textit{Fit Criterion}: Role-based access control (RBAC) must
-        restrict 60\% of actions to users’ defined permissions.
-    \end{itemize}
-\end{itemize}
+\begin{enumerate}
+  \item[\textbf{SR-1.}] Access to the application must be restricted to
+  authorized personnel, with an authentication mechanism.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that only authorized users can interact
+    with the application.
+    \item \textit{Fit Criterion:} Only users with valid credentials should
+    access the application.
+  \end{itemize}
+
+  \item[\textbf{SR-2.}] Only authenticated users should have the ability to
+  query or modify the data, and each user’s access must be limited to their
+  capabilities within the application.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures users can only perform actions that align
+    with their roles.
+    \item \textit{Fit Criterion:} The application should restrict 100\%
+    of actions that are not permitted to the user's level of access.
+  \end{itemize}
+\end{enumerate}
 
 \subsection{Integrity Requirements}
-\begin{itemize}
-    \item The application must validate data inputs to ensure they conform to
-    expected formats and values before they are processed.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures only valid data is processed,
-        reducing errors.
-        \item \textit{Fit Criterion}: 100\% of inputs must pass validation
-        checks before processing.
-    \end{itemize}
-    
-    \item The application must not modify the data unnecessarily through its
-    transfer process.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures the original data remains
-        accurate and unaltered.
-        \item \textit{Fit Criterion}: Data should remain unchanged unless
-        explicitly modified, with logs confirming its integrity.
-    \end{itemize}
-    
-    \item The application must ensure that any data processed or transferred is
-    free from duplication or inconsistencies.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures data consistency and prevents
-        corruption.
-        \item \textit{Fit Criterion}: The application must detect and prevent
-        100\% of duplicated records.
-    \end{itemize}
-    
-    \item The application must have safeguards in place to maintain the accuracy
-    of the transferred data.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures reliable data transfer without
-        loss or error.
-        \item \textit{Fit Criterion}: Transfer operations should maintain 100\%
-        data accuracy, verified by validation tests.
-    \end{itemize}
-\end{itemize}
+\begin{enumerate}
+  \item[\textbf{SR-3.}] The application must validate data inputs to ensure they
+  conform to expected formats and values before they are processed.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures only valid data is processed, reducing
+    errors.
+    \item \textit{Fit Criterion:} 100\% of inputs must pass validation checks
+    before processing.
+  \end{itemize}
+
+  \item[\textbf{SR-4.}] The application must not modify the data unnecessarily
+  through its transfer process.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the original data remains accurate and
+    unaltered.
+    \item \textit{Fit Criterion:} Data should remain unchanged unless explicitly
+    modified, with logs confirming its integrity.
+  \end{itemize}
+
+  \item[\textbf{SR-5.}] The application must ensure that any data processed or
+  transferred is free from duplication or inconsistencies.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures data consistency and prevents corruption.
+    \item \textit{Fit Criterion:} The application must detect and prevent 100\%
+    of duplicated records.
+  \end{itemize}
+
+  \item[\textbf{SR-6.}] The application must have safeguards in place to
+  maintain the accuracy of the transferred data.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures reliable data transfer without loss or
+    error.
+    \item \textit{Fit Criterion:} Transfer operations should maintain 100\% data
+    accuracy, verified by validation tests.
+  \end{itemize}
+\end{enumerate}
 
 \subsection{Privacy Requirements}
-\begin{itemize}
-    \item All personal information related to experimental participants or
-    stakeholders, if applicable, must be anonymized and handled in accordance
-    with relevant privacy laws and regulations.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures user privacy and legal
-        compliance.
-    \end{itemize}
-    
-    \item The application must restrict data sharing with external parties
-    unless expressly authorized by stakeholders, and users must be fully
-    informed about the privacy policies.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures transparency and control over
-        data sharing.
-    \end{itemize}
-\end{itemize}
+\begin{enumerate}
+  \item[\textbf{SR-7.}] All personal information related to experimental
+  participants or stakeholders, if applicable, must be anonymized and handled in
+  accordance with relevant privacy laws and regulations.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures user privacy and legal compliance.
+  \end{itemize}
+
+  \item[\textbf{SR-8.}] The application must restrict data sharing with external
+  parties unless expressly authorized by stakeholders, and users must be fully
+  informed about the privacy policies.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures transparency and control over data
+    sharing.
+  \end{itemize}
+\end{enumerate}
 
 \subsection{Audit Requirements}
-\begin{itemize}
-    \item The application must maintain a comprehensive audit trail, logging all
-    access and modification events, including timestamps and identities of users
-    performing actions.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures accountability and traceability
-        of actions.
-        \item \textit{Fit Criterion}: 100\% of data access and modification
-        events must be logged and retrievable.
-    \end{itemize}
-    
-    \item Audit logs must be securely stored and accessible only by authorized
-    personnel.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures the security and integrity of
-        audit data.
-        \item \textit{Fit Criterion}: Logs must be encrypted and accessible only
-        to users with administrative privileges.
-    \end{itemize}
-\end{itemize}
+\begin{enumerate}
+  \item[\textbf{SR-9.}] The application must maintain a comprehensive audit
+  trail, logging all access and modification events, including timestamps and
+  identities of users performing actions.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures accountability and traceability of
+    actions.
+    \item \textit{Fit Criterion:} 100\% of data access and modification events
+    must be logged and retrievable.
+  \end{itemize}
+
+  \item[\textbf{SR-10.}] Audit logs must be securely stored and accessible only
+  by authorized personnel.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the security and integrity of audit data.
+    \item \textit{Fit Criterion:} Logs must be encrypted and accessible only to
+    users with administrative privileges.
+  \end{itemize}
+\end{enumerate}
+
 \subsection{Immunity Requirements}
-\begin{itemize}
-    \item The application must have proactive measures to detect and mitigate
-    suspicious activities, such as repeated unauthorized access attempts,
-    ensuring the application remains secure at all times.
-    \begin{itemize}
-        \item \textit{Rationale}: This ensures early detection and prevention of
-        security breaches.
-        \item \textit{Fit Criterion}: The application must detect and block
-        unauthorized attempts after three failed login attempts, with automated
-        alerts sent to administrators.
-    \end{itemize}
-\end{itemize}
+\begin{enumerate}
+  \item[\textbf{SR-11.}] The application must have proactive measures to detect
+  and mitigate suspicious activities, such as repeated unauthorized access
+  attempts, ensuring the application remains secure at all times.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures early detection and prevention of security
+    breaches.
+    \item \textit{Fit Criterion:} The application must detect and block
+    unauthorized attempts after three failed login attempts, with automated
+    alerts sent to administrators.
+  \end{itemize}
+\end{enumerate}
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
