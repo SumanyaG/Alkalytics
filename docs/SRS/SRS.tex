@@ -60,8 +60,8 @@ alkalinity enhancement experiment process. The research is working towards a
 scalable process to capture CO\textsubscript{2} using a combination of electric
 fields and membranes. The experiment's efficient generation process creates a
 very dilute base. The product serves a niche solution, to rebalance the ocean's
-PH levels to be able to absorb more CO\textsubscript{2}. As earth’s temperature
-rises, so does the ocean’s, affects its PH balance. As this process is still on
+pH levels to be able to absorb more CO\textsubscript{2}. As earth’s temperature
+rises, so does the ocean’s, affects its pH balance. As this process is still on
 a small scale, it is currently being perfected which means many more experiments
 must be done to be able to bring it to a global scale. However, this requires a
 massive production operation to do so. Optimization of the experimental data is
@@ -81,9 +81,9 @@ those involved in the experiment.
 \section{Stakeholders}
 
 \subsection{Client}
-Dr. Charles De Lannoy serves as the main client for this project as he is the
-lead supervisor of the research study. This solution directly affects his work
-and is intended to be a custom solution for the problem. Bassel Abdelkader is
+Dr. Charles de Lannoy serves as the main client for this project as he is the
+lead supervisor of the research study. This solution directly affects his work and
+is intended to be a custom solution for the problem. Bassel Abdelkader is
 another client of this project as he is the person that works directly with the
 research data. One of his responsibilities is to record the experimental data
 and upload them to their current data storage system, Microsoft Excel. 
@@ -91,7 +91,8 @@ and upload them to their current data storage system, Microsoft Excel.
 Although this project is a tailored solution to one research study, its
 application can be extended to any other situation where large sets of data is
 involved. This could be shared among other researchers to aid in their data
-management and analysis. 
+management and analysis. Depending on the research team's structure, there could
+also be different levels of permissions people can get.
 \subsection{Other Stakeholders}
 Current students and members of the lab working on the study is can also be
 considered stakeholders for the same reasons as the clients. However, since they
@@ -102,7 +103,17 @@ However, since they do not work directly with the processes of the study rather
 oversee the process, they may not have strong interest in the details of the
 solution. 
 \subsection{Hands-On Users of the Project}
-Potentially not applicable or useful for this document
+The following is a special type of stakeholder as after this capstone project
+term, the project will be passed back to the research team to maintain. 
+\begin{itemize}
+  \item User name/category: Research project team for maintaining this project post capstone 
+  \item User Role: Maintain the codebase, adding new features, fixing potential bugs
+  project post capstone
+  \item Subject matter experience: Master knowledge on the goals of the research
+  project. Master knowledge on how the experiment processes work. 
+  \item Technological knowledge: Novice knowledge on the technology stack being
+  used in this project, Python, MongoDB, JavaScript, other front-end frameworks 
+\end{itemize}
 
 \subsection{Personas}
 \begin{itemize}
@@ -144,7 +155,7 @@ Potentially not applicable or useful for this document
 \subsection{Priorities Assigned to Users}
 \subsubsection{Primary Users}
 \begin{itemize}
-  \item Dr. Charles De Lannoy
+  \item Dr. Charles de Lannoy
   \item Bassel Abdelkader
   \item Students working on the experiment 
 \end{itemize}
@@ -155,9 +166,15 @@ Potentially not applicable or useful for this document
   \item The founder of the study
 \end{itemize}
 \subsection{User Participation}
-Not a relevant section 
+Since this project is a personalized solution for a research team, there is no
+other user participants other than the research time and others teams with a
+similar need. 
 \subsection{Maintenance Users and Service Technicians}
-Not a relevant section \section{Mandated Constraints}
+As previously mentioned in section 2.4, the project will be passed on to the
+research time after this capstone project duration has finished. It will be left
+to the research time to maintain the project along with adding any new features.
+
+\section{Mandated Constraints}
 \subsection{Solution Constraints}
 \textbf{Description}: The product must accept Comma-Separated Value (CSV) files
 as input.\\
@@ -303,9 +320,12 @@ stakeholders will interact with the product.
 \subsection{Product Boundary}
 Below is a use case diagram involving the two clients and major customers. The
 diagram includes the back end database as an actor as it interacts with the
-interface system. It is added for clarity of the system.
+interface system. Level 1 to 3 labeled actors are part of the research time
+customer mentioned in section 2.2 where depending how the team is structured,
+there are differnt use cases for different level actors. These are added for
+clarity of the system.
 \begin{center}
-  \includegraphics[scale=0.35]{capstoneUseCase.png}
+  \includegraphics[scale=0.5]{capstoneUseCase.png}
 \end{center}
 
 
@@ -318,17 +338,17 @@ The product use case table (PUC) is an extention of the use case diagram in the 
       \hline
     \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor/s} & \textbf{Input \& Output}\\
     \hline
-    1 & Output CSV& \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Downloadable CSV file with\\ appropriate data (out)\\ Success or failure message\\ (out)\end{tabular}                                               \\
+    1 & Output CSV& \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Downloadable CSV file with\\ appropriate data (out)\\ Success or failure message\\ (out)\end{tabular}                                               \\
     \hline
-    2 & Output Visual Plot & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}downloadable portable network\\ graphic (PNG) or portable\\ document format (PDF) file \\(out)\\ Online viewable plot graphic \\(out)\end{tabular}      \\
+    2 & Output Visual Plot & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher \end{tabular} & \begin{tabular}[c]{@{}l@{}}downloadable portable network\\ graphic (PNG) or portable\\ document format (PDF) file \\(out)\\ Online viewable plot graphic \\(out)\end{tabular}      \\
     \hline
-    3 & Compare Return Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Online viewable table of result \\(out)\\ Data analysis results of\\ involved data(out)\end{tabular}                                                \\
+    3 & Compare Return Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher \end{tabular} & \begin{tabular}[c]{@{}l@{}}Online viewable table of result \\(out)\\ Data analysis results of\\ involved data(out)\end{tabular}                                                \\
     \hline
-    4 & Upload Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}CSV file in expected format \\and attributes (in)\\ Success or failure user message \\(out)\\ Update database with inputted\\ data (out)\end{tabular} \\
+    4 & Upload Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Database\end{tabular} & \begin{tabular}[c]{@{}l@{}}CSV file in expected format \\and attributes (in)\\ Success or failure user message \\(out)\\ Update database with inputted\\ data (out)\end{tabular} \\
     \hline
-    5 & Add New Attributes to Dataset & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Update database with the new \\attribute (out)\\ Success or failure user message \\(out)\\ Attribute name of string type \\(in)\end{tabular}          \\
+    5 & Add New Attributes to Dataset & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Database \end{tabular} & \begin{tabular}[c]{@{}l@{}}Update database with the new \\attribute (out)\\ Success or failure user message \\(out)\\ Attribute name of string type \\(in)\end{tabular}          \\
     \hline
-    6 & Query for Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles De Lannoy\\ Bassel Abdelkader\\ Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Visual online table with the \\queried data (out)\\ Selected attribute(s), dates,\\ restrictions (in)\end{tabular}\\
+    6 & Query for Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher\\ Database \end{tabular} & \begin{tabular}[c]{@{}l@{}}Visual online table with the \\queried data (out)\\ Selected attribute(s), dates,\\ restrictions (in)\end{tabular}\\
     \hline
     \end{tabular}
   \end{table}  
@@ -344,7 +364,8 @@ The product use case table (PUC) is an extention of the use case diagram in the 
   \item Post-condition: The user will get to download the desired CSV file
   containing data from the database. If the download file has been sent to the
   system, the user will receive a success or failure message.
-  \item Basic path: Download CSV button 
+  \item Basic path: After querying the data from the database is successful, the
+  user can click on the download CSV button to export the file onto their system.
 \end{itemize}
 
 \subsubsection{Output Visual Plot}
@@ -580,55 +601,56 @@ goals.
 \end{enumerate}
 
 \section{Look and Feel Requirements}
-All subitems in this sections are the fit criterion for its respective
-requirements. 
+This section will highlight the look and feel of the web interface for the
+project involving the appearance and the style of the user interface and
+experience.
 \subsection{Appearance Requirements}
-\begin{itemize}
-  \item [AR1.]The website should have a simple and organized layout, with
+\begin{enumerate}
+  \item [LFR-1.]The website should have a simple and organized layout, with
   clearly defined sections where all major functions should be easily accessible
   and viewable 
   \begin{itemize}
-    \item[AR1.1] A users should be able to identify all the major functions of
-    the website within five minuets of use.
+    \item\textit{Fit Criterion:} A users should be able to identify all the major
+    functions of the website within five minuets of use.
   \end{itemize}
-  \item [AR2.] The website shall be responsive on all computer and laptop
-  screens aside from mobile screens
+  \item [LFR-2.] The website shall be responsive on all computer and laptop screens
+  aside from mobile screens
   \begin{itemize}
-    \item [AR2.1] The usability of website should be the same as the default
-    view on big and smaller computer, laptop and monitor screens
+    \item \textit{Fit Criterion:} The usability of website should be the same
+    as the default view on big and smaller computer, laptop and monitor screens
   \end{itemize}
-  \item [AR3.] The website's functions and buttons shall be properly labeled
+  \item [LFR-3.] The website's functions and buttons shall be properly labeled
   where no button is ambiguous to users 
   \begin{itemize}
-    \item [AR3.1] A user should be able to tell what all buttons inherently does
+    \item \textit{Fit Criterion:} A user should be able to tell what all buttons inherently does
     without the needing to ask questions
   \end{itemize}
-  \item [AR4.1]The produced plot from the data shall be properly labeled
+  \item [LFR-4.]The produced plot from the data shall be properly labeled
   \begin{itemize}
-    \item [AR4.1] The plots should not be ambiguous. Users should be able to
-    understand what is the plot about within five minuets of viewing it.
+    \item \textit{Fit Criterion:} The plots should not be ambiguous. Users should be able to understand
+    what is the plot about within five minuets of viewing it.
   \end{itemize}
   \subitem
-\end{itemize}
+\end{enumerate}
 
 \subsection{Style Requirements}
-\begin{itemize}
-  \item [SR1.] All icons on the website must be in the artistic style
+\begin{enumerate}
+  \item [LFR-5.] All icons on the website must be in the artistic style
   \begin{itemize}
-    \item [SR1.1] After a user's first encounter with the product, 90\% of users
-    should see that there is unity among all the icons on the website. 
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, 90\% of users should
+    see that there is unity among all the icons on the website. 
   \end{itemize}
-  \item [SR2.] All colours must match the theme of the website
+  \item [LFR-6.] All colours must match the theme of the website
   \begin{itemize}
-    \item [SR2.1] After a user's first encounter with the product, 80\% of users
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, 80\% of users
     should agree that there is a common theme throughout the website.
   \end{itemize}
-  \item [SR3.] All fonts are to be consistent throughout the website 
+  \item [LFR-7.] All fonts are to be consistent throughout the website 
   \begin{itemize}
-    \item [SR3.1] After a user's first encounter with the product, there should
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, there should
     be no user who feels that any fonts do not belong on the website. 
   \end{itemize}
-\end{itemize}
+\end{enumerate}
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
@@ -1294,28 +1316,16 @@ CSV to JSON format.\\
 \section{Costs}
 \lips
 \subsection{User Documentation Requirements}
-User documentation will cover both the front-end and back-end features and functionalities.
-\subsubsection{Back-End}
-The backend user documentation will include all the API end points that are created. \newline
-It will show the base URL for the end points along with descriptions of each
-along with its required parameters and its types. These parameters will be those
-in the path, query and body. The response from the API call will include what
-the expected body will be along with any error handling. With this being a small
-project, a rate limit section may be included to ensure that it does not exceed
-the number of API calls. Versioning and support resources will be added for any
-additional references missing. \newline
-This document is intended to be passed on to the research lead or to any other
-group who would like to understand how the back-end processes work along. It
-will also be written such that someone else may use it to extend the current
-functionalities or to troubleshoot any errors that may arise in the future after
-this project has been passed on. 
+User documentation will cover the more complicated features and functionalities of the website.\\
 
-\subsubsection{Front-End}
-The front end documentation serves less as for developers but for the end user.
-This documentation will include how to add new attributes to the data set, how
+\noindent This documentation will include how to add new attributes to the data set, how
 to request data plots and any major functionality features. \newline
 This document is intended to be a help/tutorial for the end users who will be
-using the site for its functionalities.
+using the site for its functionalities. Its target is for those who have limited
+software knowledge. Although most functions aims to be as intuitive as possible
+to the user, since this is an analysis platform there should be documentation
+explaining for those who have no idea about how research data works and how to
+interact with it using the website.
 
 \subsection{Training Requirements}
 No training is required to use the end product. 
