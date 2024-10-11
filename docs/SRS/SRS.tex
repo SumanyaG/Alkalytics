@@ -8,6 +8,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{hyperref}
 \hypersetup{ bookmarks=true,         % show bookmarks bar?
     colorlinks=true,      % false: boxed links; true: colored links
@@ -560,12 +561,12 @@ Performance requirements define the measurable standards the application must me
 \item[PR-3.] The interaction between the interface and the user shall have an average response time of 1 second under stable internet connection.
   \begin{itemize}
     \item \textit{Rationale}: Ensures a fluid interaction between the user and the application.
-    \item \textit{Traceability}: FR-7, PR-4
+    \item \textit{Traceability}: FR-7
   \end{itemize}
 \item[PR-4.] The application shall have a maximum latency of 2 seconds for search and query actions.
   \begin{itemize}
     \item \textit{Rationale}: Ensures that the delay between a user's request and the application's response is minimized to provide the user with quick feedback and a smoother user experience.
-    \item \textit{Traceability}: FR-5, FR-6, PR-2, PR-3
+    \item \textit{Traceability}: FR-5, FR-6
   \end{itemize}
 \item[PR-5.] The application shall generate visualizations of data in an average time of 10 seconds, depending on the size of the dataset being processed.
   \begin{itemize}
@@ -1294,7 +1295,81 @@ version of the product to increase accessibility and reachability.\\
 \lips
 
 \newpage{}
-\section*{Appendix --- Reflection}
+\section*{Appendix A --- Traceability}
+This section was added to the Volere template to provide a traceability table for the functional and non-functional requirements.
+\begin{longtable}[c]{| c | c | m{5.6cm} |}
+  \hline
+  \textbf{Requirement ID} & \textbf{Dependent on} & \textbf{Traced from} \\ \hline
+  \endhead
+  FR-1 & FR-2 & N/A \\ \hline
+  FR-2 & UHR-3 & FR-1, FR-4, FR-5, FR-6, FR-8, FR-10, FR-11 \\ \hline
+  FR-3 & N/A & N/A \\ \hline
+  FR-4 & FR-2 & FR-5, FR-6, FR-8 \\ \hline
+  FR-5 & FR-2, FR-4 & FR-7, FR-10 \\ \hline
+  FR-6 & FR-2, FR-4 & FR-7, FR-10, FR-11, FR-15 \\ \hline
+  FR-7 & FR-5, FR-6 & N/A \\ \hline
+  FR-8 & FR-2, FR-4 & FR-9 \\ \hline
+  FR-9 & FR-8 & N/A \\ \hline
+  FR-10 & FR-2, FR-5, FR-6 & FR-11 \\ \hline
+  FR-11 & FR-2, FR-6, FR-10 & N/A \\ \hline
+  FR-12 & N/A & FR-13 \\ \hline
+  FR-13 & FR-12 & N/A \\ \hline
+  FR-14 & N/A & N/A \\ \hline
+  FR-15 & FR-6 & N/A \\ \hline
+  LFR-1 & N/A & UHR-1 \\ \hline
+  LFR-2 & MSR-6 & N/A \\ \hline
+  LFR-3 & N/A & UHR-1 \\ \hline
+  LFR-4 & FR-8 & N/A \\ \hline
+  LFR-5 & N/A & N/A \\ \hline
+  LFR-6 & N/A & N/A \\ \hline
+  LFR-7 & N/A & N/A \\ \hline
+  UHR-1 & LFR-1, LFR-3 & N/A \\ \hline
+  UHR-2 & N/A & N/A \\ \hline
+  UHR-3 & N/A & FR-2 \\ \hline
+  UHR-4 & N/A & MSR-4 \\ \hline
+  PR-1 & FR-1, FR-2 & N/A \\ \hline
+  PR-2 & FR-5, FR-6 & N/A \\ \hline
+  PR-3 & FR-7 & N/A \\ \hline
+  PR-4 & N/A & FR-5, FR-6 \\ \hline
+  PR-5 & FR-8 & N/A \\ \hline
+  PR-6 & FR-2 & FR-5, FR-6, FR-10, FR-11 \\ \hline
+  PR-7 & FR-2 & FR-4 \\ \hline
+  PR-8 & FR-8 & N/A \\ \hline
+  PR-9 & N/A & MSR-5 \\ \hline
+  PR-10 & FR-7, FR-8 & OER-1 \\ \hline
+  PR-11 & FR-14 & N/A \\ \hline
+  PR-12 & FR-2, FR-3 & PR-13 \\ \hline
+  PR-13 & FR-2, PR-12 & MSR-3 \\ \hline
+  PR-14 & FR-1 & MSR-3 \\ \hline
+  PR-15 & PR-13, PR-14 & N/A \\ \hline
+  OER-1 & PR-10 & N/A \\ \hline
+  OER-2 & N/A & N/A \\ \hline
+  OER-3 & N/A & PR-3, MSR-6 \\ \hline
+  OER-4 & N/A & N/A \\ \hline
+  OER-5 & UHR-1 & N/A \\ \hline
+  OER-6 & N/A & N/A \\ \hline
+  MSR-1 & N/A & N/A \\ \hline
+  MSR-2 & N/A & N/A \\ \hline
+  MSR-3 & PR-13, PR-14 & N/A \\ \hline
+  MSR-4 & UHR-4 & N/A \\ \hline
+  MSR-5 & PR-9 & N/A \\ \hline
+  MSR-6 & OER-3 & LFR-2 \\ \hline
+  SR-1 & N/A & FR-14, SR-2, SR-10, SR-11 \\ \hline
+  SR-2 & SR-1 & N/A \\ \hline
+  SR-3 & N/A & PR- \\ \hline
+  SR-4 & N/A & FR- \\ \hline
+  SR-5 & N/A & FR- \\ \hline
+  SR-6 & N/A & PR-6, PR-7, PR-8 \\ \hline
+  SR-7 & N/A & N/A \\ \hline
+  SR-8 & N/A & N/A \\ \hline
+  SR-9 & N/A & N/A \\ \hline
+  SR-10 & SR-1 & N/A \\ \hline
+  SR-11 & SR-1 & N/A \\ \hline
+  \caption{Traceability table of the requirements.}
+\end{longtable}
+
+\newpage{}
+\section*{Appendix B --- Reflection}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Lifelong Learning.  Please answer the following questions:
