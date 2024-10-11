@@ -698,13 +698,13 @@ a system remains functional, efficient, and up-to-date throughout its lifecycle.
   \end{itemize}
 
   \item[\textbf{MSR-2.}] Documentation must be provided to be referenced for
-  future maintenance and to enable seamless knowledge transfer to new
-  developers.
+  future maintenance and to enable seamless knowledge transfer to a new team.
   \begin{itemize}
     \item \textit{Rationale:} Ensures smooth onboarding and continuity in
     development.
     \item \textit{Fit Criterion:} The documentation must be updated with every
     major release.
+    \item \textit{Traceability:} MSR-3.
   \end{itemize}
 
   \item[\textbf{MSR-3.}] The application must be designed to accommodate future
@@ -713,6 +713,7 @@ a system remains functional, efficient, and up-to-date throughout its lifecycle.
   \begin{itemize}
     \item \textit{Rationale:} Ensures the application can scale and evolve
     without compromising existing features.
+    \item \textit{Traceability:} FR-4, FR-12, MSR-2.
   \end{itemize}
 \end{enumerate}
 
@@ -726,6 +727,7 @@ a system remains functional, efficient, and up-to-date throughout its lifecycle.
     the need for help desk support.
     \item \textit{Fit Criterion:} At least 90\% of users should be able to
     complete tasks without needing support.
+    \item \textit{Traceability:} LF-1, LF-2, LF-3, UHR-1, UHR-4.
   \end{itemize}
 
   \item[\textbf{MSR-5.}] The application must have automated guidance, such as
@@ -735,6 +737,7 @@ a system remains functional, efficient, and up-to-date throughout its lifecycle.
     reducing the volume of support requests.
     \item \textit{Fit Criterion:} The documentation must be updated with every
     major release and reviewed quarterly to ensure accuracy.
+    \item \textit{Traceability:} FR-12.
   \end{itemize}
 \end{enumerate}
 
@@ -747,6 +750,7 @@ a system remains functional, efficient, and up-to-date throughout its lifecycle.
     range of users and devices.
     \item \textit{Fit Criterion:} The application should at least be able to run
     on the latest version of Chromium-based web browsers.
+    \item \textit{Traceability:} LF-1, LF-2.
   \end{itemize}
 \end{enumerate}
 \section{Security Requirements}
@@ -762,6 +766,7 @@ integrity, and auditing user actions within the application.
     with the application.
     \item \textit{Fit Criterion:} Only users with valid credentials should
     access the application.
+    \item \textit{Traceability:} FR-14, SR-2, SR-8, SR-10.
   \end{itemize}
 
   \item[\textbf{SR-2.}] Only authenticated users should have the ability to
@@ -772,6 +777,7 @@ integrity, and auditing user actions within the application.
     with their roles.
     \item \textit{Fit Criterion:} The application should restrict 100\% of
     actions that are not permitted to the user's level of access.
+    \item \textit{Traceability:} FR-14, SR-1, SR-8.
   \end{itemize}
 \end{enumerate}
 
@@ -784,6 +790,7 @@ integrity, and auditing user actions within the application.
     errors.
     \item \textit{Fit Criterion:} 100\% of inputs must pass validation checks
     before processing.
+    \item \textit{Traceability:} FR-1, FR-2, FR-4.
   \end{itemize}
 
   \item[\textbf{SR-4.}] The application must not modify the data unnecessarily
@@ -793,6 +800,7 @@ integrity, and auditing user actions within the application.
     unaltered.
     \item \textit{Fit Criterion:} Data should remain unchanged unless explicitly
     modified, with logs confirming its integrity.
+    \item \textit{Traceability:} FR-3, FR-4, SR-5, SR-6.
   \end{itemize}
 
   \item[\textbf{SR-5.}] The application must ensure that any data processed or
@@ -801,6 +809,7 @@ integrity, and auditing user actions within the application.
     \item \textit{Rationale:} Ensures data consistency and prevents corruption.
     \item \textit{Fit Criterion:} The application must detect and prevent 100\%
     of duplicated records.
+    \item \textit{Traceability:} FR-3, FR-4, SR-4, SR-6.
   \end{itemize}
 
   \item[\textbf{SR-6.}] The application must have safeguards in place to
@@ -810,6 +819,7 @@ integrity, and auditing user actions within the application.
     error.
     \item \textit{Fit Criterion:} Transfer operations should maintain 100\% data
     accuracy, verified by validation tests.
+    \item \textit{Traceability:} FR-3, FR-4, SR-4, SR-5.
   \end{itemize}
 \end{enumerate}
 
@@ -820,6 +830,7 @@ integrity, and auditing user actions within the application.
   accordance with relevant privacy laws and regulations.
   \begin{itemize}
     \item \textit{Rationale:} Ensures user privacy and legal compliance.
+    \item \textit{Traceability:} SR-8.
   \end{itemize}
 
   \item[\textbf{SR-8.}] The application must restrict data sharing with external
@@ -828,6 +839,7 @@ integrity, and auditing user actions within the application.
   \begin{itemize}
     \item \textit{Rationale:} Ensures transparency and control over data
     sharing.
+    \item \textit{Traceability:} FR-14, SR-1, SR-2, SR-7.
   \end{itemize}
 \end{enumerate}
 
@@ -841,6 +853,7 @@ integrity, and auditing user actions within the application.
     actions.
     \item \textit{Fit Criterion:} 100\% of data access and modification events
     must be logged and retrievable.
+    \item \textit{Traceability:} FR-12, FR-13.
   \end{itemize}
 
   \item[\textbf{SR-10.}] Audit logs must be securely stored and accessible only
@@ -849,6 +862,7 @@ integrity, and auditing user actions within the application.
     \item \textit{Rationale:} Ensures the security and integrity of audit data.
     \item \textit{Fit Criterion:} Logs must be encrypted and accessible only to
     users with administrative privileges.
+    \item \textit{Traceability:} FR-14, SR-1.
   \end{itemize}
 \end{enumerate}
 
@@ -863,6 +877,7 @@ integrity, and auditing user actions within the application.
     \item \textit{Fit Criterion:} The application must detect and block
     unauthorized attempts after three failed login attempts, with automated
     alerts sent to administrators.
+    \item \textit{Traceability:} FR-14.
   \end{itemize}
 \end{enumerate}
 
