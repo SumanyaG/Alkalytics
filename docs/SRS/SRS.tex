@@ -118,6 +118,7 @@ term, the project will be passed back to the research team to maintain.
 \end{itemize}
 
 \subsection{Personas}
+\label{personas}
 \begin{itemize}
   \item John Doe is an 23 year old McMaster undergraduate student who has a
   research position on the ocean alkalinity research project. They have been
@@ -172,17 +173,19 @@ Since this project is a personalized solution for a research team, there is no
 other user participants other than the research time and others teams with a
 similar need. 
 \subsection{Maintenance Users and Service Technicians}
-Not a relevant section \section{Mandated Constraints}
+Not a relevant section 
+
+\section{Mandated Constraints}
 The following constraints highlight the restrictions and limitations imposed by the stakeholders, impacting the implementation of the product. 
 \subsection{Solution Constraints}
-\textbf{SC-1.} The product must accept Comma-Separated Value (CSV) files as input.
+\textbf{MC-1.} The product must accept Comma-Separated Value (CSV) files as input.
 \begin{itemize}
   \item \emph{Rationale}: The lab apparatus generates and stores results as CSV files.
   \item \emph{Fit Criterion}: The product's input process (the processing and acceptance of input data) into the database shall be approved by testers and developers.
 \end{itemize}
 
 \subsection{Implementation Environment of the Current System}
-\textbf{IECS-1.} The product must be able to run on a Windows machine.
+\textbf{MC-2.} The product must be able to run on a Windows machine.
 \begin{itemize}
   \item \emph{Rationale}: Currently, the lab has a Windows machine that is used to operate the apparatus and analyse the produced results.
   \item \emph{Fit Criterion}: The product shall be approved as Windows compliant by testers and developers.
@@ -192,13 +195,13 @@ The following constraints highlight the restrictions and limitations imposed by 
 \emph{N/A}
 
 \subsection{Anticipated Workplace Environment}
-\textbf{AWE-1.} The product shall be used in the Chemical Engineering Lab run by Dr. Charles de Lannoy, Bassel Abdelkader and their team of researchers.
+\textbf{MC-3.} The product shall be used in the Chemical Engineering Lab run by Dr. Charles de Lannoy, Bassel Abdelkader and their team of researchers.
 
 \subsection{Partner or Collaborative Applications}
 \emph{N/A}
 
 \subsection{Schedule Constraints}
-\textbf{SC-1.} The project must be finished within the course of the current academic year.
+\textbf{MC-4.} The project must be finished within the course of the current academic year.
 \begin{itemize}
   \item \emph{Rationale}: The finished product, as outlined in the project requirements, must be submitted by the end of the academic year.
   A few relevant deadlines include:
@@ -210,7 +213,7 @@ The following constraints highlight the restrictions and limitations imposed by 
 \end{itemize}
 
 \subsection{Budget Constraints}
-\textbf{BC-1.} The total cost of the project must not exceed \$750.
+\textbf{MC-5.} The total cost of the project must not exceed \$750.
 \begin{itemize}
   \item \emph{Rationale}: The product must be economically feasible and all teams must have an equal budget to ensure conformity and equality in terms of access of resources.
 \end{itemize}
@@ -646,27 +649,28 @@ experience.
 \section{Usability and Humanity Requirements}
 This section outlines the requirements that are intended to make the product usable and ergonomically acceptable to its users.
 \subsection{Ease of Use Requirements}
-\textbf{EUR-1.} The product must be easy to navigate and use for 90\% of individuals with basic computer literacy.
+\textbf{UHR-1.} The product must be easy to navigate and use for 90\% of individuals with basic computer literacy.
 \begin{itemize}
   \item \emph{Rationale}: The product must be user-friendly. In the context of this project, basic computer literacy is defined to encompass five computer skills - using a keyboard
   to type, using a mouse to navigate, understanding basic software applications such as word processing and spreadsheets, browsing the internet, and managaing files and folders.
-  \item \emph{Fit Criterion}: An individual with basic computer literacy must be able to launch the application and upload an input file without any assistance from the administrator.
+  \item \emph{Fit Criterion}: An individual with basic computer literacy, such as John Doe as described in \nameref{personas} must be able to launch the application and upload an input file
+  without any assistance from the administrator.
 \end{itemize}
 
 \subsection{Personalization and Internationalization Requirements}
-\textbf{PIR-1.} The current version of the product will only be available in English (EN-US) and more languages can be added in the later versions.
+\textbf{UHR-2.} The current version of the product will only be available in English (EN-US) and more languages can be added in the later versions.
 \begin{itemize}
   \item \emph{Rationale}: Currently, the product is only expected to be used by McMaster faculty and staff who are fluent in English.
 \end{itemize}
 \bigskip
-\textbf{PIR-2.} The product must recognize commonly used scientific and mathematical symbols.
+\textbf{UHR-3.} The product must recognize commonly used scientific and mathematical symbols.
 \begin{itemize}
   \item \emph{Rationale}: The product shall be used to store scientific parameters as datapoints so the product must be able to recognize commonly used symbols used to specify scientific properties.
   \item \emph{Fit Criterion}: The product must be able to recognize the uppercase and lowercase Greek Alphabet.
 \end{itemize}
 
 \subsection{Learning Requirements}
-\textbf{LR-1.} 85\% of users must be able to use the product without any formal training and with minimal guidance.
+\textbf{UHR-4.} 85\% of users must be able to use the product without any formal training and with minimal guidance.
 \begin{itemize}
   \item \emph{Rationale}: The product shall be intuitive to use. Users must be able to freely naviagte and experiment with the product after a simple product walkthrough.
   \item \emph{Fit Criterion}: A new user with basic computer literacy skills should be able to upload an input file, enter initial experiment parameters, select fields to be compared and view their graph
@@ -675,14 +679,14 @@ This section outlines the requirements that are intended to make the product usa
 >>>>>>> 3c12750 (fixup! doc(SRS): add sections 3, 5, 11, 22, 25)
 
 \subsection{Understandability and Politeness Requirements}
-\textbf{UPR-1.} The product shall maintain consistent use of terminology across the platform to avoid confusion.
+\textbf{UHR-5.} The product shall maintain consistent use of terminology across the platform to avoid confusion.
 \begin{itemize}
   \item \emph{Rationale}: As an example, if the term "parameters" has been used in one part of the interface, it will not be used interchangeably with "variables" in a different part of the interface.
   \item \emph{Fit Criterion}: A thorough visual inspection conducted by testers should not reveal any discrepancies.
 \end{itemize}
 
 \subsection{Accessibility Requirements}
-\textbf{AR-1.} The web interface of the product must be fully compliant with the Web Content Accessibility Guidelines (WCAG) 2.1 standards at Level AA.
+\textbf{UHR-6.} The web interface of the product must be fully compliant with the Web Content Accessibility Guidelines (WCAG) 2.1 standards at Level AA.
 \begin{itemize}
   \item \emph{Rationale}: WCAG 2.1, Level AA compliance is an internationally accepted, common standard for making web content more accessible.
   \item \emph{Fit Criterion}: Compliance with the standard will be tested by testers and measured using the Level AA compliance checklist.
@@ -1042,9 +1046,6 @@ integrity, and auditing user actions within the application.
 \end{enumerate}
 
 \section{Cultural Requirements}
-This section contains requirements that are specific to the sociological factors that affect the
-acceptability of the product.
-\subsection{Cultural Requirements}
 \textbf{CR-1.} The product must not be biased towards certain geographic regions or countries and their societal norms.
 \begin{itemize}
   \item \emph{Rationale}: In scientific fields, different countries use distinct systems of units with the two most
@@ -1330,15 +1331,15 @@ interact with it using the website.
 No training is required to use the end product.
 \section{Waiting Room}
 The following requirements are beyond the sophistication of, or time allowed for, initial release of the product.
-\subsection{Automatically Download Data}
-\textbf{ADD-1.}: The product shall automatically download the CSV data files from the lab apparatus and after conversion, upload them to the database.
+\subsection{Automatically Download Data from Lab Apparatus}
+\textbf{WR-1.}: The product shall automatically download the CSV data files from the lab apparatus and after conversion, upload them to the database.
 \begin{itemize}
   \item \emph{Rationale}: Currently, the data has to be manually exported from the machine at the end of every week to ensure that the data does not get lost or overwritten.
   \item \emph{Expected Version}: Version 2
 \end{itemize}
 
-\subsection{Dynamic Dashboard}
-\textbf{DD-1.}: The product shall include a dashboard that hosts multiple visual plots that are dynamically updated based on changes in the data.
+\subsection{Dynamic Dashboard to Generate Data Reports}
+\textbf{WR-2.}: The product shall include a dashboard that hosts multiple visual plots that are dynamically updated based on changes in the data.
 \begin{itemize}
   \item \emph{Rationale}: For the initial release, only basic plots that are already being used by the user will be available for viewing. Whenever data is modified, the graph
   must be regenerated to view the updated plot.
@@ -1346,7 +1347,7 @@ The following requirements are beyond the sophistication of, or time allowed for
 \end{itemize}
 
 \subsection{Machine Learning Analysis and Projections}
-\textbf{MLAP-1.}: The product shall use machine learning algorithms to automatically compare parameters and generate visual graphs based on simple text prompts.
+\textbf{WR-3.}: The product shall use machine learning algorithms to automatically compare parameters and generate visual graphs based on simple text prompts.
 \begin{itemize}
   \item \emph{Rationale}: The idea is to use artificial intelligence to suggest parametric comparisons or visual graphs that the user might not have though of. The aim is to
   explore analyses that might not have been considered by a user.
@@ -1354,7 +1355,7 @@ The following requirements are beyond the sophistication of, or time allowed for
 \end{itemize}
 
 \subsection{Mobile Development}
-\textbf{MD-1.}: The product shall have a mobile version.
+\textbf{WR-4.}: The product shall have a mobile version.
 \begin{itemize}
   \item \emph{Rationale}: The project can be extended to include a mobile application version of the product to increase accessibility and reachability.
   \item \emph{Expected Version}: Version 4
