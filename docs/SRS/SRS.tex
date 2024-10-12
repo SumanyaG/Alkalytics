@@ -8,6 +8,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{hyperref}
 \hypersetup{ bookmarks=true,         % show bookmarks bar?
     colorlinks=true,      % false: boxed links; true: colored links
@@ -304,115 +305,101 @@ Currently, two sources of data input are used -
 \lips
 
 \section{Functional Requirements}
+This section outlines the key functionalities the application must satisfy with justifications and fit criteria, as well as proposed phase-in dates.
 \subsection{Data Input Requirements}
   \begin{enumerate}
-    \item[\textbf{FR-1.}] The system shall allow the user to input new
-    experiment data or parameters.
+    \item[\textbf{FR-1.}] The application shall allow the user to input new experiment data or parameters.
     \begin{itemize}
-    \item \textit{Rationale:} The system needs to be kept up-to-date with
-    ongoing experiments, which may include new parameters that did not exist
-    previously.
-    \item \textit{Fit Criterion:} The user should be able to input new data and
-    parameters with 0 errors.
+    \item \textit{Rationale}: The application needs to be kept up-to-date with ongoing experiments, which may include new parameters that did not exist previously.
+    \item \textit{Fit Criterion}: The user should be able to input new data and parameters without any errors.
+    \item \textit{Priority/Phase-in date}: Medium/Dec 6; This is dependent on having FR-2 implemented and can be developed later on.
+    \item \textit{Traceability}: FR-2, PR-1, PR-14, SR-3.
     \end{itemize}
-    \item[\textbf{FR-2.}] The system shall store experiment data in the database
-    with all associated parameters and values correctly labelled.
+    \item[\textbf{FR-2.}] The application shall store experiment data in the database with all associated parameters and values correctly labelled.
     \begin{itemize}
-      \item \textit{Rationale:} Ensures that data retrieval and analysis will be
-      correct and accurate.
-      \item \textit{Fit Criterion:} The system database parameters and values
-      shall match the original experiment data parameters and values.
+      \item \textit{Rationale}: Ensures that data retrieval and analysis will be correct and accurate.
+      \item \textit{Fit Criterion}: The application's database parameters and values shall match the original experiment data parameters and values.
+      \item \textit{Priority/Phase-in date}: High/Nov 10; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+      \item \textit{Traceability}: UHR-3, FR-1, FR-4, FR-5, FR-6, FR-8, FR-10, FR-11, PR-1, PR-6, PR-7, PR-12, PR-13, SR-3.
     \end{itemize}
   \end{enumerate}
 
 \subsection{Data Migration and Organization Requirements}
   \begin{enumerate}
-    \item[\textbf{FR-3.}] The system shall read existing experiment data stored
-    in .CSV files.
+    \item[\textbf{FR-3.}] The application shall read existing experiment data stored in .CSV files.
     \begin{itemize}
-      \item \textit{Rationale:} Existing experiment data is stored in Excel
-      spreadsheets and must be integrated into the new system for continuity and
-      analysis.
-      \item \textit{Fit Criterion:} The system shall read and import the data
-      files with 0 errors.
+      \item \textit{Rationale}: Existing experiment data is stored in Excel spreadsheets and must be integrated into the new application for continuity and analysis.
+      \item \textit{Fit Criterion}: The application shall read and import the data files without any errors.
+      \item \textit{Priority/Phase-in date}: High/Nov 10; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+      \item \textit{Traceability}: PR-12, SR-4, SR-5, SR-6.
     \end{itemize}
-    \item[\textbf{FR-4.}] The system shall organize experiment data by
-    timestamps and experiment ID for unique identification.
+    \item[\textbf{FR-4.}] The application shall organize experiment data by timestamps and experiment ID for unique identification.
     \begin{itemize}
-      \item \textit{Rationale:} Each experiment needs to be separately
-      identified for quick retrieval of data and efficiency in search or query
-      actions.
-      \item \textit{Fit Criterion:} Each ID and timestamp shall be traceable to
-      one experiment.
+      \item \textit{Rationale}: Each experiment needs to be separately identified for quick retrieval of data and efficiency in search or query actions.
+      \item \textit{Fit Criterion}: Each ID and timestamp shall be traceable to one experiment.
+      \item \textit{Priority/Phase-in date}: High/Nov 10; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+      \item \textit{Traceability}: FR-2, PR-7, FR-5, FR-6, FR-8, MSR-3, SR-3, SR-4, SR-5, SR-6.
     \end{itemize}
   \end{enumerate}
 
 \subsection{Data Search and Query Requirements}
 \begin{enumerate}
-  \item[\textbf{FR-5.}] The system shall allow the user to search for specific
-  datasets based on different parameters.
+  \item[\textbf{FR-5.}] The application shall allow the user to search for specific datasets based on different parameters.
   \begin{itemize}
-    \item \textit{Rationale:} Allows for quick look-ups of certain experiments
-    and their results.
-    \item \textit{Fit Criterion:} The system shall retrieve the correct
-    experiments based on the matching parameters.
+    \item \textit{Rationale}: The user must be able to do quick look-ups of certain experiments and their results.
+    \item \textit{Fit Criterion}: The application shall retrieve the correct experiments based on the matching parameters.
+    \item \textit{Priority/Phase-in date}: High/Nov 10; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+    \item \textit{Traceability}: FR-2, FR-4, PR-6, FR-7, FR-10, PR-2.
   \end{itemize}
-  \item[\textbf{FR-6.}] The system shall allow the user to query two or more
-  parameters or datasets for comparison and analysis.
+  \item[\textbf{FR-6.}] The application shall allow the user to query two or more parameters or datasets for comparison and analysis.
   \begin{itemize}
-    \item \textit{Rationale:} Allows for direct comparisons between different
-    experiment parameters and/or results, which is necessary for analysis.
-    \item \textit{Fit Criterion:} The system shall retrieve the correct
-    parameters and/or experiments based on the query inputs.
+    \item \textit{Rationale}: Allows for direct comparisons between different experiment parameters and/or results, which is necessary for data analysis.
+    \item \textit{Fit Criterion}: The application shall retrieve the correct parameters and/or experiments based on the query inputs.
+    \item \textit{Priority/Phase-in date}: High/Nov 10; This is one of the first functionalities that must be implemented for the proof of concept demonstration.
+    \item \textit{Traceability}: FR-2, FR-4, PR-6, FR-7, FR-10, FR-11, FR-15, PR-2.
   \end{itemize}
-  \item[\textbf{FR-7.}] The system shall display the results of a user’s
-  selected search or query in a format that is readable to the user.
+  \item[\textbf{FR-7.}] The application shall display the results of a user’s selected search or query in a format that is readable to the user.
   \begin{itemize}
-    \item \textit{Rationale:} The user needs to see the results in a format that
-    they can interpret.
-    \item \textit{Fit Criterion:} The results shall be displayed in a table with
-    all labels correct and legible.
+    \item \textit{Rationale}: The user needs to see the results in a format that they can interpret.
+    \item \textit{Fit Criterion}: The results shall be displayed in a table with all labels correct and legible.
+    \item \textit{Priority/Phase-in date}: Medium/Jan 17; Its implementation depends on the successful implementation of several other requirements, thus will be properly implemented at a later time.
+    \item \textit{Traceability}: FR-5, FR-6, PR-3, PR-10.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Data Visualization Requirements}
 \begin{enumerate}
-  \item[\textbf{FR-8.}] The system shall generate visual graphs based on
-  selected parameters and datasets.
+  \item[\textbf{FR-8.}] The application shall generate visual graphs based on selected parameters and datasets.
   \begin{itemize}
-    \item \textit{Rationale:} Visual representation of the data allows for easy
-    interpretation and graphical analysis.
-    \item \textit{Fit Criterion:} The result should display a graphical plot
-    with a title, axes, labels, and a legend.
+    \item \textit{Rationale}: Visual representation of the data allows for easy interpretation and graphical analysis.
+    \item \textit{Fit Criterion}: The result should display a graphical plot with a title, axes, labels, and a legend.
+    \item \textit{Priority/Phase-in date}: High/Jan 17; Although this is a core functionality for the application, its implementation depends on the successful implementation of several other requirements, thus will be properly implemented at a later time.
+    \item \textit{Traceability}: FR-2, FR-4, FR-9, LFR-4, PR-5, PR-8, PR-10.
   \end{itemize}
-  \item[\textbf{FR-9.}] The system shall allow the user to customize the data
-  visualization by adjusting axes, data ranges, labels, etc.
+  \item[\textbf{FR-9.}] The application shall allow the user to customize the data visualization by adjusting axes, data ranges, labels, etc.
   \begin{itemize}
-    \item \textit{Rationale:} Allows the user to adjust the graphical
-    representation to their needs for their analysis.
-    \item \textit{Fit Criterion:} Modifications to axes, data ranges, labels
-    should be reflected in the generated graph in real-time.
+    \item \textit{Rationale}: Allows the user to adjust the graphical representation to their needs for their analysis.
+    \item \textit{Fit Criterion}: Modifications to axes, data ranges, labels should be reflected in the generated graph in real-time.
+    \item \textit{Priority/Phase-in date}: Low/March 21; This depends on the successful implementation of FR-8 and thus will be implemented at a later time.
+    \item \textit{Traceability}: FR-8.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Data Analysis Requirements}
 \begin{enumerate}
-    \item[\textbf{FR-10.}] The system shall analyze patterns and trends in the
-    experiment data based on the user’s selected parameters.
+    \item[\textbf{FR-10.}] The application shall analyze patterns and trends in the experiment data based on the user’s selected parameters.
     \begin{itemize}
-      \item \textit{Rationale:} Trend analysis is critical for the user to
-      discover important findings pertaining to the experiment.
-      \item \textit{Fit Criterion:} The system shall generate a result of the
-      analysis to display to the user.
+      \item \textit{Rationale}: Trend analysis is critical for the user to discover important findings pertaining to the experiment.
+      \item \textit{Fit Criterion}: The application shall generate a result of the analysis to display to the user.
+      \item \textit{Priority/Phase-in date}: Medium/Jan 17; Although this is a core functionality for the application, its implementation depends on the successful implementation of many other requirements and thus will be implemented at a later time.
+      \item \textit{Traceability}: FR-2, FR-5, FR-6, PR-6, FR-11.
     \end{itemize}
-    \item[\textbf{FR-11.}] The system shall use machine learning algorithms to
-    predict and interpolate the data.
+    \item[\textbf{FR-11.}] The application shall use machine learning algorithms to predict and interpolate the data.
     \begin{itemize}
-      \item \textit{Rationale:} Allows for future predictions of data and
-      efficiency in running future experiments.
-      \item \textit{Fit Criterion:} The system shall generate a report of value
-      predictions or interpolate a graph and provide the interpolated data
-      points.
+      \item \textit{Rationale}: Allows for future predictions of data and efficiency when designing future experiments.
+      \item \textit{Fit Criterion}: The application shall generate a report of value predictions or interpolate a graph and provide the interpolated data points.
+      \item \textit{Priority/Phase-in date}: Medium/Jan 17; Although this is a core functionality for the application, its implementation depends on the successful implementation of many other requirements and thus will be implemented at a later time.
+      \item \textit{Traceability}: FR-2, FR-6, FR-10, PR-6.
     \end{itemize}
 \end{enumerate}
 
@@ -420,20 +407,19 @@ Currently, two sources of data input are used -
 This section outlines functional requirements for one of the project's stretch
 goals.
 \begin{enumerate}
-  \item[\textbf{FR-12.}] The system shall track and log errors in the experiment
-  data.
+  \item[\textbf{FR-12.}] The application shall track and log errors in the experiment data.
   \begin{itemize}
-    \item \textit{Rationale:} Helps users identify irrelevant or missing
-    parameters.
-    \item \textit{Fit Criterion:} Missing values from input data should be
-    flagged.
+    \item \textit{Rationale}: Users need to identify irrelevant or missing parameters.
+    \item \textit{Fit Criterion}: Missing values in the input data should be flagged.
+    \item \textit{Priority/Phase-in date}: Low/March 21; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
+    \item \textit{Traceability}: FR-13, MSR-3, MSR-5, SR-9.
   \end{itemize}
-  \item[\textbf{FR-13.}] The system shall remove data logged as errors.
+  \item[\textbf{FR-13.}] The application shall remove data logged as errors.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures data is organized and produce accurate
-    results in analysis.
-    \item \textit{Fit Criterion:} Flagged data should be removed from the
-    database after user confirmation.
+    \item \textit{Rationale}: Ensures data is organized and produces accurate results in analysis.
+    \item \textit{Fit Criterion}: Flagged data should be removed from the database by the algorithm.
+    \item \textit{Priority/Phase-in date}: Low/March 21; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
+    \item \textit{Traceability}: FR-12, SR-9.
   \end{itemize}
 \end{enumerate}
 
@@ -441,13 +427,12 @@ goals.
 This section outlines functional requirements for one of the project's stretch
 goals.
 \begin{enumerate}
-  \item[\textbf{FR-14.}] The system shall allow the user to sign in with valid
-  credentials.
+  \item[\textbf{FR-14.}] The application shall allow the user to sign in with valid credentials.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures the data can only be accessed and modified
-    by authorized users.
-    \item \textit{Fit Criterion:} The user shall be able to log in with a
-    username and password.
+    \item \textit{Rationale}: Ensures the data can only be accessed and modified by authorized users.
+    \item \textit{Fit Criterion}: The user shall be able to log in with a username and password.
+    \item \textit{Priority/Phase-in date}: Low/March 21; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
+    \item \textit{Traceability}: PR-11, SR-1, SR-2, SR-8, SR-10, SR-11.
   \end{itemize}
 \end{enumerate}
 
@@ -455,13 +440,12 @@ goals.
 This section outlines functional requirements for one of the project's stretch
 goals.
 \begin{enumerate}
-  \item[\textbf{FR-15.}] The system shall generate a report of queries in a
-  session for the user to save or download.
+  \item[\textbf{FR-15.}] The application shall generate a report of queries in a session for the user to save or download.
   \begin{itemize}
-    \item \textit{Rationale:} Allows user to keep a record of their findings for
-    future use or reference.
-    \item \textit{Fit Criterion:} The report should be exported in CSV or PDF
-    format.
+    \item \textit{Rationale}: Allows user to keep a record of their findings for future use or reference.
+    \item \textit{Fit Criterion}: The report should be exported in CSV or PDF format.
+    \item \textit{Priority/Phase-in date}: Low/March 21; As this is part of the stretch goals for the application, its implementation will not be considered until the higher priority requirements are satisfied.
+    \item \textit{Traceability}: FR-6.
   \end{itemize}
 \end{enumerate}
 
@@ -561,128 +545,160 @@ administrator.
 \emph{N/A}
 
 \section{Performance Requirements}
+Performance requirements define the measurable standards the application must meet regarding speed, accuracy, robustness, and resource usage to ensure optimal performance of the application's functions.
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}
-\item The system shall store new data or parameters within 60 seconds of input.
-\item The system shall retrieve data from the database within 50ms for typical
-search and queries.
-\item The interaction between the interface and the user shall have a maximum
-response time of 2 seconds.
-\item The system shall have a maximum latency of 2 seconds for typical search
-and queries.
-\item The system shall generate a visualization of the data within 5 seconds.
+\item[\textbf{PR-1.}] The application shall store new data or parameters within 60 seconds of input.
+  \begin{itemize}
+    \item \textit{Rationale}: The speed at which the task can be completed depends on the size of the new data to be inputted or how the addition of a new parameter will affect the existing database structure. The quantified timeframe allows for adequate processing time that aligns with user expectations.
+    \item \textit{Traceability}: FR-1, FR-2.
+  \end{itemize}
+\item[\textbf{PR-2.}] The application shall take a maximum of 3 seconds to retrieve data from the database for search and query requests.
+  \begin{itemize}
+    \item \textit{Rationale}: The speed at which the task can be completed varies based on internet connectivity and the complexity of the query being executed.
+    \item \textit{Traceability}: FR-5, FR-6.
+  \end{itemize}
+\item[\textbf{PR-3.}] The interaction between the interface and the user shall have an average response time of 1 second under stable internet connection.
+  \begin{itemize}
+    \item \textit{Rationale}: Ensures a fluid interaction between the user and the application.
+    \item \textit{Traceability}: FR-7.
+  \end{itemize}
+\item[\textbf{PR-4.}] The application shall have a maximum latency of 2 seconds for search and query actions.
+  \begin{itemize}
+    \item \textit{Rationale}: Ensures that the delay between a user's request and the application's response is minimized to provide the user with quick feedback and a smoother user experience.
+  \end{itemize}
+\item[\textbf{PR-5.}] The application shall generate visualizations of data in an average time of 10 seconds, depending on the size of the dataset being processed.
+  \begin{itemize}
+    \item \textit{Rationale}: The time required to render a graph will be affected by the number of datapoints included in the plot. Larger datasets will take longer to process and display.
+    \item \textit{Traceability}: FR-8.
+  \end{itemize}
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} Quick response times ensure efficiency and smooth
-  user experience without disrupting the flow of the user's thought processes.
-  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+  \item \textit{Fit Criteria for PR-1 to PR-5}: The application shall satisfy the requirements above.
 \end{itemize}
 
 \subsection{Safety-Critical Requirements}
-The product does not have safety-critical requirements to consider.
+N/A; the application does not have safety-critical requirements to consider.
 
 \subsection{Precision or Accuracy Requirements}
 \begin{enumerate}
-  \item All parameter values shall be accurate to four decimal places.
-  \item All timestamps of experiment data shall be accurate to milliseconds. 
-  \item Values on visual data plots shall be accurate to four decimal places.
+  \item[\textbf{PR-6.}] All parameter values shall be accurate to four decimal places.
+    \begin{itemize}
+      \item \textit{Traceability}: FR-2, FR-5, FR-6, FR-10, FR-11.
+    \end{itemize}
+  \item[\textbf{PR-7.}] All timestamps of experiment data shall be accurate to milliseconds.
+    \begin{itemize}
+      \item \textit{Traceability}: FR-2, FR-4.
+    \end{itemize}
+  \item[\textbf{PR-8.}] Values on visual data plots shall be accurate to four decimal places.
+    \begin{itemize}
+        \item \textit{Traceability}: FR-8.
+    \end{itemize}
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} Accuracy of the data is critical for data analysis,
-  prediction, and interpolation.
-  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+  \item \textit{Rationales for PR-6 to PR-8}: Accuracy of the data is critical for data analysis, prediction, and interpolation.
+  \item \textit{Fit Criteria for PR-6 to PR-8}: The application shall satisfy the requirements above.
 \end{itemize}
 
 \subsection{Robustness or Fault-Tolerance Requirements}
 \begin{enumerate}
-  \item The application shall not terminate but display an error message if it
-  loses connection to the backend server.
-  \item The application shall provide basic functionality if it loses connection
-  to the internet.
+  \item[\textbf{PR-9.}] The application shall not crash but display an error message if it loses connection to the backend server.
+  \item[\textbf{PR-10.}] The application shall not terminate but allow the user to view previously loaded queries and generated plots if it loses connection to the internet.
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} The system should not fail or crash when
-  experiencing unexpected circumstances.
+  \item \textit{Rationales for PR-9 and PR-10}: The application should not fail or crash when experiencing unexpected circumstances.
+  \item \textit{Traceability}: FR-7, FR-8.
 \end{itemize}
 
 \subsection{Capacity Requirements}
 \begin{enumerate}
-  \item The application shall allow for up to three simultaneous users.
-  \item The system shall store up to x amount of data.
+  \item[\textbf{PR-11.}] The application shall allow for up to three simultaneous users.
+    \begin{itemize}
+      \item \textit{Rationale}: The number of anticipated end-users is currently three.
+      \item \textit{Traceability}: FR-14.
+    \end{itemize}
+  \item[\textbf{PR-12.}] The application shall be capable of storing data for up to 300 experiments.
+    \begin{itemize}
+      \item \textit{Rationale}: The application must be capable of storing and processing large amounts of data.
+      \item \textit{Traceability}: FR-2, FR-3, PR-13.
+    \end{itemize}
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} The system must be capable of storing and processing
-  large amounts of data.
-  \item \textit{Fit Criterion:} The system shall satisfy the requirements above.
+  \item \textit{Fit Criteria for PR-11 and PR-12}: The application shall satisfy the requirements above.
 \end{itemize}
 
 \subsection{Scalability or Extensibility Requirements}
 \begin{enumerate}
-  \item The system shall be able to process and store the existing data. The
-  amount of data going into the system is expected to grow until the experiment
-  study comes to an end.
-  \item The system shall be able to add additional parameters that did not
-  previously exist in the database at the discretion of the user.
+  \item[\textbf{PR-13.}] The application shall be able to process and store the existing data. The amount of data going into the application is expected to grow until the experiment study comes to an end.
+    \begin{itemize}
+      \item \textit{Traceability}: FR-2, PR-12, PR-15.
+    \end{itemize}
+  \item[\textbf{PR-14.}] The application shall be able to add additional parameters that did not previously exist in the database at the discretion of the user.
+    \begin{itemize}
+      \item \textit{Traceability}: FR-1, PR-15.
+    \end{itemize}
 \end{enumerate}
 \begin{itemize}
-  \item \textit{Rationale:} The system must be able to expand to keep up with
-  future experiments.
+  \item \textit{Rationales for PR-13 and PR-14}: The application must be able to expand to keep up with future experiments.
 \end{itemize}
 
 \subsection{Longevity Requirements}
 \begin{enumerate}
-  \item The system shall operate for the duration of the experiment study.
+  \item[\textbf{PR-15.}] The application shall operate for the duration of the experiment study.
+  \begin{itemize}
+    \item \textit{Traceability}: PR-13, PR-14.
+  \end{itemize}
 \end{enumerate}
 
 \section{Operational and Environmental Requirements}
+Operational requirements outline the conditions in which the application is expected to operate, which includes system compatibility and distribution requirements.
 \subsection{Expected Physical Environment}
 \begin{enumerate}
-  \item The application shall operate in a typical office environment with
-  reliable internet connectivity.
-  \item The application shall be compatible with a desktop or laptop
-  environment.
+  \item[\textbf{OER-1.}] The application shall operate in a typical lab environment with reliable internet connectivity.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures functionality in environments where end-users are most likely to use the application. 
+      \item \textit{Traceability}: MC-1
+    \end{itemize}
 \end{enumerate}
-\begin{itemize}
-  \item \textit{Rationale:} Ensures functionality in environments where
-  end-users are most likely to use the application, accomodating several screen
-  sizes and operating systems. 
-  \item \textit{Fit Criterion:} Testing will be conducted on the two most common
-  operating systems, Windows and macOS.
-\end{itemize}
 
 \subsection{Wider Environment Requirements}
-\lips
+\begin{enumerate}
+  \item[\textbf{OER-2.}] The application shall be compatible with desktop environments running Windows.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures functionality in the technological environment the product is expected to run on.
+      \item \textit{Fit Criterion}: Testing will be conducted on the Windows operating system.
+      \item \textit{Traceability}: MC-2
+    \end{itemize}
+\end{enumerate}
 
 \subsection{Requirements for Interfacing with Adjacent Systems}
 \begin{enumerate}
-  \item The application shall operate on the most recent versions of Google
-  Chrome and Apple Safari.
+  \item[\textbf{OER-3.}] The application shall operate on the most recent versions of Chromium-based web browsers.
+    \begin{itemize}
+      \item \textit{Rationale}: The application should be compatible with Chromium-based web browsers to ensure broad availability and smooth operation on widely-used platforms by the end-users.
+      \item \textit{Fit Criterion}: Performance testing shall be done to ensure the application functions correctly.
+    \end{itemize}
 \end{enumerate}
-\begin{itemize}
-  \item \textit{Rationale:} The application must be able to operate on these two
-  most common web browsers, as these will be the primary platforms where it is
-  hosted and accessed by users.
-  \item \textit{Fit Criterion:} Performance testing shall be done to ensure the
-  application functions correctly.
-\end{itemize}
 
 \subsection{Productization Requirements}
 \begin{enumerate}
-  \item The system shall be distributed as a web application.
-  \item The system shall have an easy onboarding process with user
-  documentation.
-  \begin{itemize}
-    \item \textit{Rationale:} Ensures that users can use the application without
-    needing frequent support.
-    \item \textit{Fit Criterion:} Usability testing shall be done to ensure
-    users are able to onboard easily.
-  \end{itemize}
+  \item[\textbf{OER-4.}] The application shall be distributed as a web application.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures easy access and usability for the end-users who do not have enough experience in database management.
+    \end{itemize}
+  \item[\textbf{OER-5.}] The application shall have an easy onboarding process with user documentation.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures that users can use the application without needing frequent external support.
+      \item \textit{Fit Criterion}: Usability testing shall be done to ensure users are able to onboard easily.
+    \end{itemize}
 \end{enumerate}
 
 \subsection{Release Requirements}
 \begin{enumerate}
-  \item The first version of the system shall be released after project
-  completion.
+  \item[\textbf{OER-6.}] The first version of the application shall be released after project completion.
+    \begin{itemize}
+      \item \textit{Traceability}: MC-4.
+    \end{itemize}
 \end{enumerate}
 
 \section{Maintainability and Support Requirements}
@@ -983,17 +999,23 @@ N/A; no product exists that fits all the requirements out-of-the-box.
 
 
 \section{New Problems}
+This section outlines potential problems the new application may introduce into the  environment in which it will be deployed.
 \subsection{Effects on the Current Environment}
-\lips
+The application is expected to be compatible with the current implementation environment. There should be no adverse effects that come from the new application.
+
 \subsection{Effects on the Installed Systems}
-\lips
+N/A; There should be no conflicts with existing systems.
+
 \subsection{Potential User Problems}
-\lips
+N/A; There are no anticipated user problems.
+
 \subsection{Limitations in the Anticipated Implementation Environment That May
 Inhibit the New Product}
-\lips
+The reliance on stable internet connection may pose limitations on product access and functionality. Additionally, the server must have sufficient resources allocated to handle the anticipated volume of data and data processing demands.
+
 \subsection{Follow-Up Problems}
-\lips
+Scalability may become a concern if data volume grows larger than anticipated, which will require monitoring and adjustments to ensure optimal performance.
+
 \section{Tasks}
 The team will follow an effective task management plan that emphasizes
 structure, iterative progress, milestone tracking, and accountability for
@@ -1270,7 +1292,81 @@ version of the product to increase accessibility and reachability.\\
 \lips
 
 \newpage{}
-\section*{Appendix --- Reflection}
+\section*{Appendix A --- Traceability}
+This section was added to the Volere template to provide a traceability table for the functional and non-functional requirements.
+\begin{longtable}[c]{| m{3.4cm} | m{4cm} | m{5.3cm} |}
+  \hline
+  \textbf{Requirement ID} & \textbf{Dependent on} & \textbf{Traced from} \\ \hline
+  \endhead
+  FR-1 & FR-2 & PR-1, PR-14, SR-3 \\ \hline
+  FR-2 & UHR-3 & FR-1, FR-4, FR-5, FR-6, FR-8, FR-10, FR-11, PR-1, PR-6, PR-7, PR-12, PR-13, SR-3 \\ \hline
+  FR-3 & N/A & PR-12, SR-4, SR-5, SR-6 \\ \hline
+  FR-4 & FR-2, PR-7 & FR-5, FR-6, FR-8, MSR-3, SR-3, SR-4, SR-5, SR-6 \\ \hline
+  FR-5 & FR-2, FR-4, PR-6 & FR-7, FR-10, PR-2 \\ \hline
+  FR-6 & FR-2, FR-4, PR-6 & FR-7, FR-10, FR-11, FR-15, PR-2 \\ \hline
+  FR-7 & FR-5, FR-6 & PR-3, PR-10 \\ \hline
+  FR-8 & FR-2, FR-4 & FR-9, LFR-4, PR-5, PR-8, PR-10 \\ \hline
+  FR-9 & FR-8 & N/A \\ \hline
+  FR-10 & FR-2, FR-5, FR-6, PR-6 & FR-11 \\ \hline
+  FR-11 & FR-2, FR-6, FR-10, PR-6 & N/A \\ \hline
+  FR-12 & N/A & FR-13, MSR-3, MSR-5, SR-9 \\ \hline
+  FR-13 & FR-12 & SR-9 \\ \hline
+  FR-14 & N/A & PR-11, SR-1, SR-2, SR-8, SR-10, SR-11 \\ \hline
+  FR-15 & FR-6 & N/A \\ \hline
+  LFR-1 & N/A & UHR-1, MSR-4, MSR-6 \\ \hline
+  LFR-2 & N/A & MSR-4, MSR-6 \\ \hline
+  LFR-3 & N/A & UHR-1, MSR-4 \\ \hline
+  LFR-4 & FR-8 & N/A \\ \hline
+  LFR-5 & N/A & N/A \\ \hline
+  LFR-6 & N/A & N/A \\ \hline
+  LFR-7 & N/A & N/A \\ \hline
+  UHR-1 & LFR-1, LFR-3 & MSR-4 \\ \hline
+  UHR-2 & N/A & N/A \\ \hline
+  UHR-3 & N/A & FR-2 \\ \hline
+  UHR-4 & N/A & MSR-4 \\ \hline
+  PR-1 & FR-1, FR-2 & N/A \\ \hline
+  PR-2 & FR-5, FR-6 & N/A \\ \hline
+  PR-3 & FR-7 & N/A \\ \hline
+  PR-4 & N/A & N/A \\ \hline
+  PR-5 & FR-8 & N/A \\ \hline
+  PR-6 & FR-2 & FR-5, FR-6, FR-10, FR-11 \\ \hline
+  PR-7 & FR-2 & FR-4 \\ \hline
+  PR-8 & FR-8 & N/A \\ \hline
+  PR-9 & N/A & N/A \\ \hline
+  PR-10 & FR-7, FR-8 & N/A \\ \hline
+  PR-11 & FR-14 & N/A \\ \hline
+  PR-12 & FR-2, FR-3 & PR-13 \\ \hline
+  PR-13 & FR-2, PR-12 & PR-15 \\ \hline
+  PR-14 & FR-1 & PR-15 \\ \hline
+  PR-15 & PR-13, PR-14 & N/A \\ \hline
+  OER-1 & N/A & MC-1 \\ \hline
+  OER-2 & N/A & MC-2 \\ \hline
+  OER-3 & N/A & N/A \\ \hline
+  OER-4 & N/A & N/A \\ \hline
+  OER-5 & N/A & N/A \\ \hline
+  OER-6 & N/A & MC-4 \\ \hline
+  MSR-1 & N/A & N/A \\ \hline
+  MSR-2 & N/A & MSR-3 \\ \hline
+  MSR-3 & FR-4, FR-12, MSR-2 & N/A \\ \hline
+  MSR-4 & LFR-1, LFR-2, LFR-3, UHR-1, UHR-4 & N/A \\ \hline
+  MSR-5 & FR-12 & N/A \\ \hline
+  MSR-6 & LFR-1, LFR-2 & N/A \\ \hline
+  SR-1 & FR-14 & SR-2, SR-8, SR-10 \\ \hline
+  SR-2 & FR-14, SR-1 & SR-8 \\ \hline
+  SR-3 & FR-1, FR-2, FR-4 & N/A \\ \hline
+  SR-4 & FR-3, FR-4 & SR-5, SR-6 \\ \hline
+  SR-5 & FR-3, FR-4, SR-4, SR-6 & N/A \\ \hline
+  SR-6 & FR-3, FR-4, SR-4 & SR-5 \\ \hline
+  SR-7 & SR-8 & N/A \\ \hline
+  SR-8 & FR-14, SR-1, SR-2 & SR-7 \\ \hline
+  SR-9 & FR-12, FR-13 & N/A \\ \hline
+  SR-10 & FR-14, SR-1 & N/A \\ \hline
+  SR-11 & FR-14 & N/A \\ \hline
+  \caption{Traceability table of the requirements.}
+\end{longtable}
+
+\newpage{}
+\section*{Appendix B --- Reflection}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Lifelong Learning.  Please answer the following questions:
