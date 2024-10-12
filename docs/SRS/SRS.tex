@@ -10,6 +10,7 @@
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \hypersetup{ bookmarks=true,         % show bookmarks bar?
     colorlinks=true,      % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links (change box color with
@@ -58,50 +59,63 @@ This project aims to aid in the data management and analysis of an ocean
 alkalinity enhancement experiment process. The research is working towards a
 scalable process to capture CO\textsubscript{2} using a combination of electric
 fields and membranes. The experiment's efficient generation process creates a
-very dilute base. The product serves a niche solution, to rebalance the ocean's
-PH levels to be able to absorb more CO\textsubscript{2}. As earth’s temperature
-rises, so does the ocean’s, affects its PH balance. As this process is still on
-a small scale, it is currently being perfected which means many more experiments
-must be done to be able to bring it to a global scale. However, this requires a
-massive production operation to do so. Optimization of the experimental data is
-critical to improve process efficiency. This is a big data software problem
-requiring the ability to find and fine-tune specific parameters. 
+very dilute base. As earth’s temperature rises, so does the ocean’s, affects its
+pH balance. The experimental study aims to provide a solution, to decrease the
+ocean's pH levels to be able to absorb more CO\textsubscript{2} which will in
+turn help reduce global temperatures.  As the production process to generate
+this dilute base is still on a small scale, it is currently being perfected
+which means many more experiments must be done to be able to bring it to a
+global scale. However, this requires a massive production operation to do so.
+Optimization of the experimental data is critical to improve process efficiency.
+This is a big data software problem requiring the ability to find and fine-tune
+specific parameters. 
 \subsection{Goals of the Project}
-This platform will be able to consolidate and organize the data from the
-experiments with proper labeling across all given data sets allowing for a
+This application will be able to consolidate and organize the data from the
+experiments with proper labeling across all given datasets allowing for a
 centralize method of data storage that is both scalable and maintainable. On the
-platform users can request to see certain data points from anywhere from the
-inputted data sets given any specified order. Once the data is returned to the
-user the platform can show inter-parameter comparability to better aid data
-analysis. This comparability acts as a starting point to analysis and is by no
-means show a final analysis of the data. This will all be presented in a web
-interface where all the user functions will be displayed and can be shared among
-those involved in the experiment.   
+application users can request to see certain data points from the inputted data
+sets given any specified order. Once the data is returned to the user the
+application can show inter-parameter comparability to better aid data analysis.
+This comparability acts as a starting point to analysis and is by no means show
+a final analysis of the data. This will all be presented in a web interface
+where all the user functions will be displayed and can be shared among those
+involved in the experiment.   
 \section{Stakeholders}
 
 \subsection{Client}
-Dr. Charles De Lannoy serves as the main client for this project as he is the
-lead supervisor of the research study. This solution directly affects his work
-and is intended to be a custom solution for the problem. Bassel Abdelkader is
+Dr. Charles de Lannoy serves as the main client for this project as he is the
+lead supervisor of the research study. This solution directly affects his work and
+is intended to be a custom solution for the problem. Bassel Abdelkader is
 another client of this project as he is the person that works directly with the
-research data. One of his responsibilities is to record the experimental data
-and upload them to their current data storage system, Microsoft Excel. 
+research data. One of his responsibilities is to record the experimental data and
+upload them to their current data storage system, Microsoft Excel. 
 \subsection{Customer}
 Although this project is a tailored solution to one research study, its
 application can be extended to any other situation where large sets of data is
 involved. This could be shared among other researchers to aid in their data
-management and analysis. 
+management and analysis. Depending on the research team's structure, there could
+also be different levels of permissions that can be obtained.
 \subsection{Other Stakeholders}
-Current students and members of the lab working on the study is can also be
+Current student assistants and members of the lab working on the study is can also be
 considered stakeholders for the same reasons as the clients. However, since they
 will only be working with the study for a short amount of time without daily or
 consistent interaction, they do not serve as a main stakeholder. The founder of
 the study, who is currently funding the research project is another stakeholder.
 However, since they do not work directly with the processes of the study rather
-oversee the process, they may not have strong interest in the details of the
-solution. 
+oversee the process, they may not have strong interest in the details of the solution. 
 \subsection{Hands-On Users of the Project}
-Potentially not applicable or useful for this document
+\label{sec:2.4}
+The following is a special type of stakeholder as after this capstone project
+term, the project will be passed back to the research team to maintain. 
+\begin{itemize}
+  \item User name/category: Research project team for maintaining this project post capstone 
+  \item User Role: Maintain the codebase, adding new features, fixing potential bugs
+  project post capstone
+  \item Subject matter experience: Master knowledge on the goals of the research
+  project. Master knowledge on how the experiment processes work. 
+  \item Technical knowledge: Novice knowledge on the technology stack being
+  used in this project, Python, MongoDB, JavaScript, other front-end frameworks 
+\end{itemize}
 
 \subsection{Personas}
 \begin{itemize}
@@ -117,35 +131,35 @@ Potentially not applicable or useful for this document
   way to manage the data, they know that it is not up to their decision on what
   tools are being used but suggested that there could be another better solution
   to use. 
-  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and is
-  working on her own research project for over five years. She has gathered lots
-  of data and thankfully she has always been great at Excel. However, other the
-  last two years she has found that Excel is becoming less sustainable. The
+  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and
+  is working on her own research project for over five years. She has gathered
+  lots of data and thankfully she has always been great at Excel. However, other
+  the last two years she has found that Excel is becoming less sustainable. The
   queries are a lot slower and sifting through pages and pages of data is
   wasting a lot of her time. She sees this more evidently through those that
   work along side her as they are also facing the same struggles with even less
   Excel experience as her. She wants to find a more scalable solution but she
   fears that her lack of digital knowledge will do her more harm than good, as a
-  result she fears that if she introduces a new platform to serve her needs
+  result she fears that if she introduces a new application to serve her needs
   better that she will find it hard and confusing to use. 
   \item Dr.\ Alex Stark is a 30 year old associate professor who has recently
   gotten funding for his innovative research idea and has been dedicating all
   his time on perfecting its methodology. It has only been one year since his
   research started but had recently found a great application of his ideas to
   reach far more people and be more impactful that he had originally thought.
-  But with his current data management set up, he quickly realises that it is
-  not sustainable. He finds that there are many other solutions on the market
-  but they do not exactly meet his needs and cost a lot more than what he can
-  spend on a tool. He decided that the best way is to create his own tool but
-  lacks the software knowledge to create something stable and reliable. 
+  But with his current data management set up, he quickly realises that it is not
+  sustainable. He finds that there are many other solutions on the market but
+  they do not exactly meet his needs and cost a lot more than what he can spend
+  on a tool. He decided that the best way is to create his own tool but lacks
+  the software knowledge to create something stable and reliable. 
 \end{itemize}
     
 \subsection{Priorities Assigned to Users}
 \subsubsection{Primary Users}
 \begin{itemize}
-  \item Dr. Charles De Lannoy
+  \item Dr. Charles de Lannoy
   \item Bassel Abdelkader
-  \item Students working on the experiment 
+  \item Student Assistant working on the experiment 
 \end{itemize}
 
 \subsubsection{Secondary Users}
@@ -154,9 +168,15 @@ Potentially not applicable or useful for this document
   \item The founder of the study
 \end{itemize}
 \subsection{User Participation}
-Not a relevant section 
+Since this project is a personalized solution for a research team, there is no
+other user participants other than the research time and others teams with a
+similar need. 
 \subsection{Maintenance Users and Service Technicians}
-Not a relevant section \section{Mandated Constraints}
+As previously mentioned in section \hyperref[sec:2.4]{2.4}, the project will be passed on to the
+research time after this capstone project duration has finished. It will be left
+to the research team to maintain the project along with adding any new features.
+
+\section{Mandated Constraints}
 \subsection{Solution Constraints}
 \textbf{Description}: The product must accept Comma-Separated Value (CSV) files
 as input.\\
@@ -297,12 +317,128 @@ Currently, two sources of data input are used -
 \lips
 
 \section{The Scope of the Product}
+The following section will highlight use cases of the product and how users and
+stakeholders will interact with the product.  
 \subsection{Product Boundary}
-\lips
+Below is a use case diagram involving the two clients and major customers. The
+diagram includes the back end database as an actor as it interacts with the
+interface system. Level 1 to 3 labeled actors are part of the research time
+customer mentioned in section 2.2 where depending how the team is structured,
+there are differnt use cases for different level actors. These are added for
+clarity of the system.
+\begin{center}
+  \includegraphics[scale=0.5]{capstoneUseCase.png}
+\end{center}
+
+
 \subsection{Product Use Case Table}
-\lips
-\subsection{Individual Product Use Cases (PUC's)}
-\lips
+The product use case table (PUC) is an extention of the use case diagram in the pervious section. The table aims to provide more 
+\begin{center}
+  \begin{table}[]
+    \centering
+    \begin{tabular}{|p{0.08\linewidth}|p{0.3\linewidth}|l|p{0.4\linewidth}|}
+      \hline
+    \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor/s} & \textbf{Input \& Output}\\
+    \hline
+    1 & Output CSV& \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Downloadable CSV file with\\ appropriate data (out)\\ Success or failure message\\ (out)\end{tabular}                                               \\
+    \hline
+    2 & Output Visual Plot & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher \end{tabular} & \begin{tabular}[c]{@{}l@{}}downloadable portable network\\ graphic (PNG) or portable\\ document format (PDF) file \\(out)\\ Online viewable plot graphic \\(out)\end{tabular}      \\
+    \hline
+    3 & Compare Return Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher \end{tabular} & \begin{tabular}[c]{@{}l@{}}Online viewable table of result \\(out)\\ Data analysis results of\\ involved data(out)\end{tabular}                                                \\
+    \hline
+    4 & Upload Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Database\end{tabular} & \begin{tabular}[c]{@{}l@{}}CSV file in expected format \\and attributes (in)\\ Success or failure user message \\(out)\\ Update database with inputted\\ data (out)\end{tabular} \\
+    \hline
+    5 & Add New Attributes to Dataset & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Database \end{tabular} & \begin{tabular}[c]{@{}l@{}}Update database with the new \\attribute (out)\\ Success or failure user message \\(out)\\ Attribute name of string type \\(in)\end{tabular}          \\
+    \hline
+    6 & Query for Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher\\ Database \end{tabular} & \begin{tabular}[c]{@{}l@{}}Visual online table with the \\queried data (out)\\ Selected attribute(s), dates,\\ restrictions (in)\end{tabular}\\
+    \hline
+    \end{tabular}
+  \end{table}  
+\end{center}
+
+\newpage  \subsection{Individual Product Use Cases (PUC's)}
+\subsubsection{Output CSV}
+\begin{itemize}
+  \item Description: The user can export/output the data that they have received
+  from any function on the website system
+  \item Pre-condition: There must be some data in the database. The information
+  the user wants to output must also be able to be stored in a CSV file 
+  \item Post-condition: The user will get to download the desired CSV file
+  containing data from the database. If the download file has been sent to the
+  system, the user will receive a success or failure message.
+  \item Basic path: After querying the data from the database is successful, the
+  user can click on the download CSV button to export the file onto their system.
+\end{itemize}
+
+\subsubsection{Output Visual Plot}
+\begin{itemize}
+  \item Description: The user is able to generate a graphical plot based on data
+  from the database. The contents of the graph can be customized to include any
+  sort of data that the user decides from the data base. The graph type can be determined by the user. 
+  \item Pre-condition: There must be some selected data to be used to plot a graph.
+  \item Post-condition: A online view of the plot will be generated and
+  displayed on the website. There will also be an option for downloadable version. 
+  \item Basic path: After querying the database for desired data, the user can
+  pick the option to plot the returned data. The website will then generate a
+  graphical plot based on the returned data.
+\end{itemize}
+
+\subsubsection{Compare Return Data}
+\begin{itemize}
+  \item Description: This use case will allow the user to compare two sets of
+  data such as differences or similarities among other criteria.
+  \item Pre-condition: There must be two sets of data and what attribute(s) are
+  being compared. 
+  \item Post-condition: The analysis of the data will be presented in a visual
+  manner. Possible outcome may include colour coded elements or a small statement. 
+  \item Basic path: After querying the database for desired data, the user can
+  choose to enable the compare function. The user will then need to pick what
+  attributes they would like to compare and then continue with the website
+  prompts which will eventually give the data analysis result.
+\end{itemize}
+
+\subsubsection{Upload Data}
+\begin{itemize}
+  \item Description: When the user has more experimental data and would like to
+  update the database, this function of the website will be used to take in the
+  data and update/add to the existing database.
+  \item Pre-condition: The file with the new data will be a CSV file and will
+  need to be uploaded through the website interface.
+  \item Post-condition: A success or failure message will be displayed to the
+  user once the file is done uploading and have been added to the database.
+  \item Basic path: The user will need to click on the upload data button and
+  find the file they wish to upload on their system and upload it through the
+  website's drop box. 
+\end{itemize}
+\subsubsection{Add New Attributes to Dataset}
+\begin{itemize}
+  \item Description: As the experiment and data become larger or changes have
+  been made, there will be times when the dataset will need to be changed by
+  adding new attributes.  
+  \item Pre-condition: The user must specify which dataset that they want to
+  edit. The user must then specify what is the attribute name is in the form of
+  a string type input. 
+  \item Post-condition: A success or failure message will be displayed to the
+  user once the new attribute has been added to the database. 
+  \item Basic path: The user will need to click on the edit dataset button. The
+  user must then fill in the input fields with the correct information
+\end{itemize}
+
+\subsubsection{Query for Data}
+\begin{itemize}
+  \item Description: The user will want to get data from their past experiments.
+  To do so, they will need to decide what they want. This is one of the main use
+  case for any user/actor. 
+  \item Pre-condition: The database must have the some data. The user's query
+  request must be filled in through the input fields. The fields can range from
+  dates, to strings, to constraints. 
+  \item Post-condition: The returned data will be shown to the user through a
+  visual table representation and will be presented with a range of other
+  functions that the user can do with the returned data.  
+  \item Basic path: The user will need to click on the query function button.
+  They will then need to fill in the input fields, go through the user prompts
+  to then get the output.
+\end{itemize}
 
 \section{Functional Requirements}
 This section outlines the key functionalities the application must satisfy with justifications and fit criteria, as well as proposed phase-in dates.
@@ -450,55 +586,78 @@ goals.
 \end{enumerate}
 
 \section{Look and Feel Requirements}
-All subitems in this sections are the fit criterion for its respective
-requirements. 
+This section will highlight the look and feel of the web interface for the
+project involving the appearance and the style of the user interface and
+experience.
 \subsection{Appearance Requirements}
-\begin{itemize}
-  \item [AR1.]The website should have a simple and organized layout, with
+\begin{enumerate}
+  \item[LFR-1.] The website should have a simple and organized layout, with
   clearly defined sections where all major functions should be easily accessible
-  and viewable 
+  and viewable.
   \begin{itemize}
-    \item[AR1.1] A users should be able to identify all the major functions of
-    the website within five minuets of use.
+    \item \textit{Rationale:} Having a simple organized layout will ensure that the
+    navigation of the website is quick and intuitive for accessing features and
+    functions, which will enhance the user experience.
+    \item \textit{Fit Criterion:} A user should be able to identify all the major
+    functions of the website within five minutes of use.
   \end{itemize}
-  \item [AR2.] The website shall be responsive on all computer and laptop
-  screens aside from mobile screens
+  
+  \item[LFR-2.] The website shall be responsive on all computer and laptop screens
+  aside from mobile screens.
   \begin{itemize}
-    \item [AR2.1] The usability of website should be the same as the default
-    view on big and smaller computer, laptop and monitor screens
+    \item \textit{Rationale:} Having a responsive website will ensure that the
+    application accommodates the majority, if not all, of the user base in having a
+    proper user experience. 
+    \item \textit{Fit Criterion:} The usability of the website should be the same
+    as the default view on larger and smaller computer, laptop, and monitor screens.
   \end{itemize}
-  \item [AR3.] The website's functions and buttons shall be properly labeled
-  where no button is ambiguous to users 
+  
+  \item[LFR-3.] The website's functions and buttons shall be properly labeled
+  so that no button is ambiguous to users.
   \begin{itemize}
-    \item [AR3.1] A user should be able to tell what all buttons inherently does
-    without the needing to ask questions
+    \item \textit{Rationale:} Limiting ambiguity will ensure that users
+    understand and recognize the functions to minimize confusion and improve
+    efficiency.
+    \item \textit{Fit Criterion:} A user should be able to tell what all buttons
+    inherently do without needing to ask questions.
   \end{itemize}
-  \item [AR4.1]The produced plot from the data shall be properly labeled
+  
+  \item[LFR-4.] The produced plot from the data shall be properly labeled.
   \begin{itemize}
-    \item [AR4.1] The plots should not be ambiguous. Users should be able to
-    understand what is the plot about within five minuets of viewing it.
+    \item \textit{Rationale:} Properly labeling plots will help users
+    accurately interpret the data to make important analytical understandings.
+    \item \textit{Fit Criterion:} The plots should not be ambiguous; users
+    should be able to understand what the plot is about within five minutes of
+    viewing it.
   \end{itemize}
-  \subitem
-\end{itemize}
+\end{enumerate}
+
 
 \subsection{Style Requirements}
-\begin{itemize}
-  \item [SR1.] All icons on the website must be in the artistic style
+\begin{enumerate}
+  \item[LFR-5.] All icons on the website must be in the design standard. 
   \begin{itemize}
-    \item [SR1.1] After a user's first encounter with the product, 90\% of users
-    should see that there is unity among all the icons on the website. 
+    \item \textit{Rationale:} To enforce an identity and unity for the website. 
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, 90\% of users should
+    see that there is unity among all the icons on the website. 
   \end{itemize}
-  \item [SR2.] All colours must match the theme of the website
+  
+  \item[LFR-6.] All colors must match the theme of the website.
   \begin{itemize}
-    \item [SR2.1] After a user's first encounter with the product, 80\% of users
+    \item \textit{Rationale:} Applying a theme will ensure users have
+    an engaging visual experience.
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, 80\% of users
     should agree that there is a common theme throughout the website.
   \end{itemize}
-  \item [SR3.] All fonts are to be consistent throughout the website 
+  
+  \item[LFR-7.] All fonts are to be consistent throughout the website. 
   \begin{itemize}
-    \item [SR3.1] After a user's first encounter with the product, there should
+    \item \textit{Rationale:} Consistent fonts will increase readability,
+    ensuring users can focus on the functionalities that matter on the page rather than inconsistencies. 
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, there should
     be no user who feels that any fonts do not belong on the website. 
   \end{itemize}
-\end{itemize}
+\end{enumerate}
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
@@ -1201,57 +1360,20 @@ CSV to JSON format.\\
 
 \section{Costs}
 \lips
-\section{Look and Feel Requirements}
-All subitems in this sections are the fit criterion for its respective
-requirements. 
-\subsection{Appearance Requirements}
-\begin{itemize}
-  \item [AR1.]The website should have a simple and organized layout, with
-  clearly defined sections where all major functions should be easily accessible
-  and viewable 
-  \begin{itemize}
-    \item[AR1.1] A users should be able to identify all the major functions of
-    the website within five minuets of use.
-  \end{itemize}
-  \item [AR2.] The website shall be responsive on all computer and laptop
-  screens aside from mobile screens
-  \begin{itemize}
-    \item [AR2.1] The usability of website should be the same as the default
-    view on big and smaller computer, laptop and monitor screens
-  \end{itemize}
-  \item [AR3.] The website's functions and buttons shall be properly labeled
-  where no button is ambiguous to users 
-  \begin{itemize}
-    \item [AR3.1] A user should be able to tell what all buttons inherently does
-    without the needing to ask questions
-  \end{itemize}
-  \item [AR4.1]The produced plot from the data shall be properly labeled
-  \begin{itemize}
-    \item [AR4.1] The plots should not be ambiguous. Users should be able to
-    understand what is the plot about within five minuets of viewing it.
-  \end{itemize}
-  \subitem
-\end{itemize}
+\section{User Documentation Requirements}
+User documentation will cover the more complicated features and functionalities of the website.\\
 
-\subsection{Style Requirements}
-\begin{itemize}
-  \item [SR1.] All icons on the website must be in the artistic style
-  \begin{itemize}
-    \item [SR1.1] After a user's first encounter with the product, 90\% of users
-    should see that there is unity among all the icons on the website. 
-  \end{itemize}
-  \item [SR2.] All colours must match the theme of the website
-  \begin{itemize}
-    \item [SR2.1] After a user's first encounter with the product, 80\% of users
-    should agree that there is a common theme throughout the website.
-  \end{itemize}
-  \item [SR3.] All fonts are to be consistent throughout the website 
-  \begin{itemize}
-    \item [SR3.1] After a user's first encounter with the product, there should
-    be no user who feels that any fonts do not belong on the website. 
-  \end{itemize}
-\end{itemize}
+\noindent This documentation will include how to add new attributes to the dataset, how
+to request data plots and any major functionality features. \newline
+This document is intended to be a help/tutorial for the end users who will be
+using the site for its functionalities. Its target is for those who have limited
+software knowledge. Although most functions aims to be as intuitive as possible
+to the user, since this is an analysis application there should be documentation
+explaining for those who have no idea about how research data works and how to
+interact with it using the website.
 
+\subsection{Training Requirements}
+No training is required to use the end product.
 \section{Waiting Room}
 The following requirements are beyond the sophistication of, or time allowed
 for, initial release of the product.
