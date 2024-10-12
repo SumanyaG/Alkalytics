@@ -45,15 +45,31 @@
 
 ~\newpage
 
+\listoffigures
+\listoftables
+
+\section*{Volere Template Changes}
+\begin{tabularx}{\textwidth}{p{8cm}p{4cm}X} \toprule
+  {\textbf{Section Name}} & {\textbf{Action}}\\
+  \midrule
+  6.3 Work Partioning & Removed\\
+  6.4 Specifying a Business Use Case (BUC) & Removed\\
+  17.1 and 17.2 & Merged sub-sections\\
+  21.3 Planning of the Development Phases & Added\\
+  \bottomrule
+\end{tabularx}
+
+\newpage
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X} \toprule {\textbf{Date}} &
-{\textbf{Version}} & {\textbf{Notes}}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
+  \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X} \toprule {\textbf{Date}} &
+  {\textbf{Version}} & {\textbf{Notes}}\\
+  \midrule
+  1 October 2024 & 1.0 & Partially completed version shared with supervisors and TA for feedback.\\
+  7 October 2024 & 1.1 & Incorporated feedback and presented during informal presentation with TA.\\
+  11 October 2024 & 1.2 & Finished document for Revision 0 submission.\\
+  \bottomrule
+  \end{tabularx}
 
 ~\\
 
@@ -313,7 +329,7 @@ The path highlighted with green arrows indicates how the product is expected to 
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
-The following diagram represents a business data model that encapsulates all the data that is
+The diagram represents a business data model that encapsulates all the data that is
 created, referenced, updated and deleted by processes in the platform.
 
 \begin{figure}[H]
@@ -335,18 +351,20 @@ interface system. Level 1 to 3 labeled actors are part of the research time
 customer mentioned in section 2.2 where depending how the team is structured,
 there are differnt use cases for different level actors. These are added for
 clarity of the system.
-\begin{center}
+
+\begin{figure}[H]
+  \centering
   \includegraphics[scale=0.5]{capstoneUseCase.png}
-\end{center}
+  \caption{Use Case Diagram}
+\end{figure}
 
 
 \subsection{Product Use Case Table}
-The product use case table (PUC) is an extention of the use case diagram in the pervious section. The table aims to provide more 
-\begin{center}
-  \begin{table}[]
-    \centering
-    \begin{tabular}{|p{0.08\linewidth}|p{0.3\linewidth}|l|p{0.4\linewidth}|}
-      \hline
+The product use case table (PUC) is an extention of the use case diagram in the pervious section. The table aims to provide more details.
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|p{0.08\linewidth}|p{0.3\linewidth}|l|p{0.4\linewidth}|}
+    \hline
     \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor/s} & \textbf{Input \& Output}\\
     \hline
     1 & Output CSV& \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Downloadable CSV file with\\ appropriate data (out)\\ Success or failure message\\ (out)\end{tabular}                                               \\
@@ -362,8 +380,9 @@ The product use case table (PUC) is an extention of the use case diagram in the 
     6 & Query for Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher\\ Database \end{tabular} & \begin{tabular}[c]{@{}l@{}}Visual online table with the \\queried data (out)\\ Selected attribute(s), dates,\\ restrictions (in)\end{tabular}\\
     \hline
     \end{tabular}
-  \end{table}  
-\end{center}
+    \caption{Product Use Cases}
+\end{table}  
+
 
 \newpage  \subsection{Individual Product Use Cases (PUC's)}
 \subsubsection{Output CSV}
@@ -600,7 +619,7 @@ project involving the appearance and the style of the user interface and
 experience.
 \subsection{Appearance Requirements}
 \begin{enumerate}
-  \item[LFR-1.] The website should have a simple and organized layout, with
+  \item[\textbf{LFR-1.}] The website should have a simple and organized layout, with
   clearly defined sections where all major functions should be easily accessible
   and viewable.
   \begin{itemize}
@@ -611,7 +630,7 @@ experience.
     functions of the website within five minutes of use.
   \end{itemize}
   
-  \item[LFR-2.] The website shall be responsive on all computer and laptop screens
+  \item[\textbf{LFR-2.}] The website shall be responsive on all computer and laptop screens
   aside from mobile screens.
   \begin{itemize}
     \item \textit{Rationale:} Having a responsive website will ensure that the
@@ -621,7 +640,7 @@ experience.
     as the default view on larger and smaller computer, laptop, and monitor screens.
   \end{itemize}
   
-  \item[LFR-3.] The website's functions and buttons shall be properly labeled
+  \item[\textbf{LFR-3.}] The website's functions and buttons shall be properly labeled
   so that no button is ambiguous to users.
   \begin{itemize}
     \item \textit{Rationale:} Limiting ambiguity will ensure that users
@@ -631,7 +650,7 @@ experience.
     inherently do without needing to ask questions.
   \end{itemize}
   
-  \item[LFR-4.] The produced plot from the data shall be properly labeled.
+  \item[\textbf{LFR-4.}] The produced plot from the data shall be properly labeled.
   \begin{itemize}
     \item \textit{Rationale:} Properly labeling plots will help users
     accurately interpret the data to make important analytical understandings.
@@ -644,14 +663,14 @@ experience.
 
 \subsection{Style Requirements}
 \begin{enumerate}
-  \item[LFR-5.] All icons on the website must be in the design standard. 
+  \item[\textbf{LFR-5.}] All icons on the website must be in the design standard. 
   \begin{itemize}
     \item \textit{Rationale:} To enforce an identity and unity for the website. 
     \item \textit{Fit Criterion:} After a user's first encounter with the product, 90\% of users should
     see that there is unity among all the icons on the website. 
   \end{itemize}
   
-  \item[LFR-6.] All colors must match the theme of the website.
+  \item[\textbf{LFR-6.}] All colors must match the theme of the website.
   \begin{itemize}
     \item \textit{Rationale:} Applying a theme will ensure users have
     an engaging visual experience.
@@ -659,7 +678,7 @@ experience.
     should agree that there is a common theme throughout the website.
   \end{itemize}
   
-  \item[LFR-7.] All fonts are to be consistent throughout the website. 
+  \item[\textbf{LFR-7.}] All fonts are to be consistent throughout the website. 
   \begin{itemize}
     \item \textit{Rationale:} Consistent fonts will increase readability,
     ensuring users can focus on the functionalities that matter on the page rather than inconsistencies. 
@@ -698,7 +717,6 @@ This section outlines the requirements that are intended to make the product usa
   \item \emph{Fit Criterion}: A new user with basic computer literacy skills should be able to upload an input file, enter initial experiment parameters, select fields to be compared and view their graph
   after a simple product walkthrough by the administrator.
 \end{itemize}
->>>>>>> 3c12750 (fixup! doc(SRS): add sections 3, 5, 11, 22, 25)
 
 \subsection{Understandability and Politeness Requirements}
 \textbf{UHR-5.} The product shall maintain consistent use of terminology across the platform to avoid confusion.
@@ -1198,8 +1216,8 @@ and adaptability. Work will be organized into stages, milestones, and phases,
 with regular reviews and adjustments to ensure alignment with goals. Issues are
 managed via GitHub and all communications are documented to ensure
 accountability. Stakeholder feedback will be integrated throughout the process
-to ensure the solution meets evolving requirements.
-
+to ensure the solution meets evolving requirements.\\
+\newline
 In addition, project planning will include weekly team meetings, biweekly
 supervisor meetings. Deliverables are categorized into stages where roles are
 rotated among team members to share responsibility.
@@ -1298,7 +1316,7 @@ This section includes a list of coversion activities that are necessary that are
 The following conversion tasks have been identified as a part of the project planning process.
 \subsubsection{Use of Phased Implementation}
 The system will not be implemented in phases and would be installed as a part of a single process after testing and approval. This would be done following Stage 7 described in table
-\ref{table:2} and Phase 3 described in table \ref{table:3}.
+\ref{table:2} and Phase 3.
 
 \subsubsection{Data Conversion}
 \label{data}
@@ -1336,12 +1354,12 @@ the number of experiments increase, unsustainable in the long-term.
 A scirpt will be written to automate the translation of files from CSV to JSON format. This has been described in detail in the \nameref{data} section.
 
 \section{Costs}
-\lips
+\emph{N/A}
 \section{User Documentation Requirements}
 User documentation will cover the more complicated features and functionalities of the website.\\
 
 \noindent This documentation will include how to add new attributes to the dataset, how
-to request data plots and any major functionality features. \newline
+to request data plots and any major functionality features.\\ \newline
 This document is intended to be a help/tutorial for the end users who will be
 using the site for its functionalities. Its target is for those who have limited
 software knowledge. Although most functions aims to be as intuitive as possible
