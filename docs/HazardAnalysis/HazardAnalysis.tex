@@ -55,8 +55,12 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Introduction}
 
-\wss{You can include your definition of what a hazard is here.}
-
+A hazard is any property or condition that has the potential to cause harm. This
+document serves as a hazard analysis for the application revolving around the
+capstone project "Alkalytics". This project aims to aids in the data management
+and analysis of an ocean alkalinity enhancement experiment. This document
+identifies the components of the system, and then the possible software hazards
+in these components, as well as ways to mitigate the risks they impose.
 \section{Scope and Purpose of Hazard Analysis}
 
 \wss{You should say what \textbf{loss} could be incurred because of the
@@ -71,11 +75,43 @@ each individual piece of hardware.  If your software will have a database, or an
 important library, these are also potential components.}
 
 \section{Critical Assumptions}
-
-\wss{These assumptions that are made about the software or system.  You should
-minimize the number of assumptions that remove potential hazards.  For instance,
-you could assume a part will never fail, but it is generally better to include
-this potential failure mode.}
+The following are assumptions made about the software of the system. 
+\begin{itemize}
+    \item The data provided to this system is validated and correctly formatted
+    before system ingestion
+    \begin{itemize}
+        \item Errors can occur from badly formatted or invalid incoming data,
+        which is not something the system can control
+    \end{itemize}
+    \item The user of this application is not intentionally trying to misuse it
+    \begin{itemize}
+        \item This assumption mitigates the risk of someone intentionally
+        damaging the system
+    \end{itemize}
+    \item Internet connection and server infrastructure will always be
+    available, and will not suddenly go down and compromise the system
+    \begin{itemize}
+        \item This assumption mitigates the risk of a failing internet
+        connection or fragile server infrastructure interrupting the system
+    \end{itemize}
+    \item Users using this application understand how to use the application,
+    whether through documentation or a tutorial
+    \begin{itemize}
+        \item This assumptions ensures that user errors caused by lack of
+        knowledge do not occur
+    \end{itemize}
+    \item The system is regularly maintained for security and bug fixes
+    \begin{itemize}
+        \item This assumption prevents any threats to the system due to poor
+        maintenance
+    \end{itemize}
+    \item The system is scalable and possesses enough computational resources to
+    handle any volume of data
+    \begin{itemize}
+        \item This assumption mitigates the risk of the system failing due to
+        lack of resources
+    \end{itemize}
+\end{itemize}
 
 \section{Failure Mode and Effect Analysis}
 
