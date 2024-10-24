@@ -3,6 +3,8 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{longtable}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -99,9 +101,52 @@ documentation, and/or test cases.}
 rationale design process how and why to fake it.)}
 
 \section{Roadmap}
+The following table outlines a proposed roadmap of when each safety requirement will be implemented within the capstone timeline and justifications.
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+\begin{longtable}[c]{|m{2.5cm}|m{2.6cm}|m{2cm}|m{3.6cm}|}
+    \hline
+    \textbf{Phase-in Date} & \textbf{Req. Category} & \textbf{Req. ID(s)} & \textbf{Rationale} \\
+    \hline
+    \endhead
+    Nov 11 (PoC Demo) & Access & N/A & The PoC plan will not consider user access features at this time.\\
+    \cline{2-4}
+    & Integrity & SR-5, SR-6, SR-7, SR-8, SR-9, SR-10 & The database must adhere to these requirements for a successful PoC.\\
+    \cline{2-4}
+    & Privacy & N/A & Since the PoC plan will\\
+    & Audit & N/A & only have the database\\
+    & Immunity & N/A & these requirements are not applicable.\\
+    \hline
+    Feb 3 (Rev0 Demo) & Access & SR-1 & User authentication should be implemented during front-end development.\\
+    \cline{2-4}
+    & Integrity & N/A & The crucial integrity requirements will have already been implemented by the PoC demo.\\
+    \cline{2-4}
+    & Privacy & SR-12, SR-13 & At this point there will be user access, thus these requirements must be implemented.\\
+    \cline{2-4}
+    & Audit & N/A & These requirements\\
+    & Immunity & N/A & are not high-priority.\\
+    \hline
+    Mar 24 (Rev1 Final Demo) & Access & SR-2, SR-3 & User access must be extended to permissions and capabilities prior to release.\\
+    \cline{2-4}
+    & Integrity & N/A & The crucial integrity requirements will have already been implemented by the PoC demo.\\
+    \cline{2-4}
+    & Privacy & SR-14 & This requirement is necessary for system availability and robustness to extend past capstone.\\
+    \cline{2-4}
+    & Audit & SR-17 & Client and users must be informed about system issues and be able to troubleshoot even without the original development team.\\
+    \cline{2-4}
+    & Immunity & SR-19 & This requirement is necessary for system availability and robustness to extend past capstone.\\
+    \hline
+    Future considerations & Access & SR-4 & This requirement is out of scope for the project timeline.\\
+    \cline{2-4}
+    & Integrity & SR-11 & This requirement is out of scope for the project timeline.\\
+    \cline{2-4}
+    & Privacy & N/A & All privacy requirements have been covered.\\
+    \cline{2-4}
+    & Audit & SR-15, SR-16 & These requirements would be nice-to-haves but are not essential for the project.\\
+    \cline{2-4}
+    & Immunity & SR-18 & This requirement is out of scope for the project timeline.\\
+    \hline
+    \caption{Roadmap of the safety and security requirements.}
+\end{longtable}
 
 \newpage{}
 
