@@ -68,6 +68,7 @@
   1 October 2024 & 1.0 & Partially completed version shared with supervisors and TA for feedback.\\
   7 October 2024 & 1.1 & Incorporated feedback and presented during informal presentation with TA.\\
   11 October 2024 & 1.2 & Finished document for Revision 0 submission.\\
+  25 October 2024 & 1.3 & Updated safety requirements to align with HA documentation.\\
   \bottomrule
   \end{tabularx}
 
@@ -589,7 +590,7 @@ goals.\\
     \item \textit{Rationale}: Ensures the data can only be accessed and modified by authorized users.
     \item \textit{Fit Criterion}: The user shall be able to log in with a username and password.
     \item \textit{Priority/Phase-in date}: Low/March 21; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
-    \item \textit{Traceability}: PR-11, SR-1, SR-2, SR-8, SR-10, SR-11.
+    \item \textit{Traceability}: PR-11, SR-1, SR-2, SR-8.
   \end{itemize}
 
 \subsection{Data Export Requirements}
@@ -945,7 +946,7 @@ integrity, and auditing user actions within the application.
     with the application.
     \item \textit{Fit Criterion:} Only users with valid credentials should
     access the application.
-    \item \textit{Traceability:} FR-14, SR-2, SR-8, SR-10.
+    \item \textit{Traceability:} FR-14, SR-2, SR-4, SR-8.
   \end{itemize}
 \ \\
 \textbf{SR-2.} Only authenticated users should have the ability to
@@ -956,11 +957,30 @@ integrity, and auditing user actions within the application.
     with their roles.
     \item \textit{Fit Criterion:} The application should restrict 100\% of
     actions that are not permitted to the user's level of access.
-    \item \textit{Traceability:} FR-14, SR-1, SR-8.
+    \item \textit{Traceability:} FR-14, SR-1, SR-3, SR-8.
+  \end{itemize}
+\textbf{SR-3.} The system must restrict sensitive operations (e.g., data
+  export) to authorized personnel only.
+    \begin{itemize}
+      \item \textit{Rationale:} Prevents unauthorized users from exporting or
+      sharing sensitive data, protecting data integrity.
+      \item \textit{Fit Criterion:} Only authorized users must be able to perform
+      sensitive operations like data export.
+      \item \textit{Traceability:} FR-15, SR-2.
+    \end{itemize}
+\ \\
+\textbf{SR-4.} The system must enforce session timeout and automatic logouts
+after a period of inactivity.
+  \begin{itemize}
+    \item \textit{Rationale:} Protects the system from unauthorized access if
+    users leave their session unattended.
+    \item \textit{Fit Criterion:} Sessions must time out and log users off
+    automatically after a specified inactivity period.
+    \item \textit{Traceability:} FR-14, SR-1, SR-4.
   \end{itemize}
 
 \subsection{Integrity Requirements}
-\textbf{SR-3.} The application must validate data inputs to ensure they
+\textbf{SR-5.} The application must validate data inputs to ensure they
   conform to expected formats and values before they are processed.
   \begin{itemize}
     \item \textit{Rationale:} Ensures only valid data is processed, reducing
@@ -970,55 +990,74 @@ integrity, and auditing user actions within the application.
     \item \textit{Traceability:} FR-1, FR-2, FR-4.
   \end{itemize}
 \ \\
-\textbf{SR-4.} The application must not modify the data unnecessarily
+\textbf{SR-6.} The application must not modify the data unnecessarily
   through its transfer process.
   \begin{itemize}
     \item \textit{Rationale:} Ensures the original data remains accurate and
     unaltered.
     \item \textit{Fit Criterion:} Data should remain unchanged unless explicitly
     modified, with logs confirming its integrity.
-    \item \textit{Traceability:} FR-3, FR-4, SR-5, SR-6.
+    \item \textit{Traceability:} FR-3, FR-4, SR-7, SR-8.
   \end{itemize}
 \ \\
-\textbf{SR-5.} The application must ensure that any data processed or
+\textbf{SR-7.} The application must ensure that any data processed or
   transferred is free from duplication or inconsistencies.
   \begin{itemize}
     \item \textit{Rationale:} Ensures data consistency and prevents corruption.
     \item \textit{Fit Criterion:} The application must detect and prevent 100\%
     of duplicated records.
-    \item \textit{Traceability:} FR-3, FR-4, SR-4, SR-6.
+    \item \textit{Traceability:} FR-3, FR-4, SR-6, SR-8.
   \end{itemize}
 \ \\
-\textbf{SR-6.} The application must have safeguards in place to
+\textbf{SR-8.} The application must have safeguards in place to
   maintain the accuracy of the transferred data.
   \begin{itemize}
     \item \textit{Rationale:} Ensures reliable data transfer without loss or
     error.
     \item \textit{Fit Criterion:} Transfer operations should maintain 100\% data
     accuracy, verified by validation tests.
-    \item \textit{Traceability:} FR-3, FR-4, SR-4, SR-5.
+    \item \textit{Traceability:} FR-3, FR-4, SR-6, SR-7.
   \end{itemize}
+  \textbf{SR-9.} The system must validate CSV data thoroughly before upload to
+prevent corrupted or incomplete data entries.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that only valid, complete, and accurate
+    data enters the system to prevent faulty analysis.
+    \item \textit{Fit Criterion:} The application shall reject any data that
+    does not meet the validation criteria.
+    \item \textit{Traceability:} FR-3, FR-4.
+  \end{itemize}
+\ \\
 
 \subsection{Privacy Requirements}
-\textbf{SR-7.} All personal information related to experimental
+\textbf{SR-10.} All personal information related to experimental
   participants or stakeholders, if applicable, must be anonymized and handled in
   accordance with relevant privacy laws and regulations.
   \begin{itemize}
     \item \textit{Rationale:} Ensures user privacy and legal compliance.
-    \item \textit{Traceability:} SR-8.
+    \item \textit{Traceability:} SR-11.
   \end{itemize}
 \ \\
-\textbf{SR-8.} The application must restrict data sharing with external
+\textbf{SR-11.} The application must restrict data sharing with external
   parties unless expressly authorized by stakeholders, and users must be fully
   informed about the privacy policies.
   \begin{itemize}
     \item \textit{Rationale:} Ensures transparency and control over data
     sharing.
-    \item \textit{Traceability:} FR-14, SR-1, SR-2, SR-7.
+    \item \textit{Traceability:} FR-14, SR-1, SR-2, SR-10.
   \end{itemize}
+  \textbf{SR-12.} The system must monitor database storage capacity and alert
+  administrators when thresholds are reached to prevent system crashes.
+    \begin{itemize}
+      \item \textit{Rationale:} Ensures the system continues operating smoothly by
+      addressing storage limits proactively.
+      \item \textit{Fit Criterion:} The system shall send alerts when storage
+      capacity exceeds 80\% usage.
+      \item \textit{Traceability:} PR-12, PR-13.
+    \end{itemize}
 
 \subsection{Audit Requirements}
-\textbf{SR-9.} The application must maintain a comprehensive audit
+\textbf{SR-13.} The application must maintain a comprehensive audit
   trail, logging all access and modification events, including timestamps and
   identities of users performing actions.
   \begin{itemize}
@@ -1029,7 +1068,7 @@ integrity, and auditing user actions within the application.
     \item \textit{Traceability:} FR-12, FR-13.
   \end{itemize}
 \ \\
-\textbf{SR-10.} Audit logs must be securely stored and accessible only
+\textbf{SR-14.} Audit logs must be securely stored and accessible only
   by authorized personnel.
   \begin{itemize}
     \item \textit{Rationale:} Ensures the security and integrity of audit data.
@@ -1037,9 +1076,19 @@ integrity, and auditing user actions within the application.
     users with administrative privileges.
     \item \textit{Traceability:} FR-14, SR-1.
   \end{itemize}
+  \textbf{SR-15.} The system must provide real-time error logging and display
+  error messages to users to enhance troubleshooting.
+    \begin{itemize}
+      \item \textit{Rationale:} Ensures users are informed about system issues and
+      can take corrective action promptly.
+      \item \textit{Fit Criterion:} All errors must be logged and displayed
+      clearly to users in real-time.
+      \item \textit{Traceability:} FR-12, MSR-5.
+    \end{itemize}
+  
 
 \subsection{Immunity Requirements}
-\textbf{SR-11.} The application must have proactive measures to detect
+\textbf{SR-16.} The application must have proactive measures to detect
   and mitigate suspicious activities, such as repeated unauthorized access
   attempts, ensuring the application remains secure at all times.
   \begin{itemize}
@@ -1050,6 +1099,15 @@ integrity, and auditing user actions within the application.
     alerts sent to administrators.
     \item \textit{Traceability:} FR-14.
   \end{itemize}
+  \textbf{SR-17.} Real-time monitoring and optimization of system resources must
+  be implemented to avoid crashes due to resource overload.
+    \begin{itemize}
+      \item \textit{Rationale:} Prevents system downtime by ensuring efficient use
+      of CPU and memory.
+      \item \textit{Fit Criterion:} The system must manage memory and CPU usage
+      dynamically to avoid overloads.
+      \item \textit{Traceability:} PR-4, PR-9.
+    \end{itemize}
 
 \section{Cultural Requirements}
 \textbf{CR-1.} The product must not be biased towards certain geographic regions or countries and their societal norms.
