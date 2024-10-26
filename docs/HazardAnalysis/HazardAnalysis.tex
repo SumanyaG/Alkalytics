@@ -54,8 +54,6 @@ Date2 & Name(s) & Description of changes\\
 
 \pagenumbering{arabic}
 
-\wss{You are free to modify this template.}
-
 \section{Introduction}
 
 A hazard is any property or condition that has the potential to cause harm. This
@@ -83,12 +81,47 @@ losses could be incurred from an insufficient hazard assessment:
 \end{itemize}
 
 \section{System Boundaries and Components}
+The system boundaries are used to define what is within the scope of the hazard analysis,
+in essence, where the system interacts with external systems, users and hardware. Some key
+boundaries for Alkalytics include:
+\begin{itemize}
+  \item \textbf{User Interaction Boundaries}:
+    \begin{enumerate}
+      \item Interactions happen through the frontend interface, where users authenticate, 
+      input data, and retrieve visualizations and analytics.
+      \item Limit interactions in terms of user access levels, as only authenticated and authorized users
+      are allowed to view or modify certain data.
+    \end{enumerate}
+  \item \textbf{Data Boundaries}:
+    \begin{enumerate}
+      \item Alkalytics handles data import (CSV files), processing, analysis, and export, requiring clear 
+      boundaries on data validity and format conformity.
+      \item The system is also bounded by its data storage capabilities, including access controls, data integrity 
+      safeguards, and secure handling of sensitive information.
+    \end{enumerate}
+  \item \textbf{Network and External Connectivity Boundaries}:
+    \begin{enumerate}
+      \item External connections, like internet-based server access and database queries, form a boundary where system 
+      security, speed, and availability must be managed.
+      \item Network performance, internet stability, and server downtime impact the accessibility and reliability of the system.
+    \end{enumerate}
+\end{itemize}
 
-\wss{Dividing the system into components will help you brainstorm the hazards.
-You shouldn't do a full design of the components, just get a feel for the major
-ones.  For projects that involve hardware, the components will typically include
-each individual piece of hardware.  If your software will have a database, or an
-important library, these are also potential components.}
+The system can be broken down into the following major components:
+\begin{enumerate}
+  \item \textbf{Authentication System}: Ensures that only authorized users can access the Alkalytics platform and limits actions 
+  based on user permissions.
+  \item \textbf{Comma-Separated Values (CSV) Data Migration Module}: Handles the import of data from CSV files into the database,
+  including checks for data format, completeness, and correctness.
+  \item \textbf{Data Visualization Module}: Generates graphs and visual representations of data, requiring accuracy in rendering and 
+  efficient performance.
+  \item \textbf{Query Functionality}: Processes user queries to retrieve data from the database, ensuring that correct data is returned promptly.
+  \item \textbf{Data Export Module}: Allows users to export data in CSV for external use, requiring accuracy and completeness.
+  \item \textbf{Backend Database}: Stores and retrieves all user and application data, requiring reliable connection management, data integrity, and sufficient storage.
+  \item \textbf{Frontend Interface}: Provides users with access to Alkalytics' functionalities through a web-based UI, handling data input validation and responsiveness.
+  \item \textbf{Error Tracking System}: Logs and categorizes system errors for troubleshooting and performance monitoring.
+  \item \textbf{Machine Learning Analysis Module}: Processes data to provide predictive insights or data analyses, requiring well-trained models and accurate data handling.
+\end{enumerate}
 
 \section{Critical Assumptions}
 
@@ -443,21 +476,49 @@ will be implemented within the capstone timeline and justifications.
 
 \section*{Appendix --- Reflection}
 
-\wss{Not required for CAS 741}
-
-\input{../Reflection.tex}
-
 \begin{enumerate}
-    \item What went well while writing this deliverable? 
+    \item What went well while writing this deliverable?\\
+    
+    Writing a comprehensive Software Requirements Specification right before this milestone
+    helped tremendously because as a team, we had been nudged into considering multiple aspects
+    of the project we had not thought of earlier. All this research and decision-making ensured
+    that coming into this milestone, we had most of the relevant things figured out prior to writing
+    this documentation.
     \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
+    did you resolve them?\\
+    
+    One major pain point we experienced was the lack of time we could dedicate to this milestone as
+    a team. Since this milestone was due the week after reading week when most of us had >2 midterms along
+    with multiple other assignments, it was harder to coordinate times to meet up and get a lot of the work done
+    a couple of days before the deadline, which is what we ideally like to do. As an instance, due to the time constraints, 
+    we did not have enough time to get our Pull Requests (PRs) reviewed and approved by all the team members before merging.\\
+    \newline
+    Additionally, since most of the sections are a lot more interwoven as compared to prior milestones (which although connected,
+    could be written somewhat independently), it was a lot harder to divide the sections. This ties back to the aforementioned 
+    time-contraints and we believe that, if we had more time to meet up as a team, the division of tasks would have been easier
+    to manage.  We resolved this by effectively communicating with each other over text instead.
     \item Which of your listed risks had your team thought of before this
     deliverable, and which did you think of while doing this deliverable? For
     the latter ones (ones you thought of while doing the Hazard Analysis), how
-    did they come about?
+    did they come about?\\
+
+    Our team ahd thought of a majority of the risks before this deliverable. The ones that we had not
+    considered include unresponsiveness of the frontend, performance related failures and error tracking related hazards.
+    These came about after we had identified all the system boundaries and when we focused on those components in particular
+    and tried to consider all the potential ways the component can fail.
     \item Other than the risk of physical harm (some projects may not have any
     appreciable risks of this form), list at least 2 other types of risk in
-    software products. Why are they important to consider?
+    software products. Why are they important to consider?\\
+
+    Beyond the risk of physical harm, software products may have the following types of risks:
+    \begin{enumerate}
+      \item \textbf{Security Risks}: These involve vulnerabilities that can be exploited, leading to unauthorized access, data breaches
+      or malicious attacks. For projects that are data centric like ours, these risks are critical because they can lead to the loss of
+      sensitive information.
+      \item \textbf{Operational Risks}: These risks arise from failures in the software's functionality, reliability, or performance under 
+      real-world conditions. Operational risks are important to consider because any failure in the software’s expected behavior can disrupt 
+      business operations, cause customer dissatisfaction, lead to unexpected maintenance costs, or more.
+    \end{enumerate}
 \end{enumerate}
 
 \end{document}
