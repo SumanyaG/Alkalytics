@@ -4,7 +4,8 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{longtable}
-
+\usepackage{geometry}  % For no margins
+\usepackage{pdflscape}    
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links (change box color with linkbordercolor)
@@ -12,6 +13,7 @@
     filecolor=magenta,      % color of file links
     urlcolor=cyan           % color of external links
 }
+
 
 \title{Hazard Analysis\\\progname}
 
@@ -60,12 +62,19 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Scope and Purpose of Hazard Analysis}
 
-The purpose of the hazard analysis is to identify potential hazards and its causes, assess the effects, and set mitigation strategies to eliminate or lessen the risk of the hazard. It is important to consider all possible hazards associated with the Alkalytics project and its components, as the following losses could be incurred from an insufficient hazard assessment:
+The purpose of the hazard analysis is to identify potential hazards and its
+causes, assess the effects, and set mitigation strategies to eliminate or lessen
+the risk of the hazard. It is important to consider all possible hazards
+associated with the Alkalytics project and its components, as the following
+losses could be incurred from an insufficient hazard assessment:
 \begin{itemize}
     \item Data loss: The data gets unintentionally lost, deleted, or corrupted.
-    \item Data integrity: The data is not complete, accurate, nor correct which can lead to computational errors.
-    \item System availability: Users are unable to access the system due to factors such as unstable internet connection or server crashes.
-    \item Security: If there are no proper measures for authentication, unauthorized access to the data or user information may occur.
+    \item Data integrity: The data is not complete, accurate, nor correct which
+    can lead to computational errors.
+    \item System availability: Users are unable to access the system due to
+    factors such as unstable internet connection or server crashes.
+    \item Security: If there are no proper measures for authentication,
+    unauthorized access to the data or user information may occur.
 \end{itemize}
 
 \section{System Boundaries and Components}
@@ -84,65 +93,310 @@ you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
 
 \section{Failure Mode and Effect Analysis}
+\newgeometry{margin=2cm}
+\begin{landscape}
+    \begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{4cm}|p{4cm}|p{1.25cm}|p{1cm}|}
+        \hline
+        \textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of
+        Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} &
+        \textbf{SR} & \textbf{Ref} \\
+        \hline
+        \endfirsthead
+        
+        \hline
+        \textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of
+        Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} &
+        \textbf{SR} & \textbf{Ref} \\
+        \hline
+        \endhead
+        
+        \hline
+        \endfoot
+        Authentication & Unauthorized user access & Data breach, loss of data
+        integrity & Weak security protocols & Strengthen authentication
+        mechanisms & SR-1, SR-2 & H1-1 \\
+        \cline{2-7}
+        \texttt{} & User unable to log in & Loss of productivity & System
+        downtime, credential errors & Ensure high system uptime and credential
+        recovery & FR-14, SR-1, SR-4 & H1-2 \\
+        \cline{1-7}
+        CSV Data Migration & Data not uploaded to the database & Loss of data
+        availability & Incorrect file format or server issue & Validate file
+        format and ensure server uptime & FR-3, FR-4, SR-9 & H2-1 \\
+        \cline{2-7}
+        \texttt{} & Data partially uploaded & Incomplete data leads to incorrect
+        analysis & Timeout during upload, corrupted file & Implement
+        error-checking during upload & FR-3, FR-2 & H2-2 \\
+        \cline{2-7}
+        \texttt{} & Duplicate data entries & Conflicting results in data
+        analysis & No validation for duplicates & Add duplicate data detection
+        and rejection logic & SR-5, FR-4, SR-7 & H2-3 \\
+        \cline{1-7}
+        Data Visualization & Incorrect graph rendering & Misleading or
+        inaccurate data interpretation & Inaccurate parameter selection &
+        Improve input validation, real-time graph updates & FR-8, FR-9 & H3-1 \\
+        \cline{2-7}
+        \texttt{} & Slow graph rendering & Poor user experience & Large dataset
+        or inefficient plotting algorithm & Optimize graph rendering speed &
+        PR-5, PR-2 & H3-2 \\
+        \cline{1-7}
+        Query Functionality & Data not returned or delayed & User frustration,
+        inability to retrieve data & Database connection or query input error &
+        Optimize query performance and error handling & FR-5, FR-6, PR-2 & H4-1
+        \\
+        \cline{2-7}
+        \texttt{} & Incorrect data returned & Incorrect conclusions from user &
+        Misconfigured query logic & Validate query structure and results & PR-6,
+        FR-5 & H4-2 \\
+        \cline{2-7}
+        \texttt{} & Query results outdated & Decisions based on stale data &
+        Data not refreshed in database & Implement data refresh strategy &
+        PR-14, FR-6 & H4-3 \\
+        \cline{1-7}
+        Data Export & CSV export generates corrupted files & Data cannot be used
+        in external systems & Incorrect formatting logic & Implement robust
+        export validation & FR-15, PR-6, SR-3 & H5-1 \\
+        \cline{2-7}
+        \texttt{} & Export missing data & Partial data exported, incomplete
+        reports & Timeout during export or data truncation & Ensure export
+        process handles large data volumes & FR-15, PR-8 & H5-2 \\
+        \cline{2-7}
+        \texttt{} & Session timeout too short & User repeatedly logged out,
+        inconvenience & Incorrect session configuration & Increase session
+        timeout settings & FR-14, SR-16, SR-4 & H5-3 \\
+        \cline{1-7}
+        Backend Database & Database connection lost & Data retrieval fails,
+        analysis halted & Network issues, server downtime & Improve database
+        fault-tolerance and backups & PR-9, PR-10 & H6-1 \\
+        \cline{2-7}
+        \texttt{} & Data corruption during storage & Loss of data integrity &
+        Incorrect write operations or hardware failure & Implement database
+        checksums and backups & SR-6, SR-7 & H6-2 \\
+        \cline{2-7}
+        \texttt{} & Insufficient storage space & Application crashes or stops
+        accepting data & Lack of storage planning & Increase storage capacity
+        and monitor usage & PR-12, PR-13 & H6-3 \\
+        \cline{1-7}
+        Frontend Interface & UI unresponsive & Poor user experience, tasks
+        uncompleted & JavaScript errors, resource overload, slow internet &
+        Debug UI code, efficient resource management & FR-7, PR-3 & H7-1 \\
+        \cline{2-7}
+        \texttt{} & Elements not displayed correctly & Confusion, incorrect
+        actions performed & Browser compatibility issues & Test for
+        compatibility across browsers & LFR-1, OER-3 & H7-2 \\
+        \cline{2-7}
+        \texttt{} & Data input fields allow invalid entries & Corrupted data
+        entered into system & No input validation & Enforce input validation on
+        frontend & FR-1, FR-4, SR-7 & H7-3 \\
+        \cline{1-7}
+        Performance & Slow page load times & User frustration, reduced
+        productivity & Unoptimized frontend/backend code & Optimize code and
+        database queries & PR-3, PR-5 & H8-1 \\
+        \cline{2-7}
+        \texttt{} & High CPU/memory usage & System instability, crashes &
+        Inefficient data processing or memory leaks & Implement memory
+        management and resource monitoring & PR-4, PR-2 & H8-2 \\
+        \cline{1-7}
+        Error Tracking & Errors not logged & Difficulty identifying and
+        resolving issues & Lack of error handling in code & Implement detailed
+        error logging & FR-12, FR-13 & H9-1 \\
+        \cline{2-7}
+        \texttt{} & Logged errors not displayed to user & Users unaware of
+        issues & Incomplete error-handling UI & Display errors to user,
+        troubleshooting tips & MSR-5, PR-9 & H9-2 \\
+        \cline{2-7}
+        \texttt{} & Errors logged but not categorized & Troubleshooting becomes
+        complex & Poor error categorization & Create detailed error categories
+        and log structure & MSR-5, FR-12 & H9-3 \\
+        \cline{1-7}
+        Machine Learning Analysis & Incorrect data prediction & Misleading
+        trends, faulty decisions & Inaccurate algorithm configuration & Improve
+        machine learning validation steps & FR-11 & H10-1 \\
+        \cline{2-7}
+        \texttt{} & Model training incomplete & Model unable to provide accurate
+        predictions & Insufficient data or faulty training process & Ensure
+        ample, clean training data & FR-11, PR-8 & H10-2 \\
+        \cline{2-7}
+        \texttt{} & Training data overfitting & Model provides unreliable
+        results & Model too tightly fitted to training data & Implement
+        regularization techniques & FR-11 & H10-3 \\
+        
+    \end{longtable}
+\end{landscape}
 
-\wss{Include your FMEA table here. This is the most important part of this document.}
-\wss{The safety requirements in the table do not have to have the prefix SR.
-The most important thing is to show traceability to your SRS. You might trace to
-requirements you have already written, or you might need to add new
-requirements.}
-\wss{If no safety requirement can be devised, other mitigation strategies can be
-entered in the table, including strategies involving providing additional
-documentation, and/or test cases.}
+\restoregeometry
 
 \section{Safety and Security Requirements}
+New safety and security requirements have been discovered and will be integrated
+within the SRS document. Note that the entire requirement codes have been
+changed with the new additions having expanded information, and the previous
+requirements displaying new codes.
 
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
+\subsection{Access Requirements}
+\textbf{SR-1.} Access to the application must be restricted to authorized
+  personnel, with an authentication mechanism. \ \\
+\ \\
+\textbf{SR-2.} Only authenticated users should have the ability to query or
+  modify the data, and each user’s access must be limited to their capabilities
+  within the application. \ \\
+  \ \\
+\textbf{SR-3.} The application must restrict sensitive operations (e.g., data export)
+  to authorized personnel only.
+    \begin{itemize}
+      \item \textit{Rationale:} Prevents unauthorized users from exporting or
+      sharing sensitive data, protecting data integrity.
+      \item \textit{Fit Criterion:} Only authorized users must be able to
+      perform sensitive operations like data export.
+      \item \textit{Traceability:} FR-15, SR-2.
+    \end{itemize}
+\ \\
+\textbf{SR-4.} The application must enforce session timeout and automatic logouts
+after a period of inactivity.
+  \begin{itemize}
+    \item \textit{Rationale:} Protects the application from unauthorized access if
+    users leave their session unattended.
+    \item \textit{Fit Criterion:} Sessions must time out and log users off
+    automatically after a specified inactivity period.
+    \item \textit{Traceability:} FR-14, SR-1, SR-4.
+  \end{itemize}
+
+\subsection{Integrity Requirements}
+\textbf{SR-5.} The application must validate data inputs to ensure they conform
+  to expected formats and values before they are processed. \ \\
+\ \\
+\textbf{SR-6.} The application must not modify the data unnecessarily through
+  its transfer process. \ \\
+\ \\
+\textbf{SR-7.} The application must ensure that any data processed or
+  transferred is free from duplication or inconsistencies. \ \\
+\ \\
+\textbf{SR-8.} The application must have safeguards in place to maintain the
+  accuracy of the transferred data. \ \\
+  \ \\
+\textbf{SR-9.} The application must validate CSV data thoroughly before upload to
+prevent corrupted or incomplete data entries.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that only valid, complete, and accurate
+    data enters the application to prevent faulty analysis.
+    \item \textit{Fit Criterion:} The application shall reject any data that
+    does not meet the validation criteria.
+    \item \textit{Traceability:} FR-3, FR-4.
+  \end{itemize}
+\ \\
+
+\subsection{Privacy Requirements}
+\textbf{SR-10.} All personal information related to experimental participants or
+  stakeholders, if applicable, must be anonymized and handled in accordance with
+  relevant privacy laws and regulations. \ \\
+\ \\
+\textbf{SR-11.} The application must restrict data sharing with external parties
+  unless expressly authorized by stakeholders, and users must be fully informed
+  about the privacy policies. \ \\
+  \ \\
+  \textbf{SR-12.} The application must monitor database storage capacity and alert
+  administrators when thresholds are reached to prevent application crashes.
+    \begin{itemize}
+      \item \textit{Rationale:} Ensures the application continues operating smoothly
+      by addressing storage limits proactively.
+      \item \textit{Fit Criterion:} The application shall send alerts when storage
+      capacity exceeds 80\% usage.
+      \item \textit{Traceability:} PR-12, PR-13.
+    \end{itemize}
+
+\subsection{Audit Requirements}
+\textbf{SR-13.} The application must maintain a comprehensive audit trail,
+  logging all access and modification events, including timestamps and
+  identities of users performing actions. \ \\
+\ \\
+\textbf{SR-14.} Audit logs must be securely stored and accessible only by
+  authorized personnel. \ \\
+  \ \\
+  \textbf{SR-15.} The application must display real-time 
+  error logs to users to enhance troubleshooting when applicable.
+    \begin{itemize}
+      \item \textit{Rationale:} Ensures users are informed about application issues
+      and can take corrective action promptly.
+      \item \textit{Fit Criterion:} All errors must be logged and displayed
+      clearly to users in real-time.
+      \item \textit{Traceability:} FR-12, MSR-5.
+    \end{itemize}
+  
+
+\subsection{Immunity Requirements}
+\textbf{SR-16.} The application must have proactive measures to detect and
+  mitigate suspicious activities, such as repeated unauthorized access attempts,
+  ensuring the application remains secure at all times. \ \\
+  \ \\
+  \textbf{SR-17.} Real-time monitoring and optimization of application resources must
+  be implemented to avoid crashes due to resource overload.
+    \begin{itemize}
+      \item \textit{Rationale:} Prevents application downtime by ensuring efficient
+      use of CPU and memory.
+      \item \textit{Fit Criterion:} The application must manage memory and CPU usage
+      dynamically to avoid overloads.
+      \item \textit{Traceability:} PR-4, PR-9.
+    \end{itemize}
 
 \section{Roadmap}
-The following table outlines a proposed roadmap of when each safety requirement will be implemented within the capstone timeline and justifications.
+The following table outlines a proposed roadmap of when each safety requirement
+will be implemented within the capstone timeline and justifications.
 
 \begin{longtable}[c]{|m{2cm}|m{2.6cm}|m{2cm}|m{3.8cm}|}
     \hline
-    \textbf{Stage} & \textbf{Req. Category} & \textbf{Req. ID(s)} & \textbf{Rationale} \\
+    \textbf{Stage} & \textbf{Req. Category} & \textbf{Req. ID(s)} &
+    \textbf{Rationale} \\
     \hline
     \endhead
-    PoC Demo (Nov 11) & Access & N/A & The PoC plan will not consider user access features at this time.\\
+    PoC Demo (Nov 11) & Access & N/A & The PoC plan will not consider user
+    access features at this time.\\
     \cline{2-4}
-    & Integrity & SR-5, SR-6, SR-7, SR-8, SR-9 & The database must adhere to these requirements for a successful PoC.\\
+    & Integrity & SR-5, SR-6, SR-7, SR-8, SR-9 & The database must adhere to
+    these requirements for a successful PoC.\\
     \cline{2-4}
     & Privacy & N/A & Since the PoC plan will\\
     & Audit & N/A & only have the database\\
     & Immunity & N/A & these requirements are not applicable.\\
     \hline
-    Rev0 Demo (Feb 3) & Access & SR-1 & User authentication should be implemented during front-end development.\\
+    Rev0 Demo (Feb 3) & Access & SR-1 & User authentication should be
+    implemented during front-end development.\\
     \cline{2-4}
-    & Integrity & N/A & The crucial integrity requirements will have already been implemented by the PoC demo.\\
+    & Integrity & N/A & The crucial integrity requirements will have already
+    been implemented by the PoC demo.\\
     \cline{2-4}
-    & Privacy & SR-10, SR-11 & At this point there will be user access, thus these requirements must be implemented.\\
+    & Privacy & SR-10, SR-11 & At this point there will be user access, thus
+    these requirements must be implemented.\\
     \cline{2-4}
     & Audit & N/A & These requirements\\
     & Immunity & N/A & are not high-priority.\\
     \hline
-    Rev1 Final Demo (Mar 24) & Access & SR-2, SR-3 & User access must be extended to permissions and capabilities prior to release.\\
+    Rev1 Final Demo (Mar 24) & Access & SR-2, SR-3 & User access must be
+    extended to permissions and capabilities prior to release.\\
     \cline{2-4}
-    & Integrity & N/A & The crucial integrity requirements will have already been implemented by the PoC demo.\\
+    & Integrity & N/A & The crucial integrity requirements will have already
+    been implemented by the PoC demo.\\
     \cline{2-4}
-    & Privacy & SR-12 & This requirement is necessary for system availability and robustness to extend past capstone.\\
+    & Privacy & SR-12 & This requirement is necessary for system availability
+    and robustness to extend past capstone.\\
     \cline{2-4}
-    & Audit & SR-15 & Client and users must be informed about system issues and be able to troubleshoot even without the original development team.\\
+    & Audit & SR-15 & Client and users must be informed about system issues and
+    be able to troubleshoot even without the original development team.\\
     \cline{2-4}
-    & Immunity & SR-17 & This requirement is necessary for system availability and robustness to extend past capstone.\\
+    & Immunity & SR-17 & This requirement is necessary for system availability
+    and robustness to extend past capstone.\\
     \hline
-    Future considerations & Access & SR-4 & This requirement is out of scope for the project timeline.\\
+    Future considerations & Access & SR-4 & This requirement is out of scope for
+    the project timeline.\\
     \cline{2-4}
-    & Integrity & SR-11 & This requirement is out of scope for the project timeline.\\
+    & Integrity & SR-11 & This requirement is out of scope for the project
+    timeline.\\
     \cline{2-4}
     & Privacy & N/A & All privacy requirements have been covered.\\
     \cline{2-4}
-    & Audit & SR-13, SR-14 & These requirements would be nice-to-haves but are not essential for the project.\\
+    & Audit & SR-13, SR-14 & These requirements would be nice-to-haves but are
+    not essential for the project.\\
     \cline{2-4}
-    & Immunity & SR-16 & This requirement is out of scope for the project timeline.\\
+    & Immunity & SR-16 & This requirement is out of scope for the project
+    timeline.\\
     \hline
     \caption{Roadmap of the implementation of the safety and security requirements.}
 \end{longtable}
