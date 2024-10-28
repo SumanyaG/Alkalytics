@@ -2,14 +2,14 @@
 
 The folders and files for this folder are as follows:
 - **DevelopmentPlan**: Includes the Development Plan
-- **HazardAnalysis**:
+- **HazardAnalysis**: Includes the Hazard Analysis
 - **Presentations**:
 - **ProblemStatementAndGoals**: Includes the Problem Statement, Goals and Stretch Goals for the project
 - **projMngmnt**:
 - **ReflectAndTrace**:
 - **SRS**: Contains the Volere Software Requirements Specification Document
 - **UserGuide**:
-- **VnVPlan**:
+- **VnVPlan**: Includes the Verification and Validation Plan
 - **VnVReport**:
 - **Comments.tex**: Used to embed comments into the rendered PDF
 - **Common.tex**: Used to store shared definitions
