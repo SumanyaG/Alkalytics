@@ -11,6 +11,8 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{longtable}
+
 
 \input{../Comments}
 \input{../Common}
@@ -233,65 +235,158 @@ as a Rev 0 demo for the supervisor.}
 \wss{This section might reference back to the SRS verification section.}
 
 \section{System Tests}
-
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+This section covers all tests for different areas of the system.
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+The subsections below covers each major functional of the application, from uploading data to the various outputs of post query analysis. Many of the functions come from the same user flow. By testing the subsections below guarintees that all possible user flows involving the main application functioanlities are working as expected. 
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
-
-\subsubsection{Area of Testing1}
-
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{Title for Test}
+\subsubsection{Data Input and Storage}
+The tests below provide a way to evaluate the correctness of data input and storagee for the following functional requirements:
+\begin{itemize}
+  \item FR-1
+  \item FR-2
+  \item FR-3
+  \item FR-4
+\end{itemize}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{FR-SLN1}
 
-Control: Manual versus Automatic
+Control: Manual
 					
-Initial State: 
+Initial State: Database is running and ready to intake data
 					
-Input: 
+Input: Dataset to be stored, in .CSV format
 					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+Output: Data that is inputted is sent into the system, then labelled and stored successfully
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: When the data is sent to the system, the data should be stored somewhere and labelled properly before it can be queried.
 					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
+How test will be performed: The test can be performed by sending a test sample of varying sizes to the storage in the system.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Data Querying and Results}
+Th tests below provide a way to evaluate the data querying and visualization process of the system for the following functional requirements:
+\begin{itemize}
+  \item FR-5
+  \item FR-6
+  \item FR-7
+  \item FR-8
+  \item FR-9
+\end{itemize}
+\begin{enumerate}
 
-...
+  \item{FR-SLN2}
+  
+  Control: Manual
+            
+  Initial State: The system is not running any jobs, and the user interface is cleared. 
+            
+  Input: A selection of different combinations of parameters and datasets to be queried on
+            
+  Output: A human-readable and customizable visualization of correct results corresponding to the selected paramters from the input
+  
+  Test Case Derivation: The expected output of the system is based on the query parameters selected. A user expects the data analysis to match with what they asked for, and the user is allowed to customize the visuallized data.
+            
+  How test will be performed: The database will be queried using multiple combinations of parameters, and the results will be compared against the expected output. The outputted visualization will then be tested for customizability.
+  
+  \end{enumerate}
+
+\subsubsection{Data analysis}
+    The tests below provide a way to evaluate the data analysis in the application for the following functional requirements:
+    \begin{itemize}
+      \item FR-10
+      \item FR-11
+    \end{itemize}
+      \begin{enumerate}
+      
+        \item{FR-SLN3}
+        
+        Control: Manual
+                  
+        Initial State: The application's cleared user interface which has not yet been used to query data, with no graph showing yet.
+                  
+        Input: A combination of parameters to query on for a selected dataset
+                  
+        Output: A small written human-readable paragraph explaining the input data.
+       
+        Test Case Derivation: To be able to understand the returned data in ways other than through a graph, a written response gives the user a variety of choices.
+                 
+        How test will be performed: The website interface will allow the user to pick a written analysis response. The application will look for patterns and trends in the data and will output the findings. 
+        
+        \end{enumerate}
+
+
+      \subsubsection{Data Hygiene}
+      The tests below provide a way to evaluate how the application maintains the data hygiene of the datasets related to the following functional requirements:
+      \begin{itemize}
+        \item FR-12
+        \item FR-13
+      \end{itemize}
+        \begin{enumerate}
+        
+          \item{FR-SLN4}
+          
+          Control: Manual
+                    
+          Initial State: The application's cleared user interface which has not yet been used to query data, with no graph showing yet.
+                    
+          Input: Dataset to be stored, in .CSV format
+                    
+          Output: A log file documenting errors found in the input data and/or removals of missing data.
+          
+          Test Case Derivation: This is to ensure the efficency of the querying and ensuring the database is only as big as it needs to be. This will also ensure that errors are dealt with by the application and are recorded to document any inconsistancies to increase traceability.
+                    
+          How test will be performed: After loading in a CSV file with some error in the data. A log file will be generated documenting the error after the application attempts to fix it. 
+          
+          \end{enumerate}
+
+          \subsubsection{User Access}
+          This tests below provide a way to evaluate how the application allows for user login related to the following functional requirements:
+          \begin{itemize}
+            \item FR-14
+          \end{itemize}
+            \begin{enumerate}
+            
+              \item{FR-SLN5}
+              
+              Control: Manual
+                        
+              Initial State: User interface shows a login page, with no login credentials currently used
+                        
+              Input: Sample user credentials
+                        
+              Output: The page redirects to the page designated after login
+              
+              Test Case Derivation: The system must be able to authenticate users properly, and when authenticated, they should be given access to the application
+                        
+              How test will be performed: Sample credentials with different combinations of characters will be used to log in to ensure the fields handle credentials correctly.  
+              
+              \end{enumerate}
+
+  \subsubsection{Data Export}
+  The tests below provide a way to evaluate the export of query reports after a session for the following functional requirement:
+  \begin{itemize}
+    \item FR-15
+  \end{itemize}
+  \begin{enumerate}
+    \item{FR-SLN6}
+    Control: Manual
+
+    Initial State: User interface after multiple usages of data queries
+
+    Input: User clicking the button for saving or downloading
+
+    Output: Query report will be downloaded to the user's device
+
+    Test Case Derivation: The user needs to be able to get a system generated report of the queries from their session, and be able to save or download that report as needed.
+
+    How Test Will Be Performed: After making multiple queries on the data, the save/download button will be pressed to test functionality.
+  \end{enumerate}
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
@@ -353,6 +448,35 @@ How test will be performed:
 ...
 
 \subsection{Traceability Between Test Cases and Requirements}
+
+\begin{longtable}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+  \hline
+  \textbf{Req. ID} & \textbf{System Test ID} \\
+  \hline
+  FR-1 & FR-SLN1\\
+  FR-2 & \\
+  FR-3 & \\
+  FR-4 & \\
+  \hline
+  FR-5 & FR-SLN2\\
+  FR-6 & \\
+  FR-7 & \\
+  FR-8 & \\
+  FR-9 & \\
+  \hline
+  FR-10 & FR-SL3\\
+  FR-11 & \\
+  \hline
+  FR-12 & FR-SL4\\
+  FR-13 & \\
+  \hline
+  FR-14 & FR-SL5\\
+  \hline
+  FR-15 & FR-SL6\\
+  \hline
+\end{longtable}
+
+
 
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
