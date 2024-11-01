@@ -314,19 +314,31 @@ The following checklist serves as a guide for verifying the V\&V plan:
 \end{itemize}
 
 \subsection{Implementation Verification Plan}
+Both static and dynamic techniques will be employed to verify the implementation
+for the Alkalytics project, as outlined below:
+\begin{itemize}
+  \item \textbf{Static Analyzers}: Linting tools will be used for static code
+  analysis to identify bugs or stylistic errors, maintain code readability, and
+  enforce coding standards. Specific tools to be used are listed in Section
+  \ref{testingTools}.
+  \item \textbf{Code Inspection/Walkthroughs}: New features or significant
+  code changes will be reviewed by at least two other team members before
+  merging into the main branch. The primary developer may walk the reviewers
+  through the code. Code reviews will be conducted through pull requests on
+  GitHub; only reviewed and approved code may be merged into the main branch.
+  This process ensures code quality, readability, functionality, and allow for
+  mutual understanding of all system components among the team members.
+  \item \textbf{System Testing}: System testing will verify that the application
+  meets both functional and non-functional requirements as specified. Details
+  regarding system testing procedures and planned test cases are outlined in Section
+  \ref{systemTests} of this document.
+  \item \textbf{Unit Testing}: Unit testing will verify the behaviour of the
+  application's individual components to ensure they perform as expected.
+  The unit testing plans in Section \ref{unitTests} will be developed upon completion of the
+  design specification.
+\end{itemize}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
-
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
-
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
-
-\subsection{Automated Testing and Verification Tools}
+\subsection{Automated Testing and Verification Tools} \label{testingTools}
 
 \wss{What tools are you using for automated testing.  Likely a unit testing
   framework and maybe a profiling tool, like ValGrind.  Other possible tools
@@ -363,7 +375,7 @@ as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
 
-\section{System Tests}
+\section{System Tests} \label{systemTests}
 
 \wss{There should be text between all headings, even if it is just a roadmap of
 the contents of the subsections.}
@@ -488,7 +500,7 @@ How test will be performed:
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
-\section{Unit Test Description}
+\section{Unit Test Description} \label{unitTests}
 
 \wss{This section should not be filled in until after the MIS (detailed design
   document) has been completed.}
