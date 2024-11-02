@@ -564,42 +564,429 @@ format for the tests given below.}
 \wss{If you introduce static tests in your plan, you need to provide details.
 How will they be done?  In cases like code (or document) walkthroughs, who will
 be involved? Be specific.}
+\newline
+Non-functional requirements will diverge from typical functional requirements
+testing. Listed below are different testing methods that will be used throughout
+the section.
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\noindent \textbf{User Demo Assessment}: We will have users engage in a demo of the application,
+and observe how they interact with the application with respect to the
+requirements and criteria defined in SRS.
+
+
+\subsubsection{Look and Feel requirements}
+Look and feel testing is heavily subjective, and will require users to test.
+These requirements will be heavily tested with the user demo assessment.
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{NFR-LF1 (User Interface)\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
+NFR: LFR-1, LFR-3, LFR-4, LFR-5, LFR-6, LFR-7
+
+Type: User Demo, Manual
+
+Initial State: Fully functional application ready for user interaction, starting
+at the login page
+
+Input/Condition: User engagement with application 
+
+Output/Result: Recorded observations of how the user was able to interact with
+the system 
+
 How test will be performed: 
-					
-\item{test-id2\\}
+\begin{itemize}
+  \item User will be given temporary, working credentials 
+  \item User will use the app, starting from the login page, and navigate
+  through its functionality
+  \item An observer will record how long it takes for them to figure out
+  functionality and how to navigate the application
+  \item Users will also be given a survey about the interface after testing
 
-Type: Functional, Dynamic, Manual, Static etc.
+\end{itemize}
 					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
+\item{NFR-LF2 (Device Compatibility)\\}
+
+NFR: LFR-2
+
+Type: Manual
+
+Initial State: Application running on multiple different devices
+
+Input/Condition: Manual tester's engagement with application
+
+Output/Result: A list of inconsistencies through multiple devices
+
 How test will be performed: 
-
+\begin{itemize}
+  \item Each member of the team will use the application across multiple
+  platforms, and try to identify any inconsistencies between them
+\end{itemize}
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Usability and Humanity Requirements}
+Usability is also a subjective area, and thus will also require the use of a
+user demo assessment.
+\begin{enumerate}
 
-...
+  \item{NFR-UH1 (User Experience)\\}
+  
+  NFR: UHR-1, UHR-4, UHR-5
+
+  Type: User Demo, Manual
+
+  Initial State: Fully functional application ready for user interaction,
+  starting at the login page
+  
+  Input/Condition: User engagement with application
+  
+  Output/Result: Recorded observations of how the user was able to interact with
+  the system without clicking the help button or asking for outside help*
+  
+  How test will be performed:
+  \begin{itemize}
+    \item User will be given temporary, working credentials 
+    \item User will use the app, starting from the login page, and navigate
+    through its functionality
+    \item An observer will record how long it takes for them to figure out
+    functionality and how to navigate the application
+  \end{itemize}
+            
+  \item{NFR-UH2 (Language and Localization)\\}
+  
+  NFR: UHR-2
+  
+  Type: Manual
+  
+  Initial State: Fully developed application, starting at the login page
+  
+  Input/Condition: Manual tester using application
+  
+  Output/Result: A list of all identified language discrepancies
+  
+  How test will be performed:
+  \begin{itemize}
+    \item A manual tester will navigate through each web page to ensure that the
+    only language being used is English (US)  
+  \end{itemize}
+
+  \item{NFR-UH3 (System Notation)\\}
+
+  NFR: UHR-3
+
+  Type: Manual
+
+  Initial State: Application ready to take in data
+
+  Input/Condition: Sample input data
+
+  Output/Result: Error logs from unrecognized characters, or successful upload
+  
+  How test will be performed:
+  \begin{itemize}
+    \item A tester will upload a file that has scientific and mathematical symbols
+    \item They will note whether or not the file was uploaded successfully, and if the data was transferred correctly, with the symbols
+  \end{itemize}
+
+  \item{NFR-UH4 (Accessibility)\\}
+
+  NFR: UHR-6
+  
+  Type: Manual
+  
+  Initial State: Application ready for use
+  
+  Input/Condition: Tester engagement using third party tools
+  
+  Output/Result: List of accessibility issues in accordance to WCAG, and
+  checklists for if page is screen-readable
+  
+  How test will be performed:
+  \begin{itemize}
+    \item A tester launch third party tools (NVDA Reader, SiteImprove)
+    \item Third party tools will examine web page and provide results
+    \end{itemize}
+  \end{enumerate}
+
+\subsubsection{Performance Requirements}
+These requirements can be tested in ways similar to functional requirements.
+Many of these requirements have thresholds defined, making testing a pass/fail
+basis.
+\newline \newline
+Test Data Generation: Some tests will require a large, dummy set of data to be
+used as input in order to test how well the system can handle heavy payloads.
+Thus, large test sets of data will be automatically generated accordingly.
+
+\begin{enumerate}
+  \item{NFR-P1 (Upload Speed)\\}
+  
+  NFR: PR-1
+
+  Type: Manual
+
+  Initial State: Application navigated to upload page, ready to upload file
+  
+  Input/Condition: Sample .CSV files for input
+  
+  Output/Result: Upload duration
+  
+  How test will be performed:
+  \begin{itemize}
+    \item Different .CSV files of varying sizes will be uploaded to the system
+    \item The upload functionality will include instructions for the system to
+    time how long the upload took
+    \item The total duration will be logged on the browser's console.
+
+  \end{itemize}
+            
+  \item{NFR-P2: (Query Response Time)\\}
+  
+  NFR: PR-2, PR-4
+
+  Type: Manual
+
+  Initial State: Application navigated to querying page, ready to make query
+  
+  Input/Condition: Test queries
+  
+  Output/Result: Query response durations
+
+  How test will be performed:
+  \begin{itemize}
+    \item A set of parameter/dataset combinations will be used as queries
+    \item The duration of each query will be logged and compared to defined
+    criteria
+  \end{itemize}
+
+  \item{NFR-P3 (Website Response Time)\\}
+
+  NFR: PR-3
+
+  Type: Manual
+
+  Initial State: Application ready to use
+
+  Input/Condition: Tester engagement
+
+  Output/Result: Average response time of buttons on website
+
+  How test will be performed:
+  \begin{itemize}
+    \item A tester will have a timer
+    \item They will time the response time of different buttons, and record it
+  \end{itemize}
+
+  \item{NFR-P4 (Data Visualization Speed)\\}
+
+  NFR: PR-5
+
+  Type: Manual
+
+  Initial State: Application navigated to query page, ready to make query to
+  generate graphs
+ 
+  Input/Condition: Query parameters
+  
+  Output/Result: Time taken to generate graphs/visualizations
+  
+  How test will be performed:
+  \begin{itemize}
+    \item A set of parameter/dataset combinations will be used as queries 
+    \item A tester will manually time how long it takes for a graph to be
+    generated, or the system will log it in the console
+    \end{itemize}
+
+  \item{NFR-P5 (System Accuracy)\\}
+
+  NFR: PR-6, PR-7, PR-8
+
+  Type: Manual
+
+  Initial State: Application navigated to query page, ready to make query
+  
+  Input/Condition: Query parameters
+ 
+  Output/Result: A check for precision of numbers in different components of
+  system
+  
+  How test will be performed:
+  \begin{itemize}
+    \item A set of parameter/dataset combinations will be used as queries 
+    \item A tester will manually time how long it takes for a graph to be
+    generated, or the system will log it in the console
+  \end{itemize}
+
+  \item{NFR-P6 (Robustness - Backend Disruption)\\}
+
+  NFR: PR-9
+  
+  Type: Manual
+  
+  Initial State: Application running as normal
+  
+  Input/Condition: Tester temporarily taking down back end
+  
+  Output/Result: Error message displayed
+  
+  How test will be performed:
+  \begin{itemize}
+    \item The tester will run the application as normal
+    \item The tester will then disable back end services and ensure error
+    messages are generated
+  \end{itemize}
+
+  \item{NFR-P7 (Robustness - Internet Disruption)\\}
+
+  NFR: PR-10
+  
+  Type: Manual
+  
+  Initial State: Application running as normal
+  
+  Input/Condition: Tester temporarily disconnects internet connection
+
+  Output/Result: Previously generated plots and previous queries still working
+  
+  How test will be performed:
+  \begin{itemize}
+    \item The tester will run the application as normal
+    \item The tester will then disconnect their device from their internet connection
+    \item They will then try to load previous queries and previously generated plots
+  \end{itemize}
+
+  \item{NFR-P8 (User Capacity)\\}
+  
+  NFR: PR-11
+
+  Type: Manual
+  
+  Initial State: Three devices ready to run application
+  
+  Input/Condition: Multiple different queries run by the different devices
+  
+  Output/Result: System response time while under load
+  
+  How test will be performed:
+  \begin{itemize}
+    \item Multiple devices will make queries simultaneously
+    \item Page responsiveness will be measured while system runs multiple queries
+  \end{itemize}
+
+  \item{NFR-P9 (Storage Capacity)\\}
+  
+  NFR: PR-12
+  
+  Type: Data Generation, Automated
+  
+  Initial State: A database with a known amount of experiment data
+  
+  Input/Condition: Large suite of dummy test data
+  
+  Output/Result: Observations on system health after large payload
+  
+  How test will be performed:
+  \begin{itemize}
+    \item Multiple, dummy sets of experiment data will be automatically generated
+    \item Using a script, this data will be uploaded into the database
+    \item System health will be monitored after upload is complete
+  \end{itemize}
+  \end{enumerate}
+
+\subsubsection{Operational and Environmental Requirements}
+  These tests are to ensure that the application works in the expected
+  environment, for the expected users. They will be manual tests done by a
+  person to check for an environment's compatibility with the system.
+
+\begin{enumerate}
+
+\item{NFR-OE1 (Operating Environment)\\}
+
+NFR: OER-2, OER-3, OER-4
+
+Type: Manual
+
+Initial State: Application running on a windows device as a web application on a
+Chromium based browser.
+
+Input/Condition: Tester engagement
+
+Output/Result: A list of all discovered issues with the application that arise
+due to environment compatibility
+
+How test will be performed: 
+\begin{itemize}
+  \item A tester will run the web application on their Windows device, on Google
+  Chrome
+  \item They will use the application as normal and try to find any issues that
+  are caused due to operating environment
+\end{itemize}
+					
+\item{NFR-OE2 (User Onboarding)\\}
+
+NFR: OER-5
+
+Type: Manual, User Demo
+
+Initial State: Application running and ready for use on home screen
+
+Input/Condition: User engagement
+
+Output/Result: Survey results depicting subjective complexity of onboarding
+process
+
+How test will be performed: 
+\begin{itemize}
+  \item A user will go through the onboarding process
+  \item A survey will be given after asking the user how complex they found the onboarding to be
+\end{itemize}
+\end{enumerate}
+
+\subsubsection{Maintainability and Support Requirements}
+These tests aim to ensure that future users of the application will not have any
+issues using the application. 
+
+\begin{enumerate}
+\item{NFR-MS1 (Interface Intuitiveness)\\}
+
+NFR: MSR-4 
+
+Type: Manual, User Demo
+
+Initial State: Application running, ready for use
+
+Input/Condition: User engagement
+
+Output/Result: Observations on user's ability to complete tasks without support
+
+How test will be performed: 
+\begin{itemize}
+  \item  A pre-defined list of tasks will be created 
+  \item A user will be given this set of tasks to perform on their own
+  \item The user will be observed to see if they are able to perform these tasks
+  without outside help from those conducting the test 
+\end{itemize}
+					
+\item{NFR-MS2 (Cross-Browser Compatibility)\\}
+
+NFR: MSR-6
+
+Type: Manual
+
+Initial State: Multiple Chromium-based web browsers open
+
+Input/Condition: Tester Engagement
+
+Output/Results: All abnormal behaviour of web pages observed on each different
+web browser
+
+How test will be performed: 
+\begin{itemize}
+  \item A tester will use the application as normal on multiple different
+  browsers
+  \item They will note down any issues that they find, especially if the issues
+  are unique to the usage of a certain browser
+\end{itemize}
+\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
@@ -628,12 +1015,49 @@ How test will be performed:
   \hline
   FR-15 & FR-SL6\\
   \hline
+  UHR-1 & NFR-UH1\\
+  UHR-4 & \\
+  UHR-5 & \\
+  \hline
+  UHR-2 & NFR-UH2\\
+  \hline
+  UHR-3 & NFR-UH3\\
+  \hline
+  UHR-6 & NFR-UH4\\
+  \hline
+  PR-1 & NFR-P1\\
+  \hline
+  PR-2 & NFR-P2\\
+  PR-4 & \\
+  \hline
+  PR-3 & NFR-P3\\
+  \hline
+  PR-5 & NFR-P4\\
+  \hline
+  PR-6 & NFR-P5\\
+  PR-7 & \\
+  PR-8 & \\
+  \hline
+  PR-9 & NFR-P6\\
+  \hline
+  PR-10 & NFR-P7\\
+  \hline
+  PR-11 & NFR-P8\\
+  \hline
+  PR-12 & NFR-P9\\
+  \hline
+  OER-2 & NFR-OE1\\
+  OER-3 & \\
+  OER-4 & \\
+  \hline
+  OER-5 & NFR-OE2\\
+  \hline
+  MSR-4 & NFR-MSR1\\
+  \hline
+  MSR-6 & NFR-MSR2\\
+  \hline
+
 \end{longtable}
-
-
-
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
 
 \section{Unit Test Description} \label{unitTests}
 
