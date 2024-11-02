@@ -339,21 +339,26 @@ for the Alkalytics project, as outlined below:
 \end{itemize}
 
 \subsection{Automated Testing and Verification Tools} \label{testingTools}
-
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
-
-\wss{If you have already done this in the development plan, you can point to
-that document.}
-
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+Sections 10 and 11 of the
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/DevelopmentPlan/DevelopmentPlan.pdf}{Development
+Plan} discuss the tools to be used and coding standards the team will adhere to.
+Below is an expansion on the referenced sections:
+\begin{itemize}
+  \item \textbf{Linters}: Flake8 (for Python) and ESLint (for JavaScript) are
+  the linting tools the team will use, as outlined in Section 10 of the
+  Development Plan. These tools will help maintain code quality by automatically
+  detecting syntax errors, code inconsistencies, and potential bugs.
+  \item \textbf{Unit Testing Frameworks}: The team will use Jest for front-end
+  unit testing and Pytest for back-end unit testing.
+  \item \textbf{Continuous Integration (CI)}: CI will be implemented using
+  GitHub Actions, automating the building and testing processes throughout
+  development. The team currently has a workflow that runs on all \LaTeX{}
+  documentation, and additional workflows for automated testing will be added as
+  development progresses. 
+  \item \textbf{Code Coverage Metrics}: Code coverage will be assessed using
+  the appropriate plugins/flags for the respective unit testing frameworks
+  mentioned above (e.g., \texttt{pytest-cov} for Pytest, \texttt{--coverage} in Jest).
+\end{itemize}
 
 \subsection{Software Validation Plan}
 
