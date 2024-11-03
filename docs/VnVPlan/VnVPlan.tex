@@ -7,13 +7,8 @@
 \usepackage{float}
 \usepackage{tabularx}
 \usepackage{hyperref}
-\hypersetup{
-    colorlinks,
-    citecolor=blue,
-    filecolor=black,
-    linkcolor=red,
-    urlcolor=blue
-}
+\hypersetup{ colorlinks, citecolor=blue, filecolor=black, linkcolor=red,
+    urlcolor=blue }
 \usepackage[round]{natbib}
 \usepackage{longtable}
 
@@ -33,8 +28,8 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X} \toprule {\bf Date} & {\bf Version}
+& {\bf Notes}\\
 \midrule
 4 Nov 2024 & 0.0 & Add initial draft for PoC.\\
 \bottomrule
@@ -72,59 +67,100 @@ This document ... \wss{provide an introductory blurb and roadmap of the
   Verification and Validation plan}
 
 \section{General Information}
-
+An overview of the project's verification and validation (VnV) plan, outlining
+key objectives, scope, and relevant documentation.
 \subsection{Summary}
 
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+Alkalytics provides a scalable data management and analysis solution for ocean
+alkalinity research, in which it is designed to streamline data organization,
+querying, and visualization, the software migrates data from CSV files into a
+robust database. This enables efficient parameter-based queries, inter-parameter
+comparisons, and visual analytics, reducing data manipulation time and enhancing
+accuracy. Moreover, planned stretch goals include machine learning projections and
+automatic data uploads. Ultimately, the software will be validated to meet all
+functional and project objectives.
+
 
 \subsection{Objectives}
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
+The VnV plan for Alkalytics is structured around three primary objectives
+critical to the success of the project:
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+\begin{itemize}
+  \item \textbf{Software Correctness and Data Integrity:} Testing will ensure
+  that the application accurately migrates, stores, and manages experimental
+  data, to support data querying and comparisons across datasets. Data integrity
+  checks will confirm that experimental data remains accurate and reliable for
+  analysis.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
+  \item \textbf{Usability and Accessibility:} Usability testing will evaluate
+  the interface’s ease of use and intuitive design for a diverse user base on
+  various devices. Feedback will guide any necessary design refinements.
+  
+  \item \textbf{System Scalability and Reliability:} Testing will confirm the
+  application's ability to handle large datasets, process multiple queries, and
+  manage concurrent user actions without significant latency. Performance will
+  be monitored to ensure long-term utility under increasing loads.
+  
+\end{itemize}
+
+\noindent \textbf{Out-of-Scope Objectives:} As some objectives are outside the
+current testing scope due to resource and time constraints, machine learning
+functionalities for data projection and analysis are excluded, as not only is
+their completion not guaranteed but also it requires additional computational
+resources and expertise. This area may be explored in future phases to further
+enhance the project.
+
 
 \subsection{Challenge Level and Extras}
 
-\wss{State the challenge level (advanced, general, basic) for your project.
-Your challenge level should exactly match what is included in your problem
-statement.  This should be the challenge level agreed on between you and the
-course instructor.  You can use a pull request to update your challenge level
-(in TeamComposition.csv or Repos.csv) if your plan changes as a result of the
-VnV planning exercise.}
+As the project's challenge level is \textbf{general}, the team has chosen to
+extend the project’s scope by including two additional approved components
+approved for this project: \textbf{Usability Testing} and \textbf{User
+Documentation}.
+\newline
 
-\wss{Summarize the extras (if any) that were tackled by this project.  Extras
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  Extras should have already
-been approved by the course instructor as included in your problem statement.
-You can use a pull request to update your extras (in TeamComposition.csv or
-Repos.csv) if your plan changes as a result of the VnV planning exercise.}
+\noindent Usability testing is crucial for validating the software’s
+accessibility and interface to ensure users with diverse technical backgrounds
+can work effectively. Iterative testing with representative users will provide
+direct feedback on improvements, ensuring the software remains user-friendly and
+efficient. \newline 
+
+\noindent Furthemore, user documentation will be developed to guide users in
+navigating the software’s functionalities, including setup, data upload,
+querying operations, and troubleshooting. The documentation will support the
+research team in maintaining and expanding the software post-development,
+enhancing Alkalytics' impact and longevity.
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
+The VnV efforts will reference multiple foundational project documents, each
+serving a distinct role in guiding the testing processes:
 
-\citet{SRS}
+\begin{itemize}
+    \item \textbf{Software Requirements Specification (SRS):} The SRS is the
+    primary source for functional and non-functional requirements, detailing
+    needs for the projects. Aligning testing with the SRS ensures meeting core
+    functional expectations and user needs.
+    
+    \item \textbf{Hazard Analysis Document:} This document includes the
+    project’s Failure Modes and Effects Analysis (FMEA) table, which identifies
+    potential hazards, their causes, and effects. As it highlights critical
+    areas of risk, it ensures that testing procedures address these hazards,
+    thereby enhancing the safety and reliability.
 
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+    \item \textbf{Module Guide (MG):} The MG provides detailed documentation on
+    the structure, functionality, and usage of each module within the
+    application, serving as a reference for developers and testers to understand
+    modules.
+
+    \item \textbf{Module Interface Specification (MIS):} The MIS outlines the
+    interfaces between different modules, detailing the expected inputs,
+    outputs, and interaction protocols. This specification is crucial for
+    ensuring seamless communication and adhering a standard between modules.
+\end{itemize}
+
+
 
 \section{Plan}
 This section outlines the Verification and Validation (VnV) responsibilities of each 
@@ -345,25 +381,40 @@ Below is an expansion on the referenced sections:
   mentioned above (e.g., \texttt{pytest-cov} for Pytest, \texttt{--coverage} in Jest).
 \end{itemize}
 
-\subsection{Software Validation Plan}
+The Alkalytics software validation plan incorporates white-box and black-box
+testing, structured demonstrations, stakeholder reviews, and user testing to
+ensure adherence to functional and nonfunctional requirements.
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
+\subsubsection{White-box and Black-box Testing}
+\begin{itemize}
+    \item \textbf{White-box Testing:} Internal testing will ensure code
+    correctness, and proper handling of data, functionality, and comparisons.
+    \item \textbf{Black-box Testing:} Core functions, including data migration
+    accuracy, query speed, and visualization quality, will be validated through
+    input-output tests, independent of code structure for more efficiency.
+\end{itemize}
+\subsubsection{Stakeholder Review Sessions}
+Regular sessions with stakeholders Dr. Charles de Lannoy and Bassel Abdelkader
+will provide feedback and ensure alignment with requirements.
 
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
+\subsubsection{User Testing}
+Lab user testing, such as researchers and assistants, will evaluate usability,
+functionality to lab workflows, with feedback informing ongoing improvements.
+\subsubsection{Formal Demonstrations}
+\begin{itemize}
+    \item \textbf{Proof of Concept (PoC) Demonstration:} The demonstration will
+    validate foundational functionalities, including data import, basic
+    querying, and initial visualizations, while collecting early-stage feedback
+    for refining key features.
+    \item \textbf{Revision 0 Demonstration:} The demonstration will assess newly
+    developed functionalities, including usability of the interface and expanded
+    features, incorporating stakeholder insights for further optimization.
+    \item \textbf{Final Demonstration:} A final end-to-end assessment will
+    confirm the complete workflow’s adherence to requirements, ensuring that the
+    application is ready for deployment.
+\end{itemize}
 
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
 
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
-
-\wss{This section might reference back to the SRS verification section.}
 
 \section{System Tests}
 This section covers all tests for different areas of the system. Table \ref{table:traceability}
@@ -1353,13 +1404,15 @@ identifying any potential vulnerabilities or misconfigurations within the enviro
 \wss{Reference your MIS (detailed design document) and explain your overall
 philosophy for test case selection.}  
 
-\wss{To save space and time, it may be an option to provide less detail in this section.  
-For the unit tests you can potentially layout your testing strategy here.  That is, you 
-can explain how tests will be selected for each module.  For instance, your test building 
-approach could be test cases for each access program, including one test for normal behaviour 
-and as many tests as needed for edge cases.  Rather than create the details of the input 
-and output here, you could point to the unit testing code.  For this to work, you code 
-needs to be well-documented, with meaningful names for all of the tests.}
+\wss{To save space and time, it may be an option to provide less detail in this
+section.  
+For the unit tests you can potentially layout your testing strategy here.  That
+is, you can explain how tests will be selected for each module.  For instance,
+your test building approach could be test cases for each access program,
+including one test for normal behaviour and as many tests as needed for edge
+cases.  Rather than create the details of the input and output here, you could
+point to the unit testing code.  For this to work, you code needs to be
+well-documented, with meaningful names for all of the tests.}
 
 \subsection{Unit Testing Scope}
 
@@ -1372,8 +1425,8 @@ needs to be well-documented, with meaningful names for all of the tests.}
 \subsection{Tests for Functional Requirements}
 
 \wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
+  appropriate specific modules can be verified by a non-testing based technique.
+  That can also be documented in this section.}
 
 \subsubsection{Module 1}
 
@@ -1386,8 +1439,8 @@ needs to be well-documented, with meaningful names for all of the tests.}
 
 \item{test-id1\\}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
+Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will be
+  automatic}
 					
 Initial State: 
 					
@@ -1401,8 +1454,8 @@ How test will be performed:
 					
 \item{test-id2\\}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
+Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will be
+  automatic}
 					
 Initial State: 
 					
@@ -1437,8 +1490,8 @@ How test will be performed:
 
 \item{test-id1\\}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
+Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will be
+  automatic}
 					
 Initial State: 
 					
@@ -1482,8 +1535,8 @@ This is where you can place additional information.
 
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+The definition of the test cases will call for SYMBOLIC\_CONSTANTS. Their values
+are defined in this section for easy maintenance.
 
 \subsection{Usability Survey Questions?}
 
@@ -1501,13 +1554,13 @@ graduate attribute of Lifelong Learning.
 
 \begin{enumerate}
   \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
+  \item What pain points did you experience during this deliverable, and how did
+    you resolve them?
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete the verification and validation of your project?
   Examples of possible knowledge and skills include dynamic testing knowledge,
-  static testing knowledge, specific tool usage, Valgrind etc.  You should look to
-  identify at least one item for each team member.
+  static testing knowledge, specific tool usage, Valgrind etc.  You should look
+  to identify at least one item for each team member.
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
