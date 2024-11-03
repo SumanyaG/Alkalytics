@@ -15,6 +15,7 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{amssymb} % for square symbol
 
 \input{../Comments}
 \input{../Common}
@@ -304,13 +305,16 @@ The following methods will be applied to verify the document:
 \end{itemize}
 The following checklist serves as a guide for verifying the V\&V plan:
 \begin{itemize}
-  \item Each verification plan is complete, feasible, and unambiguous.
-  \item Roles and responsibilities for verification are explicitly and clearly
-  defined.
-  \item Testing plans cover all defined requirements.
-  \item Each test specifies clear inputs, expected outputs, and criteria for
-  pass/fail.
-  \item Test procedures are well-described.
+  \item[$\square$] Each verification plan is complete, feasible, and
+  unambiguous.
+  \item[$\square$] Roles and responsibilities for verification are explicitly
+  and clearly defined.
+  \item[$\square$] All requirements are covered by the test cases.
+  \item[$\square$] Each test specifies clear inputs, expected outputs, and
+  criteria for pass/fail.
+  \item[$\square$] Test procedures are well-described.
+  \item[$\square$] A traceability matrix is provided, mapping each test case to
+  their relevant requirement(s).
 \end{itemize}
 
 \subsection{Implementation Verification Plan}
