@@ -1,6 +1,10 @@
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{amssymb}
+\usepackage{float}
 \usepackage{tabularx}
 \usepackage{hyperref}
 \hypersetup{
@@ -141,37 +145,145 @@ Repos.csv) if your plan changes as a result of the VnV planning exercise.}
 how they relate to your VnV efforts.}
 
 \section{Plan}
-
-\wss{Introduce this section.  You can provide a roadmap of the sections to
-  come.}
+This section outlines the Verification and Validation (VnV) responsibilities of each 
+team member and the team supervisor. It presents comprehensive verification plans for the 
+Software Requirements Specification (SRS), design documents (including MIS, MG, and System Design),
+the VnV plan itself, and the system implementation.\\
+\newline Additionally, the automated testing and verification tools intended for use in the VnV process
+have been specified. Verification tasks will be carried out by the VnV team in a sequential manner
+as each phase progresses, with continuous verification of the SRS and design documents as source code
+is developed. Software validation will be conducted in parallel with other VnV activities, 
+supporting the Proof of Concept (PoC) and final demonstration phases.
 
 \subsection{Verification and Validation Team}
+In this section, Table \ref{table:vnv_team} presents the members of the VnV team designated to carry
+out the tasks specified in this document. For each team member, their role in the project's verification
+process is outlined, with key details highlighting their respective responsibilities.
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+\begin{table}[H]
+  \centering
+  \caption{Validation and Verification Team Members and Responsibilities}
+  \label{table:vnv_team}
+  \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}X|}
+      \hline
+      \textbf{Team Member} & \textbf{Role and Responsibilities} \\
+      \hline
+      Bassel Abdelkader & Advisor and one of the primary reviewers of documentation; contributor to the
+      validation of user-based testing, providing suggestions and feedback to improve software functionality
+      and user experience. \\
+      \hline
+      Dr. Charles de Lannoy & Advisor and one of the primary reviewers of documentation; contributor to the
+      validation of user-based testing, providing suggestions and feedback to improve software functionality
+      and user experience. \\
+      \hline
+      Jason Tran & Review the work of other team members to uphold high standards, provide suggestions for
+      improvement, and maintain feedback checklists for each work item, with an emphasis on backend code. \\
+      \hline
+      Jennifer Ye & Review the work of other team members to uphold high standards, provide suggestions for
+      improvement, and maintain feedback checklists for each work item, with an emphasis on frontend code. \\
+      \hline
+      Kate Min & Review the work of other team members to uphold high standards, provide suggestions for
+      improvement, and maintain feedback checklists for each work item, with an emphasis on unit testing. \\
+      \hline
+      Sumanya Gulati & Review the work of other team members to uphold high standards, provide suggestions
+      for improvement, and maintain feedback checklists for each work item, with an emphasis on the documentation
+      and VnV Plan. \\
+      \hline
+      Other Design Teams & Peer reviewers identify issues and offer feedback and suggestions for improving
+      documentation. \\
+      \hline
+  \end{tabularx}
+\end{table}
 
 \subsection{SRS Verification Plan}
 
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
+The Software Requirements Specification (SRS) is essential for defining the project scope and guiding
+implementation. To ensure it aligns with project standards and objectives, a rigorous verification
+plan will be implemented, incorporating iterative feedback from peers and our assigned Teaching Assistant,
+Chris Schankula.\\
+\newline
+The verification process will begin with an initial review to evaluate the SRS for
+clarity, completeness, and alignment with project goals. Feedback will be systematically gathered and
+categorized to identify areas needing refinement. Exploratory assessment techniques will allow reviewers
+to interact with application prototypes and design mockups, ensuring requirements are realistically
+translated into application features.
 
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
+\subsubsection{Functional Testing}
+Functional testing based on the SRS will validate application behavior, confirming that each function
+performs according to specified requirements. The feedback will be integrated into the SRS, leading to
+revisions that enhance clarity and accuracy. A comprehensive final review will ensure all feedback
+has been effectively addressed, solidifying the SRS as a true reflection of the intended system.
 
-\wss{Maybe create an SRS checklist?}
+\subsubsection{Formal and Ad-hoc Reviews}
+The verification approach includes formal and ad-hoc feedback methods. Formal reviews will create
+updated checklists based on existing ones and grading feedback, while review meetings with
+the supervisor will identify mistakes and suggest improvements. Ad-hoc peer reviews from other design
+teams will also provide valuable insights. Key verification checks will ensure the adequacy,
+feasibility, and verifiability of requirements, along with traceability to use cases.
+
+\subsubsection{Checklist}
+An initial verification plan checklist will be maintained and updated over time, focusing on detailed
+descriptions, relevance, traceability, verifiability, and feasibility of requirements, as well as
+closing all reviewer-identified issues. By leveraging diverse insights, the SRS will be refined
+to facilitate a smooth transition into the development phase, laying a strong foundation for the
+project's success.\\
+\newline
+The following checklist has been created as an initial draft that will be iteratively updated as SRS
+reviews are completed over time:
+\begin{itemize}
+  \item[$\square$] Does each functional requirement have a clear and precise description?
+  \item[$\square$] Are the rationales for each requirement clearly articulated?
+  \item[$\square$] Is there a defined fit criterion for each requirement that specifies success criteria?
+  \item[$\square$] Are all functional requirements complete and unambiguous?
+  \item[$\square$] Are all requirements consistent with one another, avoiding conflicts?
+  \item[$\square$] Are all dependencies on external systems or components identified and addressed?
+\end{itemize}
 
 \subsection{Design Verification Plan}
+This section delineates the strategies and procedures the team will employ to verify the
+correctness and reliability of the design of the Alkalytics application. This plan will
+serve as a guideline during the testing phase to ensure that the design aligns with the
+intended requirements and effectively mitigates potential hazards identified by the VnV team.
 
-\wss{Plans for design verification}
+\subsubsection{Document Review}
+After the completion of the initial draft of the design documentation (including the Management
+Guide (MG), Management Information System (MIS), and System Design documents), each member of
+the testing team will conduct a comprehensive review before submission. The objectives of this
+review process are to:
+\begin{itemize}
+  \item Ensure that the system design aligns with all functional and non-functional requirements.
+  \item Assess the accuracy of the documentation in describing the intended functionality and
+  behavior of the system.
+  \item Record and report any design elements that deviate from specified requirements for
+  further discussion.
+\end{itemize}
 
-\wss{The review will include reviews by your classmates}
+\subsubsection{Review Meetings}
+A structured review meeting will be conducted with the supervisors once the design documents
+are completed. Additionally, peer reviews from classmates will provide critical suggestions for
+improvement.
 
-\wss{Create a checklists?}
+\subsubsection{Code Conformity Verification}
+The team will verify that the code adheres to SOLID design principles, ensuring modular and
+maintainable code structures.
+
+\subsubsection{Formal Team Review}
+A formal review with team members will occur after initial document creation, allowing for
+reflection on the design prior to final review. Checklists will be utilized to compare the
+design documents against the Software Requirements Specification (SRS) post-verification.
+
+\subsubsection{Checklist}
+This checklist will be updated as reviews progress to ensure comprehensive verification of
+the design documents:
+\begin{itemize}
+  \item[$\square$] Are all requirements (functional and non-functional) traceable to at least one
+  implementing module in the MG?
+  \item[$\square$] Have all issues raised by reviewers been addressed and resolved?
+  \item[$\square$] Do all modules and components conform to the SOLID design principles?
+  \item[$\square$] Are all modules assigned unambiguous tasks with well-defined inputs and outputs?
+  \item[$\square$] Is the design reflective of the database structure and functionality required for
+  the application?
+\end{itemize}
 
 \subsection{Verification and Validation Plan Verification Plan}
 
