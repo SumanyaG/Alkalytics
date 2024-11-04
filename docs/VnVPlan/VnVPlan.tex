@@ -985,6 +985,306 @@ How test will be performed:
 \end{itemize}
 \end{enumerate}
 
+\subsubsection{Security Requirements}
+These security assessments are designed to verify that the application operates
+securely within the intended environment and meets the needs of its users. These
+evaluations will be conducted manually by a member of the \ref{section:VnV_team}
+to ensure that the system adheres to established security standards and practices,
+identifying any potential vulnerabilities or misconfigurations within the environment.
+
+\begin{enumerate}
+
+\item{NFR-SR1 (Authentication)\\}
+  
+  NFR: SR-1
+  
+  Type: Manual
+  
+  Initial State: Application login page is displayed.
+  
+  Input/Condition: Tester attempts to access the application with various credentials.
+  
+  Output/Result: Access is granted or denied based on the validity of the credentials
+  provided.
+  
+  How test will be performed: 
+  \begin{itemize}
+    \item The tester will attempt to log into the application using both valid and
+    invalid credentials.
+    \item Valid credentials will be verified against the application's user database.
+    \item Invalid credentials will include common mistakes (e.g., incorrect passwords,
+    unregistered usernames) to ensure that the system properly restricts access.
+    \item The tester will also verify the application's response to unauthorized access
+    attempts, noting any error messages or behavior.
+    \item The testing will include attempts to access the application without logging
+    in to ensure the login mechanism is enforced.
+  \end{itemize}
+
+\item{NFR-SR2 (Permissions)\\}
+  
+  NFR: SR-2, SR-3
+  
+  Type: Manual
+  
+  Initial State: Application logged in with multiple user roles (e.g., admin, editor, viewer).
+  
+  Input/Condition: Tester interacts with the application using on different user roles.
+  
+  Output/Result: Access to query or modify data and perform sensitive operations is
+  restricted according to user roles.
+  
+  How test will be performed: 
+  \begin{itemize}
+    \item The tester will attempt to query or modify the same data in the application
+    using each role one by one.
+    \item For each role:
+    \begin{itemize}
+      \item Level 1: Should be able to query, modify and export all data.
+      \item Level 2: Should be able to query and modify only specific data
+      (as per role permissions), should not be able to export any data.
+      \item Level 3: Should be able to query data but not modify it, should not be
+      able to export any data.
+    \end{itemize}
+    \item Verify that appropriate error messages are displayed for unauthorized access
+    attempts, and check if these events are logged for security auditing.
+  \end{itemize}
+
+\item{NFR-SR3 (Timeout)\\}
+  
+  NFR: SR-4
+  
+  Type: Manual
+  
+  Initial State: User is logged into the application.
+  
+  Input/Condition: User remains inactive for a specified period.
+  
+  Output/Result: User is automatically logged out after a predefined period of inactivity.
+
+  How test will be performed: 
+  \begin{itemize}
+    \item The tester will remain idle (not performing any actions such as clicks, key
+    presses, or navigations) for a predetermined period that matches the session timeout
+    setting (e.g., 10 minutes).
+    \item During the inactivity period, the tester will keep track of the time elapsed
+    and ensure no session activity occurs.
+    \item After the specified inactivity period, the tester will verify that the session
+    times out and the user is automatically logged out.
+    \item The user must confirm that the user is redirected to the login page and a message
+    is displayed, indicating that the session has timed out due to inactivity.
+    \item Attempt to navigate to any application page after the timeout occurs without
+    logging back in.
+    \item Ensure that access is denied, confirming that the session has ended.
+  \end{itemize}
+
+\item{NFR-SR4 (Data Input Integrity)\\}
+  
+  NFR: SR-5, SR-9
+  
+  Type: Manual
+  
+  Initial State: Application is open, ready for data entry and CSV upload.
+  
+  Input/Condition: Tester submits various data entries, including valid and invalid values,
+  and uploads CSV files with both valid and invalid data formats.
+  
+  Output/Result: All invalid inputs and CSV uploads are rejected, and only valid data entries
+  are processed.
+
+  How test will be performed: 
+  \begin{itemize}
+    \item The tester will input data into different fields that accept data inputed directly by
+    users, using a variety of both valid and invalid formats (e.g., date formats, numeric fields,
+    text fields).
+    \item For valid data, ensure the fields accept data in the correct format (e.g., "DD-MM-YYYY"
+    for dates, numerical values for numeric fields).
+    \item For invalid data, verify that the application rejects these entries with appropriate
+    error messages.
+    \item Once that is done, the tester uploads a CSV file containing correctly formatted,
+    complete data. Confirm that the application accepts the file and processes the entries.
+    \item To test the invalid data, the tester:
+    \begin{itemize}
+      \item \emph{Incorrect Format}: Upload a CSV file with incorrect or mismatched headers.
+      Verify that the application rejects the file and provides a descriptive error.
+      \item \emph{Corrupted/Incomplete Data}: Upload a CSV file with missing values,
+      invalid characters, or mismatched data types (e.g., text in numeric columns).
+      Confirm that the application detects and rejects the file due to validation issues.
+      \item \emph{Boundary Testing in CSV}: Test with CSV files containing data at boundary
+      limits (e.g., maximum character limits in text fields, maximum/minimum numerical values).
+    \end{itemize}
+  \end{itemize}
+
+\item{NFR-SR5 (Data Validation)\\}
+  
+  NFR: SR-6, SR-7, SR-8
+  
+  Type: Manual
+  
+  Initial State: Application database contains a set of unique, validated records.
+  Application interface is open for data entry, processing, and transfer actions.
+  
+  Input/Condition: Tester processes and transfers various data entries, including
+  attempts to introduce duplicate records and test transfer accuracy.
+  
+  Output/Result: Duplicate records are detected and prevented, and data accuracy
+  is maintained during all transfer operations.
+
+  How test will be performed: 
+  \begin{itemize}
+    \item The tester will trigger any automated processes (e.g., batch processing,
+    import) that might introduce duplicates.
+    \item The application should flag and reject duplicate entries, ensuring
+    they are not added to the system.
+    \item After transfer, perform a consistency check by comparing a subset of
+    transferred records with the original database.
+    \item As part of the consistency check, ensure that no data is modified unnecessarily.
+  \end{itemize}
+
+\item{NFR-SR6 (Data Storage Capacity)\\}
+  
+  NFR: SR-12
+  
+  Type: Manual/Automated
+  
+  Initial State: Database is operational, with storage capacity at or below normal
+  usage. Alert system is configured, and the administrator contact information is set
+  up to receive notifications.
+
+  Input/Condition: Tester simulates increasing database storage usage to exceed the
+  80\% threshold.
+  
+  Output/Result: System successfully detects when storage usage exceeds 80\% and sends
+  a timely alert to administrators.
+
+  How test will be performed: 
+  \begin{itemize}
+    \item Gradually add data to the database to simulate storage increase. This can
+    be done by adding records, uploading large files, or running data generation
+    scripts until storage usage surpasses the 80\% threshold.
+    \item Verify that the system immediately detects the threshold breach and triggers
+    an alert to administrators.
+    \item Review the alert content to ensure it provides clear information, including:
+    \begin{itemize}
+      \item Current storage usage percentage.
+      \item Implications of reaching the threshold (e.g., potential performance impact).
+      \item Recommended actions for the administrator (e.g., freeing up space or
+      provisioning additional storage).
+    \end{itemize}
+    \item After testing, reduce storage usage (e.g., by deleting test data) to observe
+    if the system updates the storage capacity status accordingly.
+    \item Ensure that no system interruptions or crashes occur during and after the alert,
+    verifying that the system remains functional even when approaching capacity limits.
+  \end{itemize}
+
+\item{NFR-SR7 (System Audits)\\}
+  
+  NFR: SR-13, SR-14, SR-15
+  
+  Type: Manual/Automated
+  
+  Initial State: The application is operational, with logging features configured and
+  permissions for accessing logs assigned to administrators only.
+  
+  Input/Condition: Tester performs various access and modification actions within the
+  application, then attempts to access the audit logs with both authorized and
+  unauthorized user accounts.
+  
+  Output/Result: All actions are logged with timestamps and user identities, and audit
+  logs are accessible only to authorized users, with proper encryption.
+
+  How test will be performed: 
+  \begin{itemize}
+    \item Tester performs a range of actions within the application, including logging
+    in and out of the application, accessing different data records and modifying
+    specific data fields.
+    \item Verify that an entry is created in the audit log capturing the type of action
+    (e.g., login, access, modification), timestamp, and user identity.
+    \item Using an authorized account with administrative privileges, retrieve the audit
+    logs to verify the following:
+    \begin{itemize}
+      \item That each performed action is accurately recorded.
+      \item That no events are missing, confirming 100\% coverage of all access and
+      modification events.
+      \item Check for any inconsistencies or inaccuracies in timestamps or user identifiers.
+    \end{itemize}
+    \item The tester attempts to access the audit logs using a non-administrative (unauthorized)
+    account.
+    \item The system should deny access to the audit logs, displaying an error or access-restricted
+    message.
+    \item The tester attempts to modify an audit log entry (if possible) to ensure that the logs are
+    tamper-resistant. The system should prevent any unauthorized changes, preserving the integrity of
+    the logs.
+  \end{itemize}
+
+\item{NFR-SR8 (Intrusion Prevention)\\}
+  
+  NFR: SR-16
+  
+  Type: Manual
+  
+  Initial State: Application login screen is open. Administrator contact information is configured
+  to receive security alerts.
+  
+  Input/Condition: Tester attempts multiple failed logins to trigger the suspicious activity
+  detection mechanism.
+  
+  Output/Result:  Application detects and blocks access after three failed attempts, sends an
+  alert to administrators, and locks out the user temporarily.
+
+  How test will be performed: 
+  \begin{itemize}
+    \item Using an invalid username-password combination, the tester attempts to log in
+    repeatedly.
+    \item After each failed attempt, verify that the system accurately counts the login failures.
+    \item On the fourth failed attempt, the application should block further login attempts for
+    that user account or IP address temporarily.
+    \item  Confirm that an alert is sent to administrators upon detecting the suspicious activity.
+    \item The alert should provide details about the incident, such as:
+    \begin{itemize}
+      \item IP address and location.
+      \item Timestamp of the failed attempts.
+      \item Username or account targeted.
+    \end{itemize}
+    \item Check that each failed login attempt and the subsequent lockout are recorded in the
+    audit logs, providing a clear trail for security auditing.
+  \end{itemize}
+
+\item{NFR-SR8 (Resource Optimization)\\}
+  
+  NFR: SR-17
+  
+  Type: Automated/Manual
+  
+  Initial State: Application is running under typical workload conditions. Monitoring tools
+  and alerts for CPU and memory usage are enabled.
+  
+  Input/Condition: Tester simulates a high workload to approach system resource limits,
+  observing the system's monitoring and optimization response.
+  
+  Output/Result: The system actively manages CPU and memory usage, preventing overload and
+  maintaining performance stability.
+
+  How test will be performed: 
+  \begin{itemize}
+    \item Gradually increase the workload on the system (e.g., by running intensive processes,
+    generating simultaneous user sessions, or processing large data sets) until CPU and memory
+    usage approach high utilization levels.
+    \item  Observe the system's resource usage in real time to confirm that CPU and memory
+    metrics are accurately monitored.
+    \item Confirm that the system remains stable, responsive, and does not crash or slow down
+    significantly during and after the high-load test.
+    \item As resource usage approaches critical levels (e.g., 90\%), verify that the system
+    triggers alerts to administrators, notifying them of potential overload risks.
+    \item Check that the system dynamically adjusts resource allocation to manage load (e.g.,
+    by limiting non-critical processes or optimizing memory usage).
+    \item Post this, CPU and memory usage should stabilize below critical thresholds (e.g.,
+    preventing usage from exceeding 90\%) due to the system's proactive adjustments.
+    \item Check that all significant resource usage events, optimization actions, and alerts
+    are logged for auditing and system performance analysis.
+  \end{itemize}
+
+\end{enumerate}
+
 \subsection{Traceability Between Test Cases and Requirements}
 
 \begin{longtable}{|p{0.45\linewidth}|p{0.45\linewidth}|}
