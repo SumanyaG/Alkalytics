@@ -736,6 +736,7 @@ Thus, large test sets of data will be automatically generated accordingly.
     \item The upload functionality will include instructions for the system to
     time how long the upload took
     \item The total duration will be logged on the browser's console.
+    \item The tester must ensure that the upload duration does not exceed 60 seconds
 
   \end{itemize}
             
@@ -756,6 +757,7 @@ Thus, large test sets of data will be automatically generated accordingly.
     \item A set of parameter/dataset combinations will be used as queries
     \item The duration of each query will be logged and compared to defined
     criteria
+    \item Queries must take less than 3 seconds to run, and the page must respond in 2 seconds.
   \end{itemize}
 
   \item{NFR-P3 (Website Response Time)\\}
@@ -774,6 +776,7 @@ Thus, large test sets of data will be automatically generated accordingly.
   \begin{itemize}
     \item A tester will have a timer
     \item They will time the response time of different buttons, and record it
+    \item The tester must ensure that the website responds within 1 second
   \end{itemize}
 
   \item{NFR-P4 (Data Visualization Speed)\\}
@@ -794,6 +797,7 @@ Thus, large test sets of data will be automatically generated accordingly.
     \item A set of parameter/dataset combinations will be used as queries 
     \item A tester will manually time how long it takes for a graph to be
     generated, or the system will log it in the console
+    \item The tester must ensure that the time taken does not exceed 10 seconds
     \end{itemize}
 
   \item{NFR-P5 (System Accuracy)\\}
@@ -802,18 +806,20 @@ Thus, large test sets of data will be automatically generated accordingly.
 
   Type: Manual
 
-  Initial State: Application navigated to query page, ready to make query
+  Initial State: Application ready for use
   
-  Input/Condition: Query parameters
+  Input/Condition: Tester engagement
  
   Output/Result: A check for precision of numbers in different components of
   system
   
   How test will be performed:
   \begin{itemize}
-    \item A set of parameter/dataset combinations will be used as queries 
-    \item A tester will manually time how long it takes for a graph to be
-    generated, or the system will log it in the console
+    \item A set of parameter/dataset combinations will be used as queries to
+    simulate normal functionality of application
+    \item The tester throughout the process will ensure that data and parameter
+    values are all accurate to 4 decimals, and time stamps will be accurate to
+    milliseconds (3 decimal places)
   \end{itemize}
 
   \item{NFR-P6 (Robustness - Backend Disruption)\\}
@@ -880,7 +886,7 @@ Thus, large test sets of data will be automatically generated accordingly.
   
   Initial State: A database with a known amount of experiment data
   
-  Input/Condition: Large suite of dummy test data
+  Input/Condition: Large suite of dummy test data (approximately 300 experiments worth of data)
   
   Output/Result: Observations on system health after large payload
   
