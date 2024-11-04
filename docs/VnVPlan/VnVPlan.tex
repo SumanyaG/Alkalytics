@@ -15,6 +15,7 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{amssymb} % for square symbol
 
 \input{../Comments}
 \input{../Common}
@@ -286,43 +287,82 @@ the design documents:
 \end{itemize}
 
 \subsection{Verification and Validation Plan Verification Plan}
-
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
+The Verification and Validation (VnV) plan, i.e., this document, must also have
+a verification plan to ensure its correctness, completeness, and feasibility.
+The following methods will be applied to verify the document:
+\begin{itemize}
+  \item \textbf{Internal document review}: All team members review each section
+  to ensure quality and provide feedback/suggestions for improvement.
+  \item \textbf{Peer review by classmates}: Another team reviews the contents of
+  the V\&V plan and provide feedback/suggestions for improvement.
+  \item \textbf{Feedback integration}: The team refines the VnV plan
+  appropriately after reviewing feedback received from internal reviews, peer
+  reviews, and the grading Teaching Assistant (TA).
+  \item \textbf{Mutation testing}: The team performs mutation testing by
+  injecting mutations (i.e., faults) into the tests to evaluate whether the
+  tests can detect the mutant and verify if its behaviour is the expected
+  outcome.
+\end{itemize}
+The following checklist serves as a guide for verifying the VnV plan:
+\begin{itemize}
+  \item[$\square$] Each verification plan is complete, feasible, and
+  unambiguous.
+  \item[$\square$] Roles and responsibilities for verification are explicitly
+  and clearly defined.
+  \item[$\square$] All requirements are covered by the test cases.
+  \item[$\square$] Each test specifies clear inputs, expected outputs, and
+  criteria for pass/fail.
+  \item[$\square$] Test procedures are well-described.
+  \item[$\square$] A traceability matrix is provided, mapping each test case to
+  their relevant requirement(s).
+\end{itemize}
 
 \subsection{Implementation Verification Plan}
+Both static and dynamic techniques will be employed to verify the implementation
+for the Alkalytics project, as outlined below:
+\begin{itemize}
+  \item \textbf{Static Analyzers}: Linting tools will be used for static code
+  analysis to identify bugs or stylistic errors, maintain code readability, and
+  enforce coding standards. Specific tools to be used are listed in Section
+  \ref{testingTools}.
+  \item \textbf{Code Inspection/Walkthroughs}: New features or significant
+  code changes will be reviewed by at least two other team members before
+  merging into the main branch. The primary developer may walk the reviewers
+  through the code. Code reviews will be conducted through pull requests on
+  GitHub; only reviewed and approved code may be merged into the main branch.
+  This process ensures code quality, readability, functionality, and allow for
+  mutual understanding of all system components among the team members.
+  \item \textbf{System Testing}: System testing will verify that the application
+  meets both functional and non-functional requirements as specified. Details
+  regarding system testing procedures and planned test cases are outlined in Section
+  \ref{systemTests} of this document.
+  \item \textbf{Unit Testing}: Unit testing will verify the behaviour of the
+  application's individual components to ensure they perform as expected.
+  The unit testing plans in Section \ref{unitTests} will be developed upon
+  completion of the design specification.
+\end{itemize}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
-
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
-
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
-
-\subsection{Automated Testing and Verification Tools}
-
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
-
-\wss{If you have already done this in the development plan, you can point to
-that document.}
-
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+\subsection{Automated Testing and Verification Tools} \label{testingTools}
+Sections 10 and 11 of the
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/DevelopmentPlan/DevelopmentPlan.pdf}{Development
+Plan} discuss the tools to be used and coding standards the team will adhere to.
+Below is an expansion on the referenced sections:
+\begin{itemize}
+  \item \textbf{Linters}: Flake8 (for Python) and ESLint (for JavaScript) are
+  the linting tools the team will use, as outlined in Section 10 of the
+  Development Plan. These tools will help maintain code quality by automatically
+  detecting syntax errors, code inconsistencies, and potential bugs.
+  \item \textbf{Unit Testing Frameworks}: The team will use Jest for front-end
+  unit testing and Pytest for back-end unit testing.
+  \item \textbf{Continuous Integration (CI)}: CI will be implemented using
+  GitHub Actions, automating the building and testing processes throughout
+  development. The team currently has a workflow that runs on all \LaTeX{}
+  documentation, and additional workflows for automated testing will be added as
+  development progresses. 
+  \item \textbf{Code Coverage Metrics}: Code coverage will be assessed using
+  the appropriate plugins/flags for the respective unit testing frameworks
+  mentioned above (e.g., \texttt{pytest-cov} for Pytest, \texttt{--coverage} in Jest).
+\end{itemize}
 
 \subsection{Software Validation Plan}
 
@@ -344,7 +384,7 @@ as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
 
-\section{System Tests}
+\section{System Tests} \label{systemTests}
 
 \wss{There should be text between all headings, even if it is just a roadmap of
 the contents of the subsections.}
@@ -469,7 +509,7 @@ How test will be performed:
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
-\section{Unit Test Description}
+\section{Unit Test Description} \label{unitTests}
 
 \wss{This section should not be filled in until after the MIS (detailed design
   document) has been completed.}
