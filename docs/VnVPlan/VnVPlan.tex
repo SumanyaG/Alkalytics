@@ -36,35 +36,15 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+4 Nov 2024 & 0.0 & Add initial draft for PoC.\\
 \bottomrule
 \end{tabularx}
-
-~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
-
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
 
 \newpage
 
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
-
-\listoffigures
-\wss{Remove this section if it isn't needed}
 
 \newpage
 
@@ -157,7 +137,7 @@ as each phase progresses, with continuous verification of the SRS and design doc
 is developed. Software validation will be conducted in parallel with other VnV activities, 
 supporting the Proof of Concept (PoC) and final demonstration phases.
 
-\subsection{Verification and Validation Team}
+\subsection{Verification and Validation Team}\label{section:vnv_team}
 In this section, Table \ref{table:vnv_team} presents the members of the VnV team designated to carry
 out the tasks specified in this document. For each team member, their role in the project's verification
 process is outlined, with key details highlighting their respective responsibilities.
@@ -386,14 +366,20 @@ as a Rev 0 demo for the supervisor.}
 \wss{This section might reference back to the SRS verification section.}
 
 \section{System Tests}
-This section covers all tests for different areas of the system.
+This section covers all tests for different areas of the system. Table \ref{table:traceability}
+defines the relationships between functional and non-functional requirements defined
+in the SRS to test cases outlined in this document in the form of a traceability matrix.
 
 \subsection{Tests for Functional Requirements}
 
-The subsections below covers each major functional of the application, from uploading data to the various outputs of post query analysis. Many of the functions come from the same user flow. By testing the subsections below guarintees that all possible user flows involving the main application functioanlities are working as expected. 
+The subsections below covers each major functional of the application, from uploading
+data to the various outputs of post query analysis. Many of the functions come from the
+same user flow. By testing the subsections below guarintees that all possible user flows
+involving the main application functioanlities are working as expected. 
 
 \subsubsection{Data Input and Storage}
-The tests below provide a way to evaluate the correctness of data input and storagee for the following functional requirements:
+The tests below provide a way to evaluate the correctness of data input and storagee for
+the following functional requirements:
 \begin{itemize}
   \item FR-1
   \item FR-2
@@ -966,7 +952,7 @@ How test will be performed:
 \subsubsection{Security Requirements}
 These security assessments are designed to verify that the application operates
 securely within the intended environment and meets the needs of its users. These
-evaluations will be conducted manually by a member of the \ref{section:VnV_team}
+evaluations will be conducted manually by a member of the VnV team described in \ref{section:vnv_team}
 to ensure that the system adheres to established security standards and practices,
 identifying any potential vulnerabilities or misconfigurations within the environment.
 
