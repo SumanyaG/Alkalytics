@@ -11,6 +11,7 @@
     urlcolor=blue }
 \usepackage[round]{natbib}
 \usepackage{longtable}
+\usepackage{comment}
 
 
 \input{../Comments}
@@ -68,8 +69,6 @@
   CSV & Comma-Separated Values\\
   FMEA & Failure Modes and Effects Analysis\\
   NVDA & NonVisual Desktop Access (screen reader)\\
-  THRESHOLD & Regular threshold standard (80\%)\\
-  CRIT\_THRESHOLD & Critical threshold standard (90\%)\\
   \bottomrule
 \end{tabular}\\
 
@@ -474,12 +473,9 @@ functioanlities are working as expected.
 
 \subsubsection{Data Input and Storage}
 The tests below provide a way to evaluate the correctness of data input and
-storagee for the following functional requirements:
+storage for the following functional requirements:
 \begin{itemize}
-  \item FR-1
-  \item FR-2
-  \item FR-3
-  \item FR-4
+  \item FR-1, FR-2, FR-3, FR-4
 \end{itemize}
 
 \begin{enumerate}
@@ -507,11 +503,7 @@ of varying sizes to the storage in the system.
 Th tests below provide a way to evaluate the data querying and visualization
 process of the system for the following functional requirements:
 \begin{itemize}
-  \item FR-5
-  \item FR-6
-  \item FR-7
-  \item FR-8
-  \item FR-9
+  \item FR-5, FR-6, FR-7, FR-8, FR-9
 \end{itemize}
 \begin{enumerate}
 
@@ -530,7 +522,7 @@ process of the system for the following functional requirements:
   
   Test Case Derivation: The expected output of the system is based on the query
   parameters selected. A user expects the data analysis to match with what they
-  asked for, and the user is allowed to customize the visuallized data.
+  asked for, and the user is allowed to customize the visualized data.
             
   How test will be performed: The database will be queried using multiple
   combinations of parameters, and the results will be compared against the
@@ -543,8 +535,7 @@ process of the system for the following functional requirements:
     The tests below provide a way to evaluate the data analysis in the
     application for the following functional requirements:
     \begin{itemize}
-      \item FR-10
-      \item FR-11
+      \item FR-10, FR-11
     \end{itemize}
       \begin{enumerate}
       
@@ -576,8 +567,7 @@ process of the system for the following functional requirements:
       the data hygiene of the datasets related to the following functional
       requirements:
       \begin{itemize}
-        \item FR-12
-        \item FR-13
+        \item FR-12, FR-13
       \end{itemize}
         \begin{enumerate}
         
@@ -596,7 +586,7 @@ process of the system for the following functional requirements:
           Test Case Derivation: This is to ensure the efficency of the querying
           and ensuring the database is only as big as it needs to be. This will
           also ensure that errors are dealt with by the application and are
-          recorded to document any inconsistancies to increase traceability.
+          recorded to document any inconsistencies to increase traceability.
                     
           How test will be performed: After loading in a CSV file with some
           error in the data. A log file will be generated documenting the error
@@ -745,6 +735,8 @@ user demo assessment.
     \item An observer will record how long it takes for them to figure out
     functionality and how to navigate the application
   \end{itemize}
+  {\footnotesize *This refers to asking the developers or the usability survey conductor
+  for assistance.}
             
   \item{NFR-UH2 (Language and Localization)\\}
   
@@ -781,7 +773,7 @@ user demo assessment.
     \item A tester will upload a file that has scientific and mathematical
     symbols
     \item They will note whether or not the file was uploaded successfully, and
-    if the data was transferred correctly, with the symbols
+    if the data was transferred correctly, with the correct symbols included
   \end{itemize}
 
   \item{NFR-UH4 (Accessibility)\\}
@@ -1512,9 +1504,10 @@ misconfigurations within the environment.
 
 \section{Unit Test Description}
 
-\wss{This section should not be filled in until after the MIS (detailed design
-  document) has been completed.}
+This section will not be filled in until after the MIS (detailed design
+document) has been completed.
 
+\begin{comment}
 \wss{Reference your MIS (detailed design document) and explain your overall
 philosophy for test case selection.}  
 
@@ -1526,18 +1519,22 @@ your test building approach could be test cases for each access program,
 including one test for normal behaviour and as many tests as needed for edge
 cases.  Rather than create the details of the input and output here, you could
 point to the unit testing code.  For this to work, you code needs to be
-well-documented, with meaningful names for all of the tests.}
+well-documented, with meaningful names for all of the tests.} 
+\end{comment}
 
 \subsection{Unit Testing Scope}
 
+\begin{comment}
 \wss{What modules are outside of the scope.  If there are modules that are
   developed by someone else, then you would say here if you aren't planning on
   verifying them.  There may also be modules that are part of your software, but
   have a lower priority for verification than others.  If this is the case,
   explain your rationale for the ranking of module importance.}
+\end{comment}
 
 \subsection{Tests for Functional Requirements}
 
+\begin{comment}
 \wss{Most of the verification will be through automated unit testing.  If
   appropriate specific modules can be verified by a non-testing based technique.
   That can also be documented in this section.}
@@ -1588,9 +1585,10 @@ How test will be performed:
 \subsubsection{Module 2}
 
 ...
+\end{comment}
 
 \subsection{Tests for Nonfunctional Requirements}
-
+\begin{comment}
 \wss{If there is a module that needs to be independently assessed for
   performance, those test cases can go here.  In some projects, planning for
   nonfunctional tests of units will not be that relevant.}
@@ -1632,53 +1630,238 @@ How test will be performed:
 \subsubsection{Module ?}
 
 ...
-
+\end{comment}
 \subsection{Traceability Between Test Cases and Modules}
 
-\wss{Provide evidence that all of the modules have been considered.}
+%\wss{Provide evidence that all of the modules have been considered.}
 				
-\bibliographystyle{plainnat}
+%\bibliographystyle{plainnat}
 
-\bibliography{../../refs/References}
+%\bibliography{../../refs/References}
 
 \newpage
 
 \section{Appendix}
 
-This is where you can place additional information.
-
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS. Their values
-are defined in this section for easy maintenance.
+The following table defines the SYMBOLIC\_CONSTANTS that are used in the test
+cases and their respective values.
 
-\subsection{Usability Survey Questions?}
+\bigskip
 
-\wss{This is a section that would be appropriate for some projects.}
+\begin{table}[htb]
+\caption{Symbolic constants defined in test cases.}
+\centering
+\begin{tabular}{c c c}
+  \toprule
+  \textbf{parameter} & \textbf{value} & \textbf{description}\\
+  \midrule 
+  THRESHOLD & 80\% & Regular threshold standard\\
+  CRIT\_THRESHOLD & 90\% & Critical threshold standard\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Usability Survey Questions}
+
+Users will be asked the following questions to gauge the usability of the
+application during a user demo assessment. These questions relate to
+the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
+
+\subsubsection*{\textbf{Navigation and Ease of Use}}
+  \begin{itemize}
+    \item[(a)] How easy or difficult was it to navigate through the
+    application? \textit{(Very easy - Somewhat easy - Neither easy nor difficult
+    - Somewhat difficult - Very difficult)}
+    \item[(b)] Rate the ease of finding a specific button/feature related to the
+    task you were trying to perform. \textit{(Very easy - Somewhat easy -
+    Neither easy nor difficult - Somewhat difficult - Very difficult)}
+  \end{itemize}
+
+\subsubsection*{\textbf{Visual Appearance}}
+  \begin{itemize}
+    \item[(a)] On a scale of 1 to 5, how would you rate the visual appearance of
+    the application? \textit{(1 - Too cluttered and unappealing, 2 - Somewhat
+    unappealing 3 - Neutral, 4 - Somewhat appealing, 5 - Very clean and
+    appealing)}
+    \item[(b)] Is the displayed content (text, tables, graphs) clear, legible
+    and easy to understand?
+    \item[(c)] Did the design and layout appear consistent to you across
+    the entire application? If no, please point out any inconsistencies you noticed.
+    \item[(d)] Did you encounter any unidentifiable symbols or icons? If yes,
+    please describe them.
+  \end{itemize}
+
+\subsubsection*{\textbf{Learning}}
+  \begin{itemize}
+    \item[(a)] How easy or difficult was it to learn how to use the different
+    features of the application? \textit{(Very easy - Somewhat easy - Neither
+    easy nor difficult - Somewhat difficult - Very difficult)}
+    \item[(b)] Were there any features or functions you found challenging to
+    understand or figure out? If yes, please describe. 
+  \end{itemize}
+
+\subsubsection*{\textbf{Responsiveness}}
+  \begin{itemize}
+    \item[(a)] Did you experience any noticeable delays or interruptions while
+    using the application? If yes, please describe them.
+  \end{itemize}
+
+\subsubsection*{\textbf{Overall Experience}}
+  \begin{itemize}
+    \item[(a)] On a scale of 1 to 5, rate your overall experience using the
+    application. \textit{(1 - Very poor, 2 - Poor, 3 - Neutral, 4 - Good, 5 -
+    Excellent)}
+    \item[(b)] Do you have any suggestions for improvements to enhance your
+    experience with the application?
+  \end{itemize}
+
 
 \newpage{}
 \section*{Appendix --- Reflection}
 
-\wss{This section is not required for CAS 741}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.
-
-\input{../Reflection.tex}
+% \input{../Reflection.tex}
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how did
-    you resolve them?
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete the verification and validation of your project?
-  Examples of possible knowledge and skills include dynamic testing knowledge,
-  static testing knowledge, specific tool usage, Valgrind etc.  You should look
-  to identify at least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
+  \item \textbf{What went well while writing this deliverable?}
+  
+    Writing the verification and validation plans for this deliverable was a
+    relatively straightforward process as we were able to easily come up with
+    various methods for verifying our documents. The checklists for the
+    documentation verification plans were inspired from the checklists provided
+    to us from the template repository and evaluation rubrics. Defining these
+    checklists clarified what we'd need in other parts of the deliverable
+    (namely, the system tests). Writing the system tests for the functional
+    requirements was not too difficult as they were clearly defined in our SRS,
+    allowing us to create appropriate test cases with ease. 
+  
+  \smallskip
+  \item \textbf{What pain points did you experience during this deliverable, and
+  how did you resolve them?}
+
+  The most challenging part of this deliverable was writing the system tests
+  for the non-functional requirements. As we had over 50 non-functional
+  requirements to consider, ensuring all of the requirements were covered in our
+  test cases required significant effort and planning. It was also difficult to
+  define appropriate test cases and the "right" expected outputs when we did not
+  yet have a clear design/implementation. We struggled with defining precise
+  criteria for some tests related to usability and security. However, referring
+  back to the SRS and Hazard Analysis documents provided a better understanding.
+  The FMEA table in the Hazard Analysis clarified the necessary security tests,
+  while the NFRs we defined in the SRS helped us create appropriate usability
+  survey questions to help manage the subjectivity in some of our non-functional
+  test outputs.
+    
+  \smallskip
+  \item \textbf{What knowledge and skills will the team collectively need to
+  acquire to successfully complete the verification and validation of your
+  project? Examples of possible knowledge and skills include dynamic testing
+  knowledge, static testing knowledge, specific tool usage, Valgrind etc.  You
+  should look to identify at least one item for each team member.}
+  
+    This question was answered individually by each team member. Their responses
+    are as follows:
+    \begin{enumerate}
+      \item \textbf{Jennifer Ye}
+        
+        While doing the system tests, it was required that we know how the
+        system works even though we are still in the early stages of
+        documentation. By piecing together all the written documents so far
+        along with the conversations we had a team can create a more clear
+        picture of what exactly what are the success criteria for each function.
+        In addition to being able to build on top of what was already written,
+        knowing the difference between the different types of testings, how to
+        use them, when each should be used and when to define a different type
+        of test. Another thing that was very quickly noted is that even though
+        there are many requirements, many can be grouped with one system test.
+        Knowing when to group them was critical for this milestone.
+
+      \item \textbf{Jason Tran}
+      
+        I will focus on refining my dynamic testing skills because my experience
+        through previous co-ops has shown that dynamic testing is vital for
+        identifying runtime issues that static testing might miss. This approach
+        allows us to evaluate the application's behaviour in real-time, ensuring
+        that performance, and user interactions are optimized.
+
+      \item \textbf{Sumanya Gulati}
+      
+        Through my past co-ops, I have had a chance to use static and dynamic
+        testing techniques but I have never had the chance to use automated
+        testing and continuous integration. Since we plan on using linters for
+        this project, I would like to use this opportunity to build proficiency in
+        setting up and running linters to improve testing efficiency by diagnosing
+        and automatically resolving technical issues. 
+
+      \item \textbf{Kate Min}
+      
+        I plan to focus on learning how to create and manage workflows using
+        GitHub Actions for CI/CD implementation. As the team will need to use
+        workflows for automated builds and testing, it would be beneficial to be
+        familiar with setting it up to streamline our development processes. I
+        also want to improve my dynamic testing skills to effectively design and
+        execute our planned test cases.
+    \end{enumerate}
+
+  \smallskip
+  \item \textbf{For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
+  member pursue, and why did they make this choice?}
+
+    This question was answered individually by each team member. Their responses
+    are as follows:
+    \begin{enumerate}
+      \item \textbf{Jennifer Ye}
+        
+        One way to approach to master the skill of creating and classifying
+        tests is through practice and having a good understanding of them. As
+        such, reading up on the different types of testing along with the pros
+        and cons of each will help give the background needed to make a good
+        decision. Another way is to write out different types of tests for each
+        requirement and narrow down the best type of test to satisfy the
+        requirement. We went with the first option as it is not only more
+        efficient with the time given but also it allows us to think critically
+        and carefully about what needs to be done and why instead of write out a
+        bunch of tests and picking out which one would be the best. Although
+        that is a good exercise, it is not the best solution to learning and
+        mastering testing.
+
+      \item \textbf{Jason Tran}
+      
+        To acquire my dynamic testing skills, I will focus on two main approaches,
+        mentoring and online resources. By helping a less experienced teammate, I
+        will reaffirm my understanding of dynamic testing concepts and techniques
+        through teaching and collaboration. Moreover, I will use online resources
+        such as tutorials and documentation to explore advanced topics and stay
+        updated on best practices.
+
+      \item \textbf{Sumanya Gulati}
+      
+        One approach to do this is by setting up a linter in a development
+        environment and applying it to existing codebases. This hands-on approach
+        will help me become familiar with the specific rules, configurations, and
+        output of the linter. Another approach can be to enrol in an online course
+        that focuses on setting up and using popular linters, covering topics like
+        configuring rules, enforcing best practices, and automating linting as
+        part of CI/CD pipelines. Of these, two, I would choose the former approach
+        as I believe this approach builds familiarity with real-world usage and
+        configuration of linters, making it easier to customize and apply them
+        effectively.
+
+      \item \textbf{Kate Min}
+
+        For GitHub Actions, one approach to consider is reading through GitHub's
+        documentation, which has a comprehensive guide for setting up workflows.
+        Another option would be to practice creating simple workflows in a test
+        repository to get comfortable with the setup. I would prefer to use a
+        combination of both approaches for the best result. To improve my
+        dynamic testing skills, I can either review past coursework to reinforce
+        my knowledge or create and execute test scenarios on one of my past
+        projects. I would choose the latter approach as it will allow me to
+        refresh my knowledge and apply my experiences to our current project.
+    \end{enumerate}
 \end{enumerate}
 
 \end{document}
