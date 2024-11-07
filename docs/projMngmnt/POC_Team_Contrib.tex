@@ -109,8 +109,7 @@ Kate Min & 1\\
 Due to the busy schedules of the team, one member may attend lectures on behalf
 of the team. The number of attended lectures should be more, however the issues
 to be created for later lectures were forgotten. The numbers in the table are soley
-based on the number of issues created. Although inaccurate to the true
-attendence, it is accurate though the issues created. The team will work to add
+based on the number of issues created. The team will work to add
 issues for lectures in the future. 
 
 \section{TA Document Discussion Attendance}
@@ -130,14 +129,9 @@ Kate Min & 4\\
 \end{tabular}
 \end{table}
 
-All members have attended all meetings with the TAs,
+All members have attended all meetings with the TAs.
 
 \section{Commits}
-
-\wss{For each team member how many commits to the main branch have been made
-over the time period of interest.  The total is the total number of commits for
-the entire team since the beginning of the term.  The percentage is the
-percentage of the total commits made by each team member.}
 
 \begin{table}[H]
 \centering
@@ -145,26 +139,29 @@ percentage of the total commits made by each team member.}
 \toprule
 \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
 \midrule
-Total & Num & 100\% \\
-Name 1 & Num & \% \\
-Name 2 & Num & \% \\
-Name 3 & Num & \% \\
-Name 4 & Num & \% \\
-Name 5 & Num & \% \\
+Total & 40 & 100\% \\
+Jason Tran & 5 & 12.5\% \\
+Jennifer Ye & 6 & 15\% \\
+Kate Min & 8 & 20\% \\
+Sumanya Gulati & 20 & 50\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\wss{If needed, an explanation for the counts can be provided here.  For
-instance, if a team member has more commits to unmerged branches, these numbers
-can be provided here.  If multiple people contribute to a commit, git allows for
-multi-author commits.}
+As described in Section 7 - Workflow Plan of the 
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/DevelopmentPlan/DevelopmentPlan.pdf}{Development Plan},
+in addition to creating separate branches for each milestone which which merged into the main
+branch, each team member created a separate branch off of the milestone branch for their 
+respective sections. Their commits from their section-specific milestone branches were squashed
+into a single commit when merged to the milestone branch. Each of these squashed commits has been counted
+singularly in the above table.\\
+\newline
+Additionally, the number of commits by Sumanya Gulati is over-represented in the count as 12/20 of the
+commits are fixup! commits which were used to edit READMEs, upload relevant resources or fix minor 
+formatting issues and such. These 12 commits do not reflect her contribution to the actual content of 
+each milestone submission.
 
-\section{Issue Tracker}
-
-\wss{For each team member how many issues have they authored (including open and
-closed issues (O+C)) and how many have they been assigned (only counting closed
-issues (C only)) over the time period of interest.}
+\section{Issue Tracker} \label{section:issue_tracker}
 
 \begin{table}[H]
 \centering
@@ -172,22 +169,61 @@ issues (C only)) over the time period of interest.}
 \toprule
 \textbf{Student} & \textbf{Authored (O+C)} & \textbf{Assigned (C only)}\\
 \midrule
-Name 1 & Num & Num \\
-Name 2 & Num & Num \\
-Name 3 & Num & Num \\
-Name 4 & Num & Num \\
-Name 5 & Num & Num \\
+Total & 103 & 87 \\
+Jason Tran & 21 & 18 \\
+Jennifer Ye & 4 & 13 \\
+Kate Min & 3 & 20 \\
+Sumanya Gulati & 62 & 36 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\wss{If needed, an explanation for the counts can be provided here.}
+We believe that the number of issues authored by each team member is not a fair
+metric for our team. This is because for the first two milestones, all the issues
+were opened and assigned to the respective members by the meeting chair for that
+period (Sumanya Gulati in this instance).\\
+\newline
+After the submission of the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{SRS}
+document, there was a brief transition period where every member opened their own issues
+but post that transition period, the meeting chair for the current period (Jason Tran)
+opened and assigned issues for all the team members.\\
+\newline
+We realize this is an inefficient system and so, for all upcoming milestones and
+submissions, each team member will be responsible for opening and closing issues
+for the sections and components assigned to them.
 
 \section{CICD}
 
-\wss{Say how CICD will be used in your project}
+The initial phase of Continuous Integration (CI) has been implemented to our
+project in the form of a \LaTeX build checker that flags any compiling issues
+caused by incorrect syntax, missing elements or more.\\
+\newline
+As a part of the next phase of CI, we will be implementing linters, namely,
+Flake8 and ESLint (as outlined in the 
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}{Validation and Verification Plan}).
+Additionally, we would continue using GitHub Actions to implement CI.
 
-\wss{If your team has additional metrics of productivity, please feel free to
-add them to this report.}
+\section{Pull Requests}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ll}
+	\toprule
+	\textbf{Student} & \textbf{Pull Requests (merged)} \\
+	\midrule
+	Total & 26 \\
+	Jason Tran & 6 \\
+	Jennifer Ye & 5 \\
+	Kate Min & 7 \\
+	Sumanya Gulati & 8 \\
+	\bottomrule
+	\end{tabular}
+\end{table}
+
+Although the total number of closed Pull Requests (PRs) is 32, only the 
+ones that were successfully merged have been taken into account for the
+above table. We believe that the number of PRs provides a much more
+transparent and accurate representation of the contribution by each team
+member as opposed to section \ref{section:issue_tracker}. 
 
 \end{document}
