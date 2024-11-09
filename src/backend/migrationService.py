@@ -1,7 +1,7 @@
 import pandas as pd
+import os
 from pymongo import MongoClient
 import logging
-from datetime import datetime
 
 class MigrationService:
     """
@@ -36,7 +36,9 @@ class MigrationService:
         Prompt the user to manually link a data sheet to one of several matching experiments.
         Arguments:
             experiments (list): List of experiment documents with the same date.
-            dataSheetId (str): The ID of the data sheet needing linkage.
+            dataSheetId (str): The ID/filename of the data sheet needing linkage.
+        Returns:
+            selectedExperimentId (str): Correct experiment ID after linking datasheet
         """
         print("\nAmbiguous data sheet link detected. Please match the data sheet to an experiment:")
         for idx, experiment in enumerate(experiments):
@@ -59,13 +61,14 @@ class MigrationService:
         self.experimentsCollection.update_one(
             {"experimentId": selectedExperimentId},
         )
+        return selectedExperimentId
 
-    def findExperiment(self, date, dataId=None):
+    def findExperiment(self, date, dataId):
         """
         Attempt to find or prompt the user to link a data sheet to an experiment by date.
         Arguments:
             date (str): The date associated with the data sheet.
-            dataId (str): The unique ID of the data sheet being linked.
+            dataId (str): The unique ID/filename of the data sheet being linked.
         Returns:
             str: The experiment ID linked to the data sheet, or None if not linked.
         """
@@ -75,7 +78,7 @@ class MigrationService:
             return matchingExperiments[0]["experimentId"]
         elif len(matchingExperiments) > 1:
             print(f"\nMultiple experiments found for date {date}. Please select the correct one:")
-            # return self.promptLink(matchingExperiments, dataId)
+            return self.promptLink(matchingExperiments, dataId)
         else:
             return None
 
@@ -141,7 +144,7 @@ class MigrationService:
                 dataDf = self.cleanData(dataDf)
 
                 date = str(pd.to_datetime(dataDf['Time'][1]).date().isoformat())
-                experimentId = self.findExperiment(date)
+                experimentId = self.findExperiment(date, os.path.basename(path))
                 if not experimentId:
                     logging.warning(f"No matching experiment found for data sheet date {date}. Skipping.")
                     return None
