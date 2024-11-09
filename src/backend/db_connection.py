@@ -12,8 +12,11 @@ db_name = "alkalyticsDB"  # Replace with your actual database name
 # Initialize MigrationService
 migration_service = MigrationService(mongo_uri, db_name)
 # Define paths to your experiment and data sheet Excel files
-experiment_file_path = "../../src/data/Experiments.xlsx"
-data_file_paths = ["../../src/data/20240802.xlsx"]
+experiment_file_path = "../data/Experiments.xlsx"
+
+data_file_paths = ["../data/20240802.xlsx", 
+                   "../data/20240802 (1).xlsx", 
+                   "../data/20240802 (2).xlsx"]
 
 print("----------------------------------- MIGRATING ----------------------------------")
 # Run migration
