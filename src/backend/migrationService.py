@@ -57,10 +57,6 @@ class MigrationService:
 
         selectedExperimentId = experiments[choice - 1]["experimentId"]
         
-        # Update the chosen experiment document to link the data sheet
-        self.experimentsCollection.update_one(
-            {"experimentId": selectedExperimentId},
-        )
         return selectedExperimentId
 
     def findExperiment(self, date, dataId):
@@ -72,7 +68,7 @@ class MigrationService:
         Returns:
             str: The experiment ID linked to the data sheet, or None if not linked.
         """
-        matchingExperiments = list(self.experimentsCollection.find({"Date": date}))
+        matchingExperiments = list(self.experimentsCollection.find({"Date": date})) # querying db through python
 
         if len(matchingExperiments) == 1:
             return matchingExperiments[0]["experimentId"]
@@ -151,7 +147,7 @@ class MigrationService:
 
                 records = []
                 for _, row in dataDf.iterrows():
-                    rowId = '#' + str(row['#']) + " " + row['Time']
+                    rowId = '#' + str(row['#']) + " " + str(row['Time'])
 
                     if rowId not in s:
                         dataDoc = {
