@@ -56,7 +56,7 @@ class MigrationService:
                 print("Invalid input. Please enter a valid number.")
 
         selectedExperimentId = experiments[choice - 1]["experimentId"]
-        
+
         return selectedExperimentId
 
     def findExperiment(self, date, dataId):
@@ -133,36 +133,32 @@ class MigrationService:
         Returns:
             str: Data sheet ID.
         """
-        s = set() # Store row Ids
-        for path in dataFilePath:
-            try:
-                dataDf = pd.read_excel(path, sheet_name=0)
-                dataDf = self.cleanData(dataDf)
 
-                date = str(pd.to_datetime(dataDf['Time'][1]).date().isoformat())
-                experimentId = self.findExperiment(date, os.path.basename(path))
-                if not experimentId:
-                    logging.warning(f"No matching experiment found for data sheet date {date}. Skipping.")
-                    return None
+        try:
+            dataDf = pd.read_excel(dataFilePath, sheet_name=0)
+            dataDf = self.cleanData(dataDf)
 
-                records = []
-                for _, row in dataDf.iterrows():
-                    rowId = '#' + str(row['#']) + " " + str(row['Time'])
-
-                    if rowId not in s:
-                        dataDoc = {
-                            "dataSheetId": rowId,
-                            "experimentId": experimentId,
-                            **row.to_dict()
-                        }
-                        records.append(dataDoc)
-                        s.add(rowId)
-
-                if records:
-                    self.dataSheetsCollection.insert_many(records)
-            except Exception as e:
-                logging.error(f"Error processing data file {path}: {e}")
+            date = str(pd.to_datetime(dataDf['Time'][1]).date().isoformat())
+            experimentId = self.findExperiment(date, os.path.basename(dataFilePath))
+            if not experimentId:
+                logging.warning(f"No matching experiment found for data sheet date {date}. Skipping.")
                 return None
+
+            records = []
+            for _, row in dataDf.iterrows():
+                rowId = '#' + str(row['#']) + " " + str(row['Time'])
+                dataDoc = {
+                    "dataSheetId": rowId,
+                    "experimentId": experimentId,
+                    **row.to_dict()
+                }
+                records.append(dataDoc)
+
+            if records:
+                self.dataSheetsCollection.insert_many(records)
+        except Exception as e:
+            logging.error(f"Error processing data file {dataFilePath}: {e}")
+            return None
 
     def migrate(self, experimentFilePath=None, dataFilePaths=None):
         """
@@ -175,7 +171,8 @@ class MigrationService:
             self.importExperimentSheet(experimentFilePath)
 
         if dataFilePaths:
-            self.importDataSheet(dataFilePaths)
+            for path in dataFilePaths:
+                self.importDataSheet(path)
 
     def closeConnection(self):
         """Close the MongoDB client connection."""
