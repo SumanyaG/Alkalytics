@@ -489,14 +489,32 @@ Initial State: Database is running and ready to intake data
 					
 Input: Dataset to be stored, in .CSV format
 					
-Output: Data that is inputted is sent into the system, then labelled and stored
-successfully
+Output: The inputted data is stored in the system with proper labels and without
+any data loss or errors
 
 Test Case Derivation: When the data is sent to the system, the data should be
 stored somewhere and labelled properly before it can be queried.
 					
 How test will be performed: The test can be performed by sending a test sample
 of varying sizes to the storage in the system.
+
+\item {FR-ST1.1}
+
+Control: Manual
+					
+Initial State: Database is running and ready to intake data
+					
+Input: New singluar data point 
+					
+Output: The inputted data is stored in the system with proper labels and without
+any data loss or errors.
+
+Test Case Derivation: When the data is sent to the system, the data should be
+stored somewhere and labelled properly before it can be queried.
+					
+How test will be performed: The test can be performed by sending a single data
+point with the correct number of attributes to store in
+the system.
 
 \end{enumerate}
 
@@ -696,7 +714,8 @@ NFR: LFR-2
 
 Type: Manual
 
-Initial State: Application running on multiple different devices
+Initial State: Application running on a 15" laptop, 24" monitor, standard smart
+phone and/or tablet
 
 Input/Condition: Manual tester's engagement with application
 
