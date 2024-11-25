@@ -131,22 +131,17 @@ The system can be broken down into the following major components:
 
 The following are assumptions made about the software of the system. 
 \begin{itemize}
-    \item The data provided to this system is validated and correctly formatted
-    before system ingestion
-    \begin{itemize}
-        \item Errors can occur from badly formatted or invalid incoming data,
-        which is not something the system can control
-    \end{itemize}
     \item The user of this application is not intentionally trying to misuse it
     \begin{itemize}
         \item This assumption mitigates the risk of someone intentionally
         damaging the system
     \end{itemize}
-    \item Internet connection and server infrastructure will always be
-    available, and will not suddenly go down and compromise the system
+    \item Local server infrastructure will always be available, and will not suddenly
+    go down and compromise the system
     \begin{itemize}
-        \item This assumption mitigates the risk of a failing internet
-        connection or fragile server infrastructure interrupting the system
+        \item This assumption mitigates the risk of local server connections
+        interrupting the system as there can be immidate resolutions and issues
+        will only affect one user uniquely
     \end{itemize}
     \item Users using this application understand how to use the application,
     whether through documentation or a tutorial
@@ -158,12 +153,6 @@ The following are assumptions made about the software of the system.
     \begin{itemize}
         \item This assumption prevents any threats to the system due to poor
         maintenance
-    \end{itemize}
-    \item The system is scalable and possesses enough computational resources to
-    handle any volume of data
-    \begin{itemize}
-        \item This assumption mitigates the risk of the system failing due to
-        lack of resources
     \end{itemize}
 \end{itemize}
 
