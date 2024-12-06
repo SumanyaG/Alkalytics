@@ -1,0 +1,36 @@
+name: Python Linter
+
+on:
+  push:
+    paths:
+      - '**/*.py'
+  pull_request:
+    paths:
+      - '**/*.py'
+
+jobs:
+  flake8-lint:
+    runs-on: ubuntu-latest
+    name: Run flake8 linter
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+      
+      - name: Install flake8
+        run: |
+          echo "Installing flake8..."
+          python -m pip install --upgrade pip
+          pip install flake8
+
+      - name: Lint Python files with flake8
+        run: | 
+          echo "Finding and linting Python files..."
+          find . -name "*.py" | xargs flake8 --count --select=E9,F4,W5 --max-line-length=82 --show-source --statistics
