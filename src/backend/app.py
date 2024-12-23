@@ -1,8 +1,6 @@
 # app.py
 
 from flask import Flask, request
-from flask_graphql import GraphQLView
-from graphql import build_schema
 import graphql_server
 from upload_service import CsvToMongoDB
 
