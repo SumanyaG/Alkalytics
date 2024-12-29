@@ -68,20 +68,28 @@ in these components, as well as ways to mitigate the risks they impose.
 
 The purpose of the hazard analysis is to identify potential hazards and its
 causes, assess the effects, and set mitigation strategies to eliminate or lessen
-the risk of the hazard. It is important to consider all possible hazards
-associated with the Alkalytics project and its components, as the following
-losses could be incurred from an insufficient hazard assessment:
+the risk of the hazard. This analysis aims to address all relevant hazards
+within the system boundaries and components defined in Section \ref{sec3},
+ensuring the application's functionality, reliability, security, and performance. 
+The hazard analysis will focus on identifying hazards that may lead to the
+following:
 \begin{itemize}
-    \item Data loss: The data gets unintentionally lost, deleted, or corrupted.
-    \item Data integrity: The data is not complete, accurate, nor correct which
+    \item Data loss: Unintentional loss, deletion, or corruption of data.
+    \item Data integrity: Incomplete, inaccurate, and/or incorrect data, which
     can lead to computational errors.
-    \item System availability: Users are unable to access the system due to
-    factors such as unstable internet connection or server crashes.
-    \item Security: If there are no proper measures for authentication,
-    unauthorized access to the data or user information may occur.
+    \item System availability: Users unable to access the system due to
+    factors such as server downtime or system overload.
+    \item Security: Unauthorized access to the data or user information due to
+    insufficient authentication measures.
 \end{itemize}
+In addition to these areas, the analysis will also consider hazards that may
+impact overall user experience, specifically addressing hazards related to
+usability, accessibility, and system interaction.
+The analysis will not consider hazards that may be associated with hardware
+failures or other external dependencies beyond the control of the application
+unless they directly impact the operation of the application. 
 
-\section{System Boundaries and Components}
+\section{System Boundaries and Components} \label{sec3}
 The system boundaries are used to define what is within the scope of the hazard analysis,
 in essence, where the system interacts with external systems, users and hardware. Some key
 boundaries for Alkalytics include:
@@ -402,7 +410,7 @@ prevent corrupted or incomplete data entries.
 The following table outlines a proposed roadmap of when each safety requirement
 will be implemented within the capstone timeline and justifications.
 
-\begin{longtable}[c]{|m{2cm}|m{2.6cm}|m{2cm}|m{3.8cm}|}
+\begin{longtable}[c]{|m{2cm}|m{2.6cm}|m{2.6cm}|m{5.8cm}|}
     \hline
     \textbf{Stage} & \textbf{Req. Category} & \textbf{Req. ID(s)} &
     \textbf{Rationale} \\
@@ -414,9 +422,9 @@ will be implemented within the capstone timeline and justifications.
     & Integrity & SR-5, SR-6, SR-7, SR-8, SR-9 & The database must adhere to
     these requirements for a successful PoC.\\
     \cline{2-4}
-    & Privacy & N/A & Since the PoC plan will\\
-    & Audit & N/A & only have the database\\
-    & Immunity & N/A & these requirements are not applicable.\\
+    & Privacy & N/A & Since the PoC plan will only have the\\
+    & Audit & N/A & database, these requirements are not\\
+    & Immunity & N/A & applicable.\\
     \hline
     Rev0 Demo (Feb 3) & Access & SR-1 & User authentication should be
     implemented during front-end development.\\
@@ -427,8 +435,8 @@ will be implemented within the capstone timeline and justifications.
     & Privacy & SR-10, SR-11 & At this point there will be user access, thus
     these requirements must be implemented.\\
     \cline{2-4}
-    & Audit & N/A & These requirements\\
-    & Immunity & N/A & are not high-priority.\\
+    & Audit & N/A & These requirements are not high-priority.\\
+    & Immunity & N/A & \\
     \hline
     Rev1 Final Demo (Mar 24) & Access & SR-2, SR-3 & User access must be
     extended to permissions and capabilities prior to release.\\
