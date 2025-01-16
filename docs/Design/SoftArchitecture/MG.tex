@@ -93,6 +93,8 @@ This section records information for easy reference.
   \bottomrule
 \end{tabular}\\
 
+\subsection{Notation}
+
 \newpage
 
 \tableofcontents
@@ -337,6 +339,16 @@ will actually be implemented.
   \caption{A DAG representing the implemented module hierarchy of Alkalytics.}
   \label{fig:FigMH}
 \end{figure}
+<<<<<<< HEAD
+=======
+
+It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
+`container' modules that act as high-level modules conatining leaf nodes that
+can be implemented. The orange nodes represent modules that will not be implemented
+for Revision 0 of Alkalytics and the green nodes represent modules that must be be implemented.
+
+\section{Connection Between Requirements and Design} \label{SecConnection}
+>>>>>>> 337f55c (doc(design): add section 5 and modify structure)
 
 It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
 `container' modules that are non-leaf modules and encompass other leaf nodes.
@@ -392,11 +404,31 @@ to be implemented.
 \end{description}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 \subsubsection{Uses}
 This module is used by the Behavior-Hiding and Interface Module to interact
 with the stored data. It provides mechanisms transform the CSV data, and
 perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 =======
+=======
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants] 
+  \item[Exported Access Programs] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables]
+  \item[Environment Variables]  
+  \item[Assumptions] 
+  \item[Access Routine Semantics] 
+  \item[Local Function] 
+\end{description}
+
+>>>>>>> 337f55c (doc(design): add section 5 and modify structure)
 \subsection{Data Processing Module}
 >>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 
@@ -1410,6 +1442,24 @@ storage and verification.
     \item \textbf{Output}: Returns the hashed password string.
   \end{itemize}
 \end{description}
+
+\section{MIS of Hardware-Hiding Module}
+\subsection{Data Storage Module}
+
+\section{MIS of Behaviour-Hiding Module}
+\subsection{Data Ingestion Module}
+\subsection{Data Validation Module}
+\subsection{Data Transformation Module}
+\subsection{Machine Learning Module}
+\subsection{Reporting Module}
+\subsection{Notifications Module}
+
+\section{MIS of Interface Module}
+\subsection{UI Design Module}
+\subsection{Visualization Module}
+
+\section{MIS of Administration Module}
+\subsection{User Management Module}
 
 \section{Traceability Matrix} \label{SecTM}
 
