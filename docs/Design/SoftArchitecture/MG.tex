@@ -75,6 +75,7 @@ This section records information for easy reference.
   KPI & Key Performance Indicator\\
   M & Module \\
   MG & Module Guide \\
+  MIS & Module Interface Specification\\
   OS & Operating System \\
   R & Requirement\\
   SC & Scientific Computing \\
@@ -85,6 +86,8 @@ This section records information for easy reference.
   XML & Extensible Markup Language\\
   \bottomrule
 \end{tabular}\\
+
+\subsection{Notation}
 
 \newpage
 
@@ -231,46 +234,83 @@ multiple modules.
 
 \section{Module Hierarchy} \label{SecMH}
 
-This section provides an overview of the module design. Modules are summarized
-in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
-below, which are leaves in the hierarchy tree, are the modules that will
-actually be implemented.
+This section provides an overview of the module design for the Alkalytics system.
+The modules are summarized in a hierarchy that follows the principle of information
+hiding. Each module encapsulates specific secrets, ensuring changes are localized
+and do not affect unrelated parts of the system. These modules are summarized in
+a hierarchy decomposed by secrets in table \ref{TblMH}. This hierarchy represented
+as a directed acyclic graph, shown in \ref{FigMH}, shows relationships betweem
+higher-level and lower-level modules, with the leaf modules representing those that
+will actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Behaviour-Hiding Module
+\item [\refstepcounter{mnum} \mthemnum \label{mIN}:] Interface Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mAD}:] Administration Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mDA}:] Data Acquisition Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mDS}:] Data Storage Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mDR}:] Data Retrieval Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mINP}:] Input Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mPR}:] Processing Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mOU}:] Output Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mUID}:] UI Design Module
+\item [\refstepcounter{mnum} \mthemnum \label{mVI}:] Visualization Module
+\item [\refstepcounter{mnum} \mthemnum \label{mUM}:] User Management Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mCM}:] Configuration Management Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDI}:] Data Ingestion Module
+\item [\refstepcounter{mnum} \mthemnum \label{mDV}:] Data Validation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mDT}:] Data Transformation Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mML}:] Machine Learning Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRE}:] Reporting Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mNO}:] Notification Module
 \end{description}
-
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.35\textwidth}}
 \toprule
-\textbf{Level 1} & \textbf{Level 2}\\
+\textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+{Hardware-Hiding Module} & ~ & ~ \\
+& Data Acquisition Module & \\
+& Data Storage Module & \\
+& Data Retrieval Module & \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+{Behaviour-Hiding Module} & Input Module & Data Ingestion Module\\
+& & Data Validation Module\\
+& Processing Module & Data Transformation Module\\
+& & Machine Learning Module\\
+& Output Module & Reporting Module\\
+& & Notifications Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+{Interface Module} & UI Design Module & \\
+& Visualization Module & \\
+\midrule
+
+{Administration Module} & User Management Module & \\
+& Configuration Management Module & \\
 \bottomrule
 
 \end{tabular}
 \caption{Module Hierarchy}
 \label{TblMH}
 \end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Diagrams/DAG.png}
+  \caption{A DAG representing the implemented module hierarchy of Alkalytics.}
+  \label{fig:FigMH}
+\end{figure}
+
+It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
+`container' modules that act as high-level modules conatining leaf nodes that
+can be implemented. The orange nodes represent modules that will not be implemented
+for Revision 0 of Alkalytics and the green nodes represent modules that must be be implemented.
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
@@ -310,6 +350,23 @@ to be implemented.
   system. This module provides the interface between the hardware and the
   software. So, the system can use it to display outputs or to accept inputs.
 \item[Implemented By:] OS
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants] 
+  \item[Exported Access Programs] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables]
+  \item[Environment Variables]  
+  \item[Assumptions] 
+  \item[Access Routine Semantics] 
+  \item[Local Function] 
 \end{description}
 
 \subsection{Data Processing Module}
@@ -357,6 +414,24 @@ to be implemented.
 \end{description}
 
 \subsubsection{Etc.}
+
+\section{MIS of Hardware-Hiding Module}
+\subsection{Data Storage Module}
+
+\section{MIS of Behaviour-Hiding Module}
+\subsection{Data Ingestion Module}
+\subsection{Data Validation Module}
+\subsection{Data Transformation Module}
+\subsection{Machine Learning Module}
+\subsection{Reporting Module}
+\subsection{Notifications Module}
+
+\section{MIS of Interface Module}
+\subsection{UI Design Module}
+\subsection{Visualization Module}
+
+\section{MIS of Administration Module}
+\subsection{User Management Module}
 
 \section{Traceability Matrix} \label{SecTM}
 
