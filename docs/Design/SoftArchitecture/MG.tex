@@ -1,6 +1,6 @@
 \documentclass[12pt, titlepage]{article}
 
-\usepackage{fullpage}
+\usepackage[margin=1in]{geometry}
 \usepackage[round]{natbib}
 \usepackage{multirow}
 \usepackage{booktabs}
@@ -46,11 +46,14 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+11 Janury 2025 & 1.0 & Added initial content for Rev 0.\\
 \bottomrule
 \end{tabularx}
-
+\\
+\newline \newline
+\emph{\textbf{Note:}} Please note that our team has adapted and extended this
+Module Guide document to include the contents of an MIS or other such document.
+For this reason, only one design document has been submitted.
 \newpage
 
 \section{Reference Material}
@@ -65,7 +68,11 @@ This section records information for easy reference.
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   AC & Anticipated Change\\
+  API & Application Programming Interface\\
+  CSV & Comma Separated Values\\
   DAG & Directed Acyclic Graph \\
+  JSON & JavaScript Object Notation\\
+  KPI & Key Performance Indicator\\
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
@@ -74,7 +81,8 @@ This section records information for easy reference.
   SRS & Software Requirements Specification\\
   \progname & Explanation of program name\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
+  UI & User Interface\\
+  XML & Extensible Markup Language\\
   \bottomrule
 \end{tabular}\\
 
@@ -92,95 +100,133 @@ This section records information for easy reference.
 
 \section{Introduction}
 
-Decomposing a system into modules is a commonly accepted approach to developing
-software.  A module is a work assignment for a programmer or programming
-team~\citep{ParnasEtAl1984}.  We advocate a decomposition
-based on the principle of information hiding~\citep{Parnas1972a}.  This
-principle supports design for change, because the ``secrets'' that each module
-hides represent likely future changes.  Design for change is valuable in SC,
-where modifications are frequent, especially during initial development as the
-solution space is explored.  
+\subsection{Summary}
+Alkalytics is a project designed to provide a scalable data management and analysis
+solution for ocean alkalinity research, in particular by streamlining the data 
+organization, querying, and visualization processes. Through its various modules, 
+the primary goal of the system is to offer a comprehensive solution for data 
+ingestion, processing and reporting  while maintaining adaptability to future 
+changes.\\
+\newline
+Each functional component is developed as an independent module to encapsulate 
+specific responsibilities, minimize dependencies, and promote information
+hiding. This modular approach, advocated for widely in the software sector, not only
+simplifies development and testing but also allows the system to accommodate evolving
+user requirements and technology upgrades.
 
-Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
+\subsection{Purpose}
+This Module Guide (MG) has been written to serve as a roadmap for the Alkalytics system,
+detailing its structure, functionality, and the relationships between its components.
+It provides clarity on how the system meets the requirements outlined in the 
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification (SRS)}
+and supports the following stakeholders:
 \begin{itemize}
-\item System details that are likely to change independently should be the
-  secrets of separate modules.
-\item Each data structure is implemented in only one module.
-\item Any other program that requires information stored in a module's data
-  structures must obtain it by calling access programs belonging to that module.
+  \item \textbf{New Developers}: To understand the modular architecture and ensure
+  consistent implementation.
+  \item \textbf{Maintainers}: To efficiently identify, update, or rewrite modules as needed.
+  \item \textbf{Designers}: To validate the system's feasibility, flexibility, and alignment
+  with project goals. 
 \end{itemize}
-
-After completing the first stage of the design, the Software Requirements
-Specification (SRS), the Module Guide (MG) is developed~\citep{ParnasEtAl1984}. The MG
-specifies the modular structure of the system and is intended to allow both
-designers and maintainers to easily identify the parts of the software.  The
-potential readers of this document are as follows:
-
-\begin{itemize}
-\item New project members: This document can be a guide for a new project member
-  to easily understand the overall structure and quickly find the
-  relevant modules they are searching for.
-\item Maintainers: The hierarchical structure of the module guide improves the
-  maintainers' understanding when they need to make changes to the system. It is
-  important for a maintainer to update the relevant sections of the document
-  after changes have been made.
-\item Designers: Once the module guide has been written, it can be used to
-  check for consistency, feasibility, and flexibility. Designers can verify the
-  system in various ways, such as consistency among modules, feasibility of the
-  decomposition, and flexibility of the design.
-\end{itemize}
-
-The rest of the document is organized as follows. Section
-\ref{SecChange} lists the anticipated and unlikely changes of the software
-requirements. Section \ref{SecMH} summarizes the module decomposition that
-was constructed according to the likely changes. Section \ref{SecConnection}
-specifies the connections between the software requirements and the
-modules. Section \ref{SecMD} gives a detailed description of the
-modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
-other shows the relation between anticipated changes and the modules. Section
-\ref{SecUse} describes the use relation between modules.
 
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
-This section lists possible changes to the system. According to the likeliness
-of the change, the possible changes are classified into two
-categories. Anticipated changes are listed in Section \ref{SecAchange}, and
-unlikely changes are listed in Section \ref{SecUchange}.
+This section identifies potential changes to the system and classifies them into
+two categories: anticipated changes (AC) as listed in section \ref{SecAchange} and
+unlikely changes (UC) as listed in section \ref{SecUchange}. AC represent decisions 
+that have been encapsulated within specific modules to minimize the impact of 
+modifications while UC are those that, while possible, are fixed at the system 
+architecture stage to reduce complexity.
 
 \subsection{Anticipated Changes} \label{SecAchange}
 
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
-require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+require changing the one module that hides the associated decision. These changes
+are encapsulated within specific modules to ensure the system's adaptability.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
-\end{description}
+  \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] \textbf{Hardware Configuration} - 
+  The software may need to run on a different hardware platform like a server or on a 
+  cloud solution. Changes in hardware specifications will primarily affect the \ref{mHH} 
+  Module, isolating their imoact.
+  
+  \item[\refstepcounter{acnum} \actheacnum \label{acProcessing}:] \textbf{Data Processing Algorithms} - 
+  Changes in analytical techniques along with advances in the machine learning space would
+  introduce the need for new statistical models. These changes would be encapsulated in the
+  Data Processing Module.
 
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
+  \item[\refstepcounter{acnum} \actheacnum \label{acUI}:] \textbf{User Interface (UI) Design} - 
+  Changes in analytical techniques along with advances in the machine learning space would
+  introduce the need for new statistical models. These changes would be encapsulated in the
+  Data Processing Module.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] \textbf{Input Data Formats} - 
+  Currently, the system is expected to process data from Comma Separated Values (CSV) files only.
+  In the future, however, modifications may have to be made to accommodate different file 
+  formats (such as JavaScript Object Notation (JSON), Extensible Markup Language (XML) etc)
+  which will be handled by the Data Ingestion Module without impacting other parts of the system.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acSource}:] \textbf{Data Source Integration} - 
+  New data sources such as third-party application programming interfaces (APIs), Internet of Things
+  (IoT) devices may have to be added in the future. The Data Integration Module will have to be 
+  redesigned to handle the integration of these new sources.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acStorage}:] \textbf{Scaling Data Volume} - 
+  As the number of experiments increases, the system may need to handle increasing data volumes
+  as usage grows. This is addressed by the Data Storage Module which has been designed to support
+  database scalability strategies.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acRoles}:] \textbf{User Roles and Permissions} - 
+  Future requirements may demand the addition of new user roles or changes to existing permissions.
+  The Administration Module is designed to encapsulate these changes.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acSchema}:] \textbf{Input Schema} - 
+  With an increase in the number of diverse experiments, the schema for the data inputs may have to
+  changed to support the addition or removal of new parameters. This is handled by the Data Ingestion
+  Module.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acNotifs}:] \textbf{Notification Rules} - 
+  The conditions of triggering alerts or notifications may evolve, including but not limited to
+  additional thresholds or new types of anomalies. These are handled by the Notifications Module
+  without affecting other parts of the system.
+  
+  \item[\refstepcounter{acnum} \actheacnum \label{acMetrics}:] \textbf{Analytical Metrics} - 
+  New metrics or Key Performance Indicators (KPIs) might be requested by stakeholders. This would
+  involve adapting requirements by introducing new calculations or processing pipelines by modifying
+  the Data Processing Module.
+  
+\end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
-The module design should be as general as possible. However, a general system is
-more complex. Sometimes this complexity is not necessary. Fixing some design
-decisions at the system architecture stage can simplify the software design. If
-these decision should later need to be changed, then many parts of the design
-will potentially need to be modified. Hence, it is not intended that these
-decisions will be changed.
+Unlikely changes are those that are fixed early in the design to simplify the system
+and reduce complexity. These changes, if necessary, would have a significant impact on
+multiple modules.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] \textbf{Input/Output Devices} - 
+  The system is designed to support file-based inputs. Changes can include additional input
+  and/or output methods such as direct hardware interaction, would require substantial
+  redesign across multiple modules.
+  
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucSysArch}:] \textbf{Core System Architecture} -
+  The underlying architectural decisions, such as the use of modular decomposition and separation
+  of concerns, are not expected to change. Altering these decisions would necessitate a complete overhaul
+  of the system.
+  
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucComms}:] \textbf{Communication Protocols} -
+  The communication methods between modules such as function calls, API interactions etc are fixed. 
+  Switching to a different communication protocol would impact the interfaces of all interacting modules.
+
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucLanguage}:] \textbf{Programming Language} -
+  The choice of programming languages is asssumed to be fixed for the project. A change would
+  require rewriting most of the system.
+
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucDatabase}:] \textbf{Database Type} -
+  The choice of storage solution (relational versus NoSQL databases, for example) is assumed to remain
+  fixed. Switching to a different type of database would require reworking the Data Storage
+  Module and parts of the Data Processing Module.
+
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -255,7 +301,7 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
 to be implemented.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Data Ingestion Modules (\mref{mDI})}
 
 \begin{description}
 \item[Secrets:]The data structure and algorithm used to implement the virtual
@@ -266,7 +312,7 @@ to be implemented.
 \item[Implemented By:] OS
 \end{description}
 
-\subsection{Behaviour-Hiding Module}
+\subsection{Data Processing Module}
 
 \begin{description}
 \item[Secrets:]The contents of the required behaviours.
@@ -278,7 +324,7 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Data Storage Module (\mref{mInput})}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data.
@@ -291,8 +337,13 @@ to be implemented.
 
 \subsubsection{Etc.}
 
+\subsection{User Interface Module}
 
-\subsection{Software Decision Module}
+\subsection{Reporting Module}
+
+\subsection{Notifications Module}
+
+\subsection{Administration Module}
 
 \begin{description}
 \item[Secrets:] The design decision based on mathematical theorems, physical
@@ -396,10 +447,6 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \wss{Design of user interface for software and hardware.  Attach an appendix if
 needed. Drawings, Sketches, Figma}
-
-\section{Design of Communication Protocols}
-
-\wss{If appropriate}
 
 \section{Timeline}
 
