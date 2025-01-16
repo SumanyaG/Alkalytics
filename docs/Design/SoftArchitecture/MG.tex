@@ -49,7 +49,10 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 11 Janury 2025 & 1.0 & Added initial content for Rev 0.\\
+<<<<<<< HEAD
 17 Janury 2025 & 1.1 & Finalized document for Rev 0 submission.\\
+=======
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 \bottomrule
 \end{tabularx}
 \\
@@ -116,16 +119,25 @@ Each functional component is developed as an independent module to encapsulate
 specific responsibilities, minimize dependencies, and promote information
 hiding. This modular approach, advocated for widely in the software sector, not only
 simplifies development and testing but also allows the system to accommodate evolving
+<<<<<<< HEAD
 user requirements and technology upgrades.\\
 \newline
 A work context model and a use case diagram for the system have been included in the 
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification (SRS)} 
 in sections 6.2 and 8.1, respectively.
+=======
+user requirements and technology upgrades.
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 
 \subsection{Purpose}
 This Module Guide (MG) has been written to serve as a roadmap for the Alkalytics system,
 detailing its structure, functionality, and the relationships between its components.
+<<<<<<< HEAD
 It provides clarity on how the system meets the requirements outlined in the SRS
+=======
+It provides clarity on how the system meets the requirements outlined in the 
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification (SRS)}
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 and supports the following stakeholders:
 \begin{itemize}
   \item \textbf{New Developers}: To understand the modular architecture and ensure
@@ -154,7 +166,11 @@ are encapsulated within specific modules to ensure the system's adaptability.
 \begin{description}
   \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] \textbf{Hardware Configuration} - 
   The software may need to run on a different hardware platform like a server or on a 
+<<<<<<< HEAD
   cloud solution. Changes in hardware specifications will primarily affect the Hardware-Hiding 
+=======
+  cloud solution. Changes in hardware specifications will primarily affect the \ref{mHH} 
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
   Module, isolating their imoact.
   
   \item[\refstepcounter{acnum} \actheacnum \label{acProcessing}:] \textbf{Data Processing Algorithms} - 
@@ -162,7 +178,11 @@ are encapsulated within specific modules to ensure the system's adaptability.
   introduce the need for new statistical models. These changes would be encapsulated in the
   Data Processing Module.
 
+<<<<<<< HEAD
   \item[\refstepcounter{acnum} \actheacnum \label{acInterface}:] \textbf{User Interface (UI) Design} - 
+=======
+  \item[\refstepcounter{acnum} \actheacnum \label{acUI}:] \textbf{User Interface (UI) Design} - 
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
   Changes in analytical techniques along with advances in the machine learning space would
   introduce the need for new statistical models. These changes would be encapsulated in the
   Data Processing Module.
@@ -175,10 +195,17 @@ are encapsulated within specific modules to ensure the system's adaptability.
 
   \item[\refstepcounter{acnum} \actheacnum \label{acSource}:] \textbf{Data Source Integration} - 
   New data sources such as third-party application programming interfaces (APIs), Internet of Things
+<<<<<<< HEAD
   (IoT) devices may have to be added in the future. The Data Ingestion Module will have to be 
   redesigned to handle the integration of these new sources.
 
   \item[\refstepcounter{acnum} \actheacnum \label{acScaling}:] \textbf{Scaling Data Volume} - 
+=======
+  (IoT) devices may have to be added in the future. The Data Integration Module will have to be 
+  redesigned to handle the integration of these new sources.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acStorage}:] \textbf{Scaling Data Volume} - 
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
   As the number of experiments increases, the system may need to handle increasing data volumes
   as usage grows. This is addressed by the Data Storage Module which has been designed to support
   database scalability strategies.
@@ -319,6 +346,7 @@ The orange nodes represent leaf modules that will not be implemented for Revisio
 \section{Module Decomposition} \label{SecMD}
 
 Modules are decomposed according to the principle of ``information hiding''
+<<<<<<< HEAD
 proposed by \citet{ParnasEtAl1984}. In this section, the \emph{Secrets} field acts as a brief
 statement of the design decision hidden by the module. The \emph{Services} field specifies
 \emph{what} the module will do without documenting \emph{how} to do it.\\
@@ -331,6 +359,22 @@ by the software engineering team.\\
 \newline
 Descriptions for non-leaf modules or the modules that will not be implemented for Revision 0 of
 Alkalytics have been provided below.
+=======
+proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
+decomposition is a brief statement of the design decision hidden by the
+module. The \emph{Services} field specifies \emph{what} the module will do
+without documenting \emph{how} to do it. For each module, a suggestion for the
+implementing software is given under the \emph{Implemented By} title. If the
+entry is \emph{OS}, this means that the module is provided by the operating
+system or by standard programming language libraries.  \emph{\progname{}} means the
+module will be implemented by the \progname{} software.
+
+Only the leaf modules in the hierarchy have to be implemented. If a dash
+(\emph{--}) is shown, this means that the module is not a leaf and will not have
+to be implemented.
+
+\subsection{Data Ingestion Modules (\mref{mDI})}
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 
 \subsection{Data Storage Module (\mref{mDS})}
 \begin{description}
@@ -347,10 +391,14 @@ Alkalytics have been provided below.
   adaptability to handle large datasets with varying structures.
 \end{description}
 
+<<<<<<< HEAD
 \subsubsection{Uses}
 This module is used by the Behavior-Hiding and Interface Module to interact
 with the stored data. It provides mechanisms transform the CSV data, and
 perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
+=======
+\subsection{Data Processing Module}
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 
 \subsubsection{Syntax}
 \begin{description}
@@ -392,7 +440,12 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{table}
 \end{description}
 
+<<<<<<< HEAD
 \subsubsection{Semantics}
+=======
+\subsubsection{Data Storage Module (\mref{mInput})}
+
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 \begin{description}
   \item[State Variables:]
   \item
@@ -504,7 +557,20 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
 \end{description}
 
+<<<<<<< HEAD
 \subsection{Data Ingestion Module (\mref{mDI})} \label{mIngestion}
+=======
+\subsubsection{Etc.}
+
+\subsection{User Interface Module}
+
+\subsection{Reporting Module}
+
+\subsection{Notifications Module}
+
+\subsection{Administration Module}
+
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 \begin{description}
   \item[Secrets:] The data structure and algorithm used to ingest and preprocess data from
   the external source (CSV files) into the system.
@@ -1453,6 +1519,7 @@ represent the final interface design of the application.
   \label{fig:FigUIUP}
 \end{figure}
 
+<<<<<<< HEAD
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{Figma/table.pdf}
@@ -1467,6 +1534,8 @@ represent the final interface design of the application.
   \label{fig:FigUIG}
 \end{figure}
 
+=======
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
 \section{Timeline}
 The following timeline details the implementation plan for Rev 0 outlining tasks down to 
 the module level.
