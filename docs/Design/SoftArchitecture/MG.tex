@@ -343,6 +343,7 @@ will actually be implemented.
 =======
 
 It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
+<<<<<<< HEAD
 `container' modules that act as high-level modules conatining leaf nodes that
 can be implemented. The orange nodes represent modules that will not be implemented
 for Revision 0 of Alkalytics and the green nodes represent modules that must be be implemented.
@@ -351,6 +352,8 @@ for Revision 0 of Alkalytics and the green nodes represent modules that must be 
 >>>>>>> 337f55c (doc(design): add section 5 and modify structure)
 
 It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
+=======
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
 `container' modules that are non-leaf modules and encompass other leaf nodes.
 The orange nodes represent leaf modules that will not be implemented for Revision
 0 of Alkalytics and the green nodes represent leaf modules that will be implemented.
@@ -359,6 +362,9 @@ The orange nodes represent leaf modules that will not be implemented for Revisio
 
 Modules are decomposed according to the principle of ``information hiding''
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
 proposed by \citet{ParnasEtAl1984}. In this section, the \emph{Secrets} field acts as a brief
 statement of the design decision hidden by the module. The \emph{Services} field specifies
 \emph{what} the module will do without documenting \emph{how} to do it.\\
@@ -371,6 +377,7 @@ by the software engineering team.\\
 \newline
 Descriptions for non-leaf modules or the modules that will not be implemented for Revision 0 of
 Alkalytics have been provided below.
+<<<<<<< HEAD
 =======
 proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
 decomposition is a brief statement of the design decision hidden by the
@@ -401,6 +408,18 @@ to be implemented.
   structure, ensuring flexibility in storage design. It allows the system to 
   efficiently store the data in a schema-less NoSQL database. This ensures scalability and 
   adaptability to handle large datasets with varying structures.
+=======
+
+\subsection{Data Storage Module (\mref{mDS})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
 \end{description}
 
 <<<<<<< HEAD
@@ -415,19 +434,20 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants] 
-  \item[Exported Access Programs] 
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
-  \item[State Variables]
-  \item[Environment Variables]  
-  \item[Assumptions] 
-  \item[Access Routine Semantics] 
-  \item[Local Function] 
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
 \end{description}
 
+<<<<<<< HEAD
 >>>>>>> 337f55c (doc(design): add section 5 and modify structure)
 \subsection{Data Processing Module}
 >>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
@@ -1441,25 +1461,259 @@ storage and verification.
   \begin{itemize}
     \item \textbf{Output}: Returns the hashed password string.
   \end{itemize}
+=======
+\subsection{Data Ingestion Module (\mref{mDI})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
 \end{description}
 
-\section{MIS of Hardware-Hiding Module}
-\subsection{Data Storage Module}
+\subsubsection{Uses}
 
-\section{MIS of Behaviour-Hiding Module}
-\subsection{Data Ingestion Module}
-\subsection{Data Validation Module}
-\subsection{Data Transformation Module}
-\subsection{Machine Learning Module}
-\subsection{Reporting Module}
-\subsection{Notifications Module}
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
 
-\section{MIS of Interface Module}
-\subsection{UI Design Module}
-\subsection{Visualization Module}
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
 
-\section{MIS of Administration Module}
-\subsection{User Management Module}
+\subsection{Data Validation Module (\mref{mDV})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
+
+\subsection{Data Transformation Module (\mref{mDT})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
+
+\subsection{Machine Learning Module (\mref{mML})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
+
+\subsection{Reporting Module (\mref{mRE})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
+
+\subsection{Notifications Module (\mref{mNO})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
+
+\subsection{UI Design Module (\mref{mUID})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
+
+\subsection{Visualization Module (\mref{mVI})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
+
+\subsection{User Management Module (\mref{mUM})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+\end{description}
+
+\subsubsection{Uses}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item[Exported Access Programs:] 
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item[Environment Variables:]  
+  \item[Assumptions:] 
+  \item[Access Routine Semantics:] 
+  \item[Local Function:] 
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
