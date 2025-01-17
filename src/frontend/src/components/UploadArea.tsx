@@ -15,16 +15,24 @@ const UploadArea = memo(
   }) => {
     const [dragOver, setDragOver] = useState(false);
 
+    // Helper function to sanitize file names
+    const sanitizeFileName = (file: File) => {
+      const sanitizedFileName = file.name.replace(/\s+/g, "_");
+      return new File([file], sanitizedFileName, { type: file.type });
+    };
+
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
       setDragOver(false);
 
-      const uploadedFiles = Array.from(e.dataTransfer.files).filter((file) =>
-        [
-          "text/csv",
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        ].includes(file.type)
-      );
+      const uploadedFiles = Array.from(e.dataTransfer.files)
+        .filter((file) =>
+          [
+            "text/csv",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          ].includes(file.type)
+        )
+        .map(sanitizeFileName);
 
       if (uploadedFiles.length > 0) {
         setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
@@ -32,12 +40,14 @@ const UploadArea = memo(
     };
 
     const handleBrowseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const uploadedFiles = Array.from(e.target.files || []).filter((file) =>
-        [
-          "text/csv",
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        ].includes(file.type)
-      );
+      const uploadedFiles = Array.from(e.target.files || [])
+        .filter((file) =>
+          [
+            "text/csv",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          ].includes(file.type)
+        )
+        .map(sanitizeFileName);
 
       if (uploadedFiles.length > 0) {
         setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
@@ -99,7 +109,7 @@ const UploadArea = memo(
                   <span className="text-sm">{file.name}</span>
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent click event from reaching parent
+                      e.stopPropagation();
                       removeFile(index);
                     }}
                     className="text-red-600 hover:text-red-800 font-semibold text-sm"
