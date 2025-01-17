@@ -150,7 +150,8 @@ class MigrationService:
                 )
                 return None
 
-            records = self.linkData(dataDf, experimentId)
+            records = await self.linkData(dataDf, experimentId)
+            
             if records:
                 await self.dataSheetsCollection.insert_many(records)
         except Exception as e:

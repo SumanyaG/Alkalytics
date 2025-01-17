@@ -1,17 +1,18 @@
+import math
 import os
 import base64
+from bson import ObjectId
 from dotenv import load_dotenv
 import pandas as pd
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pymongo import MongoClient
 
 from services.migrationService import MigrationService
 
 load_dotenv()
 app = FastAPI(docs_url="/docs")
-
-# Middleware for CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -31,6 +32,10 @@ class FilesPayload(BaseModel):
     experimentFiles: list[FilePayload]
     dataFiles: list[FilePayload]
 
+def sanitizeFilename(filename: str) -> str:
+            return "".join(
+                c for c in filename if c.isalnum() or c in (" ", ".", "_")
+            ).strip()
 
 @app.post("/upload")
 async def upload(payload: FilesPayload):
@@ -43,13 +48,8 @@ async def upload(payload: FilesPayload):
     tempDataFiles = []
 
     try:
-        # Helper function to sanitize filename
-        def sanitize_filename(filename: str) -> str:
-            return "".join(
-                c for c in filename if c.isalnum() or c in (" ", ".", "_")
-            ).strip()
 
-        # Helper function to decode and save a file temporarily
+
         def decodeAndSave(filePayload: FilePayload) -> str:
             try:
                 file_content = base64.b64decode(filePayload.content)
@@ -60,21 +60,17 @@ async def upload(payload: FilesPayload):
                         filePayload.filename}",
                 ) from decode_error
 
-            # Sanitize the filename and create a temporary path
-            sanitized_filename = sanitize_filename(filePayload.filename)
+            sanitized_filename = sanitizeFilename(filePayload.filename)
             tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
 
-            # Save the file content to the temporary path
             with open(tempFilePath, "wb") as temp_file:
                 temp_file.write(file_content)
 
             return tempFilePath
 
-        # Decode and save experiment files
         for file in payload.experimentFiles:
             tempExperimentFiles.append(decodeAndSave(file))
 
-        # Decode and save data files
         for file in payload.dataFiles:
             tempDataFiles.append(decodeAndSave(file))
 
@@ -83,7 +79,6 @@ async def upload(payload: FilesPayload):
                 status_code=400, detail="No valid files provided."
             )
 
-        # Process the files with MigrationService
         mongoUri = os.getenv("CONNECTION_STRING")
         dbName = "alkalyticsDB"
         migrationService = MigrationService(mongoUri, dbName)
@@ -96,10 +91,8 @@ async def upload(payload: FilesPayload):
         finally:
             await migrationService.closeConnection()
 
-        # Create a mapping of filenames to files for quick lookup
         file_map = {file.filename: file for file in payload.dataFiles}
 
-        # Iterate over ambiguous_data and match using the map
         for data in ambiguous_data:
             if data["dataId"] in file_map:
                 data["dataFile"] = file_map[data["dataId"]]
@@ -155,12 +148,6 @@ async def manualUpload(payload: ManualUploadPayload):
     tempLinkedDataFiles = []
 
     try:
-
-        def sanitize_filename(filename: str) -> str:
-            return "".join(
-                c for c in filename if c.isalnum() or c in (" ", ".", "_")
-            ).strip()
-
         def decodeAndSave(filePayload: LinkedDataPayload) -> dict:
             try:
                 file_content = base64.b64decode(filePayload.content)
@@ -171,7 +158,7 @@ async def manualUpload(payload: ManualUploadPayload):
                         filePayload.filename}",
                 ) from decode_error
 
-            sanitized_filename = sanitize_filename(filePayload.filename)
+            sanitized_filename = sanitizeFilename(filePayload.filename)
             tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
 
             with open(tempFilePath, "wb") as temp_file:
@@ -182,7 +169,6 @@ async def manualUpload(payload: ManualUploadPayload):
         for file in payload.linkedData:
             tempLinkedDataFiles.append(decodeAndSave(file))
 
-        # Process the files with MigrationService
         mongoUri = os.getenv("CONNECTION_STRING")
         dbName = "alkalyticsDB"
         migrationService = MigrationService(mongoUri, dbName)
@@ -222,6 +208,97 @@ async def manualUpload(payload: ManualUploadPayload):
         raise HTTPException(
             status_code=500, detail=f"Error processing files: {str(e)}"
         )
+    
+
+@app.get("/experimentIds")
+async def getExperimentIds():
+    """
+    Fetches all experimentIds from the 'experiments' collection.
+    """
+    mongoUri = os.getenv("CONNECTION_STRING")
+    dbName = "alkalyticsDB"
+    client = MongoClient(mongoUri)
+    db = client[dbName]
+    collection = db["experiments"]
+    
+    try:
+        experiment_ids = collection.find({}, {"experimentId": 1})
+        experiment_id_list = [doc["experimentId"] for doc in experiment_ids if "experimentId" in doc]
+        return {"status": "success", "experimentIds": experiment_id_list}
+    except Exception as e:
+        return {"error": str(e)}
+    finally:
+        client.close()
+
+
+
+def cleanData(obj):
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+        return None
+    if isinstance(obj, dict):
+        return {k: cleanData(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [cleanData(i) for i in obj]
+    return obj
+
+@app.get("/experiments")
+async def getExperiments():
+    """
+    Fetches all data from the 'experiments' collection.
+    """
+    mongoUri = os.getenv("CONNECTION_STRING")
+    dbName = "alkalyticsDB"
+    client = MongoClient(mongoUri)
+    db = client[dbName]
+    collection = db["experiments"]
+
+    try:
+        experiments = collection.find()
+        experimentsList = list(experiments)
+        experimentsList = [cleanData(item) for item in experimentsList]
+        if experimentsList:
+            return {"status": "success", "data": experimentsList}
+        else:
+            raise HTTPException(status_code=404, detail="No experiments found.")
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching experiments: {str(e)}")
+    
+    finally:
+        client.close()
+
+
+
+class DataRequest(BaseModel):
+    experimentId: str
+
+@app.post("/data")
+async def getExperimentData(request: DataRequest):
+    """
+    Fetches data related to a specific experimentId from the 'data' collection.
+    """
+    mongoUri = os.getenv("CONNECTION_STRING")
+    dbName = "alkalyticsDB"
+    client = MongoClient(mongoUri)
+    db = client[dbName]
+    collection = db["data"]  
+
+    try:
+        data = collection.find({"experimentId": request.experimentId})
+        dataList = list(data)
+        dataList = [cleanData(item) for item in dataList]
+        if dataList:
+            return {"status": "success", "data": dataList}
+        else:
+            raise HTTPException(status_code=404, detail="No data found for the given experimentId.")
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching data: {str(e)}")
+    
+    finally:
+        client.close()
 
 
 @app.get("/")
@@ -230,10 +307,3 @@ async def root():
     Basic root endpoint to confirm server is running.
     """
     return {"message": "FastAPI server is working!"}
-
-
-# Run this for testing the app directly
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
