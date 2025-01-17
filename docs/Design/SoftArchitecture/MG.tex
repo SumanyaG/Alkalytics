@@ -332,18 +332,17 @@ Alkalytics have been provided below.
 
 \subsection{Data Storage Module (\mref{mDS})}
 \begin{description}
-  \item[Secrets:] The data structure and algorithm used to transform and store the
-  received CSV files into the NoSQL database.
+  \item[Secrets:] The data structure and algorithm used to store the received CSV files into the
+  NoSQL database.
   \item[Services:] This module handles the storage of system data by interacting with
-  a NoSQL database. It transforms the data received as CSV files into a format suitable
-  for storage in the database using a custom algorithm. This module also provides
-  interfaces to query, retrieve, and update stored data.
+  a NoSQL database. It receives the transformed data from the Data Ingestion Module in a suitable
+  format for storage in the database. This module also provides interfaces to query, retrieve, and
+  update stored data.
   \item[Implemented By:] Software Engineering
   \item[Rationale:] This module abstracts the complexities of the NoSQL database
-  structure, ensuring flexibility in storage design. It allows the system to accept
-  data in the CSV format and transforms it for efficient storage in a
-  schema-less NoSQL database. This ensures scalability and adaptability to handle
-  large datasets with varying structures.
+  structure, ensuring flexibility in storage design. It allows the system to 
+  efficiently store the data in a schema-less NoSQL database. This ensures scalability and 
+  adaptability to handle large datasets with varying structures.
 \end{description}
 
 \subsubsection{Uses}
@@ -368,20 +367,20 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
     \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \midrule
     
-    \lstinline{initializeDB} & - & Boolean & Throws \lstinline{DatabaseInitializationError}
+    \texttt{initializeDB} & - & Boolean & Throws \texttt{DatabaseInitializationError}
     if the database connection fails.\\
     \midrule
     
-    \lstinline{uploadData} & filePath(string) & Boolean & Throws \lstinline{FileNotFoundError}
-    if the file does not exist, or \lstinline{DataTransformationError} if the Transformation
+    \texttt{uploadData} & filePath(string) & Boolean & Throws \texttt{FileNotFoundError}
+    if the file does not exist, or \texttt{DataTransformationError} if the Transformation
     fails.\\
     \midrule
 
-    \lstinline{queryData} & query(string) & Data (JSON) & Throws \lstinline{QueryExecutionError}
+    \texttt{queryData} & query(string) & Data (JSON) & Throws \texttt{QueryExecutionError}
     if the query is invalid.\\
     \midrule
 
-    \lstinline{updateData} & query(string), updates & Boolean & Throws \lstinline{UpdateError}
+    \texttt{updateData} & query(string), updates & Boolean & Throws \texttt{UpdateError}
     if the update fails.\\
     \bottomrule
     
@@ -395,9 +394,9 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 \begin{description}
   \item[State Variables:]
   \item
-  \lstinline{database}: Represents the connection to the NoSQL database.
+  \texttt{database}: Represents the connection to the NoSQL database.
   \item
-  \lstinline{transformationRules}: Defines the set of rules for transforming CSV data to
+  \texttt{transformationRules}: Defines the set of rules for transforming CSV data to
   JSON format.
   \item[Environment Variables:]
   \item
@@ -427,7 +426,7 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 
   \item[Access Routine Semantics:] 
   \item
-  \lstinline{initializeDB()}:
+  \texttt{initializeDB()}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Establishes a connection to the NoSQL database and validates
@@ -435,26 +434,26 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns \lstinline{True} if the database is successfully initialized.
-    Throws a\\ \lstinline{DatabaseInitializationError} otherwise.
+    \item \textbf{Output}: Returns \texttt{True} if the database is successfully initialized.
+    Throws a\\ \texttt{DatabaseInitializationError} otherwise.
   \end{itemize}
   \item 
 
-  \lstinline{uploadData(filePath: string)}:
+  \texttt{uploadData(filePath:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Reads the specified CSV file, transforms the contents into
-    JSON format using \lstinline{transformationRules}, and uploads the transformed data to
+    JSON format using \texttt{transformationRules}, and uploads the transformed data to
     the database in batches.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns \lstinline{True} if successful. Throws \lstinline{FileNotFoundError}
-    if the file does not exist or \lstinline{DataTransformationError} if the transformation fails.
+    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{FileNotFoundError}
+    if the file does not exist or \texttt{DataTransformationError} if the transformation fails.
   \end{itemize}
   \item
 
-  \lstinline{queryData(query: string)}:
+  \texttt{queryData(query:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Executes the specified query on the database and retrieves the
@@ -462,12 +461,12 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item 
   \begin{itemize}
-    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \lstinline{QueryExecutionError}
+    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \texttt{QueryExecutionError}
     if the query is invalid or fails.
   \end{itemize}
   \item
 
-  \lstinline{updateData(query: string, updates)}:
+  \texttt{updateData(query:string, updates)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Applies the specified updates to the records matching the query
@@ -475,87 +474,359 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns \lstinline{True} if successful. Throws \lstinline{UpdateError}
+    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{UpdateError}
     if the operation fails.
   \end{itemize}
   \item
 
   \item[Local Function:] 
   \item
-  \lstinline{transformCSVToJSON(filePath: string)}:
+  \texttt{transformCSVToJSON(filePath:string)}:
   \item
   \begin{itemize}
     \item \textbf{Description}: Reads a CSV file and converts its rows into JSON objects based on
-    \lstinline{transformationRules}.
+    \texttt{transformationRules}.
   \end{itemize}
   \item 
   \begin{itemize}
-    \item \textbf{Output}: Returns a list of JSON objects or throws \lstinline{DataTransformationError}
+    \item \textbf{Output}: Returns a list of JSON objects or throws \texttt{DataTransformationError}
     if the transformation fails.
   \end{itemize}
   \item 
-  \lstinline{validateConnection()}:
+  \texttt{validateConnection()}:
   \item 
   \begin{itemize}
-    \item \textbf{Description}: Checks the connection to the NoSQL database and returns \lstinline{True}
+    \item \textbf{Description}: Checks the connection to the NoSQL database and returns \texttt{True}
     if valid.
   \end{itemize}
 \end{description}
 
 \subsection{Data Ingestion Module (\mref{mDI})}
 \begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
+  \item[Secrets:] The data structure and algorithm used to ingest and preprocess data from
+  the external source (CSV files) into the system.
+  \item[Services:] This module is responsible for ingesting external data into the system.
+  It interacts with various external data sources and converts incoming data into a 
+  standardized format for further processing. The module ensures and facilitates seamless
+  data flow into the system for subsequent operations.
+  \item[Implemented By:] Software Engineering
+  \item[Rationale:] The Data Ingestion Module abstracts the complexities of interacting with
+  an external data source enabling the system to ingest data in CSV. By ensuring data Validation
+  and transformation, the module guarantees data integrity and consistency before it is processed
+  further. It ensures scalability, adaptability and flexibility in handling data from a different
+  source while maintaining the quality of ingested data.
 \end{description}
 
 \subsubsection{Uses}
+The Data Ingestion Module is used by the Data Processing Module to feed raw data into the system
+for analysis and storage. It also supports integration with external services to retrieve and
+preprocess data as needed. This module, in addition to the Data Validation Module ensures that all
+incoming data is correctly formatted and validated before entering the system.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
+  \item[Exported Constants and Access Programs:] 
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.25\textwidth} p{0.21\textwidth} p{0.22\textwidth} p{0.275\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{initializeIngestion} & - & Boolean & Throws \texttt{IngestionError}
+    if the process fails.\\
+    \midrule
+    
+    \texttt{ingestData} & sourcePath(string) & Boolean & Throws \texttt{FileNotFoundError}
+    if the file does not exist, or \texttt{DataTransformationError} if the Ingestion fails.\\
+    \midrule
+
+    \texttt{validateData} & data(Object) & Boolean & Throws \texttt{DataValidationError}
+    if the data fails validation.\\
+    \midrule
+
+    \texttt{retrieveAPIData} & apiEndPoint(string) & Data (JSON) & Throws \texttt{APIRequestError}
+    if the API request fails.\\
+    \midrule
+
+    \texttt{processData} & rawData(Object) & Object (Processed) & Throws \texttt{DataProcessingError}
+    if the processing fails.\\
+    \bottomrule
+    
+    \end{tabular}
+    \caption{Exported Access Programs for the Data Ingestion Module}
+    \label{TblEAP_Ingestion}
+  \end{table}
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
   \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
+  \item
+  \texttt{ingestionSource}: Represents the path or endpoint from which data is ingested.
+  \item
+  \texttt{dataFormat}: Defines the expected format of incoming data (CSV, in this case).
+
+  \item[Environment Variables:]
+  \item
+  \begin{itemize}
+    \item Interacts with the local file system to access CSV files.
+  \end{itemize}
+  \item 
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes the external data sources are available and accessible.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes the incoming data follows the expected format and schema.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Assumes adequate network connectivity for external API requests.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes sufficient memory and storage resources to handle large volumes of incoming data.
+  \end{itemize}
+  \item 
+
   \item[Access Routine Semantics:] 
+  \item
+  \texttt{initializeIngestion()}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Initialized the data ingestion process by configuring connections to
+    external data sources.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if initialization is successful. Throws an
+    \\ \texttt{IngestionInitializationError} if initialization fails.
+  \end{itemize}
+  \item 
+
+  \texttt{ingestData(sourcePath: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Reads the specified data source, retrieves the raw data and prepares
+    it for processing.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{FileNotFoundError}
+    if the source path is invalid or does not exist, or \texttt{DataTransformationError} if the
+    transformation process fails.
+  \end{itemize}
+  \item
+
+  \texttt{retrieveAPIData(apiEndPoint: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Sends a request to the specified API endpoints and retrieves data in JSON
+    format.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \texttt{APIRequestError} if
+    the request fails.
+  \end{itemize}
+  \item
+
+  \texttt{processData(rawData: Object)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Processes the raw data by applying transformation rules such as data
+    normalization, mapping, filtering and more.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns the processed data in the appropriate format. Throws \\
+    \texttt{DataProcessingError} if the processing fails.
+  \end{itemize}
+  \item
+
   \item[Local Function:] 
+  \item
+  \texttt{transformRawDataToStandardFormat(sourcePath: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Description}: Reads the raw data from the specified source and applies the necessary Transformation
+    rules and converts the data into a standardized format.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the transformed data as a JSON object or throws \\
+    \texttt{DataTransformationError} if the transformation fails.
+  \end{itemize}
+  \item 
+
+  \texttt{validateSourceConnection()}:
+  \item 
+  \begin{itemize}
+    \item \textbf{Description}: Checks the connection to the external data source and returns \texttt{True} if valid.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if the connection to the source is valid. Throws \\
+   \texttt{SourceConnectionError} if the connection fails.
+  \end{itemize}
 \end{description}
 
 \subsection{Data Validation Module (\mref{mDV})}
 \begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
+  \item[Secrets:] The data structure is a finite-state machine designed to model transitions based on real-time 
+  input data. The algorithm uses discrete math principles to validate parameters by comparing them against predefined
+  thresholds and conditions derived from system requirements.
+  \item[Services:] This module ensures valid data is provided for processing by validating input streams, flagging
+  anomalies, and initiating corrective actions when necessary.
+  \item[Implemented By:] OS and Software Engineering
+  \item[Rationale:] Ensuring the integrity and realiability of input data is critical for accurate system operation.
+  The FSM representation enables systematic handling of transitions, facilitating robust validation and error 
+  detection mechanisms.
 \end{description}
 
 \subsubsection{Uses}
+It is used to validate the sensor readings against operational thresholds while monitoring real-time 
+data streams for deviations or inconsistencies. This module serves as a pre-processing step to ensure 
+clean input data  for dependent modules.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
+  \item[Exported Constants:]
+  \item 
+  \lstinline{MAX_VOLTAGE}: Maximum allowable voltage (e.g., 10 V).
+  \item
+  \lstinline{MIN_VOLTAGE}: Minimum allowable voltage (e.g., 0 V).
+  \item
+  \lstinline{MAX_CURRENT}: Maximum allowable current (e.g., 1 A).
+  \item
+  \lstinline{MIN_CURRENT}: Minimum allowable current (e.g., 0 A).
+  \item
+  \lstinline{FLOW_RATE_THRESHOLD}: Acceptable range for flow rates (e.g., 0.1 to 60 L/min).
+  \item
+  \lstinline{PH_RANGE}: Acceptable pH range (e.g., 6.0 to 8.5).
+  \item
+  \item[Exported Access Programs:]
+  \item
+  \texttt{validate\_voltage(v:Real) \(\to\) Boolean}
+  \item 
+  \texttt{validate\_current(i:Real) \(\to\) Boolean}
+  \item 
+  \texttt{validate\_flow\_rate(f:Real) \(\to\) Boolean}
+  \item
+  \texttt{validate\_ph(v:Real) \(\to\) Boolean}
+  \item
+  \texttt{get\_error\_flags() \(\to\) Set}
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
+
   \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
-  \item[Access Routine Semantics:] 
-  \item[Local Function:] 
+  \item
+    \begin{itemize}
+      \item \lstinline{voltage}: Current voltage reading.
+    \end{itemize}
+    \item
+    \begin{itemize}
+      \item \lstinline{current}: Current current reading.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item \lstinline{flow_rate}: Current flow rate reading.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item \lstinline{ph}: Current pH value.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item \lstinline{error_flags}: Set of flags indicating validation failures.
+    \end{itemize}
+
+  \item[Environment Variables:]
+  \item
+    \begin{itemize}
+      \item Sensor input streams.
+    \end{itemize}
+    \item
+    \begin{itemize}
+      \item System clock for time-based validation.
+    \end{itemize}
+
+  \item[Assumptions:]
+  \item
+    \begin{itemize}
+      \item Sensors provide data at consistent intervals.
+    \end{itemize}
+    \item
+    \begin{itemize}
+      \item Thresholds are pre-configured and static unless updated manually.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item Input data is numeric and within hardware limits.
+    \end{itemize}
+
+  \item[Access Routine Semantics:]
+  \item
+  \lstinline{validate_voltage(v:Real)}:
+  \item
+  \begin{itemize}
+    \item If $MIN\_VOLTAGE \leq v \leq MAX\_VOLTAGE$, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \lstinline{Voltage_Error} to \lstinline{error_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \lstinline{validate_current(i:Real)}:
+  \item
+  \begin{itemize}
+    \item If $MIN\_CURRENT \leq i \leq MAX\_CURRENT$, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \lstinline{Current_Error} to \lstinline{error_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \lstinline{validate_flow_rate(f: Real)}:
+  \item
+  \begin{itemize}
+    \item If $FLOW\_RATE\_THRESHOLD[0] \leq f \leq FLOW\_RATE\_THRESHOLD[1]$, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \lstinline{Flow_Rate_Error} to \lstinline{error_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \lstinline{validate_ph(p:Real)}:
+  \item
+  \begin{itemize}
+    \item If $PH\_RANGE[0] \leq p \leq PH\_RANGE[1]$, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \lstinline{PH_Error} to \lstinline{error_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \lstinline{get_error_flags()}:
+  \item
+  \begin{itemize}
+    \item \textbf{Output:} Returns the current set of error flags.
+  \end{itemize}
+
+  \item[Local Function:]
+  \item
+  \lstinline{is_within_range(value: Real, range: Tuple[Real, Real])} $\to$ \lstinline{Boolean}:\\
+  Checks if a given value lies within a specified range.
 \end{description}
 
 \subsection{Data Transformation Module (\mref{mDT})}
