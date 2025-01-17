@@ -169,10 +169,14 @@ are encapsulated within specific modules to ensure the system's adaptability.
   \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] \textbf{Hardware Configuration} - 
   The software may need to run on a different hardware platform like a server or on a 
 <<<<<<< HEAD
+<<<<<<< HEAD
   cloud solution. Changes in hardware specifications will primarily affect the Hardware-Hiding 
 =======
   cloud solution. Changes in hardware specifications will primarily affect the \ref{mHH} 
 >>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+  cloud solution. Changes in hardware specifications will primarily affect the Hardware-Hiding 
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
   Module, isolating their imoact.
   
   \item[\refstepcounter{acnum} \actheacnum \label{acProcessing}:] \textbf{Data Processing Algorithms} - 
@@ -181,10 +185,14 @@ are encapsulated within specific modules to ensure the system's adaptability.
   Data Processing Module.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   \item[\refstepcounter{acnum} \actheacnum \label{acInterface}:] \textbf{User Interface (UI) Design} - 
 =======
   \item[\refstepcounter{acnum} \actheacnum \label{acUI}:] \textbf{User Interface (UI) Design} - 
 >>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+  \item[\refstepcounter{acnum} \actheacnum \label{acInterface}:] \textbf{User Interface (UI) Design} - 
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
   Changes in analytical techniques along with advances in the machine learning space would
   introduce the need for new statistical models. These changes would be encapsulated in the
   Data Processing Module.
@@ -198,6 +206,7 @@ are encapsulated within specific modules to ensure the system's adaptability.
   \item[\refstepcounter{acnum} \actheacnum \label{acSource}:] \textbf{Data Source Integration} - 
   New data sources such as third-party application programming interfaces (APIs), Internet of Things
 <<<<<<< HEAD
+<<<<<<< HEAD
   (IoT) devices may have to be added in the future. The Data Ingestion Module will have to be 
   redesigned to handle the integration of these new sources.
 
@@ -208,6 +217,12 @@ are encapsulated within specific modules to ensure the system's adaptability.
 
   \item[\refstepcounter{acnum} \actheacnum \label{acStorage}:] \textbf{Scaling Data Volume} - 
 >>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+  (IoT) devices may have to be added in the future. The Data Ingestion Module will have to be 
+  redesigned to handle the integration of these new sources.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acScaling}:] \textbf{Scaling Data Volume} - 
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
   As the number of experiments increases, the system may need to handle increasing data volumes
   as usage grows. This is addressed by the Data Storage Module which has been designed to support
   database scalability strategies.
@@ -412,6 +427,7 @@ to be implemented.
 
 \subsection{Data Storage Module (\mref{mDS})}
 \begin{description}
+<<<<<<< HEAD
   \item[Secrets:]The data structure and algorithm used to implement the virtual
     hardware.
   \item[Services:]Serves as a virtual hardware used by the rest of the
@@ -420,6 +436,20 @@ to be implemented.
   \item[Implemented By:] OS
   \item[Rationale:] 
 >>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
+=======
+  \item[Secrets:] The data structure and algorithm used to transform and store the
+  received CSV files into the NoSQL database.
+  \item[Services:] This module handles the storage of system data by interacting with
+  a NoSQL database. It transforms the data received as CSV files into a format suitable
+  for storage in the database using a custom algorithm. This module also provides
+  interfaces to query, retrieve, and update stored data.
+  \item[Implemented By:] Software Engineering
+  \item[Rationale:] This module abstracts the complexities of the NoSQL database
+  structure, ensuring flexibility in storage design. It allows the system to accept
+  data in the CSV format and transforms it for efficient storage in a
+  schema-less NoSQL database. This ensures scalability and adaptability to handle
+  large datasets with varying structures.
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
 \end{description}
 
 <<<<<<< HEAD
@@ -431,20 +461,162 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 =======
 =======
 \subsubsection{Uses}
+This module is used by the Behavior-Hiding and Interface Module to interact
+with the stored data. It provides mechanisms transform the CSV data, and
+perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
+  \item[Exported Constants:]
+  \item 
+  \lstinline{DB_CONNECTION_STRING}: The connection string for accessing the
+    NoSQL database.
+  \item
+  \lstinline{MAX_BATCH_SIZE}: The maximum number of rows to process and upload
+  in a single batch.
 \end{description}
+
+\begin{description}
+  \item[Exported Access Programs:]
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.4\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \lstinline{initializeDB} & - & Boolean & Throws \lstinline{DatabaseInitializationError}
+    if the database connection fails.\\
+    \midrule
+    
+    \lstinline{uploadData} & filePath(string) & Boolean & Throws \lstinline{FileNotFoundError}
+    if the file does not exist, or \lstinline{DataTransformationError} if the Transformation
+    fails.\\
+    \midrule
+
+    \lstinline{queryData} & query(string) & Data (JSON) & Throws \lstinline{QueryExecutionError}
+    if the query is invalid.\\
+    \midrule
+
+    \lstinline{updateData} & query(string), updates & Boolean & Throws \lstinline{UpdateError}
+    if the update fails.\\
+    \bottomrule
+    
+    \end{tabular}
+    \caption{Exported Access Programs for the Data Storage Module}
+    \label{TblEAP_Storage}
+    \end{table}
+  \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
   \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
+  \item
+  \lstinline{database}: Represents the connection to the NoSQL database.
+  \item
+  \lstinline{transformationRules}: Defines the set of rules for transforming CSV data to
+  JSON format.
+  \item[Environment Variables:]
+  \item
+  \begin{itemize}
+    \item Interacts with the local file system to access CSV files.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Connects to an external NoSQL database, MongoDB to be specific.
+  \end{itemize}
+  \item 
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes the NoSQL database is accessible and the credentials are correct.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes the received CSV files are well-formed and follow the expected schema.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Assumes sufficient storage space is available in the database.
+  \end{itemize}
+  \item 
+
   \item[Access Routine Semantics:] 
+  \item
+  \lstinline{initializeDB()}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Establishes a connection to the NoSQL database and validates
+    the connection.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \lstinline{True} if the database is successfully initialized.
+    Throws a\\ \lstinline{DatabaseInitializationError} otherwise.
+  \end{itemize}
+  \item 
+
+  \lstinline{uploadData(filePath: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Reads the specified CSV file, transforms the contents into
+    JSON format using \lstinline{transformationRules}, and uploads the transformed data to
+    the database in batches.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \lstinline{True} if successful. Throws \lstinline{FileNotFoundError}
+    if the file does not exist or \lstinline{DataTransformationError} if the transformation fails.
+  \end{itemize}
+  \item
+
+  \lstinline{queryData(query: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Executes the specified query on the database and retrieves the
+    corresponding data.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \lstinline{QueryExecutionError}
+    if the query is invalid or fails.
+  \end{itemize}
+  \item
+
+  \lstinline{updateData(query: string, updates)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Applies the specified updates to the records matching the query
+    in the database.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \lstinline{True} if successful. Throws \lstinline{UpdateError}
+    if the operation fails.
+  \end{itemize}
+  \item
+
   \item[Local Function:] 
+  \item
+  \lstinline{transformCSVToJSON(filePath: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Description}: Reads a CSV file and converts its rows into JSON objects based on
+    \lstinline{transformationRules}.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns a list of JSON objects or throws \lstinline{DataTransformationError}
+    if the transformation fails.
+  \end{itemize}
+  \item 
+  \lstinline{validateConnection()}:
+  \item 
+  \begin{itemize}
+    \item \textbf{Description}: Checks the connection to the NoSQL database and returns \lstinline{True}
+    if valid.
+  \end{itemize}
 \end{description}
 
 <<<<<<< HEAD
@@ -1749,7 +1921,11 @@ FR-15 & \mref{mDT} \\
 
 \begin{table}[H]
 \centering
+<<<<<<< HEAD
 \begin{tabular}{p{0.2\textwidth} p{0.13\textwidth}}
+=======
+\begin{tabular}{p{0.2\textwidth} p{0.1\textwidth}}
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
 \toprule
 \textbf{AC} & \textbf{Module(s)}\\
 \midrule
