@@ -478,10 +478,10 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 \begin{description}
   \item[Exported Constants and Access Programs:]
   \item 
-  \lstinline{DB_CONNECTION_STRING}: The connection string for accessing the
+  \texttt{DB\_CONNECTION\_STRING}: The connection string for accessing the
     NoSQL database.
   \item
-  \lstinline{MAX_BATCH_SIZE}: The maximum number of rows to process and upload
+  \texttt{MAX\_BATCH\_SIZE}: The maximum number of rows to process and upload
   in a single batch.
 
   \begin{table}[h!]
@@ -2093,30 +2093,70 @@ clean input data  for dependent modules.
 
 \subsection{UI Design Module (\mref{mUID})}
 \begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
+  \item[Secrets:] The design specifications and UI components that make  up the
+  overall appearance and user experience of the system.
+  \item[Services:] This module is responsible for the design and layout of the
+  user interface.
+  \item[Implemented By:] Software Engineering
+  \item[Rationale:] The UI Design Module abstracts the presentation of data and
+  interactions with the user.
 \end{description}
 
 \subsubsection{Uses}
+This module is used by the Interface Module to manage the display of data and
+user-related actions, ensuring that the design is consistent and offers a
+positive user experience.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
+  \item[Exported Constants and Access Programs:]
+  \item
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.4\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    \texttt{renderUI} & [components] & - & Throws \texttt{RenderError} if UI rendering fails.\\
+    \midrule
+    \texttt{updateUI} & component & - & Throws \texttt{UpdateError} if UI components cannot be updated.\\
+    \bottomrule
+    \end{tabular}
+    \caption{Exported Access Programs for the UI Design Module}
+    \label{TblEAP_UI}
+  \end{table}
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
-  \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
+  \item[State Variables:] N/A
+  
+  \item[Environment Variables:]
+  \item
+  \begin{itemize}
+    \item Interacts with the frontend framework (i.e., React) for rendering UI components.
+  \end{itemize}
+  
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes the frontend framework is correctly set up for rendering UI components.
+  \end{itemize}
+  
   \item[Access Routine Semantics:] 
-  \item[Local Function:] 
+  \item \texttt{renderUI()}:
+  \begin{itemize}
+    \item \textbf{Transition}: Renders the components to display on the user interface.
+    \item \textbf{Output}: The rendered interface. Throws \texttt{RenderError} if the UI rendering fails.
+  \end{itemize}
+  
+  \item \texttt{updateUI()}:
+  \begin{itemize}
+    \item \textbf{Transition}: Updates specific components of the UI based on route changes or user interactions.
+    \item \textbf{Output}: The updated UI. Throws \texttt{UpdateError} if updates fail.
+  \end{itemize}
+  
+  \item[Local Function:] N/A
 \end{description}
 
 \subsection{Visualization Module (\mref{mVI})}
@@ -2149,30 +2189,125 @@ clean input data  for dependent modules.
 
 \subsection{User Management Module (\mref{mUM})}
 \begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
+  \item[Secrets:] The data structure and algorithm used to store and manage user
+  credentials.
+  \item[Services:]This module manages the creation, retrieval, and validation of
+  user accounts. It interacts with the database to store user information and
+  also provides interfaces for user authentication and Role-Based Access
+  Control (RBAC).
+  \item[Implemented By:] \progname{}
+  \item[Rationale:] This module abstracts the management of user data, ensuring
+  that sensitive information, such as passwords, is hashed and not stored in
+  plain-text. It also enables the management of user access levels within the
+  application. 
 \end{description}
 
 \subsubsection{Uses}
+This module interacts with the Hardware-Hiding Module for user credential
+storage and verification.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
+  \item[Exported Constants and Access Programs:]
+  \item 
+  \texttt{SESSION\_COOKIE}: The id of the session cookie used to maintain user sessions.
+  
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth}
+    p{0.4\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{createUser} & email(string), password(string), role(string) & dict &
+    Throws \texttt{UserAlreadyExistsError} if the user already exists.\\
+    \midrule
+    
+    \texttt{validateUser} & email(string), password(string) & dict & Throws
+    \texttt{UserNotFoundError} if the user does not exist or
+    \texttt{IncorrectPasswordError} if the password is incorrect.\\
+    \midrule
+
+    \texttt{getUserAndRole} & email(string) & dict & Throws
+    \texttt{UserNotFoundError} if the user does not exist.\\
+    \bottomrule
+
+    \end{tabular}
+    \caption{Exported Access Programs for the User Management Module}
+    \label{TblEAP_UM}
+  \end{table}
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
   \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
+  \item
+  \texttt{usersCollection}: Represents the MongoDB collection storing user data.
+  \item[Environment Variables:]
+  \item N/A
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes passwords are securely hashed before being stored.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes emails are unique across the system.
+  \end{itemize}
+
   \item[Access Routine Semantics:] 
-  \item[Local Function:] 
+  \item
+  \texttt{createUser(email: string, password: string, role: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Checks if a user with the given email already
+    exists. If not, hashes the password, creates a new user, and stores the new
+    user in the database.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns a dictionary with user email and role if
+    successful. Throws \\
+    \texttt{UserAlreadyExistsError} if the user already exists.
+  \end{itemize}
+
+  \item
+  \texttt{validateUser(email: string, password: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Attempts to find user by email and compares hashed
+    input password with the stored hash.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns a dictionary with user email and role if the password is valid. Throws \texttt{UserNotFoundError} if the user doesn't exist or \texttt{IncorrectPasswordError} if the password is incorrect.
+  \end{itemize}
+
+  \item
+  \texttt{getUserAndRole(email: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Retrieves user with the specified email and
+    corresponding role.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns a dictionary with user email and role if the user exists. Throws \texttt{UserNotFoundError} if the user does not exist.
+  \end{itemize}
+
+  \item[Local Function:]
+  \item
+  \texttt{hashPassword(password: string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Description}: Hashes the given password using \texttt{bcrypt}
+    and a randomly-generated salt for secure storage.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the hashed password string.
+  \end{itemize}
 \end{description}
 
 \section{Traceability Matrix} \label{SecTM}
@@ -2286,6 +2421,23 @@ represent the final interface design of the application.
   \caption{The upload page for users to upload new experiment data files.}
   \label{fig:FigUIUP}
 \end{figure}
+<<<<<<< HEAD
+=======
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Figma/table.pdf}
+  \caption{The main view page for querying and modifying data.}
+  \label{fig:FigUITB}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Figma/graphs.pdf}
+  \caption{The main view page for generating and viewing visualizations of queried data.}
+  \label{fig:FigUIG}
+\end{figure}
+>>>>>>> 27285a6 (doc(design): add sections 6.8, 6.10, 9)
 
 <<<<<<< HEAD
 \begin{figure}[htbp]
