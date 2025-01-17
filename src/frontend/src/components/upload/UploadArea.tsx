@@ -104,7 +104,7 @@ const UploadArea = memo(
               {files.map((file, index) => (
                 <li
                   key={index}
-                  className="flex justify-between items-center bg-gray-100 rounded-lg p-2"
+                  className="flex justify-between items-center bg-slate-100 rounded-lg p-2"
                 >
                   <span className="text-sm">{file.name}</span>
                   <button
