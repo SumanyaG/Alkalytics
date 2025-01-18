@@ -1468,48 +1468,81 @@ represent the final interface design of the application.
 \end{figure}
 
 \section{Timeline}
-The following timeline details the implementation plan for Rev 0 outlining tasks down to 
-the module level.
-\begin{description}
-  \item[Phase 1: Initial Setup and Core Architecture] 
+\subsection{Phase 1: Initial Setup and Core Architecture}
   \begin{table}[H]
     \centering
-    \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.13\textwidth} p{0.2\textwidth}}
+    \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.13\textwidth} p{0.17\textwidth}}
     \toprule
     \textbf{Task} & \textbf{Module(s)} & \textbf{Status} & \textbf{Responsible}\\
     \midrule
     Setting up a skeletal database. & \mref{mDS} & Done & Kate\\
     Creating algorithm to convert CSV files to JSON. & \mref{mDI} & Done & Jason\\
     Migrating all data to the database. & \mref{mDI}, \mref{mDS} & Done & Jason\\
-    Testing the database and algorithm. & - & Done & Jennifer and Sumanya\\
+    Testing the database and algorithm. & - & Done & Jennifer, Sumanya\\
     \midrule
-    Setting up a CI/CD Infrastructure. & - & Done & Kate and Sumanya\\
+    Setting up a CI/CD Infrastructure. & - & Done & Kate, Sumanya\\
     \bottomrule
     \end{tabular}
     \caption{Phase 1 Timeline}
-    \label{TblACT}
+    \label{TblT1}
     \end{table}
 
-  \item[Phase 2: Front End]
+\subsection{Phase 2: Front End and User Roles}
   \begin{table}[H]
-    \centering
-    \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.13\textwidth} p{0.2\textwidth}}
-    \toprule
-    \textbf{Task} & \textbf{Module(s)} & \textbf{Status} & \textbf{Responsible}\\
-    \midrule
-    Drawing wireframes and finalizing design elements. & \mref{mUID} & Done & All\\
-    Making a login page. & \mref{mUID}, \mref{mUM} & Weeks 14-16  & Kate\\
-    Creating the upload screen. & \mref{mUID}, \mref{mDI} & Weeks 14-16 & Jason\\
-    \midrule
-    
-    Setting up a CI/CD Infrastructure. & - & Done & Kate and Sumanya\\
-    \bottomrule
-    \end{tabular}
-    \caption{Phase 1 Timeline}
-    \label{TblACT}
+      \centering
+      \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.17\textwidth} p{0.17\textwidth}}
+      \toprule
+      \textbf{Task} & \textbf{Module(s)} & \textbf{Status} & \textbf{Responsible}\\
+      \midrule
+      Drawing wireframes and finalizing design elements. & \mref{mUID} & Done & All\\
+      \midrule
+      Making a login page. & \mref{mUID}, \mref{mUM} & Weeks 14-16  & Kate\\
+      Creating the upload screen. & \mref{mUID}, \mref{mDI} & Weeks 14-16 & Jason\\
+      Building key frontend components including navigation and basic layouts. & \mref{mUID} &
+      Weeks 14-16 & Jennifer\\
+      \midrule
+      Develop user login, registration and session management. & \mref{mUM} & Weeks 15-17 & Kate\\
+      \bottomrule
+      \end{tabular}
+      \caption{Phase 2 Timeline}
+      \label{TblT2}
     \end{table}
-    
-\end{description}
+
+\subsection{Phase 3: Data Ingestion Pipeline and Core Analytics Engine} 
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.17\textwidth} p{0.17\textwidth}}
+      \toprule
+      \textbf{Task} & \textbf{Module(s)} & \textbf{Status} & \textbf{Responsible}\\
+      \midrule
+      Implementing the pipeline to handle data import, transformation and storage. & 
+      \mref{mDI}, \mref{mDT}, \mref{mDS} & Weeks 16-17 & Jason, Sumanya\\
+      \midrule
+      Migrate basic analytical functionalities. & \mref{mDT} & Weeks 15-17  & Sumanya\\
+      Basic testing to ensure data integrity.  & \mref{mDV} & Week 15 & Jennifer\\
+      Implementing data validation rules. & \mref{mDV}, \mref{mDT} & Weeks 15-17 & Kate\\
+      \bottomrule
+      \end{tabular}
+      \caption{Phase 3 Timeline}
+      \label{TblT3}
+    \end{table}
+
+\subsection{Phase 4: Setting-up Dashboards and Connecting Components}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.17\textwidth} p{0.17\textwidth}}
+      \toprule
+      \textbf{Task} & \textbf{Module(s)} & \textbf{Status} & \textbf{Responsible}\\
+      \midrule
+      Use processed and transformed data to generate graphs. & \mref{mDT}, \mref{mVI} & Week 18 & Jennifer, Kate\\
+      \midrule
+      Connect frontend, backend and data modules via APIs. & - & Week 18  & Jason\\
+      Integration testing to ensure smooth system operation. & - & Week 18 & Sumanya\\
+      \bottomrule
+      \end{tabular}
+      \caption{Phase 4 Timeline}
+      \label{TblT4}
+    \end{table}
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
