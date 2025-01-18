@@ -563,15 +563,7 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item 
 
-<<<<<<< HEAD
   \texttt{uploadData(filePath:string)}:
-=======
-<<<<<<< HEAD
-  \texttt{uploadData(filePath: string)}:
-=======
-  \texttt{uploadData(filePath:string)}:
->>>>>>> b494a39 (doc(design): add more MIS sections)
->>>>>>> f821953 (doc(design): add more MIS sections)
   \item
   \begin{itemize}
     \item \textbf{Transition}: Reads the specified CSV file, transforms the contents into
@@ -585,15 +577,8 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item
 
-<<<<<<< HEAD
-  \texttt{queryData(query:string)}:
-=======
-<<<<<<< HEAD
-  \texttt{queryData(query: string)}:
-=======
-  \texttt{queryData(query:string)}:
->>>>>>> b494a39 (doc(design): add more MIS sections)
->>>>>>> f821953 (doc(design): add more MIS sections)
+
+\texttt{queryData(query:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Executes the specified query on the database and retrieves the
@@ -606,15 +591,7 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item
 
-<<<<<<< HEAD
-  \texttt{updateData(query:string, updates)}:
-=======
-<<<<<<< HEAD
-  \texttt{updateData(query: string, updates)}:
-=======
-  \texttt{updateData(query:string, updates)}:
->>>>>>> b494a39 (doc(design): add more MIS sections)
->>>>>>> f821953 (doc(design): add more MIS sections)
+\texttt{updateData(query:string, updates)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Applies the specified updates to the records matching the query
@@ -629,15 +606,7 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 
   \item[Local Function:] 
   \item
-<<<<<<< HEAD
-  \texttt{transformCSVToJSON(filePath:string)}:
-=======
-<<<<<<< HEAD
-  \texttt{transformCSVToJSON(filePath: string)}:
-=======
-  \texttt{transformCSVToJSON(filePath:string)}:
->>>>>>> b494a39 (doc(design): add more MIS sections)
->>>>>>> f821953 (doc(design): add more MIS sections)
+\texttt{transformCSVToJSON(filePath:string)}:
   \item
   \begin{itemize}
     \item \textbf{Description}: Reads a CSV file and converts its rows into JSON objects based on
@@ -1695,11 +1664,10 @@ preprocess data as needed. This module, in addition to the Data Validation Modul
 incoming data is correctly formatted and validated before entering the system.
 
 \subsubsection{Syntax}
-\begin{description}
-  \item[Exported Constants and Access Programs:] 
-  \begin{table}[h!]
+\textbf{Exported Constants and Access Programs}:
+  \begin{table}[H]
     \centering
-    \begin{tabular}{p{0.25\textwidth} p{0.21\textwidth} p{0.22\textwidth} p{0.275\textwidth}}
+    \begin{tabular}{p{0.25\textwidth} p{0.21\textwidth} p{0.1\textwidth} p{0.3\textwidth}}
     \toprule
     \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \midrule
@@ -1720,15 +1688,14 @@ incoming data is correctly formatted and validated before entering the system.
     if the API request fails.\\
     \midrule
 
-    \texttt{processData} & rawData(Object) & Object (Processed) & Throws \texttt{DataProcessingError}
+    \texttt{processData} & rawData(Object) & Object & Throws \texttt{DataProcessingError}
     if the processing fails.\\
     \bottomrule
     
     \end{tabular}
     \caption{Exported Access Programs for the Data Ingestion Module}
     \label{TblEAP_Ingestion}
-  \end{table}
-\end{description}
+\end{table}
 
 \subsubsection{Semantics}
 \begin{description}
@@ -1743,7 +1710,6 @@ incoming data is correctly formatted and validated before entering the system.
   \begin{itemize}
     \item Interacts with the local file system to access CSV files.
   \end{itemize}
-  \item 
 
   \item[Assumptions:]
   \item
@@ -1760,9 +1726,8 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item
   \begin{itemize}
-    \item Assumes sufficient memory and storage resources to handle large volumes of incoming data.
+    \item Assumes sufficient memory and storage to handle large volumes of incoming data.
   \end{itemize}
-  \item 
 
   \item[Access Routine Semantics:] 
   \item
@@ -1779,7 +1744,7 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item 
 
-  \texttt{ingestData(sourcePath: string)}:
+  \texttt{ingestData(sourcePath:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Reads the specified data source, retrieves the raw data and prepares
@@ -1793,7 +1758,7 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item
 
-  \texttt{retrieveAPIData(apiEndPoint: string)}:
+  \texttt{retrieveAPIData(apiEndPoint:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Sends a request to the specified API endpoints and retrieves data in JSON
@@ -1806,7 +1771,7 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item
 
-  \texttt{processData(rawData: Object)}:
+  \texttt{processData(rawData:Object)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Processes the raw data by applying transformation rules such as data
@@ -1821,7 +1786,7 @@ incoming data is correctly formatted and validated before entering the system.
 
   \item[Local Function:] 
   \item
-  \texttt{transformRawDataToStandardFormat(sourcePath: string)}:
+  \texttt{transformRawDataToStandardFormat(sourcePath:string)}:
   \item
   \begin{itemize}
     \item \textbf{Description}: Reads the raw data from the specified source and applies the necessary Transformation
@@ -1879,17 +1844,17 @@ clean input data  for dependent modules.
 \begin{description}
   \item[Exported Constants:]
   \item 
-  \lstinline{MAX_VOLTAGE}: Maximum allowable voltage (e.g., 10 V).
+  \texttt{MAX\_VOLTAGE}: Maximum allowable voltage (e.g., 10 V).
   \item
-  \lstinline{MIN_VOLTAGE}: Minimum allowable voltage (e.g., 0 V).
+  \texttt{MIN\_VOLTAGE}: Minimum allowable voltage (e.g., 0 V).
   \item
-  \lstinline{MAX_CURRENT}: Maximum allowable current (e.g., 1 A).
+  \texttt{MAX\_CURRENT}: Maximum allowable current (e.g., 1 A).
   \item
-  \lstinline{MIN_CURRENT}: Minimum allowable current (e.g., 0 A).
+  \texttt{MIN\_CURRENT}: Minimum allowable current (e.g., 0 A).
   \item
-  \lstinline{FLOW_RATE_THRESHOLD}: Acceptable range for flow rates (e.g., 0.1 to 60 L/min).
+  \texttt{FLOW\_RATE\_THRESHOLD}: Acceptable range for flow rates (e.g., 0.1 to 60 L/min).
   \item
-  \lstinline{PH_RANGE}: Acceptable pH range (e.g., 6.0 to 8.5).
+  \texttt{PH\_RANGE}: Acceptable pH range (e.g., 6.0 to 8.5).
   \item
   \item[Exported Access Programs:]
   \item
@@ -1910,23 +1875,23 @@ clean input data  for dependent modules.
   \item[State Variables:]
   \item
     \begin{itemize}
-      \item \lstinline{voltage}: Current voltage reading.
+      \item \texttt{voltage}: Current voltage reading.
     \end{itemize}
     \item
     \begin{itemize}
-      \item \lstinline{current}: Current current reading.
+      \item \texttt{current}: Current current reading.
     \end{itemize}
     \item 
     \begin{itemize}
-      \item \lstinline{flow_rate}: Current flow rate reading.
+      \item \texttt{flow\_rate}: Current flow rate reading.
     \end{itemize}
     \item 
     \begin{itemize}
-      \item \lstinline{ph}: Current pH value.
+      \item \texttt{ph}: Current pH value.
     \end{itemize}
     \item 
     \begin{itemize}
-      \item \lstinline{error_flags}: Set of flags indicating validation failures.
+      \item \texttt{error\_flags}: Set of flags indicating validation failures.
     \end{itemize}
 
   \item[Environment Variables:]
@@ -1955,51 +1920,51 @@ clean input data  for dependent modules.
 
   \item[Access Routine Semantics:]
   \item
-  \lstinline{validate_voltage(v:Real)}:
+  \texttt{validate\_voltage(v:Real)}:
   \item
   \begin{itemize}
-    \item If $MIN\_VOLTAGE \leq v \leq MAX\_VOLTAGE$, return True.
+    \item If \texttt{MIN\_VOLTAGE} $\leq v \leq$ \texttt{MAX\_VOLTAGE}, return True.
   \end{itemize}
   \item
   \begin{itemize}
-    \item Else, add \lstinline{Voltage_Error} to \lstinline{error_flags} and return False.
-  \end{itemize}
-  \item 
-
-  \lstinline{validate_current(i:Real)}:
-  \item
-  \begin{itemize}
-    \item If $MIN\_CURRENT \leq i \leq MAX\_CURRENT$, return True.
-  \end{itemize}
-  \item
-  \begin{itemize}
-    \item Else, add \lstinline{Current_Error} to \lstinline{error_flags} and return False.
+    \item Else, add \texttt{Voltage\_Error} to \texttt{error\_flags} and return False.
   \end{itemize}
   \item 
 
-  \lstinline{validate_flow_rate(f: Real)}:
+  \texttt{validate\_current(i:Real)}:
   \item
   \begin{itemize}
-    \item If $FLOW\_RATE\_THRESHOLD[0] \leq f \leq FLOW\_RATE\_THRESHOLD[1]$, return True.
+    \item If \texttt{MIN\_CURRENT} $\leq i \leq$ \texttt{MAX\_CURRENT}, return True.
   \end{itemize}
   \item
   \begin{itemize}
-    \item Else, add \lstinline{Flow_Rate_Error} to \lstinline{error_flags} and return False.
-  \end{itemize}
-  \item 
-
-  \lstinline{validate_ph(p:Real)}:
-  \item
-  \begin{itemize}
-    \item If $PH\_RANGE[0] \leq p \leq PH\_RANGE[1]$, return True.
-  \end{itemize}
-  \item
-  \begin{itemize}
-    \item Else, add \lstinline{PH_Error} to \lstinline{error_flags} and return False.
+    \item Else, add \texttt{Current\_Error} to \texttt{error\_flags} and return False.
   \end{itemize}
   \item 
 
-  \lstinline{get_error_flags()}:
+  \texttt{validate\_flow\_rate(f:Real)}:
+  \item
+  \begin{itemize}
+    \item If \texttt{FLOW\_RATE\_THRESHOLD[0]} $\leq f \leq$ \texttt{FLOW\_RATE\_THRESHOLD[1]}, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \texttt{Flow\_Rate\_Error} to \texttt{error\_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \texttt{validate\_ph(p:Real)}:
+  \item
+  \begin{itemize}
+    \item If \texttt{PH\_RANGE[0]} $\leq p \leq$ \texttt{PH\_RANGE[1]}, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \texttt{PH\_Error} to \texttt{error\_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \texttt{get\_error\_flags()}:
   \item
   \begin{itemize}
     \item \textbf{Output:} Returns the current set of error flags.
@@ -2007,92 +1972,90 @@ clean input data  for dependent modules.
 
   \item[Local Function:]
   \item
-  \lstinline{is_within_range(value: Real, range: Tuple[Real, Real])} $\to$ \lstinline{Boolean}:\\
+  \texttt{is\_within\_range(value: Real, range: Tuple[Real, Real])} $\to$ \texttt{Boolean}:\\
   Checks if a given value lies within a specified range.
 \end{description}
 
 \subsection{Data Transformation Module (\mref{mDT})}
 \begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Secrets:] The module uses a structured format to store input data and processed results, ensuring
+  efficient access and manipulation during analysis and transformation. In addition to that, the module implements
+  algorithms to process raw data, apply transformations, and perform statistical or mathematical operations,
+  ultimately generating graph-ready data for the visualization module.
+  \item[Services:] The modules handles data transformation and analysis tasks by interfacing directly with both 
+  the input data and the visualization module which requires processed data for display. This module performs 
+  calculations such as data normalization, aggregation, or statistical analysis, and ensures that data is presented 
+  in a format that can be used by the visualization module for graph rendering.
   \item[Implemented By:] OS
-  \item[Rationale:] 
+  \item[Rationale:] The module is designed to centralize the data transformation and analysis logic, providing the core 
+  functionality needed for the system to process raw inputs and generate graphical outputs. By abstracting these tasks 
+  from other system components, this module enables a cleaner and more modular architecture, improving maintainability 
+  and reusability.
 \end{description}
 
 \subsubsection{Uses}
+\begin{description}
+  \item \textbf{Data Transformation}: The module processes raw input data, applying necessary transformations to make 
+  the data ready for analysis. This could include scaling, filtering, or feature extraction.
+  \item \textbf{Graph Data Preparation}: Once transformed, the data is formatted for graphing. This could imvolve calculating 
+  aggregates, trends, or applying statistical functions to produce actionable insights.
+  \item \textbf{Interface with Visualization Module}: The module feeds processed data into the visualization module, which 
+  then generates graphical outputs based on the processed data.
+\end{description}
 
 \subsubsection{Syntax}
 \begin{description}
+  \item[Exported Operations:]
+  \item
+  \texttt{transformData(inputData)}: Applies predefined transformations to the input data.
+  \item 
+  \texttt{generatedGraphData(transformedData)}: Prepares the data for use by the visualization module.
+  \item
   \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
+  \item
+  \texttt{TRANSFORMATION\_TYPE}: Defines the types of transformations available including normalization and filtering.
+  \item 
+  \texttt{GRAPH\_TYPES}: Constants indicating types of graphs to be generated.
+  \item
+  \item[Exported Access Programs:]
+  \item 
+  \texttt{startTransformation()}: Initializes the transformation process.
+  \item 
+  \texttt{retrieveGraphData()}: Accesses processed data for the visualization module.
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
   \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
+  \item \texttt{isTransformed}: Boolean indicating whether the data has been transformed.
+  \item \texttt{transformedData}: Holds the data after transformation, ready for graphing.
+  \item
+  \item[Environment Variables:]
+  \item \texttt{DATA\_SOURCE}: The location or source from which raw input data is retrieved.
+  \item \texttt{GRAPH\_OUTPUT\_PATH}: Path where the generated graphs are stored or streamed to.
+  \item 
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item The input data is assumed to be in a compatible format.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item The system is capable of handling large datasets for transformation without significant 
+    performance degradation.
+  \end{itemize}
+  \item 
+
   \item[Access Routine Semantics:] 
+  \item \texttt{startTransformation()}: Initiates the data transformation process which must be completed before 
+  any graph generation can occur.
+  \item \texttt{retrieveGraphData()}: Returns the transformed data that is now ready to be passed to the visualization 
+  module.
+  \item
   \item[Local Function:] 
-\end{description}
-
-\subsection{Machine Learning Module (\mref{mML})}
-\begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
-\end{description}
-
-\subsubsection{Uses}
-
-\subsubsection{Syntax}
-\begin{description}
-  \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
-\end{description}
-
-\subsubsection{Semantics}
-\begin{description}
-  \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
-  \item[Access Routine Semantics:] 
-  \item[Local Function:] 
-\end{description}
-
-\subsection{Reporting Module (\mref{mRE})}
-\begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
-\end{description}
-
-\subsubsection{Uses}
-
-\subsubsection{Syntax}
-\begin{description}
-  \item[Exported Constants:] 
-  \item[Exported Access Programs:] 
-\end{description}
-
-\subsubsection{Semantics}
-\begin{description}
-  \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
-  \item[Access Routine Semantics:] 
-  \item[Local Function:] 
+  \item \texttt{applyTransformation()}: Applies a specific transformation to the data.
+  \item \texttt{prepareGraphData()}: Formats the transformed data into a structure that the visualization module can use.
 \end{description}
 
 \subsection{Notifications Module (\mref{mNO})}
@@ -2290,7 +2253,7 @@ storage and verification.
 
   \item[Access Routine Semantics:] 
   \item
-  \texttt{createUser(email: string, password: string, role: string)}:
+  \texttt{createUser(email:string, password:string, role:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Checks if a user with the given email already
@@ -2305,7 +2268,7 @@ storage and verification.
   \end{itemize}
 
   \item
-  \texttt{validateUser(email: string, password: string)}:
+  \texttt{validateUser(email:string, password:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Attempts to find user by email and compares hashed
@@ -2317,7 +2280,7 @@ storage and verification.
   \end{itemize}
 
   \item
-  \texttt{getUserAndRole(email: string)}:
+  \texttt{getUserAndRole(email:string)}:
   \item
   \begin{itemize}
     \item \textbf{Transition}: Retrieves user with the specified email and
@@ -2330,7 +2293,7 @@ storage and verification.
 
   \item[Local Function:]
   \item
-  \texttt{hashPassword(password: string)}:
+  \texttt{hashPassword(password:string)}:
   \item
   \begin{itemize}
     \item \textbf{Description}: Hashes the given password using \texttt{bcrypt}
