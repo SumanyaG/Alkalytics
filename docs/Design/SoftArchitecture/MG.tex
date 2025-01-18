@@ -89,8 +89,6 @@ This section records information for easy reference.
   \bottomrule
 \end{tabular}\\
 
-\subsection{Notation}
-
 \newpage
 
 \tableofcontents
@@ -910,30 +908,98 @@ clean input data  for dependent modules.
 
 \subsection{Notifications Module (\mref{mNO})}
 \begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
+  \item[Secrets:] Each notification is associated with metadata such as the type of notification 
+  (info, warning, error), the recipient and the message content. This means the module uses 
+  event-driven algorithms to trigger notifications based on system actions or states. 
+  \item[Services:] This module provides notifications to users based on predefined events or actions 
+  within the system. Notifications can include real-time alerts, status updates or reminders and 
+  can be filtered or categorized allowing users to specify which types of notifications they 
+  wish to receive.
+  \item[Implemented By:] Software Engineering. The module may also rely on external libraries or APIs 
+  for delivering emails or push notifications. A few examples of such libraries include SendGrid for email 
+  or Firebase for push notifications.
+  \item[Rationale:] The purpose of this module is to ensure that users are kept up-to-date on critical 
+  events, issues and actions within the system. Timely notifications ensure that users can act on 
+  important tasks or system status changes without needing to constantly monitor the system.
 \end{description}
 
 \subsubsection{Uses}
+\begin{itemize}
+  \item \textbf{Real-Time Alerts}: To notify users in real time when significant events occur such as 
+  when a task is completed or an error is detected.
+  \item \textbf{System Status Updates}: To inform users about the current status of ongoing processes. It 
+  also ensures that the application complies with Norman's design principles (feedback, to be specific).
+  \item \textbf{Error and Issues Notifications}: To alert users about system errors or issues that require 
+  immediate attention such as data transformation errors and more.
+\end{itemize}
 
 \subsubsection{Syntax}
 \begin{description}
   \item[Exported Constants:] 
+  \item \texttt{NOTIFICATION\_TYPES}: Defines the types of notifications (e.g., "info", "warning", "error", etc.)
+  \item \texttt{DELIVERY\_METHODS}: Defines the available notification delivery methods.
+  \item \texttt{DEFAULT\_PREFERENCES}: Default notification preferences for users including the 
+  frequency of notifications and the types of events they wish to be notified about.
+  \item 
   \item[Exported Access Programs:] 
+  \item \texttt{sendNotification()}: Initiates the process of sending notifications to users.
+  \item \textsl{setNotificationPreferences()}: Access routine to set or modify user preferences
+  regarding notifications.
+  \item \texttt{getPendingNotifications()}: Provides access to the list of pending notifications 
+  for a user.
+  \item \texttt{triggerNotification()}: Access routine to trigger notifications based on system 
+  events.
+  \item
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
   \item[State Variables:]
-  \item[Environment Variables:]  
+  \item \texttt{currentNotifications}: Stores a list of active or pending notifications that need 
+  to be sent.
+  \item \texttt{userPreferences}: Stores user-specific notification preferences such as preferred 
+  delivery method and event types they want to be notified about.
+  \item \texttt{notificationQueue}: A queue that holds notifications waiting to be delivered.
+  \item
+  \item[Environment Variables:] 
+  \item \texttt{SMTP\_SERVER}: The email server used for delivering email notifications.
+  \item \texttt{PUSH\_NOTIFICATION\_SERVER}: Endpoint or server for delivering push notifications
+  to users.
+  \item
   \item[Assumptions:] 
-  \item[Access Routine Semantics:] 
+  \item
+  \begin{itemize}
+    \item The system assumes that external services like email APIs are available and functional.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item It assumes that users are registered in the system and have specified preferences for 
+    notifications.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item The system will handle retries or failures in sending notifications, ensuring that critical 
+    messages are delivered.
+  \end{itemize}
+  \item 
+
+  \item[Access Routine Semantics:]
+  \item \texttt{sendNotification(type, recipient, message)}: This routine sends a notification to a 
+  specified recipient with a message. It ensures that the notification is delivered through the correct 
+  channel based on the recipient's preferences.
+  \item \texttt{setNotificationPreferences(user, preferences)}: This routine updates the user's notification 
+  settings, including how they want to receive notifications and which types they wish to receive.
+  \item \texttt{getPendingNotifications(user)}: This routine retrieves the list of notifications that are 
+  pending delivery for a specific user.
+  \item \texttt{triggerNotification(event)}: This routine triggers the sending of a notification based on 
+  a system event.
+  \item 
+
   \item[Local Function:] 
+  \item \texttt{formatMessage(event)}: Formats the message to be sent in the notification based on the 
+  type of event.
+  \item \texttt{validatePreferences(preferences)}: Validates the user preferences to ensure that they are 
+  correctly set.
 \end{description}
 
 \subsection{UI Design Module (\mref{mUID})}
@@ -1006,30 +1072,150 @@ positive user experience.
 
 \subsection{Visualization Module (\mref{mVI})}
 \begin{description}
-  \item[Secrets:]The data structure and algorithm used to implement the virtual
-    hardware.
-  \item[Services:]Serves as a virtual hardware used by the rest of the
-    system. This module provides the interface between the hardware and the
-    software. So, the system can use it to display outputs or to accept inputs.
-  \item[Implemented By:] OS
-  \item[Rationale:] 
+  \item[Secrets:] This module implements data mapping algorithms to convert raw data into visual 
+  elements like charts, graphs, and plots. These include scaling, data aggregation, and color-coding 
+  based on user preferences or data thresholds.
+  \item[Services:] This module provides static and interactive visual representations of data such as 
+  charts, graphs, and dashboards enabling users to explore trends, patterns and insights through intuitive 
+  visual tools. It also integrates seamlessly with other system modules allowing processed data from 
+  the Data Transformation Module to be displayed effectively.
+  \item[Implemented By:] Software Engineering. The module also uses inbuilt libraries or frameworks.
+  \item[Rationale:] The Visualization Module is essential for conveying complex data insights in an 
+  accessible and actionable format. By transforming raw or processed data into visual forms, users can 
+  quickly grasp key trends and make informed decisions.
 \end{description}
 
 \subsubsection{Uses}
+\begin{itemize}
+  \item \textbf{Trend Analysis}: To display temporal or spatial trends in datasets.
+  \item \textbf{Comparative Analysis}: To compare different datasets or categories using 
+  bar charts, pie charts etc.
+  \item \textbf{Anomaly Detection}: To highlight outliers or anomalies in datasets through scatter 
+  plots or heatmaps.
+  \item \textbf{Interactive Dashboards}: To allow users to explore data dynamically using filters, 
+  zooming, and drilldowns.
+\end{itemize}
 
 \subsubsection{Syntax}
 \begin{description}
   \item[Exported Constants:] 
+  \item \texttt{CHART\_TYPES}: Defines supported chart types.
+  \item \texttt{DEFAULT\_STYLES}: Specifies default styles for visualizations including colours, 
+  fonts and sizes.
+  \item \texttt{INTERACTION\_MODES}: Defines supported user interaction modes (e.g., "hover", "zoom",
+  "filter", etc.).
+  \item 
   \item[Exported Access Programs:] 
+  \item \texttt{createChart(data, chartType, options)}: Generates a chart of the specified type using 
+  the provided data and configuration options.
+  \item \texttt{updateChart(chartID, newData)}: Updates an existing chart with new data.
+  \item \texttt{addInteraction(chartID, interactionType)}: Adds an interaction mode to an existing chart.
+  \item \texttt{renderDashboard(dashboardConfig)}: Renders a complete dashboard with multiple visualizations 
+  based on a configuration file.
+  \item \texttt{exportVisualization(chartID, format)}: Exports a visualization in the specified format.
+  \item
 \end{description}
 
 \subsubsection{Semantics}
 \begin{description}
   \item[State Variables:]
-  \item[Environment Variables:]  
-  \item[Assumptions:] 
+  \item \texttt{currentVisualizations}: A dictionary that stores all active visualizations along with their 
+  metadata.
+  \item \texttt{userPreferences}: Stores user-specific preferences for visualization styles, colour schemes,
+  and interaction settings.
+  \item \texttt{dashboardLayouts}: Maintains the configuration and layout of user-created dashboards.
+  \item 
+
+  \item[Environment Variables:] 
+  \item \texttt{BROWSER\_SUPPORT}: Ensures compatibility with web browsers for rendering visualizations.
+  \item \texttt{GRAPHICS\_LIBRARY}: Specifies the underlying graphics library used for rendering.
+  \item \texttt{DATA\_API}: Interface to retrieve data from the Data Transformation Module or other 
+  backend services.
+  \item 
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Input data is preprocessed and cleaned by the Data Transformation Module before being passed to the
+    Visualization Module.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Users will have access to compatible devices and software capable of rendering visualizations.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item The system's graphics library is fully operational and supports the required visualization types.
+  \end{itemize}
+  \item 
+
   \item[Access Routine Semantics:] 
-  \item[Local Function:] 
+  \item \texttt{createChart(data, chartType, options)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{data}: The dataset to be visualized.
+      \item \texttt{chartType}: Type of chart to generate.
+      \item \texttt{options}: Optional configuration settings such as axis labels, colours etc.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Generates a visualization based on the provided inputs and adds it to 
+    the \texttt{currentVisualizations}.
+
+    \item \textbf{Outputs}: Returns a unique \texttt{chartID} for the created visualization.
+  \end{itemize}
+
+  \item \texttt{updateChart(chartID, newData)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{chartID}: Identifier for the chart to update.
+      \item \texttt{newData}: New dataset to render in the chart.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Replaces the chart's data with \texttt{newData} and refreshes the 
+    visualization.
+  \end{itemize}
+
+  \item \texttt{addInteraction(chartID, interactionType)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{chartID}: Identifier for the chart to modify.
+      \item \texttt{interactionType}: Type of interaction to enable.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Enhances the chart with the specified interaction mode.
+  \end{itemize}
+
+  \item \texttt{renderDashboard(dashboardConfig)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{dashboardConfig}: Configuration file defining the layout and contents of 
+      the dashboard.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Creates a multi-chart dashboard and stores it in \texttt{dashboardLayouts}
+  \end{itemize}
+
+  \item \texttt{exportVisualization(chartID, format)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{chartID}: Identifier of the chart to export.
+      \item \texttt{format}: Export format.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Exports the chart as a file in the specified format.
+  \end{itemize}
+
+  \item[Local Function:]
+  \item \texttt{scaleData(data, chartType)}: Adjusts the scale and format of input data based on 
+  the chart type, e.g., logarithmic scaling for larger ranges.
+  \item \texttt{applyStyles(chartID, styles)}: Applies style customizations.
+  \item \texttt{validateConfig(dashboardConfig)}: Ensures that the dashboard configuration file is 
+  correctly formatted and contains valid references to data and charts.
 \end{description}
 
 \subsection{User Management Module (\mref{mUM})}
