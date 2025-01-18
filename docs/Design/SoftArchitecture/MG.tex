@@ -116,13 +116,16 @@ Each functional component is developed as an independent module to encapsulate
 specific responsibilities, minimize dependencies, and promote information
 hiding. This modular approach, advocated for widely in the software sector, not only
 simplifies development and testing but also allows the system to accommodate evolving
-user requirements and technology upgrades.
+user requirements and technology upgrades.\\
+\newline
+A work context model and a use case diagram for the system have been included in the 
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification (SRS)} 
+in sections 6.2 and 8.1, respectively.
 
 \subsection{Purpose}
 This Module Guide (MG) has been written to serve as a roadmap for the Alkalytics system,
 detailing its structure, functionality, and the relationships between its components.
-It provides clarity on how the system meets the requirements outlined in the 
-\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification (SRS)}
+It provides clarity on how the system meets the requirements outlined in the SRS
 and supports the following stakeholders:
 \begin{itemize}
   \item \textbf{New Developers}: To understand the modular architecture and ensure
@@ -1464,9 +1467,76 @@ represent the final interface design of the application.
   \label{fig:FigUIG}
 \end{figure}
 
+\section{Timeline}
+The following timeline details the implementation plan for Rev 0 outlining tasks down to 
+the module level.
+\begin{description}
+  \item[Phase 1: Initial Setup and Core Architecture] 
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.13\textwidth} p{0.2\textwidth}}
+    \toprule
+    \textbf{Task} & \textbf{Module(s)} & \textbf{Status} & \textbf{Responsible}\\
+    \midrule
+    Setting up a skeletal database. & \mref{mDS} & Done & Kate\\
+    Creating algorithm to convert CSV files to JSON. & \mref{mDI} & Done & Jason\\
+    Migrating all data to the database. & \mref{mDI}, \mref{mDS} & Done & Jason\\
+    Testing the database and algorithm. & - & Done & Jennifer and Sumanya\\
+    \midrule
+    Setting up a CI/CD Infrastructure. & - & Done & Kate and Sumanya\\
+    \bottomrule
+    \end{tabular}
+    \caption{Phase 1 Timeline}
+    \label{TblACT}
+    \end{table}
+
+  \item[Phase 2: Front End]
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.45\textwidth} p{0.13\textwidth} p{0.13\textwidth} p{0.2\textwidth}}
+    \toprule
+    \textbf{Task} & \textbf{Module(s)} & \textbf{Status} & \textbf{Responsible}\\
+    \midrule
+    Drawing wireframes and finalizing design elements. & \mref{mUID} & Done & All\\
+    Making a login page. & \mref{mUID}, \mref{mUM} & Weeks 14-16  & Kate\\
+    Creating the upload screen. & \mref{mUID}, \mref{mDI} & Weeks 14-16 & Jason\\
+    \midrule
+    
+    Setting up a CI/CD Infrastructure. & - & Done & Kate and Sumanya\\
+    \bottomrule
+    \end{tabular}
+    \caption{Phase 1 Timeline}
+    \label{TblACT}
+    \end{table}
+    
+\end{description}
+
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
 
 \newpage{}
+
+\section*{Appendix --- Reflection}
+The information in this section will be used to evaluate the team members on the
+graduate attribute of Problem Analysis and Design.
+
+\input{../../Reflection.tex}
+
+\begin{enumerate}
+  \item What went well while writing this deliverable? 
+  \item What pain points did you experience during this deliverable, and how
+    did you resolve them?
+  \item Which of your design decisions stemmed from speaking to your client(s)
+  or a proxy (e.g. your peers, stakeholders, potential users)? For those that
+  were not, why, and where did they come from?
+  \item While creating the design doc, what parts of your other documents (e.g.
+  requirements, hazard analysis, etc), it any, needed to be changed, and why?
+  \item What are the limitations of your solution?  Put another way, given
+  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
+  \item Give a brief overview of other design solutions you considered.  What
+  are the benefits and tradeoffs of those other designs compared with the chosen
+  design?  From all the potential options, why did you select the documented design?
+  (LO\_Explores)
+\end{enumerate}
 
 \end{document}
