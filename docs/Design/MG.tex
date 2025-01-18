@@ -49,8 +49,23 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 11 Janury 2025 & 1.0 & Added initial content for Rev 0.\\
+<<<<<<< HEAD
 17 Janury 2025 & 1.1 & Finalized document for Rev 0 submission.\\
 18 January 2025 & 1.2 & Refined the document and added appendix.\\
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+17 Janury 2025 & 1.1 & Finalized document for Rev 0 submission.\\
+<<<<<<< HEAD:docs/Design/SoftArchitecture/MG.tex
+=======
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+17 Janury 2025 & 1.1 & Finalized document for Rev 0 submission.\\
+>>>>>>> a24599f (doc(design): added remaining content + cleaned up document)
+=======
+18 January 2025 & 1.2 & Refined the document and added appendix.\\
+>>>>>>> a8521c0 (doc(design): clean up folders, add README):docs/Design/MG.tex
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 \bottomrule
 \end{tabularx}
 \\
@@ -117,16 +132,45 @@ Each functional component is developed as an independent module to encapsulate
 specific responsibilities, minimize dependencies, and promote information
 hiding. This modular approach, advocated for widely in the software sector, not only
 simplifies development and testing but also allows the system to accommodate evolving
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 51e333c (doc(design): add timeline section)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 user requirements and technology upgrades.\\
 \newline
 A work context model and a use case diagram for the system have been included in the 
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification (SRS)} 
 in sections 6.2 and 8.1, respectively.
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+user requirements and technology upgrades.
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+>>>>>>> 51e333c (doc(design): add timeline section)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 
 \subsection{Purpose}
 This Module Guide (MG) has been written to serve as a roadmap for the Alkalytics system,
 detailing its structure, functionality, and the relationships between its components.
+<<<<<<< HEAD
 It provides clarity on how the system meets the requirements outlined in the SRS
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+It provides clarity on how the system meets the requirements outlined in the SRS
+=======
+It provides clarity on how the system meets the requirements outlined in the 
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software Requirements Specification (SRS)}
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+It provides clarity on how the system meets the requirements outlined in the SRS
+>>>>>>> 51e333c (doc(design): add timeline section)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 and supports the following stakeholders:
 \begin{itemize}
   \item \textbf{New Developers}: To understand the modular architecture and ensure
@@ -155,7 +199,19 @@ are encapsulated within specific modules to ensure the system's adaptability.
 \begin{description}
   \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] \textbf{Hardware Configuration} - 
   The software may need to run on a different hardware platform like a server or on a 
+<<<<<<< HEAD
   cloud solution. Changes in hardware specifications will primarily affect the Hardware-Hiding 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  cloud solution. Changes in hardware specifications will primarily affect the Hardware-Hiding 
+=======
+  cloud solution. Changes in hardware specifications will primarily affect the \ref{mHH} 
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+  cloud solution. Changes in hardware specifications will primarily affect the Hardware-Hiding 
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
   Module, isolating their imoact.
   
   \item[\refstepcounter{acnum} \actheacnum \label{acProcessing}:] \textbf{Data Processing Algorithms} - 
@@ -163,7 +219,19 @@ are encapsulated within specific modules to ensure the system's adaptability.
   introduce the need for new statistical models. These changes would be encapsulated in the
   Data Processing Module.
 
+<<<<<<< HEAD
   \item[\refstepcounter{acnum} \actheacnum \label{acInterface}:] \textbf{User Interface (UI) Design} - 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  \item[\refstepcounter{acnum} \actheacnum \label{acInterface}:] \textbf{User Interface (UI) Design} - 
+=======
+  \item[\refstepcounter{acnum} \actheacnum \label{acUI}:] \textbf{User Interface (UI) Design} - 
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+  \item[\refstepcounter{acnum} \actheacnum \label{acInterface}:] \textbf{User Interface (UI) Design} - 
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
   Changes in analytical techniques along with advances in the machine learning space would
   introduce the need for new statistical models. These changes would be encapsulated in the
   Data Processing Module.
@@ -176,10 +244,30 @@ are encapsulated within specific modules to ensure the system's adaptability.
 
   \item[\refstepcounter{acnum} \actheacnum \label{acSource}:] \textbf{Data Source Integration} - 
   New data sources such as third-party application programming interfaces (APIs), Internet of Things
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
   (IoT) devices may have to be added in the future. The Data Ingestion Module will have to be 
   redesigned to handle the integration of these new sources.
 
   \item[\refstepcounter{acnum} \actheacnum \label{acScaling}:] \textbf{Scaling Data Volume} - 
+<<<<<<< HEAD
+=======
+=======
+  (IoT) devices may have to be added in the future. The Data Integration Module will have to be 
+  redesigned to handle the integration of these new sources.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acStorage}:] \textbf{Scaling Data Volume} - 
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+  (IoT) devices may have to be added in the future. The Data Ingestion Module will have to be 
+  redesigned to handle the integration of these new sources.
+
+  \item[\refstepcounter{acnum} \actheacnum \label{acScaling}:] \textbf{Scaling Data Volume} - 
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
   As the number of experiments increases, the system may need to handle increasing data volumes
   as usage grows. This is addressed by the Data Storage Module which has been designed to support
   database scalability strategies.
@@ -311,8 +399,26 @@ will actually be implemented.
   \caption{A DAG representing the implemented module hierarchy of Alkalytics.}
   \label{fig:FigMH}
 \end{figure}
+<<<<<<< HEAD
 
 It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
+=======
+<<<<<<< HEAD
+=======
+
+It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
+<<<<<<< HEAD
+`container' modules that act as high-level modules conatining leaf nodes that
+can be implemented. The orange nodes represent modules that will not be implemented
+for Revision 0 of Alkalytics and the green nodes represent modules that must be be implemented.
+
+\section{Connection Between Requirements and Design} \label{SecConnection}
+>>>>>>> 337f55c (doc(design): add section 5 and modify structure)
+
+It must be noted that the blue nodes shown in figure \ref{fig:FigMH} represent 
+=======
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 `container' modules that are non-leaf modules and encompass other leaf nodes.
 The orange nodes represent leaf modules that will not be implemented for Revision
 0 of Alkalytics and the green nodes represent leaf modules that will be implemented.
@@ -320,6 +426,13 @@ The orange nodes represent leaf modules that will not be implemented for Revisio
 \section{Module Decomposition} \label{SecMD}
 
 Modules are decomposed according to the principle of ``information hiding''
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 proposed by \citet{ParnasEtAl1984}. In this section, the \emph{Secrets} field acts as a brief
 statement of the design decision hidden by the module. The \emph{Services} field specifies
 \emph{what} the module will do without documenting \emph{how} to do it.\\
@@ -332,11 +445,35 @@ by the software engineering team.\\
 \newline
 Descriptions for non-leaf modules or the modules that will not be implemented for Revision 0 of
 Alkalytics have been provided below.
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
+decomposition is a brief statement of the design decision hidden by the
+module. The \emph{Services} field specifies \emph{what} the module will do
+without documenting \emph{how} to do it. For each module, a suggestion for the
+implementing software is given under the \emph{Implemented By} title. If the
+entry is \emph{OS}, this means that the module is provided by the operating
+system or by standard programming language libraries.  \emph{\progname{}} means the
+module will be implemented by the \progname{} software.
+
+Only the leaf modules in the hierarchy have to be implemented. If a dash
+(\emph{--}) is shown, this means that the module is not a leaf and will not have
+to be implemented.
+
+\subsection{Data Ingestion Modules (\mref{mDI})}
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 
 \subsection{Data Storage Module (\mref{mDS})}
 \begin{description}
   \item[Secrets:] The data structure and algorithm used to store the received CSV files into the
   NoSQL database.
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
   \item[Services:] This module handles the storage of system data by interacting with
   a NoSQL database. It receives the transformed data from the Data Ingestion Module in a suitable
   format for storage in the database. This module also provides interfaces to query, retrieve, and
@@ -346,8 +483,56 @@ Alkalytics have been provided below.
   structure, ensuring flexibility in storage design. It allows the system to 
   efficiently store the data in a schema-less NoSQL database. This ensures scalability and 
   adaptability to handle large datasets with varying structures.
+<<<<<<< HEAD
 \end{description}
 
+=======
+=======
+
+\subsection{Data Storage Module (\mref{mDS})}
+\begin{description}
+<<<<<<< HEAD
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
+=======
+  \item[Secrets:] The data structure and algorithm used to transform and store the
+  received CSV files into the NoSQL database.
+=======
+>>>>>>> b494a39 (doc(design): add more MIS sections)
+  \item[Services:] This module handles the storage of system data by interacting with
+  a NoSQL database. It receives the transformed data from the Data Ingestion Module in a suitable
+  format for storage in the database. This module also provides interfaces to query, retrieve, and
+  update stored data.
+  \item[Implemented By:] Software Engineering
+  \item[Rationale:] This module abstracts the complexities of the NoSQL database
+<<<<<<< HEAD
+  structure, ensuring flexibility in storage design. It allows the system to accept
+  data in the CSV format and transforms it for efficient storage in a
+  schema-less NoSQL database. This ensures scalability and adaptability to handle
+  large datasets with varying structures.
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
+=======
+  structure, ensuring flexibility in storage design. It allows the system to 
+  efficiently store the data in a schema-less NoSQL database. This ensures scalability and 
+  adaptability to handle large datasets with varying structures.
+>>>>>>> b494a39 (doc(design): add more MIS sections)
+\end{description}
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+\subsubsection{Uses}
+This module is used by the Behavior-Hiding and Interface Module to interact
+with the stored data. It provides mechanisms transform the CSV data, and
+perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
+=======
+=======
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 \subsubsection{Uses}
 This module is used by the Behavior-Hiding and Interface Module to interact
 with the stored data. It provides mechanisms transform the CSV data, and
@@ -505,7 +690,190 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
 \end{description}
 
+<<<<<<< HEAD
 \subsection{Data Ingestion Module (\mref{mDI})} \label{mIngestion}
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 337f55c (doc(design): add section 5 and modify structure)
+\subsection{Data Processing Module}
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants and Access Programs:]
+  \item 
+  \texttt{DB\_CONNECTION\_STRING}: The connection string for accessing the
+    NoSQL database.
+  \item
+  \texttt{MAX\_BATCH\_SIZE}: The maximum number of rows to process and upload
+  in a single batch.
+
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.4\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{initializeDB} & - & Boolean & Throws \texttt{DatabaseInitializationError}
+    if the database connection fails.\\
+    \midrule
+    
+    \texttt{uploadData} & filePath(string) & Boolean & Throws \texttt{FileNotFoundError}
+    if the file does not exist, or \texttt{DataTransformationError} if the Transformation
+    fails.\\
+    \midrule
+
+    \texttt{queryData} & query(string) & Data (JSON) & Throws \texttt{QueryExecutionError}
+    if the query is invalid.\\
+    \midrule
+
+    \texttt{updateData} & query(string), updates & Boolean & Throws \texttt{UpdateError}
+    if the update fails.\\
+    \bottomrule
+    
+    \end{tabular}
+    \caption{Exported Access Programs for the Data Storage Module}
+    \label{TblEAP_Storage}
+  \end{table}
+\end{description}
+
+<<<<<<< HEAD
+\subsubsection{Semantics}
+=======
+\subsubsection{Data Storage Module (\mref{mInput})}
+
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+\begin{description}
+  \item[State Variables:]
+  \item
+  \texttt{database}: Represents the connection to the NoSQL database.
+  \item
+  \texttt{transformationRules}: Defines the set of rules for transforming CSV data to
+  JSON format.
+  \item[Environment Variables:]
+  \item
+  \begin{itemize}
+    \item Interacts with the local file system to access CSV files.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Connects to an external NoSQL database, MongoDB to be specific.
+  \end{itemize}
+  \item 
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes the NoSQL database is accessible and the credentials are correct.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes the received CSV files are well-formed and follow the expected schema.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Assumes sufficient storage space is available in the database.
+  \end{itemize}
+  \item 
+
+  \item[Access Routine Semantics:] 
+  \item
+  \texttt{initializeDB()}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Establishes a connection to the NoSQL database and validates
+    the connection.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if the database is successfully initialized.
+    Throws a\\ \texttt{DatabaseInitializationError} otherwise.
+  \end{itemize}
+  \item 
+
+  \texttt{uploadData(filePath:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Reads the specified CSV file, transforms the contents into
+    JSON format using \texttt{transformationRules}, and uploads the transformed data to
+    the database in batches.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{FileNotFoundError}
+    if the file does not exist or \texttt{DataTransformationError} if the transformation fails.
+  \end{itemize}
+  \item
+
+
+\texttt{queryData(query:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Executes the specified query on the database and retrieves the
+    corresponding data.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \texttt{QueryExecutionError}
+    if the query is invalid or fails.
+  \end{itemize}
+  \item
+
+\texttt{updateData(query:string, updates)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Applies the specified updates to the records matching the query
+    in the database.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{UpdateError}
+    if the operation fails.
+  \end{itemize}
+  \item
+
+  \item[Local Function:] 
+  \item
+\texttt{transformCSVToJSON(filePath:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Description}: Reads a CSV file and converts its rows into JSON objects based on
+    \texttt{transformationRules}.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns a list of JSON objects or throws \texttt{DataTransformationError}
+    if the transformation fails.
+  \end{itemize}
+  \item 
+  \texttt{validateConnection()}:
+  \item 
+  \begin{itemize}
+    \item \textbf{Description}: Checks the connection to the NoSQL database and returns \texttt{True}
+    if valid.
+  \end{itemize}
+\end{description}
+
+<<<<<<< HEAD
+\subsection{Data Ingestion Module (\mref{mDI})} \label{mIngestion}
+=======
+\subsubsection{Etc.}
+
+\subsection{User Interface Module}
+
+\subsection{Reporting Module}
+
+\subsection{Notifications Module}
+
+\subsection{Administration Module}
+
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+\subsection{Data Ingestion Module (\mref{mDI})} \label{mIngestion}
+>>>>>>> a24599f (doc(design): added remaining content + cleaned up document)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 \begin{description}
   \item[Secrets:] The data structure and algorithm used to ingest and preprocess data from
   the external source (CSV files) into the system.
@@ -926,6 +1294,857 @@ clean input data  for dependent modules.
   \item[Rationale:] The purpose of this module is to ensure that users are kept up-to-date on critical 
   events, issues and actions within the system. Timely notifications ensure that users can act on 
   important tasks or system status changes without needing to constantly monitor the system.
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+\end{description}
+
+\subsubsection{Uses}
+\begin{itemize}
+  \item \textbf{Real-Time Alerts}: To notify users in real time when significant events occur such as 
+  when a task is completed or an error is detected.
+  \item \textbf{System Status Updates}: To inform users about the current status of ongoing processes. It 
+  also ensures that the application complies with Norman's design principles (feedback, to be specific).
+  \item \textbf{Error and Issues Notifications}: To alert users about system errors or issues that require 
+  immediate attention such as data transformation errors and more.
+\end{itemize}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item \texttt{NOTIFICATION\_TYPES}: Defines the types of notifications (e.g., "info", "warning", "error", etc.)
+  \item \texttt{DELIVERY\_METHODS}: Defines the available notification delivery methods.
+  \item \texttt{DEFAULT\_PREFERENCES}: Default notification preferences for users including the 
+  frequency of notifications and the types of events they wish to be notified about.
+  \item 
+  \item[Exported Access Programs:] 
+  \item \texttt{sendNotification()}: Initiates the process of sending notifications to users.
+  \item \textsl{setNotificationPreferences()}: Access routine to set or modify user preferences
+  regarding notifications.
+  \item \texttt{getPendingNotifications()}: Provides access to the list of pending notifications 
+  for a user.
+  \item \texttt{triggerNotification()}: Access routine to trigger notifications based on system 
+  events.
+  \item
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item \texttt{currentNotifications}: Stores a list of active or pending notifications that need 
+  to be sent.
+  \item \texttt{userPreferences}: Stores user-specific notification preferences such as preferred 
+  delivery method and event types they want to be notified about.
+  \item \texttt{notificationQueue}: A queue that holds notifications waiting to be delivered.
+  \item
+  \item[Environment Variables:] 
+  \item \texttt{SMTP\_SERVER}: The email server used for delivering email notifications.
+  \item \texttt{PUSH\_NOTIFICATION\_SERVER}: Endpoint or server for delivering push notifications
+  to users.
+  \item
+  \item[Assumptions:] 
+  \item
+  \begin{itemize}
+    \item The system assumes that external services like email APIs are available and functional.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item It assumes that users are registered in the system and have specified preferences for 
+    notifications.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item The system will handle retries or failures in sending notifications, ensuring that critical 
+    messages are delivered.
+  \end{itemize}
+  \item 
+
+  \item[Access Routine Semantics:]
+  \item \texttt{sendNotification(type, recipient, message)}: This routine sends a notification to a 
+  specified recipient with a message. It ensures that the notification is delivered through the correct 
+  channel based on the recipient's preferences.
+  \item \texttt{setNotificationPreferences(user, preferences)}: This routine updates the user's notification 
+  settings, including how they want to receive notifications and which types they wish to receive.
+  \item \texttt{getPendingNotifications(user)}: This routine retrieves the list of notifications that are 
+  pending delivery for a specific user.
+  \item \texttt{triggerNotification(event)}: This routine triggers the sending of a notification based on 
+  a system event.
+  \item 
+
+  \item[Local Function:] 
+  \item \texttt{formatMessage(event)}: Formats the message to be sent in the notification based on the 
+  type of event.
+  \item \texttt{validatePreferences(preferences)}: Validates the user preferences to ensure that they are 
+  correctly set.
+\end{description}
+
+\subsection{UI Design Module (\mref{mUID})}
+\begin{description}
+  \item[Secrets:] The design specifications and UI components that make  up the
+  overall appearance and user experience of the system.
+  \item[Services:] This module is responsible for the design and layout of the
+  user interface.
+  \item[Implemented By:] Software Engineering
+  \item[Rationale:] The UI Design Module abstracts the presentation of data and
+  interactions with the user.
+\end{description}
+
+\subsubsection{Uses}
+This module is used by the Interface Module to manage the display of data and
+user-related actions, ensuring that the design is consistent and offers a
+positive user experience.
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants and Access Programs:]
+  \item
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.4\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    \texttt{renderUI} & [components] & - & Throws \texttt{RenderError} if UI rendering fails.\\
+    \midrule
+    \texttt{updateUI} & component & - & Throws \texttt{UpdateError} if UI components cannot be updated.\\
+    \bottomrule
+    \end{tabular}
+    \caption{Exported Access Programs for the UI Design Module}
+    \label{TblEAP_UI}
+  \end{table}
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:] N/A
+  
+  \item[Environment Variables:]
+  \item
+  \begin{itemize}
+    \item Interacts with the frontend framework (i.e., React) for rendering UI components.
+  \end{itemize}
+  
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes the frontend framework is correctly set up for rendering UI components.
+  \end{itemize}
+  
+  \item[Access Routine Semantics:] 
+  \item \texttt{renderUI()}:
+  \begin{itemize}
+    \item \textbf{Transition}: Renders the components to display on the user interface.
+    \item \textbf{Output}: The rendered interface. Throws \texttt{RenderError} if the UI rendering fails.
+  \end{itemize}
+  
+  \item \texttt{updateUI()}:
+  \begin{itemize}
+    \item \textbf{Transition}: Updates specific components of the UI based on route changes or user interactions.
+    \item \textbf{Output}: The updated UI. Throws \texttt{UpdateError} if updates fail.
+  \end{itemize}
+  
+  \item[Local Function:] N/A
+\end{description}
+
+\subsection{Visualization Module (\mref{mVI})}
+\begin{description}
+  \item[Secrets:] This module implements data mapping algorithms to convert raw data into visual 
+  elements like charts, graphs, and plots. These include scaling, data aggregation, and color-coding 
+  based on user preferences or data thresholds.
+  \item[Services:] This module provides static and interactive visual representations of data such as 
+  charts, graphs, and dashboards enabling users to explore trends, patterns and insights through intuitive 
+  visual tools. It also integrates seamlessly with other system modules allowing processed data from 
+  the Data Transformation Module to be displayed effectively.
+  \item[Implemented By:] Software Engineering. The module also uses inbuilt libraries or frameworks.
+  \item[Rationale:] The Visualization Module is essential for conveying complex data insights in an 
+  accessible and actionable format. By transforming raw or processed data into visual forms, users can 
+  quickly grasp key trends and make informed decisions.
+\end{description}
+
+\subsubsection{Uses}
+\begin{itemize}
+  \item \textbf{Trend Analysis}: To display temporal or spatial trends in datasets.
+  \item \textbf{Comparative Analysis}: To compare different datasets or categories using 
+  bar charts, pie charts etc.
+  \item \textbf{Anomaly Detection}: To highlight outliers or anomalies in datasets through scatter 
+  plots or heatmaps.
+  \item \textbf{Interactive Dashboards}: To allow users to explore data dynamically using filters, 
+  zooming, and drilldowns.
+\end{itemize}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:] 
+  \item \texttt{CHART\_TYPES}: Defines supported chart types.
+  \item \texttt{DEFAULT\_STYLES}: Specifies default styles for visualizations including colours, 
+  fonts and sizes.
+  \item \texttt{INTERACTION\_MODES}: Defines supported user interaction modes (e.g., "hover", "zoom",
+  "filter", etc.).
+  \item 
+  \item[Exported Access Programs:] 
+  \item \texttt{createChart(data, chartType, options)}: Generates a chart of the specified type using 
+  the provided data and configuration options.
+  \item \texttt{updateChart(chartID, newData)}: Updates an existing chart with new data.
+  \item \texttt{addInteraction(chartID, interactionType)}: Adds an interaction mode to an existing chart.
+  \item \texttt{renderDashboard(dashboardConfig)}: Renders a complete dashboard with multiple visualizations 
+  based on a configuration file.
+  \item \texttt{exportVisualization(chartID, format)}: Exports a visualization in the specified format.
+  \item
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item \texttt{currentVisualizations}: A dictionary that stores all active visualizations along with their 
+  metadata.
+  \item \texttt{userPreferences}: Stores user-specific preferences for visualization styles, colour schemes,
+  and interaction settings.
+  \item \texttt{dashboardLayouts}: Maintains the configuration and layout of user-created dashboards.
+  \item 
+
+  \item[Environment Variables:] 
+  \item \texttt{BROWSER\_SUPPORT}: Ensures compatibility with web browsers for rendering visualizations.
+  \item \texttt{GRAPHICS\_LIBRARY}: Specifies the underlying graphics library used for rendering.
+  \item \texttt{DATA\_API}: Interface to retrieve data from the Data Transformation Module or other 
+  backend services.
+  \item 
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Input data is preprocessed and cleaned by the Data Transformation Module before being passed to the
+    Visualization Module.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Users will have access to compatible devices and software capable of rendering visualizations.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item The system's graphics library is fully operational and supports the required visualization types.
+  \end{itemize}
+  \item 
+
+  \item[Access Routine Semantics:] 
+  \item \texttt{createChart(data, chartType, options)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{data}: The dataset to be visualized.
+      \item \texttt{chartType}: Type of chart to generate.
+      \item \texttt{options}: Optional configuration settings such as axis labels, colours etc.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Generates a visualization based on the provided inputs and adds it to 
+    the \texttt{currentVisualizations}.
+
+    \item \textbf{Outputs}: Returns a unique \texttt{chartID} for the created visualization.
+  \end{itemize}
+
+  \item \texttt{updateChart(chartID, newData)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{chartID}: Identifier for the chart to update.
+      \item \texttt{newData}: New dataset to render in the chart.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Replaces the chart's data with \texttt{newData} and refreshes the 
+    visualization.
+  \end{itemize}
+
+  \item \texttt{addInteraction(chartID, interactionType)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{chartID}: Identifier for the chart to modify.
+      \item \texttt{interactionType}: Type of interaction to enable.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Enhances the chart with the specified interaction mode.
+  \end{itemize}
+
+  \item \texttt{renderDashboard(dashboardConfig)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{dashboardConfig}: Configuration file defining the layout and contents of 
+      the dashboard.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Creates a multi-chart dashboard and stores it in \texttt{dashboardLayouts}
+  \end{itemize}
+
+  \item \texttt{exportVisualization(chartID, format)}:
+  \begin{itemize}
+    \item \textbf{Inputs}:
+    \begin{enumerate}
+      \item \texttt{chartID}: Identifier of the chart to export.
+      \item \texttt{format}: Export format.
+    \end{enumerate}
+
+    \item \textbf{Effects}: Exports the chart as a file in the specified format.
+  \end{itemize}
+
+  \item[Local Function:]
+  \item \texttt{scaleData(data, chartType)}: Adjusts the scale and format of input data based on 
+  the chart type, e.g., logarithmic scaling for larger ranges.
+  \item \texttt{applyStyles(chartID, styles)}: Applies style customizations.
+  \item \texttt{validateConfig(dashboardConfig)}: Ensures that the dashboard configuration file is 
+  correctly formatted and contains valid references to data and charts.
+\end{description}
+
+\subsection{User Management Module (\mref{mUM})}
+\begin{description}
+  \item[Secrets:] The data structure and algorithm used to store and manage user
+  credentials.
+  \item[Services:]This module manages the creation, retrieval, and validation of
+  user accounts. It interacts with the database to store user information and
+  also provides interfaces for user authentication and Role-Based Access
+  Control (RBAC).
+  \item[Implemented By:] \progname{}
+  \item[Rationale:] This module abstracts the management of user data, ensuring
+  that sensitive information, such as passwords, is hashed and not stored in
+  plain-text. It also enables the management of user access levels within the
+  application. 
+\end{description}
+
+\subsubsection{Uses}
+This module interacts with the Hardware-Hiding Module for user credential
+storage and verification.
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants and Access Programs:]
+  \item 
+  \texttt{SESSION\_COOKIE}: The id of the session cookie used to maintain user sessions.
+  
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth}
+    p{0.4\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{createUser} & email(string), password(string), role(string) & dict &
+    Throws \texttt{UserAlreadyExistsError} if the user already exists.\\
+    \midrule
+    
+    \texttt{validateUser} & email(string), password(string) & dict & Throws
+    \texttt{UserNotFoundError} if the user does not exist or
+    \texttt{IncorrectPasswordError} if the password is incorrect.\\
+    \midrule
+
+    \texttt{getUserAndRole} & email(string) & dict & Throws
+    \texttt{UserNotFoundError} if the user does not exist.\\
+    \bottomrule
+
+    \end{tabular}
+    \caption{Exported Access Programs for the User Management Module}
+    \label{TblEAP_UM}
+  \end{table}
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item
+  \texttt{usersCollection}: Represents the MongoDB collection storing user data.
+  \item[Environment Variables:]
+  \item N/A
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes passwords are securely hashed before being stored.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes emails are unique across the system.
+  \end{itemize}
+
+  \item[Access Routine Semantics:] 
+  \item
+  \texttt{createUser(email:string, password:string, role:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Checks if a user with the given email already
+    exists. If not, hashes the password, creates a new user, and stores the new
+    user in the database.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns a dictionary with user email and role if
+    successful. Throws \\
+    \texttt{UserAlreadyExistsError} if the user already exists.
+  \end{itemize}
+
+  \item
+  \texttt{validateUser(email:string, password:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Attempts to find user by email and compares hashed
+    input password with the stored hash.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns a dictionary with user email and role if the password is valid. Throws \texttt{UserNotFoundError} if the user doesn't exist or \texttt{IncorrectPasswordError} if the password is incorrect.
+  \end{itemize}
+
+  \item
+  \texttt{getUserAndRole(email:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Retrieves user with the specified email and
+    corresponding role.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns a dictionary with user email and role if the user exists. Throws \texttt{UserNotFoundError} if the user does not exist.
+  \end{itemize}
+
+  \item[Local Function:]
+  \item
+  \texttt{hashPassword(password:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Description}: Hashes the given password using \texttt{bcrypt}
+    and a randomly-generated salt for secure storage.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the hashed password string.
+  \end{itemize}
+=======
+\subsection{Data Ingestion Module (\mref{mDI})}
+\begin{description}
+  \item[Secrets:] The data structure and algorithm used to ingest and preprocess data from
+  the external source (CSV files) into the system.
+  \item[Services:] This module is responsible for ingesting external data into the system.
+  It interacts with various external data sources and converts incoming data into a 
+  standardized format for further processing. The module ensures and facilitates seamless
+  data flow into the system for subsequent operations.
+  \item[Implemented By:] Software Engineering
+  \item[Rationale:] The Data Ingestion Module abstracts the complexities of interacting with
+  an external data source enabling the system to ingest data in CSV. By ensuring data Validation
+  and transformation, the module guarantees data integrity and consistency before it is processed
+  further. It ensures scalability, adaptability and flexibility in handling data from a different
+  source while maintaining the quality of ingested data.
+\end{description}
+
+\subsubsection{Uses}
+The Data Ingestion Module is used by the Data Processing Module to feed raw data into the system
+for analysis and storage. It also supports integration with external services to retrieve and
+preprocess data as needed. This module, in addition to the Data Validation Module ensures that all
+incoming data is correctly formatted and validated before entering the system.
+
+\subsubsection{Syntax}
+\textbf{Exported Constants and Access Programs}:
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.25\textwidth} p{0.21\textwidth} p{0.1\textwidth} p{0.3\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{initializeIngestion} & - & Boolean & Throws \texttt{IngestionError}
+    if the process fails.\\
+    \midrule
+    
+    \texttt{ingestData} & sourcePath(string) & Boolean & Throws \texttt{FileNotFoundError}
+    if the file does not exist, or \texttt{DataTransformationError} if the Ingestion fails.\\
+    \midrule
+
+    \texttt{validateData} & data(Object) & Boolean & Throws \texttt{DataValidationError}
+    if the data fails validation.\\
+    \midrule
+
+    \texttt{retrieveAPIData} & apiEndPoint(string) & Data (JSON) & Throws \texttt{APIRequestError}
+    if the API request fails.\\
+    \midrule
+
+    \texttt{processData} & rawData(Object) & Object & Throws \texttt{DataProcessingError}
+    if the processing fails.\\
+    \bottomrule
+    
+    \end{tabular}
+    \caption{Exported Access Programs for the Data Ingestion Module}
+    \label{TblEAP_Ingestion}
+\end{table}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item
+  \texttt{ingestionSource}: Represents the path or endpoint from which data is ingested.
+  \item
+  \texttt{dataFormat}: Defines the expected format of incoming data (CSV, in this case).
+
+  \item[Environment Variables:]
+  \item
+  \begin{itemize}
+    \item Interacts with the local file system to access CSV files.
+  \end{itemize}
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item Assumes the external data sources are available and accessible.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes the incoming data follows the expected format and schema.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item Assumes adequate network connectivity for external API requests.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Assumes sufficient memory and storage to handle large volumes of incoming data.
+  \end{itemize}
+
+  \item[Access Routine Semantics:] 
+  \item
+  \texttt{initializeIngestion()}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Initialized the data ingestion process by configuring connections to
+    external data sources.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if initialization is successful. Throws an
+    \\ \texttt{IngestionInitializationError} if initialization fails.
+  \end{itemize}
+  \item 
+
+  \texttt{ingestData(sourcePath:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Reads the specified data source, retrieves the raw data and prepares
+    it for processing.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{FileNotFoundError}
+    if the source path is invalid or does not exist, or \texttt{DataTransformationError} if the
+    transformation process fails.
+  \end{itemize}
+  \item
+
+  \texttt{retrieveAPIData(apiEndPoint:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Sends a request to the specified API endpoints and retrieves data in JSON
+    format.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \texttt{APIRequestError} if
+    the request fails.
+  \end{itemize}
+  \item
+
+  \texttt{processData(rawData:Object)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Transition}: Processes the raw data by applying transformation rules such as data
+    normalization, mapping, filtering and more.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Output}: Returns the processed data in the appropriate format. Throws \\
+    \texttt{DataProcessingError} if the processing fails.
+  \end{itemize}
+  \item
+
+  \item[Local Function:] 
+  \item
+  \texttt{transformRawDataToStandardFormat(sourcePath:string)}:
+  \item
+  \begin{itemize}
+    \item \textbf{Description}: Reads the raw data from the specified source and applies the necessary Transformation
+    rules and converts the data into a standardized format.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns the transformed data as a JSON object or throws \\
+    \texttt{DataTransformationError} if the transformation fails.
+  \end{itemize}
+  \item 
+
+  \texttt{validateSourceConnection()}:
+  \item 
+  \begin{itemize}
+    \item \textbf{Description}: Checks the connection to the external data source and returns \texttt{True} if valid.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item \textbf{Output}: Returns \texttt{True} if the connection to the source is valid. Throws \\
+   \texttt{SourceConnectionError} if the connection fails.
+  \end{itemize}
+\end{description}
+
+\subsection{Data Validation Module (\mref{mDV})}
+\begin{description}
+<<<<<<< HEAD
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+>>>>>>> ec10de0 (doc(design): refine structure of document and add MIS content)
+=======
+  \item[Secrets:] The data structure is a finite-state machine designed to model transitions based on real-time 
+  input data. The algorithm uses discrete math principles to validate parameters by comparing them against predefined
+  thresholds and conditions derived from system requirements.
+  \item[Services:] This module ensures valid data is provided for processing by validating input streams, flagging
+  anomalies, and initiating corrective actions when necessary.
+  \item[Implemented By:] OS and Software Engineering
+  \item[Rationale:] Ensuring the integrity and realiability of input data is critical for accurate system operation.
+  The FSM representation enables systematic handling of transitions, facilitating robust validation and error 
+  detection mechanisms.
+>>>>>>> b494a39 (doc(design): add more MIS sections)
+\end{description}
+
+\subsubsection{Uses}
+It is used to validate the sensor readings against operational thresholds while monitoring real-time 
+data streams for deviations or inconsistencies. This module serves as a pre-processing step to ensure 
+clean input data  for dependent modules.
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Constants:]
+  \item 
+  \texttt{MAX\_VOLTAGE}: Maximum allowable voltage (e.g., 10 V).
+  \item
+  \texttt{MIN\_VOLTAGE}: Minimum allowable voltage (e.g., 0 V).
+  \item
+  \texttt{MAX\_CURRENT}: Maximum allowable current (e.g., 1 A).
+  \item
+  \texttt{MIN\_CURRENT}: Minimum allowable current (e.g., 0 A).
+  \item
+  \texttt{FLOW\_RATE\_THRESHOLD}: Acceptable range for flow rates (e.g., 0.1 to 60 L/min).
+  \item
+  \texttt{PH\_RANGE}: Acceptable pH range (e.g., 6.0 to 8.5).
+  \item
+  \item[Exported Access Programs:]
+  \item
+  \texttt{validate\_voltage(v:Real) \(\to\) Boolean}
+  \item 
+  \texttt{validate\_current(i:Real) \(\to\) Boolean}
+  \item 
+  \texttt{validate\_flow\_rate(f:Real) \(\to\) Boolean}
+  \item
+  \texttt{validate\_ph(v:Real) \(\to\) Boolean}
+  \item
+  \texttt{get\_error\_flags() \(\to\) Set}
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+
+  \item[State Variables:]
+  \item
+    \begin{itemize}
+      \item \texttt{voltage}: Current voltage reading.
+    \end{itemize}
+    \item
+    \begin{itemize}
+      \item \texttt{current}: Current current reading.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item \texttt{flow\_rate}: Current flow rate reading.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item \texttt{ph}: Current pH value.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item \texttt{error\_flags}: Set of flags indicating validation failures.
+    \end{itemize}
+
+  \item[Environment Variables:]
+  \item
+    \begin{itemize}
+      \item Sensor input streams.
+    \end{itemize}
+    \item
+    \begin{itemize}
+      \item System clock for time-based validation.
+    \end{itemize}
+
+  \item[Assumptions:]
+  \item
+    \begin{itemize}
+      \item Sensors provide data at consistent intervals.
+    \end{itemize}
+    \item
+    \begin{itemize}
+      \item Thresholds are pre-configured and static unless updated manually.
+    \end{itemize}
+    \item 
+    \begin{itemize}
+      \item Input data is numeric and within hardware limits.
+    \end{itemize}
+
+  \item[Access Routine Semantics:]
+  \item
+  \texttt{validate\_voltage(v:Real)}:
+  \item
+  \begin{itemize}
+    \item If \texttt{MIN\_VOLTAGE} $\leq v \leq$ \texttt{MAX\_VOLTAGE}, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \texttt{Voltage\_Error} to \texttt{error\_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \texttt{validate\_current(i:Real)}:
+  \item
+  \begin{itemize}
+    \item If \texttt{MIN\_CURRENT} $\leq i \leq$ \texttt{MAX\_CURRENT}, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \texttt{Current\_Error} to \texttt{error\_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \texttt{validate\_flow\_rate(f:Real)}:
+  \item
+  \begin{itemize}
+    \item If \texttt{FLOW\_RATE\_THRESHOLD[0]} $\leq f \leq$ \texttt{FLOW\_RATE\_THRESHOLD[1]}, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \texttt{Flow\_Rate\_Error} to \texttt{error\_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \texttt{validate\_ph(p:Real)}:
+  \item
+  \begin{itemize}
+    \item If \texttt{PH\_RANGE[0]} $\leq p \leq$ \texttt{PH\_RANGE[1]}, return True.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item Else, add \texttt{PH\_Error} to \texttt{error\_flags} and return False.
+  \end{itemize}
+  \item 
+
+  \texttt{get\_error\_flags()}:
+  \item
+  \begin{itemize}
+    \item \textbf{Output:} Returns the current set of error flags.
+  \end{itemize}
+
+  \item[Local Function:]
+  \item
+  \texttt{is\_within\_range(value: Real, range: Tuple[Real, Real])} $\to$ \texttt{Boolean}:\\
+  Checks if a given value lies within a specified range.
+\end{description}
+
+\subsection{Data Transformation Module (\mref{mDT})}
+\begin{description}
+  \item[Secrets:] The module uses a structured format to store input data and processed results, ensuring
+  efficient access and manipulation during analysis and transformation. In addition to that, the module implements
+  algorithms to process raw data, apply transformations, and perform statistical or mathematical operations,
+  ultimately generating graph-ready data for the visualization module.
+  \item[Services:] The modules handles data transformation and analysis tasks by interfacing directly with both 
+  the input data and the visualization module which requires processed data for display. This module performs 
+  calculations such as data normalization, aggregation, or statistical analysis, and ensures that data is presented 
+  in a format that can be used by the visualization module for graph rendering.
+  \item[Implemented By:] OS
+  \item[Rationale:] The module is designed to centralize the data transformation and analysis logic, providing the core 
+  functionality needed for the system to process raw inputs and generate graphical outputs. By abstracting these tasks 
+  from other system components, this module enables a cleaner and more modular architecture, improving maintainability 
+  and reusability.
+\end{description}
+
+\subsubsection{Uses}
+\begin{description}
+  \item \textbf{Data Transformation}: The module processes raw input data, applying necessary transformations to make 
+  the data ready for analysis. This could include scaling, filtering, or feature extraction.
+  \item \textbf{Graph Data Preparation}: Once transformed, the data is formatted for graphing. This could imvolve calculating 
+  aggregates, trends, or applying statistical functions to produce actionable insights.
+  \item \textbf{Interface with Visualization Module}: The module feeds processed data into the visualization module, which 
+  then generates graphical outputs based on the processed data.
+\end{description}
+
+\subsubsection{Syntax}
+\begin{description}
+  \item[Exported Operations:]
+  \item
+  \texttt{transformData(inputData)}: Applies predefined transformations to the input data.
+  \item 
+  \texttt{generatedGraphData(transformedData)}: Prepares the data for use by the visualization module.
+  \item
+  \item[Exported Constants:] 
+  \item
+  \texttt{TRANSFORMATION\_TYPE}: Defines the types of transformations available including normalization and filtering.
+  \item 
+  \texttt{GRAPH\_TYPES}: Constants indicating types of graphs to be generated.
+  \item
+  \item[Exported Access Programs:]
+  \item 
+  \texttt{startTransformation()}: Initializes the transformation process.
+  \item 
+  \texttt{retrieveGraphData()}: Accesses processed data for the visualization module.
+\end{description}
+
+\subsubsection{Semantics}
+\begin{description}
+  \item[State Variables:]
+  \item \texttt{isTransformed}: Boolean indicating whether the data has been transformed.
+  \item \texttt{transformedData}: Holds the data after transformation, ready for graphing.
+  \item
+  \item[Environment Variables:]
+  \item \texttt{DATA\_SOURCE}: The location or source from which raw input data is retrieved.
+  \item \texttt{GRAPH\_OUTPUT\_PATH}: Path where the generated graphs are stored or streamed to.
+  \item 
+
+  \item[Assumptions:]
+  \item
+  \begin{itemize}
+    \item The input data is assumed to be in a compatible format.
+  \end{itemize}
+  \item 
+  \begin{itemize}
+    \item The system is capable of handling large datasets for transformation without significant 
+    performance degradation.
+  \end{itemize}
+  \item 
+
+  \item[Access Routine Semantics:] 
+  \item \texttt{startTransformation()}: Initiates the data transformation process which must be completed before 
+  any graph generation can occur.
+  \item \texttt{retrieveGraphData()}: Returns the transformed data that is now ready to be passed to the visualization 
+  module.
+  \item
+  \item[Local Function:] 
+  \item \texttt{applyTransformation()}: Applies a specific transformation to the data.
+  \item \texttt{prepareGraphData()}: Formats the transformed data into a structure that the visualization module can use.
+\end{description}
+
+\subsection{Notifications Module (\mref{mNO})}
+\begin{description}
+  \item[Secrets:]The data structure and algorithm used to implement the virtual
+    hardware.
+  \item[Services:]Serves as a virtual hardware used by the rest of the
+    system. This module provides the interface between the hardware and the
+    software. So, the system can use it to display outputs or to accept inputs.
+  \item[Implemented By:] OS
+  \item[Rationale:] 
+=======
+>>>>>>> 5cc1207 (doc(design): add remaining MIS sections)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 \end{description}
 
 \subsubsection{Uses}
@@ -1380,7 +2599,19 @@ FR-15 & \mref{mDT} \\
 
 \begin{table}[H]
 \centering
+<<<<<<< HEAD
 \begin{tabular}{p{0.2\textwidth} p{0.13\textwidth}}
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+\begin{tabular}{p{0.2\textwidth} p{0.13\textwidth}}
+=======
+\begin{tabular}{p{0.2\textwidth} p{0.1\textwidth}}
+>>>>>>> 9c61877 (doc(design): added section 6.1 - MIS for data storage module)
+=======
+\begin{tabular}{p{0.2\textwidth} p{0.13\textwidth}}
+>>>>>>> a24599f (doc(design): added remaining content + cleaned up document)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 \toprule
 \textbf{AC} & \textbf{Module(s)}\\
 \midrule
@@ -1453,6 +2684,11 @@ represent the final interface design of the application.
   \caption{The upload page for users to upload new experiment data files.}
   \label{fig:FigUIUP}
 \end{figure}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 
 \begin{figure}[htbp]
   \centering
@@ -1467,7 +2703,33 @@ represent the final interface design of the application.
   \caption{The main view page for generating and viewing visualizations of queried data.}
   \label{fig:FigUIG}
 \end{figure}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27285a6 (doc(design): add sections 6.8, 6.10, 9)
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Figma/table.pdf}
+  \caption{The main view page for querying and modifying data.}
+  \label{fig:FigUITB}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Figma/graphs.pdf}
+  \caption{The main view page for generating and viewing visualizations of queried data.}
+  \label{fig:FigUIG}
+\end{figure}
+
+=======
+>>>>>>> 60cb3f5 (doc(Design): add sections 1-4 to the module guide)
+=======
+>>>>>>> 51e333c (doc(design): add timeline section)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 \section{Timeline}
 The following timeline details the implementation plan for Rev 0, outlining tasks down to 
 the module level. Roles and responsibilities are clearly defined for each task, along with 
@@ -1548,6 +2810,14 @@ tentative time estimates.
       \label{TblT4}
     \end{table}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> a24599f (doc(design): added remaining content + cleaned up document)
+=======
+>>>>>>> 51e333c (doc(design): add timeline section)
+>>>>>>> 7096840 (doc(design): clean up folders, add README)
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
 
