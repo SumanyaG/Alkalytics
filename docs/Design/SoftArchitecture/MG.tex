@@ -49,6 +49,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 11 Janury 2025 & 1.0 & Added initial content for Rev 0.\\
+17 Janury 2025 & 1.1 & Finalized document for Rev 0 submission.\\
 \bottomrule
 \end{tabularx}
 \\
@@ -500,7 +501,7 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
 \end{description}
 
-\subsection{Data Ingestion Module (\mref{mDI})}
+\subsection{Data Ingestion Module (\mref{mDI})} \label{mIngestion}
 \begin{description}
   \item[Secrets:] The data structure and algorithm used to ingest and preprocess data from
   the external source (CSV files) into the system.
@@ -1346,25 +1347,27 @@ storage and verification.
 This section shows two traceability matrices: between the modules and the
 requirements and between the modules and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.2\textwidth} p{0.13\textwidth}}
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Req.} & \textbf{Module(s)}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FR-1 & \mref{mDI} \\
+FR-2 & \mref{mDS} \\
+FR-3 & \mref{mDI} \\
+FR-4 & \mref{mDS} \\
+FR-5 & \mref{mDT} \\
+FR-6 & \mref{mDT} \\
+FR-7 & \mref{mUID}, \mref{mVI} \\
+FR-8 & \mref{mVI} \\
+FR-9 & \mref{mVI} \\
+FR-10 & \mref{mDT} \\
+FR-11 & \mref{mDT} \\
+FR-12 & \mref{mDV}, \mref{mNO} \\
+FR-13 & \mref{mDS}, \mref{mNO} \\
+FR-14 & \mref{mUM} \\
+FR-15 & \mref{mDT} \\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -1373,9 +1376,9 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.1\textwidth}}
+\begin{tabular}{p{0.2\textwidth} p{0.13\textwidth}}
 \toprule
-\textbf{AC} & \textbf{Modules}\\
+\textbf{AC} & \textbf{Module(s)}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
 \acref{acProcessing} & \mref{mPR}\\
@@ -1395,35 +1398,39 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \end{table}
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
-
-In this section, the uses hierarchy between modules is
-provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
-correct execution of B may be necessary for A to complete the task described in
-its specification. That is, A {\em uses} B if there exist situations in which
-the correct functioning of A depends upon the availability of a correct
-implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
-(DAG). Each level of the hierarchy offers a testable and usable subset of the
-system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
-
-\wss{The uses relation is not a data flow diagram.  In the code there will often
-be an import statement in module A when it directly uses module B.  Module B
-provides the services that module A needs.  The code for module A needs to be
-able to see these services (hence the import statement).  Since the uses
-relation is transitive, there is a use relation without an import, but the
-arrows in the diagram typically correspond to the presence of import statement.}
-
-\wss{If module A uses module B, the arrow is directed from A to B.}
+This section provides a uses hierarchy between modules that have been described in detail 
+above. As \citet{Parnas1978} said, of two programs A and B, that A {\em uses} B if correct 
+execution of B may be necessary for A to complete the task described in its specification.
+That is, A {\em uses} B if there exist situations in which the correct functioning of A 
+depends upon the availability of a correct implementation of B.\\
+\newline
+Figure \ref{FigUH} illustrates the use relation between the modules. It can be seen that 
+the graph is a directed acyclic graph (DAG). Each level of the hierarchy offers a testable
+and usable subset of the system, and modules in the higher level of the hierarchy are 
+essentially simpler because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.9\textwidth]{Diagrams/uses hierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
 
-%\section*{References}
+The diagram shows the following:
+\begin{enumerate}
+  \item The UI Design Module (\mref{mUID}) is at the highest level and uses multiple modules, 
+  namely, the Data Storage Module (\mref{mDS}), the Visualization Module (\mref{mVI}), the User 
+  Management Module (\mref{mUM}) and the Notifications Modules (\mref{mNO}).
+  \item The Visualization Module (\mref{mVI}) uses the Data Transformation Module (\mref{mDT})
+  and the Data Storage Module (\mref{mDS}).
+  \item The Data Ingestion Module (\mref{mDI}) uses the Data Validation Module (\mref{mDV}) and 
+  the Data Storage Module (\mref{mDS}).
+  \item The Data Transformation Module (\mref{mDT}) uses the Data Ingestion Module (\mref{mDI})
+  and the Data Storage Module (\mref{mDS}).
+  \item The Notifications Module (\mref{mNO}) uses the Data Storage Module (\mref{mDS}).
+  \item The Data Storage Module (\mref{mDS}) appears at the lowest level as it is used by many 
+  other modules but does not depend on any other modules itself.
+\end{enumerate}
 
 \section{User Interfaces}
 The following figures encompass key design mock-ups of the application
@@ -1456,12 +1463,6 @@ represent the final interface design of the application.
   \caption{The main view page for generating and viewing visualizations of queried data.}
   \label{fig:FigUIG}
 \end{figure}
-
-\section{Timeline}
-
-\wss{Schedule of tasks and who is responsible}
-
-\wss{You can point to GitHub if this information is included there}
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
