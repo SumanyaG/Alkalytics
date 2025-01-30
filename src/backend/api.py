@@ -1,6 +1,7 @@
 import math
 import os
 import base64
+from typing import List
 from bson import ObjectId
 from dotenv import load_dotenv
 import pandas as pd
@@ -21,21 +22,39 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 class FilePayload(BaseModel):
     filename: str
     mimetype: str
     content: str
 
-
 class FilesPayload(BaseModel):
     experimentFiles: list[FilePayload]
     dataFiles: list[FilePayload]
+
+def getConnection(collection: str):
+    mongoUri = os.getenv("CONNECTION_STRING")
+    dbName = "alkalyticsDB"
+    client = MongoClient(mongoUri)
+    db = client[dbName]
+    collection = db[collection]
+    return {"collection" :collection, "client": client}
 
 def sanitizeFilename(filename: str) -> str:
             return "".join(
                 c for c in filename if c.isalnum() or c in (" ", ".", "_")
             ).strip()
+
+def cleanData(obj):
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+        return None
+    if isinstance(obj, dict):
+        return {k: cleanData(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [cleanData(i) for i in obj]
+    return obj
+
 
 @app.post("/upload")
 async def upload(payload: FilesPayload):
@@ -48,7 +67,6 @@ async def upload(payload: FilesPayload):
     tempDataFiles = []
 
     try:
-
 
         def decodeAndSave(filePayload: FilePayload) -> str:
             try:
@@ -208,18 +226,42 @@ async def manualUpload(payload: ManualUploadPayload):
         raise HTTPException(
             status_code=500, detail=f"Error processing files: {str(e)}"
         )
+
+
+class DataRequest(BaseModel):
+    experimentId: str
+
+@app.post("/data")
+async def getExperimentData(request: DataRequest):
+    """
+    Fetches data related to a specific experimentId from the 'data' collection.
+    """
+    connection = getConnection("data")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        data = collection.find({"experimentId": request.experimentId})
+        dataList = list(data)
+        dataList = [cleanData(item) for item in dataList]
+        if dataList:
+            return {"status": "success", "data": dataList}
+        else:
+            raise HTTPException(status_code=404, detail="No data found for the given experimentId.")
     
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching data: {str(e)}")
+    
+    finally:
+        client.close()
+
 
 @app.get("/experimentIds")
 async def getExperimentIds():
     """
     Fetches all experimentIds from the 'experiments' collection.
     """
-    mongoUri = os.getenv("CONNECTION_STRING")
-    dbName = "alkalyticsDB"
-    client = MongoClient(mongoUri)
-    db = client[dbName]
-    collection = db["experiments"]
+    connection = getConnection("data")
+    collection, client = connection["collection"], connection["client"]
     
     try:
         experiment_ids = collection.find({}, {"experimentId": 1})
@@ -230,29 +272,14 @@ async def getExperimentIds():
     finally:
         client.close()
 
-
-
-def cleanData(obj):
-    if isinstance(obj, ObjectId):
-        return str(obj)
-    if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
-        return None
-    if isinstance(obj, dict):
-        return {k: cleanData(v) for k, v in obj.items()}
-    if isinstance(obj, list):
-        return [cleanData(i) for i in obj]
-    return obj
-
 @app.get("/experiments")
 async def getExperiments():
     """
     Fetches all data from the 'experiments' collection.
     """
-    mongoUri = os.getenv("CONNECTION_STRING")
-    dbName = "alkalyticsDB"
-    client = MongoClient(mongoUri)
-    db = client[dbName]
-    collection = db["experiments"]
+    connection = getConnection("experiments")
+    collection, client = connection["collection"], connection["client"]
+
 
     try:
         experiments = collection.find()
@@ -269,34 +296,130 @@ async def getExperiments():
     finally:
         client.close()
 
+class UpdateDataPayload(BaseModel):
+    expId: str
+    updatedParams: dict
 
-
-class DataRequest(BaseModel):
-    experimentId: str
-
-@app.post("/data")
-async def getExperimentData(request: DataRequest):
+@app.put("/update-param")
+async def update_param(payload: UpdateDataPayload):
     """
-    Fetches data related to a specific experimentId from the 'data' collection.
+    Updates a specific row in the 'data' collection based on the dataSheetId.
     """
-    mongoUri = os.getenv("CONNECTION_STRING")
-    dbName = "alkalyticsDB"
-    client = MongoClient(mongoUri)
-    db = client[dbName]
-    collection = db["data"]  
+
+    connection = getConnection("experiments")
+    collection, client = connection["collection"], connection["client"]
 
     try:
-        data = collection.find({"experimentId": request.experimentId})
-        dataList = list(data)
-        dataList = [cleanData(item) for item in dataList]
-        if dataList:
-            return {"status": "success", "data": dataList}
-        else:
-            raise HTTPException(status_code=404, detail="No data found for the given experimentId.")
-    
+        updated_fields = {}
+        for key, value in payload.updatedParams.items():
+            if isinstance(value, str):
+                try:
+                    num_value = float(value)
+                    if num_value.is_integer():
+                        updated_fields[key] = int(num_value)
+                    else:
+                        updated_fields[key] = num_value
+                except ValueError:
+                    updated_fields[key] = value
+            else:
+                updated_fields[key] = value
+
+        result = collection.update_one(
+            {"experimentId": payload.expId},
+            {"$set": updated_fields}
+        )
+
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="DataSheet not found.")
+
+        return {"status": "success", "message": "Data updated successfully."}
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching data: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error updating data: {str(e)}")
     
+    finally:
+        client.close()
+
+
+class AddColumnRequest(BaseModel):
+    columnName: str
+    defaultValue: str | int | None = None
+
+@app.put("/experiments/add-column")
+async def add_column(payload: AddColumnRequest):
+    """
+    Adds a new column to all documents in the 'experiments' collection.
+    """
+    connection = getConnection("experiments")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        result = collection.update_many({}, {"$set": {payload.columnName: payload.defaultValue}})
+        return {"status": "success", "message": f"Added column {payload.columnName} to {result.modified_count} rows."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error adding column: {str(e)}")
+    finally:
+        client.close()
+
+class AddRowRequest(BaseModel):
+    rowData: dict
+
+@app.post("/experiments/add-row")
+async def add_row(payload: AddRowRequest):
+    """
+    Adds a new row (document) to the 'experiments' collection.
+    """
+
+    connection = getConnection("experiments")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        collection.insert_one(payload.rowData)
+        return {"status": "success", "message": "Row added successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error adding row: {str(e)}")
+    finally:
+        client.close()
+
+class RemoveColumnRequest(BaseModel):
+    columnName: str
+
+@app.put("/experiments/remove-column")
+async def remove_column(payload: RemoveColumnRequest):
+    """
+    Removes a column from all documents in the 'experiments' collection.
+    """
+
+    connection = getConnection("experiments")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        result = collection.update_many({}, {"$unset": {payload.columnName: ""}})
+        return {"status": "success", "message": f"Removed column {payload.columnName} from {result.modified_count} rows."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error removing column: {str(e)}")
+    finally:
+        client.close()
+
+class RemoveRowRequest(BaseModel):
+    experimentIds: List[str] 
+
+@app.delete("/experiments/remove-rows")
+async def remove_rows(payload: RemoveRowRequest):
+    """
+    Removes one or more rows (documents) from the 'experiments' collection by experimentIds.
+    """
+    
+    connection = getConnection("experiments")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        result = collection.delete_many({"experimentId": {"$in": payload.experimentIds}})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Experiments not found.")
+        return {"status": "success", "message": f"{result.deleted_count} rows removed successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error removing rows: {str(e)}")
     finally:
         client.close()
 
