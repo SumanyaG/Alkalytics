@@ -1,0 +1,99 @@
+name: JavaScript/TypeScript Linter
+
+on:
+  push:
+    paths:
+      - '**.js'
+      - '**.jsx'
+      - '**.ts'
+      - '**.tsx'
+  pull_request:
+    paths:
+      - '**.js'
+      - '**.jsx'
+      - '**.ts'
+      - '**.tsx'
+
+jobs:
+  eslint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install Dependencies
+        run: |
+          npm install eslint --save-dev
+          npm install @eslint/js @eslint/eslint-config --save-dev
+          
+          npm install typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
+          
+          if [ ! -f .eslintrc.json ]; then
+            echo '{
+              "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended"
+              ],
+              "parser": "@typescript-eslint/parser",
+              "plugins": ["@typescript-eslint"],
+              "env": {
+                "node": true,
+                "browser": true,
+                "es2021": true
+              },
+              "parserOptions": {
+                "ecmaVersion": "latest",
+                "sourceType": "module"
+              },
+              "rules": {
+                "no-unused-vars": "warn",
+                "no-console": "warn"
+              }
+            }' > .eslintrc.json
+          fi
+          
+          npm ci || npm install
+      
+      - name: Run ESLint
+        id: eslint
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            git diff --name-only origin/${{ github.base_ref }} HEAD -- "*.js" "*.jsx" "*.ts" "*.tsx" > changed_files.txt
+            if [ -s changed_files.txt ]; then
+              npx eslint $(cat changed_files.txt) --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
+            fi
+          else
+            # On direct pushes, lint all files
+            npx eslint "**/*.{js,jsx,ts,tsx}" --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
+          fi
+      
+      - name: Annotate Code Linting Results
+        if: always()
+        uses: ataylorme/eslint-annotate-action@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          report-json: "eslint_report.json"
+      
+      - name: Check Linting Results
+        if: env.ESLINT_FAILED == 'true'
+        run: exit 1
