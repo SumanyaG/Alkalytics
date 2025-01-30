@@ -11,7 +11,6 @@
 
 \date{}
 
-\input{../Comments}
 \input{../Common}
 
 \begin{document}
@@ -23,8 +22,30 @@ Demo.  The time period of interest is the time between the POC demo and the Rev
 0 demo.
 
 \section{Demo Plans}
-from login to dashboard, upload, queries and generating a graph; every single percentage
-mention analysis as it is part of requirements
+The following objectives have been derived from section 6 of the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{Module Guide} 
+and describe what will be demonstrated during the team’s Revision 0 demonstration.
+
+\begin{itemize}
+    \item \textbf{User Authentication}: Ensure users can log in using a test account,
+    where authentication is verified using third-party software, and permissions are
+    assigned based on their role.
+    \item \textbf{Dashboard Overview}: Display the home page with navigation bars and
+    the last uploaded dataset for quick access along with widgets for sample graphs.
+    \item \textbf{Data Upload and Transformation}: Allow users to upload a CSV file,
+    which is then converted into JSON using a migration algorithm, and store data
+    points in the database.
+    \item \textbf{Graph Generation}: Enable users to create line, bar, and scatter
+    plots with customizable parameters, supporting multiple experiments in a single graph.
+    \item \textbf{Data Analysis}: Provide tools for analyzing graphs, identifying basic
+    parameters, checking linearity, evaluating residuals, detecting underlying trends,
+    mapping to polynomials, and calculating fit scores.
+    \item \textbf{Results and Saving}: Display generated plots with an option to save
+    them for future reference.
+    \item \textbf{Experiment History}: Offer a navigation pane where users can view
+    all past experiment data.
+    \item \textbf{CRUD Operations on Data Points}: Provide a page where users can
+    manually add or modify uploaded data.
+\end{itemize}
 
 \section{Team Meeting Attendance}
 
