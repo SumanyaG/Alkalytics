@@ -14,13 +14,15 @@ on:
       - '**.ts'
       - '**.tsx'
 
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
 jobs:
   eslint:
     name: Run ESLint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     
     steps:
       - uses: actions/checkout@v4
