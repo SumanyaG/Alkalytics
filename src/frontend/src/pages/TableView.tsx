@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Table from "../components/table/Table";
 import ListSidebar from "../components/sidebars/ListSidebar";
 import { useQuery, gql } from "@apollo/client";
 
-const GET_EXPERIMENT_IDS = gql`
+export const GET_EXPERIMENT_IDS = gql`
   query GetExperimentIds {
     getExperimentIds
   }
@@ -22,6 +22,7 @@ const GET_DATA = gql`
 `;
 
 type TableViewProps = {};
+
 const TableView: React.FC<TableViewProps> = () => {
   const {
     data: experimentIds,
@@ -38,7 +39,8 @@ const TableView: React.FC<TableViewProps> = () => {
     data: dataResponse,
     loading: dataLoading,
     error: dataError,
-  } = useQuery(GET_DATA, {
+    refetch: refetchData,
+  } = useQuery<{ getData: any[] }>(GET_DATA, {
     variables: { experimentId: selectedExperiment },
     skip: !selectedExperiment || selectedExperiment === "Exp",
   });
@@ -47,7 +49,8 @@ const TableView: React.FC<TableViewProps> = () => {
     data: experimentsResponse,
     loading: experimentsLoading,
     error: experimentsError,
-  } = useQuery(GET_EXPERIMENTS, {
+    refetch: refetchExperiments,
+  } = useQuery<{ getExperiments: any[] }>(GET_EXPERIMENTS, {
     skip: selectedExperiment !== "Exp",
   });
 
@@ -58,6 +61,17 @@ const TableView: React.FC<TableViewProps> = () => {
   const handleSelectExperiment = (experimentId: string) => {
     setSelectedExperiment(experimentId);
   };
+
+  // Sort the data by the "#" column
+  const sortedData = useMemo(() => {
+    const dataToSort = selectedExperiment === "Exp" ? experiments : data;
+
+    return [...dataToSort].sort((a, b) => {
+      const aValue = Number(a["#"] ?? 0); // Default to 0 if undefined
+      const bValue = Number(b["#"] ?? 0); // Default to 0 if undefined
+      return aValue - bValue;
+    });
+  }, [selectedExperiment, data, experiments]);
 
   return (
     <div className="flex">
@@ -88,7 +102,11 @@ const TableView: React.FC<TableViewProps> = () => {
               ? "Failed to fetch experiment data."
               : selectedExperiment ?? ""
           }
-          data={selectedExperiment === "Exp" ? experiments : data}
+          data={sortedData} // Pass the sorted data here
+          refetchData={
+            selectedExperiment === "Exp" ? refetchExperiments : refetchData
+          }
+          graphType={selectedExperiment === "Exp" ? "experiment" : "data"}
         />
       </div>
     </div>
