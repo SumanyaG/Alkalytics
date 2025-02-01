@@ -35,6 +35,7 @@ const TableView: React.FC<TableViewProps> = () => {
   );
   const [isOpen, setIsSidebarOpen] = useState(true);
 
+  console.log(experimentIds);
   const {
     data: dataResponse,
     loading: dataLoading,
@@ -62,13 +63,12 @@ const TableView: React.FC<TableViewProps> = () => {
     setSelectedExperiment(experimentId);
   };
 
-  // Sort the data by the "#" column
   const sortedData = useMemo(() => {
     const dataToSort = selectedExperiment === "Exp" ? experiments : data;
 
     return [...dataToSort].sort((a, b) => {
-      const aValue = Number(a["#"] ?? 0); // Default to 0 if undefined
-      const bValue = Number(b["#"] ?? 0); // Default to 0 if undefined
+      const aValue = Number(a["#"] ?? 0);
+      const bValue = Number(b["#"] ?? 0);
       return aValue - bValue;
     });
   }, [selectedExperiment, data, experiments]);
@@ -102,7 +102,7 @@ const TableView: React.FC<TableViewProps> = () => {
               ? "Failed to fetch experiment data."
               : selectedExperiment ?? ""
           }
-          data={sortedData} // Pass the sorted data here
+          data={sortedData}
           refetchData={
             selectedExperiment === "Exp" ? refetchExperiments : refetchData
           }

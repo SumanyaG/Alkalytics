@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useMutation, gql } from "@apollo/client";
-import { ArrowUpward, ArrowDownward, UnfoldMore } from "@mui/icons-material"; // Import MUI icons
-import { IconButton } from "@mui/material"; // Import MUI IconButton
+import { ArrowUpward, ArrowDownward, UnfoldMore } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 type DataRow = {
   [key: string]: any;
@@ -43,28 +43,25 @@ const TableBody: React.FC<TableProps> = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [updateParam] = useMutation(UPDATE_PARAM_MUTATION);
 
-  // State for sorting
   const [sortConfig, setSortConfig] = useState<{
     column: string | null;
     direction: "asc" | "desc" | "none";
   }>({ column: null, direction: "none" });
 
-  // Function to handle sorting
   const handleSort = (column: string) => {
-    if (column === "_id" || column === "experimentId") return; // Disable sorting for these columns
+    if (column === "_id" || column === "experimentId") return;
 
     let direction: "asc" | "desc" | "none" = "asc";
     if (sortConfig.column === column) {
       if (sortConfig.direction === "asc") {
         direction = "desc";
       } else if (sortConfig.direction === "desc") {
-        direction = "none"; // Reset to original order
+        direction = "none";
       }
     }
     setSortConfig({ column, direction });
   };
 
-  // Sort data based on the current sort configuration
   const sortedData = React.useMemo(() => {
     if (sortConfig.direction === "none" || !sortConfig.column) return data;
 
@@ -72,7 +69,6 @@ const TableBody: React.FC<TableProps> = ({
       const aValue = a[sortConfig.column!];
       const bValue = b[sortConfig.column!];
 
-      // Check if the value is numeric
       const isNumeric = !isNaN(parseFloat(aValue)) && isFinite(aValue);
 
       if (isNumeric) {

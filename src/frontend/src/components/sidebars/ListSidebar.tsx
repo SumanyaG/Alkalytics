@@ -65,10 +65,10 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
               {experimentSheets.map((item, index) => (
                 <li
                   key={`data-${index}`}
-                  onClick={() => onSelectExperiment(item)} // Set selected experiment
+                  onClick={() => onSelectExperiment(item)}
                   className={`flex ${
                     isOpen ? "gap-3" : ""
-                  } items-center p-1 cursor-pointer hover:bg-blue-100 rounded-lg h-6`} // Set fixed height
+                  } items-center p-1 cursor-pointer hover:bg-blue-100 rounded-lg h-6`}
                 >
                   <span className="w-1.5 h-1.5 bg-blue-900 rounded-full"></span>
                   <span

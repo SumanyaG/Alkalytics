@@ -31,26 +31,26 @@ const TableFooter: React.FC<TableFooterProps> = ({
 
   const handleAddColumn = () => {
     onAddColumn();
-    closeDropdown(); // Close the dropdown after adding a column
+    closeDropdown();
   };
 
   const handleAddRow = () => {
     onAddRow();
-    closeDropdown(); // Close the dropdown after adding a row
+    closeDropdown();
   };
 
   const handleRemoveColumn = () => {
     onRemoveColumn();
-    closeDropdown(); // Close the dropdown after removing a column
+    closeDropdown();
   };
 
   const handleRemoveRow = () => {
     onRemoveRow();
-    closeDropdown(); // Close the dropdown after removing a row
+    closeDropdown();
   };
 
   return (
-    <div className="flex justify-between items-center px-4 py-2 bg-gray-50 border-t border-gray-300">
+    <div className="flex justify-between items-center px-4 py-2 bg-white border-t border-gray-300">
       <div className="relative">
         {graphType === "experiment" && (
           <button

@@ -1,38 +1,34 @@
 import React, { useState, useMemo, useEffect } from "react";
 import "tailwindcss/tailwind.css";
-import { gql, useMutation } from "@apollo/client"; // Import the useMutation hook
+import { gql, useMutation } from "@apollo/client";
 import TableBody from "./TableBody";
 import TableFooter from "./TableFooter";
 import AddColumnModal from "../modal/AddColumnModal";
-import AddRowModal from "../modal/AddRowModal"; // Import the AddRowModal
-import RemoveColumnModal from "../modal/RemoveColumnModal"; // Import RemoveColumnModal
-import RemoveRowModal from "../modal/RemoveRowModal"; // Import RemoveRowModal
+import AddRowModal from "../modal/AddRowModal";
+import RemoveColumnModal from "../modal/RemoveColumnModal";
+import RemoveRowModal from "../modal/RemoveRowModal";
 import TableHeader from "./TableHeader";
 
 export type DataRow = Record<string, string | number | undefined | null>;
 
-// Mutation for adding a new column
 export const ADD_COLUMN = gql`
   mutation AddColumn($columnName: String!, $defaultValue: JSON) {
     addColumn(columnName: $columnName, defaultValue: $defaultValue)
   }
 `;
 
-// Mutation for adding a new row
 export const ADD_ROW = gql`
   mutation AddRow($rowData: JSON!) {
     addRow(rowData: $rowData)
   }
 `;
 
-// Mutation for removing a column
 export const REMOVE_COLUMN = gql`
   mutation RemoveColumn($columnName: String!) {
     removeColumn(columnName: $columnName)
   }
 `;
 
-// Mutation for removing a row
 export const REMOVE_ROW = gql`
   mutation RemoveRow($experimentIds: [String]!) {
     removeRow(experimentIds: $experimentIds)
@@ -57,12 +53,11 @@ const Table: React.FC<TableProps> = ({
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const [selectedColumn, setSelectedColumn] = useState<string>("");
   const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
-  const [isRowModalOpen, setIsRowModalOpen] = useState(false); // Modal state for row creation
-  const [isRemoveColumnModalOpen, setIsRemoveColumnModalOpen] = useState(false); // Modal for removing column
-  const [isRemoveRowModalOpen, setIsRemoveRowModalOpen] = useState(false); // Modal for removing row
-  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set()); // Set to store selected row ExperimentIds
+  const [isRowModalOpen, setIsRowModalOpen] = useState(false);
+  const [isRemoveColumnModalOpen, setIsRemoveColumnModalOpen] = useState(false);
+  const [isRemoveRowModalOpen, setIsRemoveRowModalOpen] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
 
-  // GraphQL mutations using Apollo Client
   const [addColumn] = useMutation(ADD_COLUMN);
   const [addRow] = useMutation(ADD_ROW);
   const [removeColumn] = useMutation(REMOVE_COLUMN);
@@ -75,13 +70,11 @@ const Table: React.FC<TableProps> = ({
     return () => clearTimeout(handler);
   }, [searchKeyword]);
 
-  // Combine default and custom columns
   const columns = useMemo(() => {
     const defaultColumns = data.length > 0 ? Object.keys(data[0]) : [];
     return defaultColumns;
   }, [data]);
 
-  // Filter data based on search and column
   const filteredData = useMemo(() => {
     if (!debouncedKeyword) return data;
     const lowercasedKeyword = debouncedKeyword.toLowerCase();
@@ -98,21 +91,19 @@ const Table: React.FC<TableProps> = ({
     );
   }, [debouncedKeyword, data, columns, selectedColumn]);
 
-  // Function to handle adding a new column (uses GraphQL mutation)
   const handleAddColumn = async (columnName: string, defaultValue: any) => {
     try {
       const { data } = await addColumn({
         variables: { columnName, defaultValue },
       });
       if (data.addColumn) {
-        refetchData(); // Refetch data after column addition
+        refetchData();
       }
     } catch (error) {
       console.error("Error adding column:", error);
     }
   };
 
-  // Function to handle adding a new row (uses GraphQL mutation)
   const handleAddRow = async (newRowData: Record<string, string | number>) => {
     setIsRowModalOpen(false);
     try {
@@ -120,28 +111,26 @@ const Table: React.FC<TableProps> = ({
         variables: { rowData: newRowData },
       });
       if (data.addRow) {
-        refetchData(); // Refetch data after row addition
+        refetchData();
       }
     } catch (error) {
       console.error("Error adding row:", error);
     }
   };
 
-  // Function to handle removing a column (uses GraphQL mutation)
   const handleRemoveColumn = async (columnName: string) => {
     try {
       const { data } = await removeColumn({
         variables: { columnName },
       });
       if (data.removeColumn) {
-        refetchData(); // Refetch data after column removal
+        refetchData();
       }
     } catch (error) {
       console.error("Error removing column:", error);
     }
   };
 
-  // Function to handle removing a row (uses GraphQL mutation)
   const handleRemoveRow = async (experimentIds: string[]) => {
     try {
       console.log(experimentIds);
@@ -149,7 +138,7 @@ const Table: React.FC<TableProps> = ({
         variables: { experimentIds },
       });
       if (data.removeRow) {
-        refetchData(); // Refetch data after row removal
+        refetchData();
       }
     } catch (error) {
       console.error("Error removing row:", error);
@@ -157,12 +146,12 @@ const Table: React.FC<TableProps> = ({
   };
 
   const handleRowSelectionChange = (row: any) => {
-    const rowId = String(row.experimentId); // Get the ExperimentId from the row
+    const rowId = String(row.experimentId);
     const newSelectedRows = new Set(selectedRows);
     if (newSelectedRows.has(rowId)) {
-      newSelectedRows.delete(rowId); // Deselect row
+      newSelectedRows.delete(rowId);
     } else {
-      newSelectedRows.add(rowId); // Select row
+      newSelectedRows.add(rowId);
     }
     setSelectedRows(newSelectedRows);
   };

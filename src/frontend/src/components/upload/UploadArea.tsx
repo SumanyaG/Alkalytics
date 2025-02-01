@@ -15,7 +15,6 @@ const UploadArea = memo(
   }) => {
     const [dragOver, setDragOver] = useState(false);
 
-    // Helper function to sanitize file names
     const sanitizeFileName = (file: File) => {
       const sanitizedFileName = file.name.replace(/\s+/g, "_");
       return new File([file], sanitizedFileName, { type: file.type });

@@ -35,7 +35,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
   setAmbiguousData,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
   const [manualUploadFiles] = useMutation(MANUAL_UPLOAD);
 
   const handleMatchChange = (dataId: string, experimentId: string) => {
@@ -55,7 +55,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
   };
 
   const handleSubmit = async () => {
-    setLoading(true); // Set loading state
+    setLoading(true); 
     try {
       const linkedData = ambiguousData.map((data) => {
         return {
@@ -80,7 +80,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
     } catch (e) {
       console.error("Error during file upload:", e);
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false); 
     }
   };
 

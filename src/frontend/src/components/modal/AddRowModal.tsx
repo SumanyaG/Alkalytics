@@ -4,7 +4,7 @@ type AddRowModalProps = {
   columns: string[];
   data: any[];
   setIsModalOpen: (isOpen: boolean) => void;
-  onAddRow: (newRow: Record<string, string | number>) => Promise<any>; // Ensure onAddRow returns a Promise
+  onAddRow: (newRow: Record<string, string | number>) => Promise<any>;
 };
 
 const AddRowModal: React.FC<AddRowModalProps> = ({
@@ -37,7 +37,6 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
     setIsDuplicate(isDuplicate);
   }, [newRowData["#"], data]);
 
-  // Handle submission
   const handleSubmit = async () => {
     setLoading(true);
     setError(false);
