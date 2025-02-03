@@ -238,7 +238,7 @@ async def getExperimentAttrs():
         data = collection.find_one()
         datalist = list(data)
         if datalist:
-            return {"status": "success", "data": data}
+            return {"status": "success", "data": datalist}
         else:
             return {"status": "error", "message": "No documents found in the collection."}
         
