@@ -98,15 +98,10 @@ async def upload(payload: FilesPayload):
 #         for file in payload.dataFiles:
 #             tempDataFiles.append(decodeAndSave(file))
 
-<<<<<<< HEAD
-        if not tempExperimentFiles and not tempDataFiles:
-            raise HTTPException(status_code=400, detail="No valid files provided.")
-=======
 #         if not tempExperimentFiles and not tempDataFiles:
 #             raise HTTPException(
 #                 status_code=400, detail="No valid files provided."
 #             )
->>>>>>> fafd2327 (feat(backend): Adds get attribute endpoint)
 
 #         mongoUri = os.getenv("CONNECTION_STRING")
 #         dbName = "alkalyticsDB"
@@ -126,18 +121,11 @@ async def upload(payload: FilesPayload):
 #             if data["dataId"] in file_map:
 #                 data["dataFile"] = file_map[data["dataId"]]
 
-<<<<<<< HEAD
-        for tempFile in tempExperimentFiles:
-            os.remove(tempFile)
-        for tempFile in tempDataFiles:
-            os.remove(tempFile)
-=======
 #         # Clean up temporary files
 #         for tempFile in tempExperimentFiles:
 #             os.remove(tempFile)
 #         for tempFile in tempDataFiles:
 #             os.remove(tempFile)
->>>>>>> fafd2327 (feat(backend): Adds get attribute endpoint)
 
 #         return {
 #             "status": "success",
@@ -145,21 +133,6 @@ async def upload(payload: FilesPayload):
 #             "ambiguousData": ambiguous_data,
 #         }
 
-<<<<<<< HEAD
-    except HTTPException as e:
-        raise e
-    except Exception as e:
-
-        for tempFile in tempExperimentFiles:
-            if os.path.exists(tempFile):
-                os.remove(tempFile)
-
-        for tempFile in tempDataFiles:
-            if os.path.exists(tempFile):
-                os.remove(tempFile)
-
-        raise HTTPException(status_code=500, detail=f"Error processing files: {str(e)}")
-=======
 #     except HTTPException as e:
 #         raise e
 #     except Exception as e:
@@ -176,7 +149,6 @@ async def upload(payload: FilesPayload):
 #         raise HTTPException(
 #             status_code=500, detail=f"Error processing files: {str(e)}"
 #         )
->>>>>>> fafd2327 (feat(backend): Adds get attribute endpoint)
 
 
 # class LinkedDataPayload(BaseModel):
@@ -269,63 +241,6 @@ async def getExperimentAttrs():
     collection, client = connection["collection"], connection["client"]
 
     try:
-<<<<<<< HEAD
-
-        def decodeAndSave(filePayload: LinkedDataPayload) -> dict:
-            try:
-                file_content = base64.b64decode(filePayload.content)
-            except Exception as decode_error:
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"Invalid base64 content for file: {
-                        filePayload.filename}",
-                ) from decode_error
-
-            sanitized_filename = sanitizeFilename(filePayload.filename)
-            tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
-
-            with open(tempFilePath, "wb") as temp_file:
-                temp_file.write(file_content)
-
-            return {"path": tempFilePath, "linkedId": filePayload.linkedId}
-
-        for file in payload.linkedData:
-            tempLinkedDataFiles.append(decodeAndSave(file))
-
-        mongoUri = os.getenv("CONNECTION_STRING")
-        dbName = "alkalyticsDB"
-        migrationService = MigrationService(mongoUri, dbName)
-
-        try:
-            for tempData in tempLinkedDataFiles:
-                dataDf = pd.read_excel(tempData["path"], sheet_name=0)
-                dataDf = migrationService.cleanData(dataDf)
-
-                records = await migrationService.linkData(dataDf, tempData["linkedId"])
-
-                if records:
-                    await migrationService.dataSheetsCollection.insert_many(records)
-        finally:
-            await migrationService.closeConnection()
-
-        for tempFile in tempLinkedDataFiles:
-            if os.path.exists(tempFile["path"]):
-                os.remove(tempFile["path"])
-
-        return {
-            "status": "success",
-            "message": "Files processed successfully.",
-        }
-
-    except HTTPException as e:
-        raise e
-    except Exception as e:
-        for tempFile in tempLinkedDataFiles:
-            if os.path.exists(tempFile):
-                os.remove(tempFile)
-
-        raise HTTPException(status_code=500, detail=f"Error processing files: {str(e)}")
-=======
         data = collection.find_one()
         datalist = list(data)
         if datalist:
@@ -336,7 +251,6 @@ async def getExperimentAttrs():
     except Exception as e:
         print("errored out here")
         return {"status": "error", "message": str(e)}
->>>>>>> fafd2327 (feat(backend): Adds get attribute endpoint)
 
     finally:
             client.close()
