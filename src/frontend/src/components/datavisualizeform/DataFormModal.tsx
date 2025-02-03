@@ -5,6 +5,7 @@ import SingleDropdown from "./SingleDropdown";
 import MultipleSelectCheckmarks from "./MultiSelectDropDown";
 import ExpandableSection from "./ExpandableSection";
 import { FormDataContext } from "../../pages/DataVisualize";
+import { useQuery, gql } from "@apollo/client";
 
 interface GenerateGraphModal {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -97,13 +98,30 @@ const Input: React.FC<{
   );
 };
 
+const GET_EXPATTRS = gql`
+  query GetExperimentAttrs {
+    getExperimentAttrs
+  }
+`;
+
 const GenerateGraphModal: React.FC<GenerateGraphModal> = ({ setOpenModal }) => {
+  const {
+    data: experimentsResponse,
+    loading: experimentsLoading,
+    error: experimentsError,
+    refetch: refetchExperiments,
+  } = useQuery<{ getExperimentAttrs: any[] }>(GET_EXPATTRS);
+
+  const data = experimentsResponse?.getExperimentAttrs ?? "empty";
+
+  console.log("data", data);
+
   const steps = ["Graph", "Data", "Parameters", "Customize"];
   const [activeStep, setActiveStep] = useState(0);
   const [xAxisError, setXAxisError] = useState<string | null>(null);
   const [yAxisError, setYAxisError] = useState<string | null>(null);
 
-  // Imported states 
+  // Imported states
   const {
     selectedGraphType,
     setSelectedGraphType,
