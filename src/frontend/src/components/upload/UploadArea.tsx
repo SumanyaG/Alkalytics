@@ -15,7 +15,6 @@ const UploadArea = memo(
   }) => {
     const [dragOver, setDragOver] = useState(false);
 
-    // Helper function to sanitize file names
     const sanitizeFileName = (file: File) => {
       const sanitizedFileName = file.name.replace(/\s+/g, "_");
       return new File([file], sanitizedFileName, { type: file.type });
@@ -104,7 +103,7 @@ const UploadArea = memo(
               {files.map((file, index) => (
                 <li
                   key={index}
-                  className="flex justify-between items-center bg-gray-100 rounded-lg p-2"
+                  className="flex justify-between items-center bg-slate-100 rounded-lg p-2"
                 >
                   <span className="text-sm">{file.name}</span>
                   <button

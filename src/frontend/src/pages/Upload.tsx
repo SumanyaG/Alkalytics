@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
-import UploadArea from "../components/UploadArea";
-import LinkDataModal from "../components/LinkDataModal";
+import UploadArea from "../components/upload/UploadArea";
+import LinkDataModal from "../components/modal/LinkDataModal";
 
 type AmbiguousData = {
   dataId: string;

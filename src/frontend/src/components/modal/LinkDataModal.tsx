@@ -35,7 +35,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
   setAmbiguousData,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
   const [manualUploadFiles] = useMutation(MANUAL_UPLOAD);
 
   const handleMatchChange = (dataId: string, experimentId: string) => {
@@ -55,7 +55,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
   };
 
   const handleSubmit = async () => {
-    setLoading(true); // Set loading state
+    setLoading(true); 
     try {
       const linkedData = ambiguousData.map((data) => {
         return {
@@ -80,7 +80,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
     } catch (e) {
       console.error("Error during file upload:", e);
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false); 
     }
   };
 
@@ -106,7 +106,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
 
         <section className="mt-4">
           <h2 className="text-sm text-blue-900 font-semibold mb-1">Data Id</h2>
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+          <div className="bg-slate-50 p-4 rounded-lg shadow-sm">
             <p className="text-sm text-gray-900">
               {ambiguousData[currentIndex]?.dataId}
             </p>
@@ -117,7 +117,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
           <h2 className="text-sm text-blue-900 font-semibold mb-1">
             Possible Matching Experiment Id
           </h2>
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm flex flex-wrap justify-center gap-3">
+          <div className="bg-slate-50 p-4 rounded-lg shadow-sm flex flex-wrap justify-center gap-3">
             {ambiguousData[currentIndex]?.matchingExp.map((expId) => (
               <button
                 key={expId}
@@ -138,7 +138,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
 
         {/* Divider and Progress Bar */}
         <div className="flex justify-center">
-          <div className="relative mt-6 h-[1px] w-[95%] bg-gray-300">
+          <div className="relative mt-6 h-[1px] w-[95%] bg-slate-300">
             <div
               className="absolute top-0 left-0 h-[1px] bg-blue-600"
               style={{
@@ -158,7 +158,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
               onClick={handlePrev}
               className={`py-2 px-4 rounded-lg ${
                 currentIndex === 0
-                  ? "bg-gray-300 cursor-not-allowed"
+                  ? "bg-slate-300 cursor-not-allowed"
                   : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
             >
@@ -171,7 +171,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
               onClick={handleNext}
               className={`py-2 px-4 rounded-lg ${
                 currentIndex === ambiguousData.length - 1
-                  ? "bg-gray-300 cursor-not-allowed"
+                  ? "bg-slate-300 cursor-not-allowed"
                   : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
             >
@@ -186,7 +186,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
               }
               className={`py-2 px-4 rounded-lg flex items-center justify-center ${
                 loading
-                  ? "bg-gray-300 cursor-not-allowed"
+                  ? "bg-slate-300 cursor-not-allowed"
                   : "bg-indigo-600 text-white hover:bg-indigo-700"
               } transition`}
             >

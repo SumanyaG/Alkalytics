@@ -100,8 +100,7 @@ export const resolvers = {
           message: response.data.message,
           ambiguousData: response.data.ambiguousData || [],
         };
-      } catch (error: any) {
-        console.error("Error during file upload:", error.message);
+      } catch (error) {
         throw new Error("Failed to upload and process the files.");
       }
     },
@@ -131,8 +130,7 @@ export const resolvers = {
           message: response.data.message,
           ambiguousData: [],
         };
-      } catch (error: any) {
-        console.error("Error during file upload:", error.message);
+      } catch (error) {
         throw new Error("Failed to upload and process the files.");
       }
     },
