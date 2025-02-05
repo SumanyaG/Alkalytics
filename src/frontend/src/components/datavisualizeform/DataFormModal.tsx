@@ -20,68 +20,6 @@ const paramType = [
   { value: "exp", label: "Experiemnt" },
 ];
 
-// Temp values till endpoint created
-const dateOptions = [
-  "2025-01-01",
-  "2025-02-14",
-  "2025-03-21",
-  "2025-04-05",
-  "2025-05-10",
-];
-
-const datasheetParam = [
-  { value: "dataSheetId", label: "Data Sheet ID" },
-  { value: "experimentId", label: "Experiment ID" },
-  { value: "#", label: "Number" },
-  { value: "Time", label: "Time" },
-  { value: "U Cmm", label: "U Cmm" },
-  { value: "U Stac", label: "U Stac" },
-  { value: "I Cmm", label: "I Cmm" },
-  { value: "D1 Cond", label: "D1 Cond" },
-  { value: "D2 Cond", label: "D2 Cond" },
-  { value: "C1 Cond", label: "C1 Cond" },
-  { value: "C2 Cond", label: "C2 Cond" },
-  { value: "D1 pH", label: "D1 pH" },
-  { value: "D2 pH", label: "D2 pH" },
-  { value: "C1 pH", label: "C1 pH" },
-  { value: "C2 pH", label: "C2 pH" },
-  { value: "D1 Temp", label: "D1 Temp" },
-  { value: "D2 Temp", label: "D2 Temp" },
-  { value: "C1 Temp", label: "C1 Temp" },
-  { value: "C2 Temp", label: "C2 Temp" },
-  { value: "D1 Flow", label: "D1 Flow" },
-  { value: "D2 Flow", label: "D2 Flow" },
-  { value: "C1 Flow", label: "C1 Flow" },
-  { value: "C2 Flow", label: "C2 Flow" },
-  { value: "ELR Flow", label: "ELR Flow" },
-  { value: "PWR PS2", label: "PWR PS2" },
-  { value: "Density Modul", label: "Density Modul" },
-  { value: "DIL2_PWR", label: "DIL2_PWR" },
-  { value: "DIL1_PWR", label: "DIL1_PWR" },
-  { value: "CON1_PWR", label: "CON1_PWR" },
-  { value: "CON2_PWR", label: "CON2_PWR" },
-  { value: "ELR_PWR", label: "ELR_PWR" },
-];
-
-const experimentParam = [
-  { value: "experimentId", label: "Experiment ID" },
-  { value: "#", label: "Number" },
-  { value: "Date", label: "Date" },
-  { value: "Membrane", label: "Membrane" },
-  { value: "Configuration", label: "Configuration" },
-  { value: "# of Stacks", label: "# of Stacks" },
-  { value: "Flow Rate (L/H)", label: "Flow Rate (L/H)" },
-  { value: "Potential Diff (V)", label: "Potential Diff (V)" },
-  { value: "Current Limit (A)", label: "Current Limit (A)" },
-  { value: "NaCL", label: "NaCL" },
-  { value: "NaHCO3", label: "NaHCO3" },
-  { value: "NaOH", label: "NaOH" },
-  { value: "HCL", label: "HCL" },
-  { value: "Na2So4", label: "Na2So4" },
-  { value: "NaHCO3.1", label: "NaHCO3.1" },
-  { value: "Total", label: "Total" },
-];
-
 const Input: React.FC<{
   label: string;
   children: React.ReactNode;
@@ -98,23 +36,48 @@ const Input: React.FC<{
   );
 };
 
-const GET_EXPATTRS = gql`
-  query GetExperimentAttrs {
-    getExperimentAttrs
+const GET_ATTRS = gql`
+  query GetCollectionAttrs($collection: String!) {
+    getCollectionAttrs(collection: $collection)
+  }
+`;
+
+const FILTER_EXPDATA = gql`
+  query FilterExperimentData($attributes: [String!]!) {
+    filterExperimentData(attributes: $attributes)
   }
 `;
 
 const GenerateGraphModal: React.FC<GenerateGraphModal> = ({ setOpenModal }) => {
-  const {
-    data: experimentsResponse,
-    loading: experimentsLoading,
-    error: experimentsError,
-    refetch: refetchExperiments,
-  } = useQuery<{ getExperimentAttrs: any[] }>(GET_EXPATTRS);
+  const { data: dataAttr } = useQuery<{ getCollectionAttrs: any[] }>(
+    GET_ATTRS,
+    { variables: { collection: "data" } }
+  );
 
-  const data = experimentsResponse?.getExperimentAttrs ?? "empty";
+  const { data: expAttr } = useQuery<{ getCollectionAttrs: any[] }>(GET_ATTRS, {
+    variables: { collection: "experiments" },
+  });
 
-  console.log("data", data);
+  const dataAttrReturn = dataAttr?.getCollectionAttrs ?? [];
+  const expAttrReturn = expAttr?.getCollectionAttrs ?? [];
+
+  const datasheetParam = dataAttrReturn.map((item: string) => ({
+    value: item,
+    label: item,
+  }));
+
+  const experimentParam = expAttrReturn.map((item: string) => ({
+    value: item,
+    label: item,
+  }));
+
+  const { data: filteredData } = useQuery<{ filterExperimentData: any[] }>(
+    FILTER_EXPDATA,
+    { variables: { attributes: ["Date"] } }
+  );
+
+  const filteredDataReturn = filteredData?.filterExperimentData ?? [];
+  const dateOptions = filteredDataReturn.map((item) => item.Date);
 
   const steps = ["Graph", "Data", "Parameters", "Customize"];
   const [activeStep, setActiveStep] = useState(0);

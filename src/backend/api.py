@@ -55,7 +55,6 @@ def cleanData(obj):
         return [cleanData(i) for i in obj]
     return obj
 
-
 @app.post("/upload")
 async def upload(payload: FilesPayload):
     """
@@ -227,11 +226,15 @@ async def upload(payload: FilesPayload):
 #             status_code=500, detail=f"Error processing files: {str(e)}"
 #         )
 
-class DataVisualizeRequest(BaseModel):
-    pass
-@app.get("/experiments/getAttrs")
-async def getExperimentAttrs():
-    connection = getConnection("experiments")
+class DataAttrs(BaseModel):
+    collection: str
+
+@app.post("/getAttrs")
+async def getCollectionAttrs(payload:DataAttrs):
+    """
+    Fetches the attributes of the data in a specified collection
+    """
+    connection = getConnection(payload.collection)
     collection, client = connection["collection"], connection["client"]
 
     try:
@@ -240,10 +243,34 @@ async def getExperimentAttrs():
         if datalist:
             return {"status": "success", "data": datalist}
         else:
-            return {"status": "error", "message": "No documents found in the collection."}
+            return {"status": "error", "message": "Data points have no attributes."}
         
     except Exception as e:
-        print("errored out here")
+        return {"status": "error", "message": str(e)}
+
+    finally:
+            client.close()
+
+class ExperimentFilter(BaseModel):
+    attributes: List[str]
+
+@app.post("/experiments/attr")
+async def filterExperimentData(payload: ExperimentFilter):
+    connection = getConnection("experiments")
+    collection, client = connection["collection"], connection["client"]
+    attrs = {field : 1 for field in payload.attributes}
+
+    try:
+        data = collection.find({}, attrs)
+        dataList = list(data)
+        dataList = [cleanData(item) for item in dataList]
+        print(dataList)
+        if dataList:
+            return {"status": "success", "data": dataList}
+        else:
+            raise HTTPException(status_code=404, detail="Data has not attributes of that name.")
+    
+    except Exception as e:
         return {"status": "error", "message": str(e)}
 
     finally:
@@ -253,7 +280,7 @@ class DataRequest(BaseModel):
     experimentId: str
 
 @app.post("/data")
-async def getExperimentData(request: DataRequest):
+async def getExperimentData(payload: DataRequest):
     """
     Fetches data related to a specific experimentId from the 'data' collection.
     """
@@ -261,7 +288,7 @@ async def getExperimentData(request: DataRequest):
     collection, client = connection["collection"], connection["client"]
 
     try:
-        data = collection.find({"experimentId": request.experimentId})
+        data = collection.find({"experimentId": payload.experimentId})
         dataList = list(data)
         dataList = [cleanData(item) for item in dataList]
         if dataList:
