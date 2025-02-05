@@ -182,9 +182,9 @@ const TableBody: React.FC<TableProps> = ({
     const status = uploadStatus[`${rowIndex}-${column}`];
     switch (status) {
       case "uploading":
-        return "border-2 border-yellow-500 rounded px-2 py-1";
+        return "border-2 border-yellow-500 rounded-lg px-2 py-1";
       case "success":
-        return "border-2 border-green-500 rounded px-2 py-1";
+        return "border-2 border-green-500 rounded-lg px-2 py-1";
       default:
         return "";
     }
@@ -289,7 +289,7 @@ const TableBody: React.FC<TableProps> = ({
                       <input
                         type="text"
                         ref={inputRef}
-                        className="w-full border border-blue-500 rounded px-2 py-1 focus:outline-none"
+                        className="w-full border border-blue-500 rounded-lg px-2 py-1 focus:outline-none"
                         value={editValue}
                         onChange={(e) => handleInputChange(e.target.value)}
                         onKeyDown={(e) => handleKeyPress(e, rowIndex, column)}

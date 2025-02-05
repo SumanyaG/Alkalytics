@@ -33,7 +33,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
             </span>
             <div className="flex items-center space-x-2">
               <select
-                className="w-52 h-12 p-2 rounded my-2 border border-gray-300"
+                className="w-52 h-12 p-2 rounded-lg my-2 border border-gray-300"
                 value={selectedColumn}
                 onChange={(e) => setSelectedColumn(e.target.value)}
               >
@@ -47,7 +47,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
               <input
                 type="text"
                 placeholder="Search..."
-                className="w-52 h-12 p-2 rounded my-2 border border-gray-300"
+                className="w-52 h-12 p-2 rounded-lg my-2 border border-gray-300"
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
               />

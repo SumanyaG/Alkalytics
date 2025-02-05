@@ -87,7 +87,7 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
                         type="text"
                         value={`#${newRowData["#"]} ${newRowData["Date"]}`}
                         readOnly
-                        className="w-full p-2 rounded my-2 border border-gray-300 bg-gray-100"
+                        className="w-full p-2 rounded-lg my-2 border border-gray-300 bg-gray-100"
                       />
                     </section>
                   );
@@ -108,7 +108,7 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
                       }
                       value={newRowData[column]}
                       onChange={(e) => handleChange(column, e.target.value)}
-                      className="w-full p-2 rounded my-2 border border-gray-300"
+                      className="w-full p-2 rounded-lg my-2 border border-gray-300"
                     />
                     {column === "#" && isDuplicate && (
                       <p className="text-red-500 text-xs mt-1">
