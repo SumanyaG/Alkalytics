@@ -9,7 +9,8 @@ export const typeDefs = gql`
     getExperimentIds: [String!]!
     getExperiments: [JSON]!
     getData(experimentId: String!): [JSON]!
-    getExperimentAttrs: [String!]!
+    getCollectionAttrs(collection: String!): [String!]!
+    filterExperimentData(attributes: [String!]!): [JSON]!
   }
 `;
 
@@ -74,9 +75,12 @@ export const resolvers = {
       }
     },
 
-    getExperimentAttrs: async ():Promise<Record<string, any>> => {
+    getCollectionAttrs: async (
+      _: undefined,
+      { collection }: { collection: string }
+    ):Promise<Record<string, any>> => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/experiments/getAttrs", {
+        const response = await axios.post("http://127.0.0.1:8000/getAttrs", {collection: collection}, {
           headers: { "Content-Type": "application/json" },
         });
         if (response.data.status === "success") {
@@ -86,10 +90,34 @@ export const resolvers = {
         }
       } catch (error) {
         console.error(
-          "Error fetching experiment attributes:",
+          "Error fetching data of the given collection:",
           error instanceof Error ? error.message : error
         );
-        throw new Error("Failed to fetch experiment attributes.");
+        throw new Error("Failed to fetch data of the given collection.");
+      }
+    },
+
+    filterExperimentData: async (
+      _: undefined,
+      { attributes }: { attributes: string[] }
+    ):Promise<Record<string, any>> => {
+      try {
+        console.log(attributes)
+        const response = await axios.post("http://127.0.0.1:8000/experiments/attr", {attributes: attributes}, {
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.data.status === "success") {
+          // console.log(response.data)
+          return response.data.data; 
+        } else {
+          throw new Error("No data has the given attributes.");
+        }
+      } catch (error) {
+        console.error(
+          "Error fetching experiment with given attributes:",
+          error instanceof Error ? error.message : error
+        );
+        throw new Error("Failed to fetch experiment with given attributes.");
       }
     },
   },
