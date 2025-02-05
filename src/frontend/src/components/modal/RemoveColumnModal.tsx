@@ -96,6 +96,8 @@ const RemoveColumnModal: React.FC<RemoveColumnModalProps> = ({
           </button>
         </div>
       </div>
+
+      
     </div>
   );
 };

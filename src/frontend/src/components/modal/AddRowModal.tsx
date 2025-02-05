@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { DataRow } from "../table/Table";
 
 type AddRowModalProps = {
   columns: string[];
-  data: any[];
+  data: DataRow[];
   setIsModalOpen: (isOpen: boolean) => void;
   onAddRow: (newRow: Record<string, string | number>) => Promise<any>;
 };

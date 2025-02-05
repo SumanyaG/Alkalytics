@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import axios from "axios";
+import { DataRow } from "../components/table/Table";
 
 export const typeDefs = gql`
   scalar JSON
@@ -53,7 +54,7 @@ export const resolvers = {
       }
     },
 
-    getExperiments: async (): Promise<Record<string, any>[]> => {
+    getExperiments: async (): Promise<Record<string, DataRow>[]> => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/experiments", {
           headers: { "Content-Type": "application/json" },

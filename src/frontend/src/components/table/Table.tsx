@@ -35,6 +35,12 @@ export const REMOVE_ROW = gql`
   }
 `;
 
+export const UPDATE_DATA = gql`
+  mutation UpdateData($updatedData: JSON!) {
+    updateData(updatedData: $updatedData)
+  }
+`;
+
 type TableProps = {
   tableName: string;
   data: DataRow[];
@@ -62,6 +68,7 @@ const Table: React.FC<TableProps> = ({
   const [addRow] = useMutation(ADD_ROW);
   const [removeColumn] = useMutation(REMOVE_COLUMN);
   const [removeRow] = useMutation(REMOVE_ROW);
+  const [updateData] = useMutation(UPDATE_DATA);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -71,8 +78,12 @@ const Table: React.FC<TableProps> = ({
   }, [searchKeyword]);
 
   const columns = useMemo(() => {
-    const defaultColumns = data.length > 0 ? Object.keys(data[0]) : [];
-    return defaultColumns;
+    if (data.length === 0) return [];
+
+    const keys = Object.keys(data[0]);
+    return keys
+      .filter((k) => k !== "Notes")
+      .concat(keys.includes("Notes") ? ["Notes"] : []);
   }, [data]);
 
   const filteredData = useMemo(() => {
@@ -91,7 +102,26 @@ const Table: React.FC<TableProps> = ({
     );
   }, [debouncedKeyword, data, columns, selectedColumn]);
 
-  const handleAddColumn = async (columnName: string, defaultValue: any) => {
+  const handleUpdateData = async (updatedData: Record<string, unknown>) => {
+    try {
+      const { data } = await updateData({
+        variables: {
+          updatedData,
+        },
+      });
+
+      if (data.updateData) {
+        refetchData();
+      }
+    } catch (error) {
+      console.error("Error updating rows:", error);
+    }
+  };
+
+  const handleAddColumn = async (
+    columnName: string,
+    defaultValue: string | number | undefined | null
+  ) => {
     try {
       const { data } = await addColumn({
         variables: { columnName, defaultValue },
@@ -133,7 +163,6 @@ const Table: React.FC<TableProps> = ({
 
   const handleRemoveRow = async (experimentIds: string[]) => {
     try {
-      console.log(experimentIds);
       const { data } = await removeRow({
         variables: { experimentIds },
       });
@@ -145,7 +174,7 @@ const Table: React.FC<TableProps> = ({
     }
   };
 
-  const handleRowSelectionChange = (row: any) => {
+  const handleRowSelectionChange = (row: DataRow) => {
     const rowId = String(row.experimentId);
     const newSelectedRows = new Set(selectedRows);
     if (newSelectedRows.has(rowId)) {
@@ -172,10 +201,10 @@ const Table: React.FC<TableProps> = ({
             columns={columns}
             data={filteredData}
             highlightKeyword={debouncedKeyword}
-            refetchData={refetchData}
             graphType={graphType}
             selectedRows={selectedRows}
             setSelectedRows={handleRowSelectionChange}
+            onUpdateCell={handleUpdateData}
           />
         </div>
         <TableFooter
@@ -187,6 +216,7 @@ const Table: React.FC<TableProps> = ({
           onRemoveRow={() => setIsRemoveRowModalOpen(true)}
           selectedRows={selectedRows}
           graphType={graphType}
+          onApplyFunction={handleUpdateData}
         />
       </div>
 

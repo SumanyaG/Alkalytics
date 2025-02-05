@@ -23,6 +23,7 @@
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "formulajs": "^1.0.8",
     "graphql": "^16.10.0",
     "nodemon": "^3.1.9",
     "postcss": "^8.4.49",

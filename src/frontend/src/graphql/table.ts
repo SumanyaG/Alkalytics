@@ -1,11 +1,12 @@
 import { gql } from "@apollo/client";
 import axios from "axios";
+import { DataRow } from "../components/table/Table";
 
 export const typeDefs = gql`
   scalar JSON
 
   type Mutation {
-    updateParam(expId: String!, updatedParams: JSON!): String!
+    updateData(updatedData: JSON!): String!
     addColumn(columnName: String!, defaultValue: JSON): String!
     addRow(rowData: JSON!): String!
     removeColumn(columnName: String!): String!
@@ -15,34 +16,40 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Mutation: {
-    updateParam: async (
+    updateData: async (
       _: undefined,
-      { expId, updatedParams }: { expId: string; updatedParams: any }
+      { updatedData }: { updatedData: Record<string, DataRow> }
     ): Promise<string> => {
       try {
         const response = await axios.put(
-          "http://127.0.0.1:8000/update-param",
-          { expId, updatedParams },
+          "http://127.0.0.1:8000/update-data",
+          { updatedData },
           { headers: { "Content-Type": "application/json" } }
         );
 
         if (response.data.status === "success") {
           return response.data.message;
         } else {
-          throw new Error("Failed to update data.");
+          throw new Error("Failed to update rows.");
         }
       } catch (error) {
         console.error(
-          "Error updating data:",
+          "Error updating rows:",
           error instanceof Error ? error.message : error
         );
-        throw new Error("Failed to update data.");
+        throw new Error("Failed to update rows.");
       }
     },
 
     addColumn: async (
       _: undefined,
-      { columnName, defaultValue }: { columnName: string; defaultValue: any }
+      {
+        columnName,
+        defaultValue,
+      }: {
+        columnName: string;
+        defaultValue: string | number | undefined | null;
+      }
     ): Promise<string> => {
       try {
         const response = await axios.put(
@@ -67,7 +74,7 @@ export const resolvers = {
 
     addRow: async (
       _: undefined,
-      { rowData }: { rowData: any }
+      { rowData }: { rowData: DataRow }
     ): Promise<string> => {
       try {
         const response = await axios.post(

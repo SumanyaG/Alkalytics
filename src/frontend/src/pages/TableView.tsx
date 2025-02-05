@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import Table from "../components/table/Table";
+import Table, { DataRow } from "../components/table/Table";
 import ListSidebar from "../components/sidebars/ListSidebar";
 import { useQuery, gql } from "@apollo/client";
 
@@ -30,20 +30,17 @@ const TableView: React.FC<TableViewProps> = () => {
     error,
   } = useQuery<{ getExperimentIds: string[] }>(GET_EXPERIMENT_IDS);
 
-  const [selectedExperiment, setSelectedExperiment] = useState<string | null>(
-    null
-  );
-  const [isOpen, setIsSidebarOpen] = useState(true);
+  const [selectedExperiment, setSelectedExperiment] = useState<string>("Exp");
+  const [isOpen, setIsOpen] = useState(true);
 
-  console.log(experimentIds);
   const {
     data: dataResponse,
     loading: dataLoading,
     error: dataError,
     refetch: refetchData,
-  } = useQuery<{ getData: any[] }>(GET_DATA, {
+  } = useQuery<{ getData: DataRow[] }>(GET_DATA, {
     variables: { experimentId: selectedExperiment },
-    skip: !selectedExperiment || selectedExperiment === "Exp",
+    skip: selectedExperiment === "Exp",
   });
 
   const {
@@ -51,7 +48,7 @@ const TableView: React.FC<TableViewProps> = () => {
     loading: experimentsLoading,
     error: experimentsError,
     refetch: refetchExperiments,
-  } = useQuery<{ getExperiments: any[] }>(GET_EXPERIMENTS, {
+  } = useQuery<{ getExperiments: DataRow[] }>(GET_EXPERIMENTS, {
     skip: selectedExperiment !== "Exp",
   });
 
@@ -80,7 +77,7 @@ const TableView: React.FC<TableViewProps> = () => {
         selectedExperiment={selectedExperiment}
         onSelectExperiment={handleSelectExperiment}
         isOpen={isOpen}
-        onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+        onToggleSidebar={setIsOpen}
       />
       <div
         className="transition-all duration-300 w-full"
@@ -100,7 +97,7 @@ const TableView: React.FC<TableViewProps> = () => {
               ? "Loading experiment data..."
               : dataError
               ? "Failed to fetch experiment data."
-              : selectedExperiment ?? ""
+              : selectedExperiment
           }
           data={sortedData}
           refetchData={

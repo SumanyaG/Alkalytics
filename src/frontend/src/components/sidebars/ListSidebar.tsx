@@ -29,7 +29,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
     >
       <IconButton
         color="inherit"
-        onClick={() => onToggleSidebar}
+        onClick={() => onToggleSidebar(!isOpen)}
         className={`absolute top-4 right-0 w-7 transform ${
           !isOpen && "rotate-180"
         } transition-transform ${

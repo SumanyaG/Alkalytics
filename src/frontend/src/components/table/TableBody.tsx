@@ -1,36 +1,26 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useMutation, gql } from "@apollo/client";
 import { ArrowUpward, ArrowDownward, UnfoldMore } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-
-type DataRow = {
-  [key: string]: any;
-};
+import { DataRow } from "./Table";
 
 type TableProps = {
   data: DataRow[];
   columns: string[];
   highlightKeyword?: string;
-  refetchData?: () => void;
   graphType?: string;
-  selectedRows: any;
-  setSelectedRows: any;
+  selectedRows: Set<string>;
+  setSelectedRows: (row: DataRow) => void;
+  onUpdateCell: (updatedData: Record<string, DataRow>) => Promise<void>;
 };
-
-const UPDATE_PARAM_MUTATION = gql`
-  mutation UpdateParam($expId: String!, $updatedParams: JSON!) {
-    updateParam(expId: $expId, updatedParams: $updatedParams)
-  }
-`;
 
 const TableBody: React.FC<TableProps> = ({
   data,
   columns,
   highlightKeyword,
-  refetchData,
   graphType,
   selectedRows,
   setSelectedRows,
+  onUpdateCell,
 }) => {
   const [editingCell, setEditingCell] = useState<{
     rowIndex: number;
@@ -41,7 +31,6 @@ const TableBody: React.FC<TableProps> = ({
     [key: string]: "idle" | "uploading" | "success";
   }>({});
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [updateParam] = useMutation(UPDATE_PARAM_MUTATION);
 
   const [sortConfig, setSortConfig] = useState<{
     column: string | null;
@@ -66,10 +55,11 @@ const TableBody: React.FC<TableProps> = ({
     if (sortConfig.direction === "none" || !sortConfig.column) return data;
 
     return [...data].sort((a, b) => {
-      const aValue = a[sortConfig.column!];
-      const bValue = b[sortConfig.column!];
+      const aValue = a[sortConfig.column!]?.toString() ?? "";
+      const bValue = b[sortConfig.column!]?.toString() ?? "";
 
-      const isNumeric = !isNaN(parseFloat(aValue)) && isFinite(aValue);
+      const isNumeric =
+        !isNaN(parseFloat(aValue)) && isFinite(parseFloat(aValue));
 
       if (isNumeric) {
         return sortConfig.direction === "asc"
@@ -118,17 +108,9 @@ const TableBody: React.FC<TableProps> = ({
       }));
 
       try {
-        await updateParam({
-          variables: {
-            expId: data[rowIndex].experimentId,
-            updatedParams: { [column]: updatedValue },
-          },
-        });
-        console.log("Data updated successfully.");
-
-        if (refetchData) {
-          await refetchData();
-        }
+        const expId = data[rowIndex].experimentId as string;
+        const updatedParams = { [column]: updatedValue };
+        await onUpdateCell({ [expId]: updatedParams });
 
         setUploadStatus((prev) => ({
           ...prev,
@@ -142,8 +124,7 @@ const TableBody: React.FC<TableProps> = ({
           }));
         }, 2000);
       } catch (error) {
-        console.error("Error updating data:", error);
-        setEditValue(originalValue);
+        setEditValue((originalValue as string) ?? "");
         setUploadStatus((prev) => ({
           ...prev,
           [`${rowIndex}-${column}`]: "idle",
@@ -208,6 +189,9 @@ const TableBody: React.FC<TableProps> = ({
         return "";
     }
   };
+  const formattedColumns = columns.map(
+    (col, index) => `${String.fromCharCode(65 + index)}: ${col}`
+  );
 
   return (
     <div
@@ -215,47 +199,57 @@ const TableBody: React.FC<TableProps> = ({
       style={{
         minHeight: "100%",
         maxHeight: "100%",
-        maxWidth: "calc(100% - 1rem)",
+        maxWidth: "calc(100% - 2rem)",
+        marginLeft: "1rem",
       }}
     >
       <table className="min-w-full border-collapse">
         <thead className="sticky top-0 z-2 bg-white">
           <tr>
             {graphType === "experiment" && (
-              <th className="px-4 py-2 text-left text-sm font-semibold text-blue-900"></th>
+              <th className="px-4 py-2 text-left text-xs font-semibold text-gray-600"></th>
             )}
-            {columns.map((column) => (
-              <th
-                key={column}
-                className="px-4 py-2 text-left text-sm font-semibold text-blue-900"
-              >
-                <div className="flex items-center">
-                  {formatColumnHeader(column)}
-                  {column !== "_id" && column !== "experimentId" && (
-                    <IconButton
-                      size="small"
-                      onClick={() => handleSort(column)}
-                      className="ml-2"
-                    >
-                      {sortConfig.column === column ? (
-                        sortConfig.direction === "asc" ? (
-                          <ArrowUpward fontSize="small" />
-                        ) : sortConfig.direction === "desc" ? (
-                          <ArrowDownward fontSize="small" />
+            {formattedColumns.map((formattedColumn, index) => {
+              const [label, column] = formattedColumn.split(": ");
+              return (
+                <th
+                  key={column}
+                  className="px-4 py-2 text-left font-semibold text-gray-600"
+                >
+                  <div className="flex items-center">
+                    <span className="text-gray-400 text-xs mr-2">{label}:</span>
+                    <span className="text-blue-900">
+                      {formatColumnHeader(column)}
+                    </span>
+                    {column !== "_id" && column !== "experimentId" && (
+                      <IconButton
+                        size="small"
+                        onClick={() => handleSort(column)}
+                        className="ml-2"
+                      >
+                        {sortConfig.column === column ? (
+                          sortConfig.direction === "asc" ? (
+                            <ArrowUpward fontSize="small" />
+                          ) : sortConfig.direction === "desc" ? (
+                            <ArrowDownward fontSize="small" />
+                          ) : (
+                            <UnfoldMore
+                              fontSize="small"
+                              style={{ opacity: 0.3 }}
+                            />
+                          )
                         ) : (
                           <UnfoldMore
                             fontSize="small"
                             style={{ opacity: 0.3 }}
                           />
-                        )
-                      ) : (
-                        <UnfoldMore fontSize="small" style={{ opacity: 0.3 }} />
-                      )}
-                    </IconButton>
-                  )}
-                </div>
-              </th>
-            ))}
+                        )}
+                      </IconButton>
+                    )}
+                  </div>
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody className="bg-white">
@@ -270,7 +264,6 @@ const TableBody: React.FC<TableProps> = ({
                   <td className="px-4 py-3 text-gray-600 text-xs whitespace-nowrap">
                     <input
                       type="checkbox"
-                      checked={selectedRows[rowIndex]}
                       onChange={() => setSelectedRows(row)}
                     />
                   </td>
