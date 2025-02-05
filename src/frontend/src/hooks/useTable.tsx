@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, gql } from "@apollo/client";
+import { DataRow } from "../components/table/Table";
 
 const GET_EXPERIMENT_IDS = gql`
   query GetExperimentIds {
@@ -20,29 +21,31 @@ const GET_DATA = gql`
 `;
 
 const useTable = () => {
-  const { data: experimentIds } = useQuery<{ getExperimentIds: string[] }>(
-    GET_EXPERIMENT_IDS
-  );
+  const {
+    data: experimentIds,
+    loading,
+    error,
+  } = useQuery<{ getExperimentIds: string[] }>(GET_EXPERIMENT_IDS);
 
-  const [selectedExperiment, setSelectedExperiment] = useState<string | null>(
-    null
-  );
+  const [selectedExperiment, setSelectedExperiment] = useState<string>("Exp");
 
   const {
     data: dataResponse,
     loading: dataLoading,
     error: dataError,
-  } = useQuery(GET_DATA, {
+    refetch: refetchData,
+  } = useQuery<{ getData: DataRow[] }>(GET_DATA, {
     variables: { experimentId: selectedExperiment },
-    skip: selectedExperiment === "Exp" || !selectedExperiment,
+    skip: selectedExperiment === "Exp",
   });
 
   const {
     data: experimentsResponse,
     loading: experimentsLoading,
     error: experimentsError,
-  } = useQuery(GET_EXPERIMENTS, {
-    skip: !!selectedExperiment && selectedExperiment !== "Exp",
+    refetch: refetchExperiments,
+  } = useQuery<{ getExperiments: DataRow[] }>(GET_EXPERIMENTS, {
+    skip: selectedExperiment !== "Exp",
   });
 
   const ids = experimentIds?.getExperimentIds ?? [];
@@ -53,16 +56,37 @@ const useTable = () => {
     setSelectedExperiment(experimentId);
   };
 
+  const sortedData = useMemo(() => {
+    const dataToSort = selectedExperiment === "Exp" ? experiments : data;
+
+    return [...dataToSort].sort((a, b) => {
+      const aValue = Number(a["#"] ?? 0);
+      const bValue = Number(b["#"] ?? 0);
+      return aValue - bValue;
+    });
+  }, [selectedExperiment, data, experiments]);
+
+  const tableName =
+    selectedExperiment === "Exp"
+      ? experimentsLoading
+        ? "Loading all experiments..."
+        : experimentsError
+        ? "Failed to fetch experiments."
+        : "All Experiments"
+      : dataLoading
+      ? "Loading experiment data..."
+      : dataError
+      ? "Failed to fetch experiment data."
+      : selectedExperiment;
+
   return {
     ids,
-    experiments,
-    data,
     selectedExperiment,
-    experimentsLoading,
-    experimentsError,
-    dataLoading,
-    dataError,
+    sortedData,
+    tableName,
     handleSelectExperiment,
+    refetchData,
+    refetchExperiments,
   };
 };
 

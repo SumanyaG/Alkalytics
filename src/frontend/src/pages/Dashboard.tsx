@@ -4,14 +4,12 @@ import Table from "../components/table/Table";
 const Dashboard = () => {
   const {
     ids,
-    experiments,
-    data,
     selectedExperiment,
-    experimentsLoading,
-    experimentsError,
-    dataLoading,
-    dataError,
+    sortedData,
+    tableName,
     handleSelectExperiment,
+    refetchData,
+    refetchExperiments,
   } = useTable();
 
   return (
@@ -48,17 +46,18 @@ const Dashboard = () => {
         <div className="max-h-[70vw] min-h-[40vw] w-[90vw] p-0 mb-6 mx-auto rounded-lg bg-white shadow overflow-y-hidden">
           <select
             className="w-fit h-10 px-4 mt-6 mx-8 mb-0 rounded border font-medium border-gray-300"
-            value={selectedExperiment || ""}
+            value={selectedExperiment}
             onChange={(e) => handleSelectExperiment(e.target.value)}
           >
             <option
               label="Select an experiment sheet to view"
-              disabled={!!selectedExperiment}
+              value="Exp"
+              disabled={selectedExperiment !== "Exp"}
             ></option>
             <option
               label="All Experiments"
-              value=""
-              disabled={!selectedExperiment}
+              value="Exp"
+              disabled={selectedExperiment === "Exp"}
             >
               All Experiments
             </option>
@@ -69,20 +68,12 @@ const Dashboard = () => {
             ))}
           </select>
           <Table
-            tableName={
-              selectedExperiment
-                ? dataLoading
-                  ? "Loading experiment data..."
-                  : dataError
-                  ? "Failed to fetch experiment data."
-                  : selectedExperiment ?? ""
-                : experimentsLoading
-                ? "Loading all experiments..."
-                : experimentsError
-                ? "Failed to fetch experiments."
-                : "All Experiments"
+            tableName={tableName}
+            data={sortedData}
+            refetchData={
+              selectedExperiment === "Exp" ? refetchExperiments : refetchData
             }
-            data={selectedExperiment ? data : experiments}
+            graphType={""}
           />
         </div>
       </div>
