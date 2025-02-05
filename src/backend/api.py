@@ -255,7 +255,7 @@ async def getExperimentIds():
     """
     Fetches all experimentIds from the 'experiments' collection.
     """
-    connection = getConnection("data")
+    connection = getConnection("experiments")
     collection, client = connection["collection"], connection["client"]
 
     try:
