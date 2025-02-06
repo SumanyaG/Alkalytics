@@ -1,67 +1,75 @@
-import React, { useState } from "react";
-import { Home, Search, CloudUpload, BarChart, Menu } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { Home, Search, CloudUpload, BarChart, Person } from "@mui/icons-material";
+import Tooltip from "@mui/material/Tooltip";
+import { Link } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const toggleSidebarVisibility = () => {
-    setIsVisible(!isVisible);
-  };
+const Sidebar = () => {
 
   return (
-    <div>
-      <div
-        className={`fixed top-0 left-0 h-full bg-blue-200 text-white transition-all duration-300 ease-in-out transform ${
-          isVisible ? "translate-x-0" : "-translate-x-full"
-        }`}
-        style={{
-          width: isVisible ? "60px" : "60px", 
-          height: "100%",
-          zIndex: 50,
-        }}
-      >
-        <div className="flex flex-col items-center justify-center h-full p-4">
-          <IconButton
-            onClick={toggleSidebarVisibility}
-            className="absolute top-4 right-4 bg-blue-700 hover:bg-blue-800 rounded-full"
+    <div className="fixed top-0 left-0 h-full w-16 flex flex-col justify-between py-4 bg-blue-900 text-white">
+      <div className="flex flex-col flex-grow justify-center mt-10 space-y-20">
+        {[
+          {
+            icon: <Home className="scale-125" />,
+            label: "Dashboard",
+            route: "/",
+          },
+          {
+            icon: <Search className="scale-125" />,
+            label: "Queries",
+            route: "/table",
+          },
+          {
+            icon: <CloudUpload className="scale-125" />,
+            label: "Upload",
+            route: "/upload",
+          },
+          {
+            icon: <BarChart className="scale-125" />,
+            label: "Graphs",
+            route: "/graphs",
+          },
+        ].map((item, index) => (
+          <Tooltip
+            key={index}
+            title={item.label}
+            arrow
+            className="cursor-pointer text-3xl"
+            placement="right"
+            slotProps={{
+              tooltip: {
+                sx: {
+                  padding: "8px 16px",
+                  maxWidth: "300px",
+                  bgcolor: "#1e3a8a",
+                  color: "white",
+                  boxShadow: "0 2px 6px #000",
+                  fontSize: "1.1rem",
+                  fontWeight: "600",
+                },
+              },
+              arrow: {
+                sx: {
+                  color: "#1e3a8a",
+                },
+              },
+            }}
           >
-            {isVisible ? "×" : <Menu className="text-white" />}
-          </IconButton>
-          <div className="flex flex-col items-center space-y-6">
-            <IconButton
-              className="transition-all hover:scale-110 hover:text-blue-500"
-              onClick={() => console.log("Go to Home")}
+            <Link
+              to={item.route}
+              className="flex justify-center items-center rounded-full hover:scale-110 transition-all duration-200 ease-in-out"
             >
-              <Home className="text-white text-3xl" />
-            </IconButton>
-            <IconButton
-              className="transition-all hover:scale-110 hover:text-blue-500"
-              onClick={() => console.log("Go to Search")}
-            >
-              <Search className="text-white text-3xl" />
-            </IconButton>
-            <IconButton
-              className="transition-all hover:scale-110 hover:text-blue-500"
-              onClick={() => console.log("Go to Upload")}
-            >
-              <CloudUpload className="text-white text-3xl" />
-            </IconButton>
-            <IconButton
-              className="transition-all hover:scale-110 hover:text-blue-500"
-              onClick={() => console.log("Go to Charts")}
-            >
-              <BarChart className="text-white text-3xl" />
-            </IconButton>
-          </div>
-        </div>
+              {item.icon}
+            </Link>
+          </Tooltip>
+        ))}
       </div>
-      {isVisible && (
-        <div
-          className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"
-          onClick={toggleSidebarVisibility}
-        />
-      )}
+
+      <a
+        href="/"
+        className="flex justify-center items-center p-4 mt-6 rounded-full hover:scale-110"
+      >
+        <Person className="scale-125"/>
+      </a>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import "./index.css";
 import { ApolloProvider } from "@apollo/client";
 import client from "./utils/apolloClient";
+import { BrowserRouter } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -28,7 +29,9 @@ if (rootElement) {
       <React.StrictMode>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
       </React.StrictMode>
     </ApolloProvider>
