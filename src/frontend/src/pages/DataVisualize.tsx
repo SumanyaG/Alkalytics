@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GraphSideBar from "../components/sidebars/GraphSideBar";
+import { useQuery, gql } from "@apollo/client";
 
 type FormDataType = {
   selectedGraphType: string;
@@ -78,6 +79,20 @@ const defaultContextValue: FormDataType = {
 export const FormDataContext =
   React.createContext<FormDataType>(defaultContextValue);
 
+const FILTER_COLLECTDATA = gql`
+  query GetFilterCollectionData(
+    $attributes: [String!]!
+    $collection: String!
+    $dates: [String]
+  ) {
+    getFilterCollectionData(
+      attributes: $attributes
+      collection: $collection
+      dates: $dates
+    )
+  }
+`;
+
 const DataVisualize: React.FC = () => {
   const [selectedGraphType, setSelectedGraphType] = useState<string>("");
   const [selectedDates, setSelectedDates] = React.useState<string[]>([]);
@@ -133,13 +148,58 @@ const DataVisualize: React.FC = () => {
     submit,
     setSubmit,
   };
+  // return all data points with dates = those in selectedDates --> then filter by the params
+
+  const { data, loading, error } = useQuery<{
+    getFilterCollectionData: any[];
+  }>(FILTER_COLLECTDATA, {
+    variables: {
+      attributes: [selectedParamX, selectedParamY],
+      collection: selectedParamType,
+      dates: selectedDates,
+    },
+    skip: !submit,
+  });
+  const graphData = data?.getFilterCollectionData ?? [];
+
+  console.log("data", graphData);
+
+  const handleGraphData = async () => {
+    setSubmit(true);
+  };
+
+  // if experiments, call it straight
+
+  // To be used when creating the graph, additional properties
+  let graphProperties = [
+    { "graph title": graphTitle },
+    { "Selected Dates": selectedDates }, 
+    { "x time min": timeMinX },
+    { "x time max": timeMaxX },
+    { "y time min": timeMinY },
+    { "y time max": timeMaxY },
+    { "min x": minX },
+    { "max x": maxX },
+    { "min y": minY },
+    { "max y": maxY },
+    { "x label": xLabel },
+    { "y label": yLabel },
+  ];
 
   return (
     <FormDataContext.Provider value={contextValue}>
       <div className="flex">
-        <GraphSideBar />
+        <GraphSideBar onSubmit={handleGraphData} />
         <div className="flex flex-col items-center justify-center h-screen">
-          {(submit && selectedGraphType) ?? <p>{selectedGraphType}</p>}
+          {submit &&
+            (selectedGraphType === "bar" ? (
+              <p>bar</p>
+            ) : selectedGraphType === "line" ? (
+              <p>line</p>
+            ) : selectedGraphType === "scatter" ? (
+              <p>scatter</p>
+            ) : null)}
+
         </div>
       </div>
     </FormDataContext.Provider>
