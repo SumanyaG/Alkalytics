@@ -9,7 +9,7 @@ export const typeDefs = gql`
     getExperiments: [JSON]!
     getData(experimentId: String!): [JSON]!
     getCollectionAttrs(collection: String!): [String!]!
-    filterExperimentData(attributes: [String!]!): [JSON]!
+    getFilterCollectionData(attributes: [String!]!, collection: String!, dates:[String]): [JSON]!
   }
 `;
 
@@ -96,17 +96,16 @@ export const resolvers = {
       }
     },
 
-    filterExperimentData: async (
+    getFilterCollectionData: async (
       _: undefined,
-      { attributes }: { attributes: string[] }
+      { attributes, collection, dates }: { attributes: string[]; collection: string, dates: string[] }
     ):Promise<Record<string, any>> => {
+      console.log(dates)
       try {
-        console.log(attributes)
-        const response = await axios.post("http://127.0.0.1:8000/experiments/attr", {attributes: attributes}, {
+        const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, dates}, {
           headers: { "Content-Type": "application/json" },
         });
         if (response.data.status === "success") {
-          // console.log(response.data)
           return response.data.data; 
         } else {
           throw new Error("No data has the given attributes.");
