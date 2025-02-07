@@ -1,7 +1,7 @@
 import math
 import os
 import base64
-from typing import Dict, List
+from typing import Dict, List, Optional
 from bson import ObjectId
 from dotenv import load_dotenv
 import pandas as pd
@@ -258,30 +258,69 @@ async def getCollectionAttrs(payload:DataAttrs):
             client.close()
 
 class ExperimentFilter(BaseModel):
+    collection: str
     attributes: List[str]
+    dates:Optional[List[str]] = None
 
-@app.post("/experiments/attr")
-async def filterExperimentData(payload: ExperimentFilter):
-    connection = getConnection("experiments")
-    collection, client = connection["collection"], connection["client"]
-    attrs = {field : 1 for field in payload.attributes}
+@app.post("/filterCollectionData")
+async def getFilterCollectionData(payload: ExperimentFilter):
+    # Prepare attributes for projection
+    attrs = {field: 1 for field in payload.attributes}
+    attrs["Date"] = 1
 
-    try:
-        data = collection.find({}, attrs)
-        dataList = list(data)
-        dataList = [cleanData(item) for item in dataList]
-        print(dataList)
-        if dataList:
-            return {"status": "success", "data": dataList}
-        else:
-            raise HTTPException(status_code=404, detail="Data has not attributes of that name.")
-    
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
+    # Helper function to fetch and process data
+    async def fetch_and_process_data(collection, query, projection, client):
+        try:
+            filtered_data = collection.find(query, projection)
+            data_list = list(filtered_data)
+            data_list = [cleanData(item) for item in data_list]
 
-    finally:
+            if not data_list:
+                raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
+            
+            return {"status": "success", "data": data_list}
+        
+        except Exception as e:
+            return {"status": "error", "message": str(e)}
+        
+        finally:
             client.close()
 
+    # Need to get experimentId from the Dates selected
+    if payload.collection == "data" and payload.dates:
+        # Get experiment IDs from the "experiments" collection
+        experiments_conn = getConnection("experiments")
+        experiments_collection, experiments_client = experiments_conn["collection"], experiments_conn["client"]
+
+        experiment_ids = [
+            item["experimentId"]
+            for item in experiments_collection.find(
+                {"Date": {"$in": payload.dates}}, 
+                {"experimentId": 1, "_id": 0}
+            )
+        ]
+        experiments_client.close()
+
+        if not experiment_ids:
+            raise HTTPException(status_code=404, detail="No experiments found for the given dates.")
+
+        # Fetch data from the collection using experiment IDs
+        target_conn = getConnection(payload.collection)
+        target_collection, target_client = target_conn["collection"], target_conn["client"]
+
+        query = {"experimentId": {"$in": experiment_ids}}
+        attrs["experimentId"] = 1
+        return await fetch_and_process_data(target_collection, query, attrs, target_client)
+
+    # Handle all other cases
+    target_conn = getConnection(payload.collection)
+    target_collection, target_client = target_conn["collection"], target_conn["client"]
+
+    if len(payload.dates) > 0:
+        query = {"Date": {"$in": payload.dates}}
+    else:
+        query = {} 
+    return await fetch_and_process_data(target_collection, query, attrs, target_client)
 class DataRequest(BaseModel):
     experimentId: str
 
