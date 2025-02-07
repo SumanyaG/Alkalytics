@@ -66,6 +66,7 @@ const Login = () => {
             type="email"
             variant="outlined"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <TextField
             id="outlined-password-input"
@@ -73,6 +74,7 @@ const Login = () => {
             type="password"
             autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <button
             type="submit"
