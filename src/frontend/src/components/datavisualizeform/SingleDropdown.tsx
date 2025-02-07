@@ -2,7 +2,7 @@ import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 // Define the prop type for the SelectAutoWidth component
 interface SelectAutoWidthProps {
@@ -20,11 +20,6 @@ const SingleDropdown: React.FC<SelectAutoWidthProps> = ({
   required = false,
   error = false,
 }) => {
-  type Param = {
-    value: string;
-    label: string;
-  };
-
   return (
     <div>
       <FormControl
