@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 // @ts-ignore
 import * as formulajs from "formulajs";
 import { DataRow } from "./Table";
+import { useAuth } from "../../context/authContext";
 
 type TableFooterProps = {
   columns: string[];
@@ -42,6 +43,8 @@ const TableFooter: React.FC<TableFooterProps> = ({
       return acc;
     }, {} as Record<string, DataRow>);
   }, [data]);
+
+  const { userRole } = useAuth();
 
   const toggleEditDropdown = () => {
     setIsEditDropdownOpen(!isEditDropdownOpen);
@@ -161,7 +164,7 @@ const TableFooter: React.FC<TableFooterProps> = ({
     <div className="flex justify-between items-center px-4 py-2 bg-white border-t border-gray-300">
       <div className="h-full w-full flex flex-row justify-between ">
         <div className="relative">
-          {graphType === "experiment" && (
+          {graphType === "experiment" && userRole.role !== "assistant" && (
             <button
               onClick={toggleEditDropdown}
               className="h-full px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
@@ -200,7 +203,7 @@ const TableFooter: React.FC<TableFooterProps> = ({
           )}
         </div>
 
-        {graphType === "experiment" && (
+        {graphType === "experiment" && userRole.role !== "assistant" && (
           <div className="flex-1 flex items-center mx-4">
             <select
               value={selectedColumn}
