@@ -6,7 +6,11 @@ import Button from "@mui/material/Button";
 import GenerateGraphModal from "../datavisualizeform/DataFormModal";
 import { FormDataContext } from "../../pages/DataVisualize";
 
-const Sidebar: React.FC = () => {
+type SidebarProps = {
+  onSubmit: any;
+};
+
+const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
   const [open, setOpen] = useState<boolean>(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -27,6 +31,7 @@ const Sidebar: React.FC = () => {
     setGraphTitle,
     setXLabel,
     setYLabel,
+    setSubmit,
   } = useContext(FormDataContext);
 
   const resetFields = () => {
@@ -46,6 +51,7 @@ const Sidebar: React.FC = () => {
     setGraphTitle("");
     setXLabel("");
     setYLabel("");
+    setSubmit(false);
   };
 
   return (
@@ -88,7 +94,9 @@ const Sidebar: React.FC = () => {
           </li>
         </ul>
       </div>
-      {modalOpen && <GenerateGraphModal setOpenModal={setModalOpen} />}
+      {modalOpen && (
+        <GenerateGraphModal setOpenModal={setModalOpen} onSubmit={onSubmit} />
+      )}
     </div>
   );
 };

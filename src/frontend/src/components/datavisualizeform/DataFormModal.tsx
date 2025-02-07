@@ -9,6 +9,7 @@ import { useQuery, gql } from "@apollo/client";
 
 interface GenerateGraphModal {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit: any;
 }
 const graphTypes = [
   { value: "bar", label: "Bar Chart" },
@@ -17,7 +18,7 @@ const graphTypes = [
 ];
 const paramType = [
   { value: "data", label: "Data Sheet" },
-  { value: "exp", label: "Experiemnt" },
+  { value: "experiments", label: "Experiemnt" },
 ];
 
 const Input: React.FC<{
@@ -42,13 +43,24 @@ const GET_ATTRS = gql`
   }
 `;
 
-const FILTER_EXPDATA = gql`
-  query FilterExperimentData($attributes: [String!]!) {
-    filterExperimentData(attributes: $attributes)
+const FILTER_COLLECTDATA = gql`
+  query GetFilterCollectionData(
+    $attributes: [String!]!
+    $collection: String!
+    $dates: [String!]!
+  ) {
+    getFilterCollectionData(
+      attributes: $attributes
+      collection: $collection
+      dates: $dates
+    )
   }
 `;
 
-const GenerateGraphModal: React.FC<GenerateGraphModal> = ({ setOpenModal }) => {
+const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
+  setOpenModal,
+  onSubmit,
+}) => {
   const { data: dataAttr } = useQuery<{ getCollectionAttrs: any[] }>(
     GET_ATTRS,
     { variables: { collection: "data" } }
@@ -61,22 +73,34 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({ setOpenModal }) => {
   const dataAttrReturn = dataAttr?.getCollectionAttrs ?? [];
   const expAttrReturn = expAttr?.getCollectionAttrs ?? [];
 
-  const datasheetParam = dataAttrReturn.map((item: string) => ({
-    value: item,
-    label: item,
-  }));
+  const datasheetParam = dataAttrReturn
+    .filter(
+      (item: string) =>
+        !["_id", "experimentId", "#", "dataSheetId"].includes(item)
+    )
+    .map((item: string) => ({
+      value: item,
+      label: item,
+    }));
 
-  const experimentParam = expAttrReturn.map((item: string) => ({
-    value: item,
-    label: item,
-  }));
+  const experimentParam = expAttrReturn
+    .filter(
+      (item: string) =>
+        !["_id", "experimentId", "#", "Date", "Notes"].includes(item)
+    ) // Exclude specific attributes
+    .map((item: string) => ({
+      value: item,
+      label: item,
+    }));
 
-  const { data: filteredData } = useQuery<{ filterExperimentData: any[] }>(
-    FILTER_EXPDATA,
-    { variables: { attributes: ["Date"] } }
+  const { data: filteredData } = useQuery<{ getFilterCollectionData: any[] }>(
+    FILTER_COLLECTDATA,
+    {
+      variables: { attributes: ["Date"], collection: "experiments", dates: [] },
+    }
   );
 
-  const filteredDataReturn = filteredData?.filterExperimentData ?? [];
+  const filteredDataReturn = filteredData?.getFilterCollectionData ?? [];
   const dateOptions = filteredDataReturn.map((item) => item.Date);
 
   const steps = ["Graph", "Data", "Parameters", "Customize"];
@@ -112,13 +136,9 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({ setOpenModal }) => {
     setMinY,
     maxY,
     setMaxY,
-    graphTitle,
     setGraphTitle,
-    xLabel,
     setXLabel,
-    yLabel,
     setYLabel,
-    setSubmit,
   } = useContext(FormDataContext);
 
   const handleNext = () => {
@@ -155,28 +175,8 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({ setOpenModal }) => {
     if (!validateAxisRange()) {
       return; // Stop submission if validation fails
     }
-
     setOpenModal(false);
-    const stateObject = {
-      selectedGraphType,
-      selectedDates,
-      selectedParamType,
-      selectedParamX,
-      selectedParamY,
-      timeMinX,
-      timeMaxX,
-      timeMinY,
-      timeMaxY,
-      minX,
-      maxX,
-      minY,
-      maxY,
-      graphTitle,
-      xLabel,
-      yLabel,
-    };
-    console.log(stateObject);
-    setSubmit(true);
+    onSubmit();
   };
 
   const handleChangeTime = (
@@ -327,34 +327,44 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({ setOpenModal }) => {
                   />
                 }
               />
-              <Input
-                label="Compare Parameters"
-                description="Select axis parameters"
-                children={
-                  <div>
-                    <SingleDropdown
-                      options={
-                        selectedParamType === "data"
-                          ? datasheetParam
-                          : experimentParam
-                      }
-                      label="X"
-                      required={true}
-                      onChange={setSelectedParamX}
-                    />
-                    <SingleDropdown
-                      options={
-                        selectedParamType === "data"
-                          ? datasheetParam
-                          : experimentParam
-                      }
-                      label="Y"
-                      required={true}
-                      onChange={setSelectedParamY}
-                    />
-                  </div>
-                }
-              />
+              {selectedParamType === "experiments" &&
+              selectedDates.length <= 1 ? (
+                <div className="flex justify-center">
+                  <p className="text-red-500">
+                    More than 1 experiment date must be selected for this
+                    parameter
+                  </p>
+                </div>
+              ) : (
+                <Input
+                  label="Compare Parameters"
+                  description="Select axis parameters"
+                  children={
+                    <div>
+                      <SingleDropdown
+                        options={
+                          selectedParamType === "data"
+                            ? datasheetParam
+                            : experimentParam
+                        }
+                        label="X"
+                        required={true}
+                        onChange={setSelectedParamX}
+                      />
+                      <SingleDropdown
+                        options={
+                          selectedParamType === "data"
+                            ? datasheetParam
+                            : experimentParam
+                        }
+                        label="Y"
+                        required={true}
+                        onChange={setSelectedParamY}
+                      />
+                    </div>
+                  }
+                />
+              )}
             </div>
           )}
 
