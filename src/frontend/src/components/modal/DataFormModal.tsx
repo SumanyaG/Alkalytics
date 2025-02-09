@@ -65,34 +65,29 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     GET_ATTRS,
     { variables: { collection: "data" } }
   );
-
-  const datasheetParam =
-    dataAttr?.getCollectionAttrs ??
-    []
-      .filter(
-        (item: string) =>
-          !["_id", "experimentId", "#", "dataSheetId"].includes(item)
-      )
-      .map((item: string) => ({
-        value: item,
-        label: item,
-      }));
+  const datasheetParam = (dataAttr?.getCollectionAttrs ?? [])
+    .filter(
+      (item: string) =>
+        !["_id", "experimentId", "#", "dataSheetId"].includes(item)
+    )
+    .map((item: string) => ({
+      value: item,
+      label: item,
+    }));
 
   const { data: expAttr } = useQuery<{ getCollectionAttrs: any[] }>(GET_ATTRS, {
     variables: { collection: "experiments" },
   });
 
-  const experimentParam =
-    expAttr?.getCollectionAttrs ??
-    []
-      .filter(
-        (item: string) =>
-          !["_id", "experimentId", "#", "Date", "Notes"].includes(item)
-      ) // Exclude specific attributes
-      .map((item: string) => ({
-        value: item,
-        label: item,
-      }));
+  const experimentParam = (expAttr?.getCollectionAttrs ?? [])
+    .filter(
+      (item: string) =>
+        !["_id", "experimentId", "#", "Date", "Notes"].includes(item)
+    ) // Exclude specific attributes
+    .map((item: string) => ({
+      value: item,
+      label: item,
+    }));
 
   const { data: filteredData } = useQuery<{ getFilterCollectionData: any[] }>(
     FILTER_COLLECTDATA,
