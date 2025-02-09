@@ -8,6 +8,7 @@ import AddRowModal from "../modal/AddRowModal";
 import RemoveColumnModal from "../modal/RemoveColumnModal";
 import RemoveRowModal from "../modal/RemoveRowModal";
 import TableHeader from "./TableHeader";
+import SetColumnTypesModal from "../modal/SetColumnTypesModal";
 
 export type DataRow = Record<string, string | number | undefined | null>;
 
@@ -41,6 +42,12 @@ export const UPDATE_DATA = gql`
   }
 `;
 
+export const SET_COLUMN_TYPES = gql`
+  mutation SetColumnTypes($columnTypes: JSON!) {
+    setColumnTypes(columnTypes: $columnTypes)
+  }
+`;
+
 type TableProps = {
   tableName: string;
   data: DataRow[];
@@ -62,6 +69,8 @@ const Table: React.FC<TableProps> = ({
   const [isRowModalOpen, setIsRowModalOpen] = useState(false);
   const [isRemoveColumnModalOpen, setIsRemoveColumnModalOpen] = useState(false);
   const [isRemoveRowModalOpen, setIsRemoveRowModalOpen] = useState(false);
+  const [isSetColumnTypesModalOpen, setIsSetColumnTypesModalOpen] =
+    useState(false);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
 
   const [addColumn] = useMutation(ADD_COLUMN);
@@ -69,6 +78,7 @@ const Table: React.FC<TableProps> = ({
   const [removeColumn] = useMutation(REMOVE_COLUMN);
   const [removeRow] = useMutation(REMOVE_ROW);
   const [updateData] = useMutation(UPDATE_DATA);
+  const [setColumnTypes] = useMutation(SET_COLUMN_TYPES);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -85,6 +95,28 @@ const Table: React.FC<TableProps> = ({
       .filter((k) => k !== "Notes")
       .concat(keys.includes("Notes") ? ["Notes"] : []);
   }, [data]);
+
+  const columnTypes = {
+    //hardcoded until fetch from db
+    "#": "number",
+    "Date": "date",
+    "Membrane": "text",
+    "Configuration": "text",
+    "# of Stacks": "number",
+    "Flow Rate (L/H)": "number",
+    "Potential Diff (V)": "number",
+    "Current Limit (A)": "number",
+    "NaCL": "number",
+    "NaHCO3": "number",
+    "NaOH": "number",
+    "HCL": "number",
+    "Na2So4": "number",
+    "NaHCO3.1": "number",
+    "Total": "number",
+    "t2": "number",
+    "t3": "number",
+    "Notes": "text",
+  };
 
   const filteredData = useMemo(() => {
     if (!debouncedKeyword) return data;
@@ -174,6 +206,22 @@ const Table: React.FC<TableProps> = ({
     }
   };
 
+  const handleSetColumnTypes = async (
+    newColumnTypes: Record<string, string>
+  ) => {
+    setIsSetColumnTypesModalOpen(false);
+    try {
+      const { data } = await setColumnTypes({
+        variables: { newColumnTypes },
+      });
+      if (data) {
+        refetchData();
+      }
+    } catch (error) {
+      console.error("Error removing column:", error);
+    }
+  };
+
   const handleRowSelectionChange = (row: DataRow) => {
     const rowId = String(row.experimentId);
     const newSelectedRows = new Set(selectedRows);
@@ -195,6 +243,8 @@ const Table: React.FC<TableProps> = ({
           setSelectedColumn={setSelectedColumn}
           searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}
+          onSetColumnTypes={() => setIsSetColumnTypesModalOpen(true)}
+          graphType={graphType}
         />
         <div style={{ flex: 1, overflow: "hidden" }}>
           <TableBody
@@ -219,6 +269,15 @@ const Table: React.FC<TableProps> = ({
           onApplyFunction={handleUpdateData}
         />
       </div>
+
+      {isSetColumnTypesModalOpen && (
+        <SetColumnTypesModal
+          columns={columns}
+          columnTypes={columnTypes}
+          setIsModalOpen={setIsSetColumnTypesModalOpen}
+          onUpdateColumnTypes={handleSetColumnTypes}
+        />
+      )}
 
       {/* Add Column Modal */}
       {isColumnModalOpen && (

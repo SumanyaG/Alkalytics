@@ -11,9 +11,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 
 from services.migrationService import MigrationService
+from auth.routes import router as authRouter
 
 load_dotenv()
 app = FastAPI(docs_url="/docs")
+app.include_router(authRouter)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

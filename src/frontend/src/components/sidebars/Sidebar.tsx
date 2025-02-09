@@ -1,6 +1,7 @@
-import { Home, Search, CloudUpload, BarChart, Person } from "@mui/icons-material";
+import { Home, Search, CloudUpload, BarChart } from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
+import AccountMenu from "../auth/AccountMenu";
 
 const Sidebar = () => {
 
@@ -11,7 +12,7 @@ const Sidebar = () => {
           {
             icon: <Home className="scale-125" />,
             label: "Dashboard",
-            route: "/",
+            route: "/dashboard",
           },
           {
             icon: <Search className="scale-125" />,
@@ -64,12 +65,7 @@ const Sidebar = () => {
         ))}
       </div>
 
-      <a
-        href="/"
-        className="flex justify-center items-center p-4 mt-6 rounded-full hover:scale-110"
-      >
-        <Person className="scale-125"/>
-      </a>
+      <AccountMenu></AccountMenu>
     </div>
   );
 };

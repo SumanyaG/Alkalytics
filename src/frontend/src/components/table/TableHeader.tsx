@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useAuth } from "../../context/authContext";
 
 type TableHeaderProps = {
   columns: string[];
@@ -7,6 +8,8 @@ type TableHeaderProps = {
   setSelectedColumn: React.Dispatch<React.SetStateAction<string>>;
   searchKeyword: string;
   setSearchKeyword: React.Dispatch<React.SetStateAction<string>>;
+  onSetColumnTypes: () => void;
+  graphType?: string;
 };
 
 const TableHeader: React.FC<TableHeaderProps> = ({
@@ -16,11 +19,13 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   setSelectedColumn,
   searchKeyword,
   setSearchKeyword,
+  onSetColumnTypes,
+  graphType,
 }) => {
-  const [isEditDropdownOpen, setIsEditDropdownOpen] = useState(false);
+  const { userRole } = useAuth();
 
-  const toggleEditDropdown = () => {
-    setIsEditDropdownOpen(!isEditDropdownOpen);
+  const handleSetColumnTypeChange = () => {
+    onSetColumnTypes();
   };
 
   return (
@@ -32,6 +37,14 @@ const TableHeader: React.FC<TableHeaderProps> = ({
               {tableName}
             </span>
             <div className="flex items-center space-x-2">
+              {graphType === "experiment" && userRole.role === "admin" && (
+                <button
+                  onClick={handleSetColumnTypeChange}
+                  className="h-full px-4 py-2 rounded-lg text-white text-left text-sm bg-blue-600 hover:bg-blue-700"
+                >
+                  Set Column Types
+                </button>
+              )}
               <select
                 className="w-52 h-12 p-2 rounded-lg my-2 border border-gray-300"
                 value={selectedColumn}

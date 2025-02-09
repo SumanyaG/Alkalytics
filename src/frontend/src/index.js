@@ -7,6 +7,7 @@ import "./index.css";
 import { ApolloProvider } from "@apollo/client";
 import client from "./utils/apolloClient";
 import { BrowserRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 
 const theme = createTheme({
   palette: {
@@ -29,9 +30,11 @@ if (rootElement) {
       <React.StrictMode>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <CookiesProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </CookiesProvider>
         </ThemeProvider>
       </React.StrictMode>
     </ApolloProvider>
