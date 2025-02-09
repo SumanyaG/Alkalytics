@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import GraphSideBar from "../components/sidebars/GraphSideBar";
 import ScatterPlot from "../components/graphs/scatter-plot";
+import LineGraph from "../components/graphs/line-plot";
+import BarGraph from "../components/graphs/bar-graph";
 import { useQuery, gql, useMutation } from "@apollo/client";
 
 type FormDataType = {
@@ -239,25 +241,43 @@ const DataVisualize: React.FC = () => {
           {loading && <p>Loading...</p>}
           {error && <p>Error: {error.message}</p>}
           {submit && (
-            <>
-              {selectedGraphType === "bar" ? (
-                <p>bar</p>
-              ) : selectedGraphType === "line" ? (
-                <p>line</p>
-              ) : selectedGraphType === "scatter" ? (
-                <div className="relative p-4 bg-white rounded-lg shadow-lg">
-                  <div className="relative">
-                    <ScatterPlot
-                      data={graphData}
-                      properties={graphProperties}
-                      width={graphWidth}
-                      height={graphHeight}
-                    />
-                  </div>
-                </div>
-              ) : null}
-            </>
-          )}
+          <>
+          {selectedGraphType === "bar" ? (
+            <div className="relative p-4 bg-white rounded-lg shadow-lg">
+              <div className="relative">
+                <BarGraph
+                  data={graphData}
+                  properties={graphProperties}
+                  width={graphWidth}
+                  height={graphHeight}
+                />
+              </div>
+            </div>
+          ) : selectedGraphType === "line" ? (
+            <div className="relative p-4 bg-white rounded-lg shadow-lg">
+              <div className="relative">
+                <LineGraph
+                  data={graphData}
+                  properties={graphProperties}
+                  width={graphWidth}
+                  height={graphHeight}
+                />
+              </div>
+            </div>
+          ) : selectedGraphType === "scatter" ? (
+            <div className="relative p-4 bg-white rounded-lg shadow-lg">
+              <div className="relative">
+                <ScatterPlot
+                  data={graphData}
+                  properties={graphProperties}
+                  width={graphWidth}
+                  height={graphHeight}
+                />
+              </div>
+            </div>
+          ) : null}
+          </>
+        )}
         </div>
       </div>
     </FormDataContext.Provider>
