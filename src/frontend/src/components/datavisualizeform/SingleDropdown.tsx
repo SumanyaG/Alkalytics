@@ -4,7 +4,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-// Define the prop type for the SelectAutoWidth component
 interface SelectAutoWidthProps {
   options: { value: string; label: string }[];
   label: string;

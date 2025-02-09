@@ -120,7 +120,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
           </li>
           {result.map((r) => (
             <li
-              key={r._id} // Use _id as the unique key
               className={`flex rounded-md hover:bg-light-white text-sm items-center gap-x-4 
                 ${open ? "p-2" : "p-0"}`}
             >
