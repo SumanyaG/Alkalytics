@@ -264,6 +264,9 @@ class ExperimentFilter(BaseModel):
 
 @app.post("/filterCollectionData")
 async def getFilterCollectionData(payload: ExperimentFilter):
+    """
+    Fetches the data needed to generate graphs
+    """
     # Prepare attributes for projection
     attrs = {field: 1 for field in payload.attributes}
     attrs["Date"] = 1
@@ -321,6 +324,60 @@ async def getFilterCollectionData(payload: ExperimentFilter):
     else:
         query = {} 
     return await fetch_and_process_data(target_collection, query, attrs, target_client)
+
+class GeneratedGraphs(BaseModel):
+    graphType: str
+    data: List[Dict]
+
+@app.put("/generatedGraphs")
+async def addGeneratedGraphs(payload: GeneratedGraphs):
+    """
+    Saves the graph data and the respective graph type the user previously selected to generate the graph using the data  
+    """
+    connection = getConnection("graphs")
+    collection, client = connection["collection"], connection["client"]
+
+    nextId = collection.count_documents({}) + 1
+    graph = {
+        "_id": nextId,  
+        "graphtype": payload.graphType,
+        "data": payload.data
+    }
+
+    try:
+        collection.insert_one(graph)
+        return {"status": "success", "message": f"Added generated graph {graph} to storage."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generated graph: {str(e)}")
+    finally:
+        client.close()
+
+class GeneratedGraphRequest(BaseModel):
+    latest: Optional[int]
+@app.post("/generatedGraphs/latest")
+async def getLastestGraph(payload: GeneratedGraphRequest):
+    """
+    Fetches the latest number of generated graphs 
+    """
+    connection = getConnection("graphs")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        latestGraphs = []
+        totalData = collection.count_documents({})
+        count = 0
+        if payload.latest == 0: payload.latest = totalData
+
+        while count < payload.latest:
+            data = collection.find_one({"_id": totalData-count})
+            latestGraphs.append(data)
+            count = count + 1
+        return latestGraphs
+    except Exception as e: 
+        raise HTTPException(status_code=500, detail=f"Error in retreaving latest {payload.latest} graphs: {str(e)}")
+    finally:
+        client.close()
+        
 class DataRequest(BaseModel):
     experimentId: str
 
