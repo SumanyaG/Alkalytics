@@ -13,21 +13,41 @@ import { FormDataContext } from "../../pages/DataVisualize";
 import { useQuery, gql } from "@apollo/client";
 
 type SidebarProps = {
-  onSubmit: any;
+  onSubmit: () => void;
+  onGraphSelect: (graphData: any) => void;
 };
+
 const GET_GRAPH = gql`
   query GetLastestGraph($latest: Int) {
     getLastestGraph(latest: $latest)
   }
 `;
 
-const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
+const GET_GRAPH_BY_ID = gql`
+  query GetGraphById($id: String!) {
+    getGraphById(id: $id)
+  }
+`;
+
+  const Sidebar: React.FC<SidebarProps> = ({ onSubmit, onGraphSelect }) => {
+  const [selectedGraphId, setSelectedGraphId] = useState<string | null>(null);
+
   const { data: generatedGraphData } = useQuery<{ getLastestGraph: any[] }>(
     GET_GRAPH,
     {
       variables: { latest: 0 },
     }
   );
+
+  const { data: selectedGraphData } = useQuery(GET_GRAPH_BY_ID, {
+    variables: { id: selectedGraphId },
+    skip: !selectedGraphId,
+    onCompleted: (data) => {
+      if (data.getGraphById) {
+        handleGraphSelect(data.getGraphById);
+      }
+    },
+  });
 
   const result = generatedGraphData?.getLastestGraph ?? [];
   console.log(result);
@@ -73,6 +93,25 @@ const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
     setXLabel("");
     setYLabel("");
     setSubmit(false);
+  };
+
+  const handleGraphSelect = (graphData: any) => {
+    setSelectedGraphType(graphData.graphtype);
+    setGraphTitle(graphData.properties[0]?.["graph title"] || "");
+    setSelectedDates(graphData.properties[0]?.["Selected Dates"] || []);
+    setTimeMinX(graphData.properties[0]?.["x time min"] || "");
+    setTimeMaxX(graphData.properties[0]?.["x time max"] || "");
+    setTimeMinY(graphData.properties[0]?.["y time min"] || "");
+    setTimeMaxY(graphData.properties[0]?.["y time max"] || "");
+    setMinX(graphData.properties[0]?.["min x"] || "");
+    setMaxX(graphData.properties[0]?.["max x"] || "");
+    setMinY(graphData.properties[0]?.["min y"] || "");
+    setMaxY(graphData.properties[0]?.["max y"] || "");
+    setXLabel(graphData.properties[0]?.["x label"] || "");
+    setYLabel(graphData.properties[0]?.["y label"] || "");
+    
+    onGraphSelect(graphData);
+    setSubmit(true);
   };
 
   return (
@@ -121,7 +160,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
           {result.map((r) => (
             <li
               className={`flex rounded-md hover:bg-light-white text-sm items-center gap-x-4 
-                ${open ? "p-2" : "p-0"}`}
+                ${open ? "p-2" : "p-0"} ${
+                selectedGraphId === r.id ? "bg-blue-100" : ""
+                }`}
             >
               <Button color="inherit">
                 <span className="mr-2">
