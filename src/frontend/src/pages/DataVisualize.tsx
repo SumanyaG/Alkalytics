@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GraphSideBar from "../components/sidebars/GraphSideBar";
-import { useQuery, gql } from "@apollo/client";
 import ScatterPlot from "../components/graphs/scatter-plot";
+import { useQuery, gql, useMutation } from "@apollo/client";
 
 type FormDataType = {
   selectedGraphType: string;
@@ -77,7 +77,8 @@ const defaultContextValue: FormDataType = {
   setSubmit: () => {},
 };
 
-export const FormDataContext = React.createContext<FormDataType>(defaultContextValue);
+export const FormDataContext =
+  React.createContext<FormDataType>(defaultContextValue);
 
 const FILTER_COLLECTDATA = gql`
   query GetFilterCollectionData(
@@ -89,6 +90,20 @@ const FILTER_COLLECTDATA = gql`
       attributes: $attributes
       collection: $collection
       dates: $dates
+    )
+  }
+`;
+
+const SAVE_GRAPH = gql`
+  mutation AddGeneratedGraphs(
+    $graphType: String!
+    $data: [JSON]!
+    $properties: [JSON]!
+  ) {
+    addGeneratedGraphs(
+      graphType: $graphType
+      data: $data
+      properties: $properties
     )
   }
 `;
@@ -163,14 +178,30 @@ const DataVisualize: React.FC = () => {
 
   // Transform the data for the scatter plot
   const transformDataForScatter = (rawData: any[]) => {
-    return rawData.map(item => ({
+    return rawData.map((item) => ({
       x: parseFloat(item[selectedParamX]),
-      y: parseFloat(item[selectedParamY])
+      y: parseFloat(item[selectedParamY]),
     }));
   };
 
-  const graphData = data?.getFilterCollectionData ? 
-    transformDataForScatter(data.getFilterCollectionData) : [];
+  const graphData = data?.getFilterCollectionData
+    ? transformDataForScatter(data.getFilterCollectionData)
+    : [];
+
+  const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
+  const saveGraph = async () => {
+    try {
+      await addGeneratedGraphs({
+        variables: {
+          graphType: selectedGraphType,
+          data: data?.getFilterCollectionData ?? [],
+          properties: graphProperties,
+        },
+      });
+    } catch (error) {
+      console.error("Error saving graph:", error);
+    }
+  };
 
   const handleGraphData = async () => {
     setSubmit(true);
@@ -180,6 +211,11 @@ const DataVisualize: React.FC = () => {
   const graphWidth = 800;
   const graphHeight = 600;
 
+  React.useEffect(() => {
+    if (!loading && submit) {
+      saveGraph();
+    }
+  }, [loading, submit, data?.getFilterCollectionData ?? []]);
   // To be used when creating the graph, additional properties
   const graphProperties = [
     { "graph title": graphTitle },
@@ -211,7 +247,9 @@ const DataVisualize: React.FC = () => {
                 <p>line</p>
               ) : selectedGraphType === "scatter" ? (
                 <div className="relative p-4 bg-white rounded-lg shadow-lg">
-                  <h2 className="text-xl font-bold mb-4 text-center">{graphTitle}</h2>
+                  <h2 className="text-xl font-bold mb-4 text-center">
+                    {graphTitle}
+                  </h2>
                   <div className="relative">
                     <ScatterPlot
                       data={graphData}
@@ -220,9 +258,7 @@ const DataVisualize: React.FC = () => {
                     />
                     {/* Add labels */}
                     <div className="text-center mt-2">{xLabel}</div>
-                    <div 
-                      className="absolute left-0 top-1/2 transform -rotate-90 -translate-y-1/2 -translate-x-8"
-                    >
+                    <div className="absolute left-0 top-1/2 transform -rotate-90 -translate-y-1/2 -translate-x-8">
                       {yLabel}
                     </div>
                   </div>
