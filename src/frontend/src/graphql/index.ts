@@ -1,6 +1,7 @@
 import { resolvers as uploadResolver, typeDefs as uploadType } from "./upload";
 import { resolvers as queryResolver, typeDefs as queryType } from "./queries";
 import { resolvers as tableResolver, typeDefs as tableType } from "./table";
+import { resolvers as graphResolver, typeDefs as graphType } from "./graphs";
 import { gql } from "apollo-server-express";
 
 const baseType = gql`
@@ -19,5 +20,6 @@ export const resolvers = [
   uploadResolver,
   queryResolver,
   tableResolver,
+  graphResolver
 ];
-export const typeDefs = [baseType, uploadType, queryType, tableType];
+export const typeDefs = [baseType, uploadType, queryType, tableType, graphType];

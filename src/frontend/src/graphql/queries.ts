@@ -72,5 +72,5 @@ export const resolvers = {
         throw new Error("Failed to fetch experiments.");
       }
     },
-  },
+    }, 
 };
