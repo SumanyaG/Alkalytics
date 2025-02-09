@@ -328,7 +328,7 @@ async def getFilterCollectionData(payload: ExperimentFilter):
 class GeneratedGraphs(BaseModel):
     graphType: str
     data: List[Dict]
-
+    properties: List[Dict]
 @app.put("/generatedGraphs")
 async def addGeneratedGraphs(payload: GeneratedGraphs):
     """
@@ -341,7 +341,8 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
     graph = {
         "_id": nextId,  
         "graphtype": payload.graphType,
-        "data": payload.data
+        "data": payload.data,
+        "properties": payload.properties
     }
 
     try:
