@@ -27,13 +27,15 @@ interface ScatterPlotProps {
   properties?: GraphProperties;
   width?: number;
   height?: number;
+  lineData: Array<{ x: number; y: number }>;
 }
 
 const ScatterPlot: React.FC<ScatterPlotProps> = ({ 
   data, 
   properties = {},
   width = 928,
-  height = 600
+  height = 600,
+  lineData
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -85,6 +87,16 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
       .style("opacity", 0.6)
       .append("title")
       .text(d => d.label);
+    
+    if (lineData && lineData.length > 0) {
+      g.append("line")
+        .attr("x1", xScale(lineData[0].x)) // X1
+        .attr("y1", yScale(lineData[0].y)) // Y1
+        .attr("x2", xScale(lineData[1].x)) // X2
+        .attr("y2", yScale(lineData[1].y)) // Y2
+        .style("stroke", "black")
+        .style("stroke-width", 1);
+    }
 
     g.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)

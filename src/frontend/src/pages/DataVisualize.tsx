@@ -177,7 +177,7 @@ const DataVisualize: React.FC = () => {
   const { data, loading, error } = useQuery<{
     getFilterCollectionData: {
       data: any[];
-      analysisRes: any[];
+      analysisRes?: any[];
     };
   }>(FILTER_COLLECTDATA, {
     variables: {
@@ -201,6 +201,29 @@ const DataVisualize: React.FC = () => {
     ? transformDataForScatter(data.getFilterCollectionData.data)
     : [];
 
+  const validateAndTransformAnalysis = (slope: number, intercept: number) => {
+    const xValues = graphData.map((d) => d.x);
+    const xMin = Math.min(...xValues);
+    const xMax = Math.max(...xValues);
+
+    const yMin = slope * xMin + intercept;
+    const yMax = slope * xMax + intercept;
+
+    return [
+      { x: xMin, y: yMin },
+      { x: xMax, y: yMax },
+    ];
+  };
+
+  const analysisRes =
+    selectedGraphType === "scatter"
+      ? data?.getFilterCollectionData?.analysisRes ?? []
+      : [];
+
+  const { slope, intercept, r_squared } = analysisRes[0] || {};
+  const lineData =
+    slope && intercept ? validateAndTransformAnalysis(slope, intercept) : [];
+  
   const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
   
   const graphProperties = {
@@ -299,7 +322,8 @@ const DataVisualize: React.FC = () => {
                       properties={graphProperties}
                       width={dimensions.width}
                       height={dimensions.height}
-                    />
+                      lineData={lineData}
+                />
                   ) : null}
                 </div>
               </div>
