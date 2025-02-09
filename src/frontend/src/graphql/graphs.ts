@@ -64,7 +64,6 @@ export const resolvers = {
           _:undefined,
           {latest}:{latest:Number}):Promise<any> => {
             try {
-              console.log(latest)
               const response = await axios.post("http://127.0.0.1:8000/generatedGraphs/latest", {latest}, {
                 headers: { "Content-Type": "application/json" },
               });
