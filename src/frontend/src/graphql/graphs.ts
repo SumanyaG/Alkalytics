@@ -4,9 +4,14 @@ import axios from "axios";
 export const typeDefs = gql`
   scalar JSON
 
+  type filterCollectionDataResponse {
+    data: [JSON]!
+    analysisRes: [JSON]
+  }
+
   type Query {
     getCollectionAttrs(collection: String!): [String!]!
-    getFilterCollectionData(attributes: [String!]!, collection: String!, dates:[String]): [JSON]!
+    getFilterCollectionData(attributes: [String!]!, collection: String!, dates:[String], analysis: Boolean): filterCollectionDataResponse
     getLastestGraph(latest:Int):[JSON]
     }
     
@@ -14,6 +19,11 @@ export const typeDefs = gql`
       addGeneratedGraphs(graphType: String!, data:[JSON]!, properties:[JSON]!): String!
    }
 `;
+
+export type filterCollectionDataResponse = {
+  data: JSON[];
+  analysisRes?: JSON[];
+}
 
 export const resolvers = {
   Query: {
@@ -41,14 +51,21 @@ export const resolvers = {
   
       getFilterCollectionData: async (
         _: undefined,
-        { attributes, collection, dates }: { attributes: string[]; collection: string, dates: string[] }
-      ):Promise<Record<string, any>> => {
+        { attributes, collection, dates, analysis }: { attributes: string[]; collection: string, dates: string[], analysis?: Boolean }
+      ):Promise<filterCollectionDataResponse> => {
         try {
-          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, dates}, {
+          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, dates, analysis}, {
             headers: { "Content-Type": "application/json" },
           });
           if (response.data.status === "success") {
-            return response.data.data; 
+            return { 
+              data: response.data.data || [],
+              analysisRes: analysis
+              ? response.data.analysisRes !== "error" 
+                ? response.data.analysisRes || []
+                : []
+              : []
+            };
           } else {
             throw new Error("No data has the given attributes.");
           }

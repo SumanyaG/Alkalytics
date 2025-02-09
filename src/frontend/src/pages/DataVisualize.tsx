@@ -87,13 +87,18 @@ const FILTER_COLLECTDATA = gql`
     $attributes: [String!]!
     $collection: String!
     $dates: [String]
+    $analysis: Boolean
   ) {
     getFilterCollectionData(
       attributes: $attributes
       collection: $collection
       dates: $dates
-    )
-  }
+      analysis: $analysis
+    ) {
+        data
+        analysisRes
+      }
+    }
 `;
 
 const SAVE_GRAPH = gql`
@@ -170,12 +175,16 @@ const DataVisualize: React.FC = () => {
   };
 
   const { data, loading, error } = useQuery<{
-    getFilterCollectionData: any[];
+    getFilterCollectionData: {
+      data: any[];
+      analysisRes: any[];
+    };
   }>(FILTER_COLLECTDATA, {
     variables: {
       attributes: [selectedParamX, selectedParamY],
       collection: selectedParamType,
       dates: selectedDates,
+      analysis: selectedGraphType === "scatter"
     },
     skip: !submit,
   });
@@ -188,8 +197,8 @@ const DataVisualize: React.FC = () => {
     }));
   };
 
-  const graphData = data?.getFilterCollectionData
-    ? transformDataForScatter(data.getFilterCollectionData)
+  const graphData = data?.getFilterCollectionData?.data
+    ? transformDataForScatter(data.getFilterCollectionData.data)
     : [];
 
   const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
@@ -214,7 +223,7 @@ const DataVisualize: React.FC = () => {
       await addGeneratedGraphs({
         variables: {
           graphType: selectedGraphType,
-          data: data?.getFilterCollectionData ?? [],
+          data: data?.getFilterCollectionData?.data ?? [],
           properties: [graphProperties], 
         },
       });
