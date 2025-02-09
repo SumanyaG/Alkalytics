@@ -220,7 +220,7 @@ const DataVisualize: React.FC = () => {
       ? data?.getFilterCollectionData?.analysisRes ?? []
       : [];
 
-  const { slope, intercept, r_squared } = analysisRes[0] || {};
+  const { slope, intercept, R_squared } = analysisRes[0] || {};
   const lineData =
     slope && intercept ? validateAndTransformAnalysis(slope, intercept) : [];
   
@@ -269,7 +269,7 @@ const DataVisualize: React.FC = () => {
     if (!loading && submit) {
       saveGraph();
     }
-  }, [loading, submit, data?.getFilterCollectionData]);
+  }, [loading, submit, data?.getFilterCollectionData?.data]);
 
   React.useEffect(() => {
     const updateDimensions = () => {
@@ -329,6 +329,34 @@ const DataVisualize: React.FC = () => {
               </div>
             )}
           </div>
+                    />
+                  </div>
+                  <div className="relative mt-2 p-2">
+                    <h6>
+                      R<sup>2</sup> (coefficient of determination):{" "}
+                      {R_squared ? R_squared.toFixed(2) : "Loading..."}
+                    </h6>
+                    {R_squared ? (
+                      R_squared < 0.5 ? (
+                        <p>
+                          The linear model explains less than 50% of the
+                          variability in the data, suggesting a poor fit.
+                        </p>
+                      ) : (
+                        <p>
+                          The linear model explains more than 50% of the
+                          variability in the data, suggesting a moderate to
+                          strong fit.
+                        </p>
+                      )
+                    ) : (
+                      <p>Loading...</p>
+                    )}
+                  </div>
+                </div>
+              ) : null}
+            </>
+          )}
         </div>
       </div>
     </FormDataContext.Provider>
