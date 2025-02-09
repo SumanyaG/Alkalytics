@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GraphSideBar from "../components/sidebars/GraphSideBar";
 import { useQuery, gql } from "@apollo/client";
+import ScatterPlot from "../components/graphs/scatter-plot";
 
 type FormDataType = {
   selectedGraphType: string;
@@ -76,8 +77,7 @@ const defaultContextValue: FormDataType = {
   setSubmit: () => {},
 };
 
-export const FormDataContext =
-  React.createContext<FormDataType>(defaultContextValue);
+export const FormDataContext = React.createContext<FormDataType>(defaultContextValue);
 
 const FILTER_COLLECTDATA = gql`
   query GetFilterCollectionData(
@@ -160,20 +160,30 @@ const DataVisualize: React.FC = () => {
     },
     skip: !submit,
   });
-  const graphData = data?.getFilterCollectionData ?? [];
 
-  console.log("data", graphData);
+  // Transform the data for the scatter plot
+  const transformDataForScatter = (rawData: any[]) => {
+    return rawData.map(item => ({
+      x: parseFloat(item[selectedParamX]),
+      y: parseFloat(item[selectedParamY])
+    }));
+  };
+
+  const graphData = data?.getFilterCollectionData ? 
+    transformDataForScatter(data.getFilterCollectionData) : [];
 
   const handleGraphData = async () => {
     setSubmit(true);
   };
 
-  // if experiments, call it straight
+  // Define dimensions for the scatter plot
+  const graphWidth = 800;
+  const graphHeight = 600;
 
   // To be used when creating the graph, additional properties
-  let graphProperties = [
+  const graphProperties = [
     { "graph title": graphTitle },
-    { "Selected Dates": selectedDates }, 
+    { "Selected Dates": selectedDates },
     { "x time min": timeMinX },
     { "x time max": timeMaxX },
     { "y time min": timeMinY },
@@ -190,16 +200,36 @@ const DataVisualize: React.FC = () => {
     <FormDataContext.Provider value={contextValue}>
       <div className="flex">
         <GraphSideBar onSubmit={handleGraphData} />
-        <div className="flex flex-col items-center justify-center h-screen">
-          {submit &&
-            (selectedGraphType === "bar" ? (
-              <p>bar</p>
-            ) : selectedGraphType === "line" ? (
-              <p>line</p>
-            ) : selectedGraphType === "scatter" ? (
-              <p>scatter</p>
-            ) : null)}
-
+        <div className="flex flex-col items-center justify-center h-screen w-full">
+          {loading && <p>Loading...</p>}
+          {error && <p>Error: {error.message}</p>}
+          {submit && (
+            <>
+              {selectedGraphType === "bar" ? (
+                <p>bar</p>
+              ) : selectedGraphType === "line" ? (
+                <p>line</p>
+              ) : selectedGraphType === "scatter" ? (
+                <div className="relative p-4 bg-white rounded-lg shadow-lg">
+                  <h2 className="text-xl font-bold mb-4 text-center">{graphTitle}</h2>
+                  <div className="relative">
+                    <ScatterPlot
+                      data={graphData}
+                      width={graphWidth}
+                      height={graphHeight}
+                    />
+                    {/* Add labels */}
+                    <div className="text-center mt-2">{xLabel}</div>
+                    <div 
+                      className="absolute left-0 top-1/2 transform -rotate-90 -translate-y-1/2 -translate-x-8"
+                    >
+                      {yLabel}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </>
+          )}
         </div>
       </div>
     </FormDataContext.Provider>
