@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Stepper, Step, StepLabel, TextField, IconButton } from "@mui/material";
-import SingleDropdown from "./SingleDropdown";
-import MultipleSelectCheckmarks from "./MultiSelectDropDown";
-import ExpandableSection from "./ExpandableSection";
+import SingleDropdown from "../datavisualizeform/SingleDropdown";
+import MultipleSelectCheckmarks from "../datavisualizeform/MultiSelectDropDown";
+import ExpandableSection from "../datavisualizeform/ExpandableSection";
 import { FormDataContext } from "../../pages/DataVisualize";
 import { useQuery, gql } from "@apollo/client";
 
@@ -66,32 +66,33 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     { variables: { collection: "data" } }
   );
 
+  const datasheetParam =
+    dataAttr?.getCollectionAttrs ??
+    []
+      .filter(
+        (item: string) =>
+          !["_id", "experimentId", "#", "dataSheetId"].includes(item)
+      )
+      .map((item: string) => ({
+        value: item,
+        label: item,
+      }));
+
   const { data: expAttr } = useQuery<{ getCollectionAttrs: any[] }>(GET_ATTRS, {
     variables: { collection: "experiments" },
   });
 
-  const dataAttrReturn = dataAttr?.getCollectionAttrs ?? [];
-  const expAttrReturn = expAttr?.getCollectionAttrs ?? [];
-
-  const datasheetParam = dataAttrReturn
-    .filter(
-      (item: string) =>
-        !["_id", "experimentId", "#", "dataSheetId"].includes(item)
-    )
-    .map((item: string) => ({
-      value: item,
-      label: item,
-    }));
-
-  const experimentParam = expAttrReturn
-    .filter(
-      (item: string) =>
-        !["_id", "experimentId", "#", "Date", "Notes"].includes(item)
-    ) // Exclude specific attributes
-    .map((item: string) => ({
-      value: item,
-      label: item,
-    }));
+  const experimentParam =
+    expAttr?.getCollectionAttrs ??
+    []
+      .filter(
+        (item: string) =>
+          !["_id", "experimentId", "#", "Date", "Notes"].includes(item)
+      ) // Exclude specific attributes
+      .map((item: string) => ({
+        value: item,
+        label: item,
+      }));
 
   const { data: filteredData } = useQuery<{ getFilterCollectionData: any[] }>(
     FILTER_COLLECTDATA,
@@ -100,8 +101,9 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     }
   );
 
-  const filteredDataReturn = filteredData?.getFilterCollectionData ?? [];
-  const dateOptions = filteredDataReturn.map((item) => item.Date);
+  const dateOptions = (filteredData?.getFilterCollectionData ?? []).map(
+    (item) => item.Date
+  );
 
   const steps = ["Graph", "Data", "Parameters", "Customize"];
   const [activeStep, setActiveStep] = useState(0);
