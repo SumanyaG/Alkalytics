@@ -175,11 +175,11 @@ const DataVisualize: React.FC = () => {
     skip: !submit,
   });
 
-  // Transform the data for the scatter plot
   const transformDataForScatter = (rawData: any[]) => {
-    return rawData.map((item) => ({
+    return rawData.map((item, index) => ({
+      label: `Point ${index + 1}`,  
       x: parseFloat(item[selectedParamX]),
-      y: parseFloat(item[selectedParamY]),
+      y: parseFloat(item[selectedParamY])
     }));
   };
 
@@ -188,13 +188,29 @@ const DataVisualize: React.FC = () => {
     : [];
 
   const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
+  
+  const graphProperties = {
+    "graph title": graphTitle,
+    "Selected Dates": selectedDates,
+    "x time min": timeMinX ? parseFloat(timeMinX) : undefined,
+    "x time max": timeMaxX ? parseFloat(timeMaxX) : undefined,
+    "y time min": timeMinY ? parseFloat(timeMinY) : undefined,
+    "y time max": timeMaxY ? parseFloat(timeMaxY) : undefined,
+    "min x": minX ? parseFloat(minX) : undefined,
+    "max x": maxX ? parseFloat(maxX) : undefined,
+    "min y": minY ? parseFloat(minY) : undefined,
+    "max y": maxY ? parseFloat(maxY) : undefined,
+    "x label": xLabel,
+    "y label": yLabel,
+  };
+
   const saveGraph = async () => {
     try {
       await addGeneratedGraphs({
         variables: {
           graphType: selectedGraphType,
           data: data?.getFilterCollectionData ?? [],
-          properties: graphProperties,
+          properties: [graphProperties], 
         },
       });
     } catch (error) {
@@ -206,7 +222,6 @@ const DataVisualize: React.FC = () => {
     setSubmit(true);
   };
 
-  // Define dimensions for the scatter plot
   const graphWidth = 800;
   const graphHeight = 600;
 
@@ -214,22 +229,7 @@ const DataVisualize: React.FC = () => {
     if (!loading && submit) {
       saveGraph();
     }
-  }, [loading, submit, data?.getFilterCollectionData ?? []]);
-  // To be used when creating the graph, additional properties
-  const graphProperties = [
-    { "graph title": graphTitle },
-    { "Selected Dates": selectedDates },
-    { "x time min": timeMinX },
-    { "x time max": timeMaxX },
-    { "y time min": timeMinY },
-    { "y time max": timeMaxY },
-    { "min x": minX },
-    { "max x": maxX },
-    { "min y": minY },
-    { "max y": maxY },
-    { "x label": xLabel },
-    { "y label": yLabel },
-  ];
+  }, [loading, submit, data?.getFilterCollectionData]);
 
   return (
     <FormDataContext.Provider value={contextValue}>
@@ -246,20 +246,13 @@ const DataVisualize: React.FC = () => {
                 <p>line</p>
               ) : selectedGraphType === "scatter" ? (
                 <div className="relative p-4 bg-white rounded-lg shadow-lg">
-                  <h2 className="text-xl font-bold mb-4 text-center">
-                    {graphTitle}
-                  </h2>
                   <div className="relative">
                     <ScatterPlot
                       data={graphData}
+                      properties={graphProperties}
                       width={graphWidth}
                       height={graphHeight}
                     />
-                    {/* Add labels */}
-                    <div className="text-center mt-2">{xLabel}</div>
-                    <div className="absolute left-0 top-1/2 transform -rotate-90 -translate-y-1/2 -translate-x-8">
-                      {yLabel}
-                    </div>
                   </div>
                 </div>
               ) : null}
