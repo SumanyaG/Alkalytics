@@ -1,16 +1,37 @@
 import { useContext, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import AddIcon from "@mui/icons-material/Add";
+import {
+  Add,
+  KeyboardDoubleArrowRight,
+  BarChart,
+  ScatterPlot,
+  ShowChart,
+} from "@mui/icons-material";
 import Button from "@mui/material/Button";
-import GenerateGraphModal from "../datavisualizeform/DataFormModal";
+import GenerateGraphModal from "../modal/DataFormModal";
 import { FormDataContext } from "../../pages/DataVisualize";
+import { useQuery, gql } from "@apollo/client";
 
 type SidebarProps = {
   onSubmit: any;
 };
+const GET_GRAPH = gql`
+  query GetLastestGraph($latest: Int) {
+    getLastestGraph(latest: $latest)
+  }
+`;
 
 const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
+  const { data: generatedGraphData } = useQuery<{ getLastestGraph: any[] }>(
+    GET_GRAPH,
+    {
+      variables: { latest: 0 },
+    }
+  );
+
+  const result = generatedGraphData?.getLastestGraph ?? [];
+  console.log(result);
+
   const [open, setOpen] = useState<boolean>(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -68,7 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
               onClick={() => setOpen(!open)}
               className={`absolute -right-3 w-7 ${!open && "rotate-180"}`}
             >
-              <KeyboardDoubleArrowRightIcon />
+              <KeyboardDoubleArrowRight />
             </IconButton>
           </li>
           <li
@@ -76,7 +97,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
               ${open ? "p-2" : "p-0"}`}
           >
             <Button
-              startIcon={<AddIcon />}
+              startIcon={<Add />}
               color="inherit"
               onClick={() => {
                 setModalOpen(true);
@@ -92,6 +113,39 @@ const Sidebar: React.FC<SidebarProps> = ({ onSubmit }) => {
               </span>
             </Button>
           </li>
+          <li>
+            <h2 className={`p-4 pl-5 origin-left duration-200 text-gray-500 `}>
+              {!open ? "-" : "Recently Generated Graphs"}
+            </h2>
+          </li>
+          {result.map((r) => (
+            <li
+              key={r._id} // Use _id as the unique key
+              className={`flex rounded-md hover:bg-light-white text-sm items-center gap-x-4 
+                ${open ? "p-2" : "p-0"}`}
+            >
+              <Button color="inherit">
+                <span className="mr-2">
+                  {r.graphtype === "bar" ? (
+                    <BarChart />
+                  ) : r.graphtype === "line" ? (
+                    <ShowChart />
+                  ) : r.graphtype === "scatter" ? (
+                    <ScatterPlot />
+                  ) : null}
+                </span>
+                <span
+                  className={`${
+                    !open && "hidden"
+                  } text-base pl-2 origin-left duration-200`}
+                >
+                  {r.properties[0]?.["graph title"] === ""
+                    ? r.graphtype + " Graph"
+                    : r.properties[0]?.["graph title"]}{" "}
+                </span>
+              </Button>
+            </li>
+          ))}
         </ul>
       </div>
       {modalOpen && (

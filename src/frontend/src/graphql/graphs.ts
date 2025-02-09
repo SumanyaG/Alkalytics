@@ -11,7 +11,7 @@ export const typeDefs = gql`
     }
     
     type Mutation {
-        addGeneratedGraphs(graphType: String!, data:[JSON]!, properties:[JSON]!): String!
+      addGeneratedGraphs(graphType: String!, data:[JSON]!, properties:[JSON]!): String!
    }
 `;
 
@@ -64,11 +64,12 @@ export const resolvers = {
           _:undefined,
           {latest}:{latest:Number}):Promise<any> => {
             try {
-              const response = await axios.post("http://127.0.0.1:8000//generatedGraphs/latest", {latest}, {
+              console.log(latest)
+              const response = await axios.post("http://127.0.0.1:8000/generatedGraphs/latest", {latest}, {
                 headers: { "Content-Type": "application/json" },
               });
-              if (response.data.status === "success") {
-                return response.data.data; 
+              if (response.data) {
+                return response.data; 
               } else {
                 throw new Error("No graphs have been saved");
               }
