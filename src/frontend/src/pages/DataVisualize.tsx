@@ -163,7 +163,6 @@ const DataVisualize: React.FC = () => {
     submit,
     setSubmit,
   };
-  // return all data points with dates = those in selectedDates --> then filter by the params
 
   const { data, loading, error } = useQuery<{
     getFilterCollectionData: any[];
