@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 from bson import ObjectId
 from dotenv import load_dotenv
 import pandas as pd
+import numpy as np
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -255,6 +256,7 @@ class ExperimentFilter(BaseModel):
     collection: str
     attributes: List[str]
     dates:Optional[List[str]] = None
+    analysis: Optional[bool] = False
 
 @app.post("/filterCollectionData")
 async def getFilterCollectionData(payload: ExperimentFilter):
@@ -283,6 +285,41 @@ async def getFilterCollectionData(payload: ExperimentFilter):
         finally:
             client.close()
 
+    def performAnalysis(data, attributes):
+        if len(attributes) != 2:
+            raise ValueError("The simple linear regression requires 2 variables.")
+
+        # Check if first item in data for specified attributes have numeric values
+        if not isinstance(data[0][attributes[0]], (int, float)) or not isinstance(data[0][attributes[1]], (int, float)):
+            raise TypeError("Data is non-numeric. Linear regression cannot be computed.")
+
+        if len(data) > 5000:
+            print(
+                "Size of data is too large to compute linear regression, "
+                "a sample of the original data will be analyzed."
+            )
+            sample_size = int(len(data) * 0.5)
+            indices = np.random.choice(len(data), size=sample_size, replace=False)
+            data = [data[i] for i in indices]
+
+        # Split and transform data into numpy arrays based on attributes
+        x = np.array([item[attributes[0]] for item in data])
+        y = np.array([item[attributes[1]] for item in data])
+
+        # Perform linear regression
+        coeffs, residuals, _, _, _ = np.polyfit(x, y, 1, full=True)
+
+        # Calculate R-squared coefficient
+        SST = np.sum((y - np.mean(y))**2)
+        SSR = residuals[0] if residuals.size > 0 else 0
+        R_squared = 1 - (SSR / SST) if SST > 0 else 1
+        result = {
+            "slope": coeffs[0],
+            "intercept": coeffs[1],
+            "R_squared": R_squared
+        }
+        return [result]
+
     # Need to get experimentId from the Dates selected
     if payload.collection == "data" and payload.dates:
         # Get experiment IDs from the "experiments" collection
@@ -307,17 +344,30 @@ async def getFilterCollectionData(payload: ExperimentFilter):
 
         query = {"experimentId": {"$in": experiment_ids}}
         attrs["experimentId"] = 1
-        return await fetch_and_process_data(target_collection, query, attrs, target_client)
+        response = await fetch_and_process_data(target_collection, query, attrs, target_client)
 
     # Handle all other cases
-    target_conn = getConnection(payload.collection)
-    target_collection, target_client = target_conn["collection"], target_conn["client"]
-
-    if len(payload.dates) > 0:
-        query = {"Date": {"$in": payload.dates}}
     else:
-        query = {} 
-    return await fetch_and_process_data(target_collection, query, attrs, target_client)
+        target_conn = getConnection(payload.collection)
+        target_collection, target_client = target_conn["collection"], target_conn["client"]
+
+        if len(payload.dates) > 0:
+            query = {"Date": {"$in": payload.dates}}
+        else:
+            query = {}
+        response = await fetch_and_process_data(target_collection, query, attrs, target_client)
+
+    # Check if analysis is requested
+    if payload.analysis:
+        try:
+            analysisResults = performAnalysis(response["data"], payload.attributes)
+            if analysisResults:
+                response["analysisRes"] = analysisResults
+        except Exception as e:
+            response["analysisRes"] = "error"
+            print(f"Error performing analysis: {e}")
+
+    return response
 
 class GeneratedGraphs(BaseModel):
     graphType: str
