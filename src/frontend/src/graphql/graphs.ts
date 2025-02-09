@@ -84,16 +84,18 @@ export const resolvers = {
   Mutation: {
     addGeneratedGraphs: async(
         _:undefined,
-        {graphType, data}:{graphType: string, data:[]}):Promise<string> => {
-          try {
-            const response = await axios.post("http://127.0.0.1:8000/generatedGraphs", {graphType, data}, {
+        {graphType, data, properties}:{graphType: string, data:[], properties:[]}):Promise<string> => {
+            try {
+            const response = await axios.put("http://127.0.0.1:8000/generatedGraphs", {graphType, data, properties}, {
               headers: { "Content-Type": "application/json" },
             });
+
             if (response.data.status === "success") {
               return response.data.message; 
             } else {
               throw new Error("Unable to save graph");
             }
+
           } catch (error) {
             console.error(
               "Error adding graph:",
