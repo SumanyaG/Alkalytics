@@ -317,46 +317,42 @@ const DataVisualize: React.FC = () => {
                       height={dimensions.height}
                     />
                   ) : selectedGraphType === "scatter" ? (
-                    <ScatterPlot
-                      data={selectedGraphData?.data || graphData}
-                      properties={graphProperties}
-                      width={dimensions.width}
-                      height={dimensions.height}
-                      lineData={lineData}
-                />
+                    <>
+                      <ScatterPlot
+                        data={selectedGraphData?.data || graphData}
+                        properties={graphProperties}
+                        width={dimensions.width}
+                        height={dimensions.height}
+                        lineData={lineData}
+                      />
+                      <div className="relative mt-2 p-2">
+                        <h6>
+                          R<sup>2</sup> (coefficient of determination):{" "}
+                          {R_squared ? R_squared.toFixed(2) : "Loading..."}
+                        </h6>
+                        {R_squared ? (
+                          R_squared < 0.5 ? (
+                            <p>
+                              The linear model explains less than 50% of the
+                              variability in the data, suggesting a poor fit.
+                            </p>
+                          ) : (
+                            <p>
+                              The linear model explains more than 50% of the
+                              variability in the data, suggesting a moderate to
+                              strong fit.
+                            </p>
+                          )
+                        ) : (
+                          <p>Loading...</p>
+                        )}
+                      </div>
+                    </>
                   ) : null}
                 </div>
               </div>
             )}
           </div>
-                    />
-                  </div>
-                  <div className="relative mt-2 p-2">
-                    <h6>
-                      R<sup>2</sup> (coefficient of determination):{" "}
-                      {R_squared ? R_squared.toFixed(2) : "Loading..."}
-                    </h6>
-                    {R_squared ? (
-                      R_squared < 0.5 ? (
-                        <p>
-                          The linear model explains less than 50% of the
-                          variability in the data, suggesting a poor fit.
-                        </p>
-                      ) : (
-                        <p>
-                          The linear model explains more than 50% of the
-                          variability in the data, suggesting a moderate to
-                          strong fit.
-                        </p>
-                      )
-                    ) : (
-                      <p>Loading...</p>
-                    )}
-                  </div>
-                </div>
-              ) : null}
-            </>
-          )}
         </div>
       </div>
     </FormDataContext.Provider>
