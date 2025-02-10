@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import GraphSideBar from "../components/sidebars/GraphSideBar";
 import ScatterPlot from "../components/graphs/scatter-plot";
 import LineGraph from "../components/graphs/line-plot";
@@ -128,6 +128,9 @@ const DataVisualize: React.FC = () => {
   const [xLabel, setXLabel] = useState("");
   const [yLabel, setYLabel] = useState("");
   const [submit, setSubmit] = useState(false);
+  const [selectedGraphData, setSelectedGraphData] = useState<any>(null);
+  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const contextValue: FormDataType = {
     selectedGraphType,
@@ -224,8 +227,11 @@ const DataVisualize: React.FC = () => {
     setSubmit(true);
   };
 
-  const graphWidth = 800;
-  const graphHeight = 600;
+  const handleGraphSelect = (graphData: any) => {
+    setSelectedGraphData(graphData);
+    const transformedData = graphData.data ? transformDataForScatter(graphData.data) : [];
+    setSubmit(true);
+  };
 
   React.useEffect(() => {
     if (!loading && submit) {
@@ -233,51 +239,63 @@ const DataVisualize: React.FC = () => {
     }
   }, [loading, submit, data?.getFilterCollectionData]);
 
+  React.useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const { width, height } = containerRef.current.getBoundingClientRect();
+        setDimensions({ width, height });
+      }
+    };
+  
+    updateDimensions();
+    const resizeObserver = new ResizeObserver(updateDimensions);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+  
+    return () => resizeObserver.disconnect();
+  }, []);
+
   return (
-    <FormDataContext.Provider value={contextValue}>
-      <div className="flex">
-        <GraphSideBar onSubmit={handleGraphData} />
-        <div className="flex flex-col items-center justify-center h-screen w-full">
-          {loading && <p>Loading...</p>}
-          {error && <p>Error: {error.message}</p>}
-          {submit && (
-          <>
-          {selectedGraphType === "bar" ? (
-            <div className="relative p-4 bg-white rounded-lg shadow-lg">
-              <div className="relative">
-                <BarGraph
-                  data={graphData}
-                  properties={graphProperties}
-                  width={graphWidth}
-                  height={graphHeight}
-                />
+    <FormDataContext.Provider value={contextValue}>   
+      <div className="flex">                         
+        <GraphSideBar                                
+          onSubmit={handleGraphData} 
+          onGraphSelect={handleGraphSelect} 
+        />
+        <div className="flex-1 overflow-hidden">      
+          <div className="p-8 h-full w-full flex items-center justify-center">
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error.message}</p>}
+            {submit && (
+              <div className="w-full h-full max-w-[1200px] aspect-[4/3]">
+                <div ref={containerRef} className="relative w-full h-full p-4 bg-white rounded-lg shadow-lg">
+                  {selectedGraphType === "bar" ? (
+                    <BarGraph
+                      data={selectedGraphData?.data || graphData}
+                      properties={graphProperties}
+                      width={dimensions.width}
+                      height={dimensions.height}
+                    />
+                  ) : selectedGraphType === "line" ? (
+                    <LineGraph
+                      data={selectedGraphData?.data || graphData}
+                      properties={graphProperties}
+                      width={dimensions.width}
+                      height={dimensions.height}
+                    />
+                  ) : selectedGraphType === "scatter" ? (
+                    <ScatterPlot
+                      data={selectedGraphData?.data || graphData}
+                      properties={graphProperties}
+                      width={dimensions.width}
+                      height={dimensions.height}
+                    />
+                  ) : null}
+                </div>
               </div>
-            </div>
-          ) : selectedGraphType === "line" ? (
-            <div className="relative p-4 bg-white rounded-lg shadow-lg">
-              <div className="relative">
-                <LineGraph
-                  data={graphData}
-                  properties={graphProperties}
-                  width={graphWidth}
-                  height={graphHeight}
-                />
-              </div>
-            </div>
-          ) : selectedGraphType === "scatter" ? (
-            <div className="relative p-4 bg-white rounded-lg shadow-lg">
-              <div className="relative">
-                <ScatterPlot
-                  data={graphData}
-                  properties={graphProperties}
-                  width={graphWidth}
-                  height={graphHeight}
-                />
-              </div>
-            </div>
-          ) : null}
-          </>
-        )}
+            )}
+          </div>
         </div>
       </div>
     </FormDataContext.Provider>
