@@ -87,13 +87,18 @@ const FILTER_COLLECTDATA = gql`
     $attributes: [String!]!
     $collection: String!
     $dates: [String]
+    $analysis: Boolean
   ) {
     getFilterCollectionData(
       attributes: $attributes
       collection: $collection
       dates: $dates
-    )
-  }
+      analysis: $analysis
+    ) {
+        data
+        analysisRes
+      }
+    }
 `;
 
 const SAVE_GRAPH = gql`
@@ -170,12 +175,16 @@ const DataVisualize: React.FC = () => {
   };
 
   const { data, loading, error } = useQuery<{
-    getFilterCollectionData: any[];
+    getFilterCollectionData: {
+      data: any[];
+      analysisRes?: any[];
+    };
   }>(FILTER_COLLECTDATA, {
     variables: {
       attributes: [selectedParamX, selectedParamY],
       collection: selectedParamType,
       dates: selectedDates,
+      analysis: selectedGraphType === "scatter"
     },
     skip: !submit,
   });
@@ -188,10 +197,33 @@ const DataVisualize: React.FC = () => {
     }));
   };
 
-  const graphData = data?.getFilterCollectionData
-    ? transformDataForScatter(data.getFilterCollectionData)
+  const graphData = data?.getFilterCollectionData?.data
+    ? transformDataForScatter(data.getFilterCollectionData.data)
     : [];
 
+  const validateAndTransformAnalysis = (slope: number, intercept: number) => {
+    const xValues = graphData.map((d) => d.x);
+    const xMin = Math.min(...xValues);
+    const xMax = Math.max(...xValues);
+
+    const yMin = slope * xMin + intercept;
+    const yMax = slope * xMax + intercept;
+
+    return [
+      { x: xMin, y: yMin },
+      { x: xMax, y: yMax },
+    ];
+  };
+
+  const analysisRes =
+    selectedGraphType === "scatter"
+      ? data?.getFilterCollectionData?.analysisRes ?? []
+      : [];
+
+  const { slope, intercept, R_squared } = analysisRes[0] || {};
+  const lineData =
+    slope && intercept ? validateAndTransformAnalysis(slope, intercept) : [];
+  
   const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
   
   const graphProperties = {
@@ -214,7 +246,7 @@ const DataVisualize: React.FC = () => {
       await addGeneratedGraphs({
         variables: {
           graphType: selectedGraphType,
-          data: data?.getFilterCollectionData ?? [],
+          data: data?.getFilterCollectionData?.data ?? [],
           properties: [graphProperties], 
         },
       });
@@ -237,7 +269,7 @@ const DataVisualize: React.FC = () => {
     if (!loading && submit) {
       saveGraph();
     }
-  }, [loading, submit, data?.getFilterCollectionData]);
+  }, [loading, submit, data?.getFilterCollectionData?.data]);
 
   React.useEffect(() => {
     const updateDimensions = () => {
@@ -285,12 +317,37 @@ const DataVisualize: React.FC = () => {
                       height={dimensions.height}
                     />
                   ) : selectedGraphType === "scatter" ? (
-                    <ScatterPlot
-                      data={selectedGraphData?.data || graphData}
-                      properties={graphProperties}
-                      width={dimensions.width}
-                      height={dimensions.height}
-                    />
+                    <>
+                      <ScatterPlot
+                        data={selectedGraphData?.data || graphData}
+                        properties={graphProperties}
+                        width={dimensions.width}
+                        height={dimensions.height}
+                        lineData={lineData}
+                      />
+                      <div className="relative mt-2 p-2">
+                        <h6>
+                          R<sup>2</sup> (coefficient of determination):{" "}
+                          {R_squared ? R_squared.toFixed(2) : "Loading..."}
+                        </h6>
+                        {R_squared ? (
+                          R_squared < 0.5 ? (
+                            <p>
+                              The linear model explains less than 50% of the
+                              variability in the data, suggesting a poor fit.
+                            </p>
+                          ) : (
+                            <p>
+                              The linear model explains more than 50% of the
+                              variability in the data, suggesting a moderate to
+                              strong fit.
+                            </p>
+                          )
+                        ) : (
+                          <p>Loading...</p>
+                        )}
+                      </div>
+                    </>
                   ) : null}
                 </div>
               </div>

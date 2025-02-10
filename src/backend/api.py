@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 from bson import ObjectId
 from dotenv import load_dotenv
 import pandas as pd
+import numpy as np
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -71,166 +72,166 @@ async def upload(payload: FilesPayload):
     tempExperimentFiles = []
     tempDataFiles = []
 
-#     try:
+    try:
 
-#         def decodeAndSave(filePayload: FilePayload) -> str:
-#             try:
-#                 file_content = base64.b64decode(filePayload.content)
-#             except Exception as decode_error:
-#                 raise HTTPException(
-#                     status_code=400,
-#                     detail=f"Invalid base64 content for file: {
-#                         filePayload.filename}",
-#                 ) from decode_error
+        def decodeAndSave(filePayload: FilePayload) -> str:
+            try:
+                file_content = base64.b64decode(filePayload.content)
+            except Exception as decode_error:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid base64 content for file: {
+                        filePayload.filename}",
+                ) from decode_error
 
-#             sanitized_filename = sanitizeFilename(filePayload.filename)
-#             tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
+            sanitized_filename = sanitizeFilename(filePayload.filename)
+            tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
 
-#             with open(tempFilePath, "wb") as temp_file:
-#                 temp_file.write(file_content)
+            with open(tempFilePath, "wb") as temp_file:
+                temp_file.write(file_content)
 
-#             return tempFilePath
+            return tempFilePath
 
-#         for file in payload.experimentFiles:
-#             tempExperimentFiles.append(decodeAndSave(file))
+        for file in payload.experimentFiles:
+            tempExperimentFiles.append(decodeAndSave(file))
 
-#         for file in payload.dataFiles:
-#             tempDataFiles.append(decodeAndSave(file))
+        for file in payload.dataFiles:
+            tempDataFiles.append(decodeAndSave(file))
 
-#         if not tempExperimentFiles and not tempDataFiles:
-#             raise HTTPException(
-#                 status_code=400, detail="No valid files provided."
-#             )
+        if not tempExperimentFiles and not tempDataFiles:
+            raise HTTPException(
+                status_code=400, detail="No valid files provided."
+            )
 
-#         mongoUri = os.getenv("CONNECTION_STRING")
-#         dbName = "alkalyticsDB"
-#         migrationService = MigrationService(mongoUri, dbName)
+        mongoUri = os.getenv("CONNECTION_STRING")
+        dbName = "alkalyticsDB"
+        migrationService = MigrationService(mongoUri, dbName)
 
-#         try:
-#             ambiguous_data = await migrationService.migrate(
-#                 experimentFilePaths=tempExperimentFiles,
-#                 dataFilePaths=tempDataFiles,
-#             )
-#         finally:
-#             await migrationService.closeConnection()
+        try:
+            ambiguous_data = await migrationService.migrate(
+                experimentFilePaths=tempExperimentFiles,
+                dataFilePaths=tempDataFiles,
+            )
+        finally:
+            await migrationService.closeConnection()
 
-#         file_map = {file.filename: file for file in payload.dataFiles}
+        file_map = {file.filename: file for file in payload.dataFiles}
 
-#         for data in ambiguous_data:
-#             if data["dataId"] in file_map:
-#                 data["dataFile"] = file_map[data["dataId"]]
+        for data in ambiguous_data:
+            if data["dataId"] in file_map:
+                data["dataFile"] = file_map[data["dataId"]]
 
-#         # Clean up temporary files
-#         for tempFile in tempExperimentFiles:
-#             os.remove(tempFile)
-#         for tempFile in tempDataFiles:
-#             os.remove(tempFile)
+        # Clean up temporary files
+        for tempFile in tempExperimentFiles:
+            os.remove(tempFile)
+        for tempFile in tempDataFiles:
+            os.remove(tempFile)
 
-#         return {
-#             "status": "success",
-#             "message": "Files processed successfully.",
-#             "ambiguousData": ambiguous_data,
-#         }
+        return {
+            "status": "success",
+            "message": "Files processed successfully.",
+            "ambiguousData": ambiguous_data,
+        }
 
-#     except HTTPException as e:
-#         raise e
-#     except Exception as e:
-#         # Clean up temporary experiment files
-#         for tempFile in tempExperimentFiles:
-#             if os.path.exists(tempFile):
-#                 os.remove(tempFile)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        # Clean up temporary experiment files
+        for tempFile in tempExperimentFiles:
+            if os.path.exists(tempFile):
+                os.remove(tempFile)
 
-#         # Clean up temporary data files
-#         for tempFile in tempDataFiles:
-#             if os.path.exists(tempFile):
-#                 os.remove(tempFile)
+        # Clean up temporary data files
+        for tempFile in tempDataFiles:
+            if os.path.exists(tempFile):
+                os.remove(tempFile)
 
-#         raise HTTPException(
-#             status_code=500, detail=f"Error processing files: {str(e)}"
-#         )
-
-
-# class LinkedDataPayload(BaseModel):
-#     filename: str
-#     mimetype: str
-#     content: str
-#     linkedId: str
+        raise HTTPException(
+            status_code=500, detail=f"Error processing files: {str(e)}"
+        )
 
 
-# class ManualUploadPayload(BaseModel):
-#     linkedData: list[LinkedDataPayload]
+class LinkedDataPayload(BaseModel):
+    filename: str
+    mimetype: str
+    content: str
+    linkedId: str
 
 
-# @app.post("/manual-upload")
-# async def manualUpload(payload: ManualUploadPayload):
-#     """
-#     Processes uploaded files for experiment and data categories.
-#     Decodes base64 content, saves them temporarily, uses
-#     MigrationService to handle the files, and cleans up resources.
-#     """
-#     tempLinkedDataFiles = []
+class ManualUploadPayload(BaseModel):
+    linkedData: list[LinkedDataPayload]
 
-#     try:
-#         def decodeAndSave(filePayload: LinkedDataPayload) -> dict:
-#             try:
-#                 file_content = base64.b64decode(filePayload.content)
-#             except Exception as decode_error:
-#                 raise HTTPException(
-#                     status_code=400,
-#                     detail=f"Invalid base64 content for file: {
-#                         filePayload.filename}",
-#                 ) from decode_error
 
-#             sanitized_filename = sanitizeFilename(filePayload.filename)
-#             tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
+@app.post("/manual-upload")
+async def manualUpload(payload: ManualUploadPayload):
+    """
+    Processes uploaded files for experiment and data categories.
+    Decodes base64 content, saves them temporarily, uses
+    MigrationService to handle the files, and cleans up resources.
+    """
+    tempLinkedDataFiles = []
 
-#             with open(tempFilePath, "wb") as temp_file:
-#                 temp_file.write(file_content)
+    try:
+        def decodeAndSave(filePayload: LinkedDataPayload) -> dict:
+            try:
+                file_content = base64.b64decode(filePayload.content)
+            except Exception as decode_error:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid base64 content for file: {
+                        filePayload.filename}",
+                ) from decode_error
 
-#             return {"path": tempFilePath, "linkedId": filePayload.linkedId}
+            sanitized_filename = sanitizeFilename(filePayload.filename)
+            tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
 
-#         for file in payload.linkedData:
-#             tempLinkedDataFiles.append(decodeAndSave(file))
+            with open(tempFilePath, "wb") as temp_file:
+                temp_file.write(file_content)
 
-#         mongoUri = os.getenv("CONNECTION_STRING")
-#         dbName = "alkalyticsDB"
-#         migrationService = MigrationService(mongoUri, dbName)
+            return {"path": tempFilePath, "linkedId": filePayload.linkedId}
 
-#         try:
-#             for tempData in tempLinkedDataFiles:
-#                 dataDf = pd.read_excel(tempData["path"], sheet_name=0)
-#                 dataDf = migrationService.cleanData(dataDf)
+        for file in payload.linkedData:
+            tempLinkedDataFiles.append(decodeAndSave(file))
 
-#                 records = await migrationService.linkData(
-#                     dataDf, tempData["linkedId"]
-#                 )
+        mongoUri = os.getenv("CONNECTION_STRING")
+        dbName = "alkalyticsDB"
+        migrationService = MigrationService(mongoUri, dbName)
 
-#                 if records:
-#                     await migrationService.dataSheetsCollection.insert_many(
-#                         records
-#                     )
-#         finally:
-#             await migrationService.closeConnection()
+        try:
+            for tempData in tempLinkedDataFiles:
+                dataDf = pd.read_excel(tempData["path"], sheet_name=0)
+                dataDf = migrationService.cleanData(dataDf)
 
-#         for tempFile in tempLinkedDataFiles:
-#             if os.path.exists(tempFile["path"]):
-#                 os.remove(tempFile["path"])
+                records = await migrationService.linkData(
+                    dataDf, tempData["linkedId"]
+                )
 
-#         return {
-#             "status": "success",
-#             "message": "Files processed successfully.",
-#         }
+                if records:
+                    await migrationService.dataSheetsCollection.insert_many(
+                        records
+                    )
+        finally:
+            await migrationService.closeConnection()
 
-#     except HTTPException as e:
-#         raise e
-#     except Exception as e:
-#         for tempFile in tempLinkedDataFiles:
-#             if os.path.exists(tempFile):
-#                 os.remove(tempFile)
+        for tempFile in tempLinkedDataFiles:
+            if os.path.exists(tempFile["path"]):
+                os.remove(tempFile["path"])
 
-#         raise HTTPException(
-#             status_code=500, detail=f"Error processing files: {str(e)}"
-#         )
+        return {
+            "status": "success",
+            "message": "Files processed successfully.",
+        }
+
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        for tempFile in tempLinkedDataFiles:
+            if os.path.exists(tempFile):
+                os.remove(tempFile)
+
+        raise HTTPException(
+            status_code=500, detail=f"Error processing files: {str(e)}"
+        )
 
 class DataAttrs(BaseModel):
     collection: str
@@ -261,6 +262,7 @@ class ExperimentFilter(BaseModel):
     collection: str
     attributes: List[str]
     dates:Optional[List[str]] = None
+    analysis: Optional[bool] = False
 
 @app.post("/filterCollectionData")
 async def getFilterCollectionData(payload: ExperimentFilter):
@@ -289,6 +291,41 @@ async def getFilterCollectionData(payload: ExperimentFilter):
         finally:
             client.close()
 
+    def performAnalysis(data, attributes):
+        if len(attributes) != 2:
+            raise ValueError("The simple linear regression requires 2 variables.")
+
+        # Check if first item in data for specified attributes have numeric values
+        if not isinstance(data[0][attributes[0]], (int, float)) or not isinstance(data[0][attributes[1]], (int, float)):
+            raise TypeError("Data is non-numeric. Linear regression cannot be computed.")
+
+        if len(data) > 5000:
+            print(
+                "Size of data is too large to compute linear regression, "
+                "a sample of the original data will be analyzed."
+            )
+            sample_size = int(len(data) * 0.5)
+            indices = np.random.choice(len(data), size=sample_size, replace=False)
+            data = [data[i] for i in indices]
+
+        # Split and transform data into numpy arrays based on attributes
+        x = np.array([item[attributes[0]] for item in data])
+        y = np.array([item[attributes[1]] for item in data])
+
+        # Perform linear regression
+        coeffs, residuals, _, _, _ = np.polyfit(x, y, 1, full=True)
+
+        # Calculate R-squared coefficient
+        SST = np.sum((y - np.mean(y))**2)
+        SSR = residuals[0] if residuals.size > 0 else 0
+        R_squared = 1 - (SSR / SST) if SST > 0 else 1
+        result = {
+            "slope": coeffs[0],
+            "intercept": coeffs[1],
+            "R_squared": R_squared
+        }
+        return [result]
+
     # Need to get experimentId from the Dates selected
     if payload.collection == "data" and payload.dates:
         # Get experiment IDs from the "experiments" collection
@@ -313,17 +350,30 @@ async def getFilterCollectionData(payload: ExperimentFilter):
 
         query = {"experimentId": {"$in": experiment_ids}}
         attrs["experimentId"] = 1
-        return await fetch_and_process_data(target_collection, query, attrs, target_client)
+        response = await fetch_and_process_data(target_collection, query, attrs, target_client)
 
     # Handle all other cases
-    target_conn = getConnection(payload.collection)
-    target_collection, target_client = target_conn["collection"], target_conn["client"]
-
-    if len(payload.dates) > 0:
-        query = {"Date": {"$in": payload.dates}}
     else:
-        query = {} 
-    return await fetch_and_process_data(target_collection, query, attrs, target_client)
+        target_conn = getConnection(payload.collection)
+        target_collection, target_client = target_conn["collection"], target_conn["client"]
+
+        if len(payload.dates) > 0:
+            query = {"Date": {"$in": payload.dates}}
+        else:
+            query = {}
+        response = await fetch_and_process_data(target_collection, query, attrs, target_client)
+
+    # Check if analysis is requested
+    if payload.analysis:
+        try:
+            analysisResults = performAnalysis(response["data"], payload.attributes)
+            if analysisResults:
+                response["analysisRes"] = analysisResults
+        except Exception as e:
+            response["analysisRes"] = "error"
+            print(f"Error performing analysis: {e}")
+
+    return response
 
 class GeneratedGraphs(BaseModel):
     graphType: str

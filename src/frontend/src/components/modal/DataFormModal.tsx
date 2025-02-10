@@ -53,7 +53,10 @@ const FILTER_COLLECTDATA = gql`
       attributes: $attributes
       collection: $collection
       dates: $dates
-    )
+    ) {
+        data
+        analysisRes
+    }
   }
 `;
 
@@ -89,14 +92,16 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
       label: item,
     }));
 
-  const { data: filteredData } = useQuery<{ getFilterCollectionData: any[] }>(
-    FILTER_COLLECTDATA,
-    {
-      variables: { attributes: ["Date"], collection: "experiments", dates: [] },
-    }
-  );
+  const { data: filteredData } = useQuery<{
+    getFilterCollectionData: {
+      data: any[];
+      analysisRes?: any[];
+    };
+  }>(FILTER_COLLECTDATA, {
+    variables: { attributes: ["Date"], collection: "experiments", dates: [] },
+  });
 
-  const dateOptions = (filteredData?.getFilterCollectionData ?? []).map(
+  const dateOptions = (filteredData?.getFilterCollectionData?.data ?? []).map(
     (item) => item.Date
   );
 
