@@ -24,14 +24,8 @@ const GET_GRAPH = gql`
   }
 `;
 
-const GET_GRAPH_BY_ID = gql`
-  query GetGraphById($id: String!) {
-    getGraphById(id: $id)
-  }
-`;
-
 const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) => {
-  const [selectedGraphId, setSelectedGraphId] = useState<string | null>(null);
+  const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
 
   const { data: generatedGraphData } = useQuery<{ getLastestGraph: any[] }>(
     GET_GRAPH,
@@ -39,16 +33,6 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
       variables: { latest: 0 },
     }
   );
-
-  const { data: selectedGraphData } = useQuery(GET_GRAPH_BY_ID, {
-    variables: { id: selectedGraphId },
-    skip: !selectedGraphId,
-    onCompleted: (data) => {
-      if (data.getGraphById) {
-        handleGraphSelect(data.getGraphById);
-      }
-    },
-  });
 
   const result = generatedGraphData?.getLastestGraph ?? [];
   console.log(result);
@@ -96,7 +80,7 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
     setSubmit(false);
   };
 
-  const handleGraphSelect = (graphData: any) => {
+  const handleGraphData = (graphData: any) => {
     setSelectedGraphType(graphData.graphtype);
     setGraphTitle(graphData.properties[0]?.["graph title"] || "");
     setSelectedDates(graphData.properties[0]?.["Selected Dates"] || []);
@@ -113,6 +97,14 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
 
     onGraphSelect(graphData);
     setSubmit(true);
+  };
+
+  const handleSelectGraph = (id: number) => {
+    setSelectedGraphId(id);
+    const selectedGraph = result.find((graph) => graph._id === id);
+    if (selectedGraph) {
+      handleGraphData(selectedGraph);
+    }
   };
 
   return (
@@ -172,12 +164,13 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
           <div className={`relative items-center ${isOpen ? "-ml-0" : "-ml-3"}`}>
           {result.map((r) => (
             <li
+              key={r._id}
               className={`flex rounded-md hover:bg-light-white text-sm items-center gap-x-4 mb-2 
                 ${
-                selectedGraphId === r.id ? "bg-blue-100" : ""
+                selectedGraphId === r._id ? "bg-blue-100" : ""
               }`}
             >
-              <Button color="inherit" className="flex">
+              <Button color="inherit" className="flex" onClick={() => handleSelectGraph(r._id)}>
                 <span>
                   {r.graphtype === "bar" ? (
                     <BarChart />
