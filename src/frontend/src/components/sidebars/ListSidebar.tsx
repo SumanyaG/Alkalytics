@@ -25,7 +25,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
     <div
       className={`sidebar ${
         isOpen ? "min-w-72" : "min-w-20"
-      } bg-white text-blue-900 h-screen p-5 pt-2 relative shadow-lg rounded-lg duration-200 transition-all`}
+      } bg-white text-blue-900 h-screen p-5 pt-2 relative shadow-lg rounded-lg duration-200 transition-all overflow-hidden`}
     >
       <IconButton
         color="inherit"
@@ -40,7 +40,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
       </IconButton>
 
       <ul className="h-[95%]">
-        <li className="relative mt-8 h-[5%]">
+        <li className="relative mt-8 mb-2 h-[5%]">
           <div
             className={`flex items-center ${isOpen ? "justify-between" : ""}`}
           >
@@ -48,20 +48,15 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
               <DescriptionOutlinedIcon />
               {isOpen && (
                 <span
-                  className="font-bold text-xs text-blue-900 ml-2"
-                  style={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
+                  className="font-bold text-xs text-blue-900 ml-2 whitespace-nowrap overflow-hidden text-ellipsis"
                 >
                   EXPERIMENTS
                 </span>
               )}
             </div>
           </div>
-          <div className={`overflow-y-auto h-full max-h-[100%] pl-[0.9rem]`}>
-            <ul className="mt-2">
+          <div className="overflow-y-auto max-h-[90%] h-full pl-[0.9rem]">
+            <ul className="mt-1">
               {experimentSheets.map((item, index) => (
                 <li
                   key={`data-${index}`}
@@ -72,12 +67,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
                 >
                   <span className="w-1.5 h-1.5 bg-blue-900 rounded-full"></span>
                   <span
-                    className="text-sm"
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
+                    className="text-sm whitespace-nowrap overflow-hidden text-ellipsis"
                   >
                     {isOpen ? item : undefined}
                   </span>
@@ -91,23 +81,18 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
           <div
             className={`flex items-center ${isOpen ? "justify-between" : ""}`}
           >
-            <div className="pl-[0.65rem]">
+            <div className="pl-[0.65rem] mt-2">
               <DatasetOutlined className="" />
               {isOpen && (
                 <span
-                  className="font-bold text-xs text-blue-900 ml-2"
-                  style={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
+                  className="font-bold text-xs text-blue-900 ml-2 whitespace-nowrap overflow-hidden text-ellipsis"
                 >
                   DATA
                 </span>
               )}
             </div>
           </div>
-          <div className={`overflow-y-auto h-full max-h-[100%] pl-[0.9rem]`}>
+          <div className="overflow-y-auto max-h-[90%] h-full pl-[0.9rem]">
             <ul className="mt-2">
               {experimentIds.map((item, index) => (
                 <li
@@ -121,12 +106,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
                 >
                   <span className="w-1.5 h-1.5 bg-blue-900 rounded-full"></span>
                   <span
-                    className="text-sm"
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
+                    className="text-sm whitespace-nowrap overflow-hidden text-ellipsis"
                   >
                     {isOpen ? item : undefined}
                   </span>

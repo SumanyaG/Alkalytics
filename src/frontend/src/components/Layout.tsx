@@ -7,7 +7,7 @@ const Layout = () => {
       <div className="flex relative z-50">
         <Sidebar />
       </div>
-      <main className="flex flex-col p-4 ml-16"><Outlet /></main>
+      <main className="ml-16"><Outlet /></main>
     </>
   );
 };
