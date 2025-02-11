@@ -9,6 +9,7 @@ export const typeDefs = gql`
     getExperimentIds: [String!]!
     getExperiments: [JSON]!
     getData(experimentId: String!): [JSON]!
+    getCollectionAttrs(collection: String!): [String!]!
   }
 `;
 
@@ -72,5 +73,5 @@ export const resolvers = {
         throw new Error("Failed to fetch experiments.");
       }
     },
-  },
+    }, 
 };
