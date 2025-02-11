@@ -8,6 +8,7 @@ import Upload from "./pages/Upload";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import DataVisualize from "./pages/DataVisualize";
 
 function App() {
   return (
@@ -21,8 +22,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/upload" element={<Upload />} />
             <Route path="/table" element={<TableView />} />
-            {/* CHANGE TO GRAPH PAGE */}
-            <Route path="/graphs" element={<Dashboard />} />
+            <Route path="/graphs" element={<DataVisualize />} />
           </Route>
         </Routes>
       </AuthProvider>
