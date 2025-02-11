@@ -18,7 +18,7 @@ const graphTypes = [
 ];
 const paramType = [
   { value: "data", label: "Data Sheet" },
-  { value: "experiments", label: "Experiemnt" },
+  { value: "experiments", label: "Experiment" },
 ];
 
 const Input: React.FC<{

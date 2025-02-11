@@ -122,7 +122,7 @@ const Upload: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-blue-50 to-blue-100 text-blue-900">
       <h1 className="text-4xl font-semibold mb-8">Upload Files</h1>
-      <div className="flex justify-evenly w-full max-w-[1500px] h-full max-h-[600px]">
+      <div className="flex justify-evenly w-full max-w-[1500px] h-full max-h-[60vh]">
         <UploadArea
           sectionTitle="Experiment"
           files={experimentFiles}
