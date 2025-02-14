@@ -11,31 +11,18 @@ import {
 import Button from "@mui/material/Button";
 import GenerateGraphModal from "../modal/DataFormModal";
 import { FormDataContext } from "../../pages/DataVisualize";
-import { useQuery, gql } from "@apollo/client";
+import useGraphs from "../../hooks/useGraphs";
 
 type GraphSideBarProps = {
   onSubmit: () => void;
   onGraphSelect: (graphData: any) => void;
 };
 
-const GET_GRAPH = gql`
-  query GetLastestGraph($latest: Int) {
-    getLastestGraph(latest: $latest)
-  }
-`;
-
 const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) => {
   const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
 
-  const { data: generatedGraphData } = useQuery<{ getLastestGraph: any[] }>(
-    GET_GRAPH,
-    {
-      variables: { latest: 0 },
-    }
-  );
-
-  const result = generatedGraphData?.getLastestGraph ?? [];
-  console.log(result);
+  const { latestGraphs, loading, error } = useGraphs(0);
+  const validGraphs = latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ?? [];
 
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -101,7 +88,7 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
 
   const handleSelectGraph = (id: number) => {
     setSelectedGraphId(id);
-    const selectedGraph = result.find((graph) => graph._id === id);
+    const selectedGraph = latestGraphs.find((graph) => graph._id === id);
     if (selectedGraph) {
       handleGraphData(selectedGraph);
     }
@@ -162,7 +149,11 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
             </li>
           </div>
           <div className={`relative items-center ${isOpen ? "-ml-0" : "-ml-3"}`}>
-          {result.map((r) => (
+            {loading ? (
+              <li className="flex ml-2 font-semibold text-sm">LOADING...</li>
+            ) : error ? (
+              <li className="flex ml-2 font-semibold text-sm">Error fetching graphs</li>
+            ) : validGraphs.map((r) => (
             <li
               key={r._id}
               className={`flex rounded-md hover:bg-light-white text-sm items-center gap-x-4 mb-2 
