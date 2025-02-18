@@ -6,6 +6,7 @@ import { DataRow } from "./Table";
 type TableProps = {
   data: DataRow[];
   columns: string[];
+  columnTypes: Record<string, string>[];
   highlightKeyword?: string;
   graphType?: string;
   selectedRows: Set<string>;
@@ -16,6 +17,7 @@ type TableProps = {
 const TableBody: React.FC<TableProps> = ({
   data,
   columns,
+  columnTypes,
   highlightKeyword,
   graphType,
   selectedRows,
@@ -195,7 +197,7 @@ const TableBody: React.FC<TableProps> = ({
 
   return (
     <div
-      className="h-full box-border px-4 overflow-auto overflow-scroll"
+      className="h-full box-border px-4 overflow-auto"
       style={{
         minHeight: "100%",
         maxHeight: "100%",
@@ -287,13 +289,19 @@ const TableBody: React.FC<TableProps> = ({
                     {editingCell?.rowIndex === rowIndex &&
                     editingCell?.column === column ? (
                       <input
-                        type="text"
+                        type={
+                          columnTypes[0][column] === "number"
+                            ? "number"
+                            : "text"
+                        }
+                        onWheel={(e) => (e.target as HTMLElement).blur()}   //disables mousewheel scroll for number inputs
                         ref={inputRef}
                         className="w-full border border-blue-500 rounded-lg px-2 py-1 focus:outline-none"
                         value={editValue}
                         onChange={(e) => handleInputChange(e.target.value)}
                         onKeyDown={(e) => handleKeyPress(e, rowIndex, column)}
                         autoFocus
+                        placeholder={`${columnTypes[0][column].replace(/^\w/, (c) => c.toUpperCase())}`}
                       />
                     ) : (
                       getHighlightedText(flattenData(row[column] || ""))
