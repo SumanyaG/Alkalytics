@@ -661,6 +661,70 @@ async def remove_rows(payload: RemoveRowRequest):
         client.close()
 
 
+@app.get("/columntypes")
+async def getColumnTypes():
+    """
+    Fetches the types for each column from the 'config' collection.
+    """
+    connection = getConnection("config")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        types = collection.find()
+        typesList = list(types)
+        typesList = [cleanData(item) for item in typesList]
+        if typesList:
+            return {"status": "success", "data": typesList}
+        else:
+            raise HTTPException(status_code=404, detail="No column types found.")
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error fetching column types: {str(e)}"
+        )
+
+    finally:
+        client.close()
+
+
+class SetColumnTypes(BaseModel):
+    newColumnTypes: Dict[str, str]
+
+@app.put("/update-column-types")
+async def updateColumnTypes(payload: SetColumnTypes):
+    """
+    Updates new column types in the "config" collection.
+    """
+    connection = getConnection("config")
+    collection, client = connection["collection"], connection["client"]
+
+    if not payload.newColumnTypes:
+        raise HTTPException(status_code=500, detail="No payload found.")
+    
+    try:
+        current = collection.find_one({})
+        updateOperations = {}
+        updateFields = {
+            col: newType
+            for col, newType in payload.newColumnTypes.items() if col not in current or current[col] != newType
+        }
+        removeFields = {
+            col: ""
+            for col in current if col not in payload.newColumnTypes and col != "_id"
+        }
+        if updateFields:
+            updateOperations["$set"] = updateFields
+        if removeFields:
+            updateOperations["$unset"] = removeFields
+        
+        result = collection.update_one({}, updateOperations)
+        return {"status": "success", "message": f"{result.modified_count} column types updated successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error updating column types: {str(e)}")
+    finally:
+        client.close()
+
+
 @app.get("/")
 async def root():
     """
