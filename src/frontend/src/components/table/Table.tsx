@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import TableBody from "./TableBody";
 import TableFooter from "./TableFooter";
 import AddColumnModal from "../modal/AddColumnModal";
@@ -42,8 +42,14 @@ export const UPDATE_DATA = gql`
 `;
 
 export const SET_COLUMN_TYPES = gql`
-  mutation SetColumnTypes($columnTypes: JSON!) {
-    setColumnTypes(columnTypes: $columnTypes)
+  mutation SetColumnTypes($newColumnTypes: JSON!) {
+    setColumnTypes(newColumnTypes: $newColumnTypes)
+  }
+`;
+
+const GET_COLUMN_TYPES = gql`
+  query GetColumnTypes {
+    getColumnTypes
   }
 `;
 
@@ -79,6 +85,11 @@ const Table: React.FC<TableProps> = ({
   const [updateData] = useMutation(UPDATE_DATA);
   const [setColumnTypes] = useMutation(SET_COLUMN_TYPES);
 
+  const { data: columnTypesData, refetch } = useQuery<{
+    getColumnTypes: Record<string, string>[];
+  }>(GET_COLUMN_TYPES);
+  const columnTypes = columnTypesData?.getColumnTypes || [];
+
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedKeyword(searchKeyword);
@@ -94,26 +105,6 @@ const Table: React.FC<TableProps> = ({
       .filter((k) => k !== "Notes")
       .concat(keys.includes("Notes") ? ["Notes"] : []);
   }, [data]);
-
-  const columnTypes = {
-    //hardcoded until fetch from db
-    "#": "number",
-    Date: "date",
-    Membrane: "text",
-    Configuration: "text",
-    "# of Stacks": "number",
-    "Flow Rate (L/H)": "number",
-    "Potential Diff (V)": "number",
-    "Current Limit (A)": "number",
-    NaCL: "number",
-    NaHCO3: "number",
-    NaOH: "number",
-    HCL: "number",
-    Na2So4: "number",
-    "NaHCO3.1": "number",
-    Total: "number",
-    Notes: "text",
-  };
 
   const filteredData = useMemo(() => {
     if (!debouncedKeyword) return data;
@@ -206,16 +197,16 @@ const Table: React.FC<TableProps> = ({
   const handleSetColumnTypes = async (
     newColumnTypes: Record<string, string>
   ) => {
-    setIsSetColumnTypesModalOpen(false);
     try {
       const { data } = await setColumnTypes({
         variables: { newColumnTypes },
       });
-      if (data) {
-        refetchData();
+      if (data.setColumnTypes) {
+        setIsSetColumnTypesModalOpen(false);
+        refetch();
       }
     } catch (error) {
-      console.error("Error removing column:", error);
+      console.error("Error updating column types:", error);
     }
   };
 
@@ -242,12 +233,9 @@ const Table: React.FC<TableProps> = ({
         <div className="relative z-10 flex flex-col h-full">
           <TableHeader
             columns={columns}
-            tableName={tableName}
-            selectedColumn={selectedColumn}
-            setSelectedColumn={setSelectedColumn}
-            searchKeyword={searchKeyword}
-            setSearchKeyword={setSearchKeyword}
-            onSetColumnTypes={() => setIsSetColumnTypesModalOpen(true)}
+            columnTypes={columnTypes}
+            data={filteredData}
+            highlightKeyword={debouncedKeyword}
             graphType={graphType}
           />
           <div style={{ flex: 1, overflow: "hidden" }}>
@@ -297,6 +285,7 @@ const Table: React.FC<TableProps> = ({
         <AddRowModal
           data={data}
           columns={columns}
+          columnTypes={columnTypes}
           setIsModalOpen={setIsRowModalOpen}
           onAddRow={handleAddRow}
         />
