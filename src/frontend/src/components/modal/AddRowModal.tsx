@@ -3,6 +3,7 @@ import { DataRow } from "../table/Table";
 
 type AddRowModalProps = {
   columns: string[];
+  columnTypes: Record<string, string>[];
   data: DataRow[];
   setIsModalOpen: (isOpen: boolean) => void;
   onAddRow: (newRow: Record<string, string | number>) => Promise<any>;
@@ -11,12 +12,14 @@ type AddRowModalProps = {
 const AddRowModal: React.FC<AddRowModalProps> = ({
   data,
   columns,
+  columnTypes,
   setIsModalOpen,
   onAddRow,
 }) => {
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<Record<string, string | null>>({});
   const [newRowData, setNewRowData] = useState<Record<string, string | number>>(
     columns.reduce((acc, column) => {
       acc[column] = "";
@@ -25,11 +28,36 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
   );
 
   const handleChange = (column: string, value: string | number) => {
+    if (value === "") {
+      setNewRowData((prevData) => ({ ...prevData, [column]: value }));
+      setErrorMessage((prevMessage) => ({ ...prevMessage, [column]: null }));
+      return;
+    }
+
     let newValue = value;
     if (typeof value === "string" && !isNaN(Number(value))) {
       newValue = Number(value);
     }
 
+    const expectedType = columnTypes[0][column];
+    let isValid = true;
+    if (expectedType === "number") {
+      isValid = typeof newValue === "number" && !isNaN(newValue);
+    } else if (expectedType === "date") {
+      isValid = !isNaN(Date.parse(value as string));
+    } else if (expectedType === "text") {
+      isValid = typeof newValue === "string";
+    }
+
+    if (!isValid) {
+      setErrorMessage((prevMessage) => ({
+        ...prevMessage,
+        [column]: `Invalid input for ${column}. Expecting ${expectedType}.`
+      }));
+      return;
+    }
+
+    setErrorMessage((prevMessage) => ({ ...prevMessage, [column]: null }));
     setNewRowData((prevData) => ({ ...prevData, [column]: newValue }));
   };
 
@@ -100,12 +128,13 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
                     </h2>
                     <input
                       type={
-                        column === "#"
+                        columnTypes[0][column] === "number"
                           ? "number"
-                          : column === "Date"
+                          : columnTypes[0][column] === "date"
                           ? "date"
                           : "text"
                       }
+                      onWheel={(e) => (e.target as HTMLElement).blur()}   //disables mousewheel scroll for number inputs
                       value={newRowData[column]}
                       onChange={(e) => handleChange(column, e.target.value)}
                       className="w-full rounded-lg border border-blue-100 bg-white/80 px-4 py-2 text-sm text-blue-900 shadow-sm backdrop-blur-sm transition-all focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-200"
@@ -113,6 +142,11 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
                     {column === "#" && isDuplicate && (
                       <p className="mt-1 text-xs text-red-500">
                         This # value already exists.
+                      </p>
+                    )}
+                    {errorMessage[column] && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errorMessage[column]}
                       </p>
                     )}
                   </section>
