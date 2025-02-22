@@ -62,14 +62,14 @@ jobs:
               RELATIVE_FILES=$(echo "$FILES" | sed 's|^src/frontend/||')
               echo "Linting files:"
               echo "$RELATIVE_FILES"
-              yarn eslint $RELATIVE_FILES --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
+              yarn eslint $RELATIVE_FILES --format json --output-file eslint_report.json
             else
               echo "No JavaScript/TypeScript files changed in frontend"
               echo '[]' > eslint_report.json
             fi
           else
             echo "Linting all JavaScript/TypeScript files in frontend"
-            yarn eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
+            yarn eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json
           fi
       
       - name: Annotate Code Linting Results
