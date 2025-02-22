@@ -70,6 +70,7 @@ jobs:
             fi
           else
             echo "Linting all JavaScript/TypeScript files in frontend"
+            yarn eslint . --ext .js,.jsx,.ts,.tsx --format stylish | tee eslint_output.txt
             yarn eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json || true
           fi
       
