@@ -1,134 +1,37 @@
-% THIS DOCUMENT IS TAILORED TO REQUIREMENTS FOR SCIENTIFIC COMPUTING.  IT SHOULDN'T
-% BE USED FOR NON-SCIENTIFIC COMPUTING PROJECTS
+% THIS DOCUMENT IS FOLLOWS THE VOLERE TEMPLATE BY Suzanne Robertson and James
+% Robertson ONLY THE SECTION HEADINGS ARE PROVIDED
+%
+% Initial draft from https://github.com/Dieblich/volere
+%
+% Risks are removed because they are covered by the Hazard Analysis
 \documentclass[12pt]{article}
 
-\usepackage{amsmath, mathtools}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{colortbl}
-\usepackage{xr}
-\usepackage{hyperref}
-\usepackage{longtable}
-\usepackage{xfrac}
-\usepackage{tabularx}
-\usepackage{float}
-\usepackage{siunitx}
 \usepackage{booktabs}
-\usepackage{caption}
-\usepackage{pdflscape}
-\usepackage{afterpage}
-
-\usepackage[round]{natbib}
-
-%\usepackage{refcheck}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[center]{caption}
+\usepackage{float}
+\captionsetup{justification=centering}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
-      colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    colorlinks=true,      % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with
     citecolor=green,        % color of links to bibliography
     filecolor=magenta,      % color of file links
     urlcolor=cyan           % color of external links
 }
 
+\newcommand{\lips}{\textit{Insert your content here.}}
+
 \input{../Comments}
 \input{../Common}
 
-% For easy change of table widths
-\newcommand{\colZwidth}{1.0\textwidth}
-\newcommand{\colAwidth}{0.13\textwidth}
-\newcommand{\colBwidth}{0.82\textwidth}
-\newcommand{\colCwidth}{0.1\textwidth}
-\newcommand{\colDwidth}{0.05\textwidth}
-\newcommand{\colEwidth}{0.8\textwidth}
-\newcommand{\colFwidth}{0.17\textwidth}
-\newcommand{\colGwidth}{0.5\textwidth}
-\newcommand{\colHwidth}{0.28\textwidth}
-
-% Used so that cross-references have a meaningful prefix
-\newcounter{defnum} %Definition Number
-\newcommand{\dthedefnum}{GD\thedefnum}
-\newcommand{\dref}[1]{GD\ref{#1}}
-\newcounter{datadefnum} %Datadefinition Number
-\newcommand{\ddthedatadefnum}{DD\thedatadefnum}
-\newcommand{\ddref}[1]{DD\ref{#1}}
-\newcounter{theorynum} %Theory Number
-\newcommand{\tthetheorynum}{TM\thetheorynum}
-\newcommand{\tref}[1]{TM\ref{#1}}
-\newcounter{tablenum} %Table Number
-\newcommand{\tbthetablenum}{TB\thetablenum}
-\newcommand{\tbref}[1]{TB\ref{#1}}
-\newcounter{assumpnum} %Assumption Number
-\newcommand{\atheassumpnum}{A\theassumpnum}
-\newcommand{\aref}[1]{A\ref{#1}}
-\newcounter{goalnum} %Goal Number
-\newcommand{\gthegoalnum}{GS\thegoalnum}
-\newcommand{\gsref}[1]{GS\ref{#1}}
-\newcounter{instnum} %Instance Number
-\newcommand{\itheinstnum}{IM\theinstnum}
-\newcommand{\iref}[1]{IM\ref{#1}}
-\newcounter{reqnum} %Requirement Number
-\newcommand{\rthereqnum}{R\thereqnum}
-\newcommand{\rref}[1]{R\ref{#1}}
-\newcounter{nfrnum} %NFR Number
-\newcommand{\rthenfrnum}{NFR\thenfrnum}
-\newcommand{\nfrref}[1]{NFR\ref{#1}}
-\newcounter{lcnum} %Likely change number
-\newcommand{\lthelcnum}{LC\thelcnum}
-\newcommand{\lcref}[1]{LC\ref{#1}}
-
-\usepackage{fullpage}
-
-\newcommand{\deftheory}[9][Not Applicable]
-{
-\newpage
-\noindent \rule{\textwidth}{0.5mm}
-
-\paragraph{RefName: } \textbf{#2} \phantomsection 
-\label{#2}
-
-\paragraph{Label:} #3
-
-\noindent \rule{\textwidth}{0.5mm}
-
-\paragraph{Equation:}
-
-#4
-
-\paragraph{Description:}
-
-#5
-
-\paragraph{Notes:}
-
-#6
-
-\paragraph{Source:}
-
-#7
-
-\paragraph{Ref.\ By:}
-
-#8
-
-\paragraph{Preconditions for \hyperref[#2]{#2}:}
-\label{#2_precond}
-
-#9
-
-\paragraph{Derivation for \hyperref[#2]{#2}:}
-\label{#2_deriv}
-
-#1
-
-\noindent \rule{\textwidth}{0.5mm}
-
-}
-
 \begin{document}
 
-\title{Software Requirements Specification for \progname: subtitle describing software} 
+\title{Software Requirements Specification for \progname: Alkalytics} 
 \author{\authname}
 \date{\today}
 	
@@ -142,1253 +45,1583 @@
 
 ~\newpage
 
-\section*{Revision History}
+\listoffigures
+\listoftables
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
+\section*{Volere Template Changes}
+\begin{tabularx}{\textwidth}{p{8cm}p{4cm}X} \toprule
+  {\textbf{Section Name}} & {\textbf{Action}}\\
+  \midrule
+  6.3 Work Partioning & Removed\\
+  6.4 Specifying a Business Use Case (BUC) & Removed\\
+  17.1 and 17.2 & Merged sub-sections\\
+  21.3 Planning of the Development Phases & Added\\
+  \bottomrule
 \end{tabularx}
 
+\newpage
+\section*{Revision History}
+
+  \begin{tabularx}{\textwidth}{p{4cm}p{1.5cm}X} \toprule {\textbf{Date}} &
+  {\textbf{Version}} & {\textbf{Notes}}\\
+  \midrule
+  1 October 2024 & 1.0 & Partially completed version shared with supervisors and TA for feedback.\\
+  7 October 2024 & 1.1 & Incorporated feedback and presented during informal presentation with TA.\\
+  11 October 2024 & 1.2 & Finished document for PoC submission.\\
+  11 November 2024 & 1.3 & Updated document to include peer review changes.\\
+  \bottomrule
+  \end{tabularx}
+
 ~\\
-\plt{This template is intended for use by CAS 741.  For CAS 741 the template
-should be used exactly as given, except the Reflection Appendix can be deleted.
-For the capstone course it is a source of ideas, but shouldn't be followed
-exactly.  The exception is the reflection appendix.  All capstone SRS documents
-should have a refelection appendix.}
 
 ~\newpage
+\section{Purpose of the Project}
+\subsection{User Business}
+This project aims to aid in the data management and analysis of an ocean
+alkalinity enhancement experiment process. The research is working towards a
+scalable process to capture CO\textsubscript{2} using a combination of electric
+fields and membranes. The experiment's efficient generation process creates a
+very dilute base. As earth’s temperature rises, so does the ocean’s, affects its
+pH balance. The experimental study aims to provide a solution, to decrease the
+ocean's pH levels to be able to absorb more CO\textsubscript{2} which will in
+turn help reduce global temperatures.  As the production process to generate
+this dilute base is still on a small scale, it is currently being perfected
+which means many more experiments must be done to be able to bring it to a
+global scale. However, this requires a massive production operation to do so.
+Optimization of the experimental data is critical to improve process efficiency.
+This is a big data software problem requiring the ability to find and fine-tune
+specific parameters. 
+\subsection{Goals of the Project}
+This application will be able to consolidate and organize the data from the
+experiments with proper labeling across all given datasets allowing for a
+centralize method of data storage that is both scalable and maintainable. On the
+application users can request to see certain data points from the inputted data
+sets given any specified order. Once the data is returned to the user the
+application can show inter-parameter comparability to better aid data analysis.
+This comparability acts as a starting point to analysis and is by no means show
+a final analysis of the data. This will all be presented in a web interface
+where all the user functions will be displayed and can be shared among those
+involved in the experiment.   
+\section{Stakeholders}
 
-\section{Reference Material}
-
-This section records information for easy reference.
-
-\subsection{Table of Units}
-
-Throughout this document SI (Syst\`{e}me International d'Unit\'{e}s) is employed
-as the unit system.  In addition to the basic units, several derived units are
-used as described below.  For each unit, the symbol is given followed by a
-description of the unit and the SI name.
-~\newline
-
-\renewcommand{\arraystretch}{1.2}
-%\begin{table}[ht]
-  \noindent \begin{tabular}{l l l} 
-    \toprule		
-    \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
-    \midrule 
-    \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
-    \si{\second} & time & second\\
-    \si{\celsius} & temperature & centigrade\\
-    \si{\joule} & energy & joule\\
-    \si{\watt} & power & watt (W = \si{\joule\per\second})\\
-    \bottomrule
-  \end{tabular}
-  %	\caption{Provide a caption}
-%\end{table}
-
-\plt{Only include the units that your SRS actually uses.}
-
-\plt{Derived units, like newtons, pascal, etc, should show their derivation
-    (the units they are derived from) if their constituent units are in the
-    table of units (that is, if the units they are derived from are used in the
-    document).  For instance, the derivation of pascals as
-    $\si{\pascal}=\si{\newton\per\square\meter}$ is shown if newtons and m are
-    both in the table.  The derivations of newtons would not be shown if kg and
-    s are not both in the table.}
-
-\plt{The symbol for units named after people use capital letters, but the name
-  of the unit itself uses lower case.  For instance, pascals use the symbol Pa,
-  watts use the symbol W, teslas use the symbol T, newtons use the symbol N,
-  etc.  The one exception to this is degree Celsius.  Details on writing metric
-  units can be found on the 
-  \href{https://www.nist.gov/pml/weights-and-measures/writing-metric-units}
-  {NIST} web-page.}
-
-\subsection{Table of Symbols}
-
-The table that follows summarizes the symbols used in this document along with
-their units.  The choice of symbols was made to be consistent with the heat
-transfer literature and with existing documentation for solar water heating
-systems.  The symbols are listed in alphabetical order.
-
-\renewcommand{\arraystretch}{1.2}
-%\noindent \begin{tabularx}{1.0\textwidth}{l l X}
-\noindent \begin{longtable*}{l l p{12cm}} \toprule
-\textbf{symbol} & \textbf{unit} & \textbf{description}\\
-\midrule 
-$A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area
-\\
-$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & surface area over 
-which heat is transferred in
-\\ 
-\bottomrule
-\end{longtable*}
-\plt{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
-
-\subsection{Abbreviations and Acronyms}
-
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  A & Assumption\\
-  DD & Data Definition\\
-  GD & General Definition\\
-  GS & Goal Statement\\
-  IM & Instance Model\\
-  LC & Likely Change\\
-  PS & Physical System Description\\
-  R & Requirement\\
-  SRS & Software Requirements Specification\\
-  \progname{} & \plt{put an expanded version of your program name here (as appropriate)}\\
-  TM & Theoretical Model\\
-  \bottomrule
-\end{tabular}\\
-
-\plt{Add any other abbreviations or acronyms that you add}
-
-\subsection{Mathematical Notation}
-
-\plt{This section is optional, but should be included for projects that make use
-  of notation to convey mathematical information.  For instance, if typographic
-  conventions (like bold face font) are used to distinguish matrices, this
-  should be stated here.  If symbols are used to show mathematical operations,
-  these should be summarized here.  In some cases the easiest way to summarize
-  the notation is to point to a text or other source that explains the
-  notation.}
-
-\plt{This section was added to the template because some students use very
-  domain specific notation.  This notation will not be readily understandable to
-  people outside of your domain.  It should be explained.}
-
-\newpage
-
-\pagenumbering{arabic}
-
-\plt{This SRS template is based on \citet{SmithAndLai2005, SmithEtAl2007,
-  SmithAndKoothoor2016}.  It will get you started.  You should not modify the
-  section headings, without first discussing the change with the course
-  instructor.  Modification means you are not following the template, which
-  loses some of the advantage of a template, especially standardization.
-  Although the bits shown below do not include type information, you may need to
-  add this information for your problem.  If you are unsure, please can ask the
-  instructor.}
-
-\plt{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
-
-\plt{This template document assumes that a single program is being documented.
-  If you are documenting a family of models, you should start with a commonality
-  analysis.  A separate template is provided for this.  For program
-  families you should look at \cite{Smith2006, SmithMcCutchanAndCarette2017}.
-  Single family member programs are often programs based on a single physical
-  model.  General purpose tools are usually documented as a family.  Families of
-  physical models also come up.}
-
-\plt{The SRS is not generally written, or read, sequentially.  The SRS is a
-  reference document.  It is generally read in an ad hoc order, as the need
-  arises.  For writing an SRS, and for reading one for the first time, the
-  suggested order of sections is:
+\subsection{Client}
+Dr. Charles de Lannoy serves as the main client for this project as he is the
+lead supervisor of the research study. This solution directly affects his work and
+is intended to be a custom solution for the problem. Bassel Abdelkader is
+another client of this project as he is the person that works directly with the
+research data. One of his responsibilities is to record the experimental data and
+upload them to their current data storage system, Microsoft Excel. 
+\subsection{Customer}
+Since this project is an in-house solution development the inital customer is
+also the client. As Dr. Charles de Lannoy is both directing this project and is
+also the end user. As such, he is also considered to be the customer.\newline 
+Although this project is a tailored solution to one research study, its
+application can still be extended to any other situation where large sets of
+data is involved. This could be shared among other researchers to aid in their
+data management and analysis. Depending on the research team's structure, there
+could also be different levels of permissions that can be obtained.
+\subsection{Other Stakeholders}
+Current student assistants and members of the lab working on the study is can also be
+considered stakeholders for the same reasons as the clients. However, since they
+will only be working with the study for a short amount of time without daily or
+consistent interaction, they do not serve as a main stakeholder. The founder of
+the study, who is currently funding the research project is another stakeholder.
+However, since they do not work directly with the processes of the study rather
+oversee the process, they may not have strong interest in the details of the solution. 
+\subsection{Hands-On Users of the Project}
+\label{sec:2.4}
+The following is a special type of stakeholder as after this capstone project
+term, the project will be passed back to the research team to maintain. 
 \begin{itemize}
-\item Goal Statement
-\item Instance Models
-\item Requirements
-\item Introduction
-\item Specific System Description
+  \item User name/category: Research project team for maintaining this project post capstone 
+  \item User Role: Maintain the codebase, adding new features, fixing potential bugs
+  project post capstone
+  \item Subject matter experience: Master knowledge on the goals of the research
+  project. Master knowledge on how the experiment processes work. 
+  \item Technical knowledge: Novice knowledge on the technology stack being
+  used in this project, Python, MongoDB, JavaScript, other front-end frameworks 
 \end{itemize}
-}
 
-\plt{Guiding principles for the SRS document:
+\subsection{Personas}
+\label{personas}
 \begin{itemize}
-\item Do not repeat the same information at the same abstraction level.  If
-  information is repeated, the repetition should be at a different abstraction
-  level.  For instance, there will be overlap between the scope section and the
-  assumptions, but the scope section will not go into as much detail as the
-  assumptions section.
+  \item John Doe is an 23 year old McMaster undergraduate student who has a
+  research position on the ocean alkalinity research project. They have been
+  tasked to aid the experiment data collection process. After being told that
+  the data is being stored in a master Excel file; they find that is it hard to
+  use. Being an engineering student without much experience with Excel, they
+  struggle to find the data they want. Inputting data is still a manageable
+  process but they find themselves to be spending a lot of time looking at Excel
+  documentation which they find frustrating as that time could be allocated to
+  being more productive during the school term. Although, they want to a better
+  way to manage the data, they know that it is not up to their decision on what
+  tools are being used but suggested that there could be another better solution
+  to use. 
+  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and
+  is working on her own research project for over five years. She has gathered
+  lots of data and thankfully she has always been great at Excel. However, other
+  the last two years she has found that Excel is becoming less sustainable. The
+  queries are a lot slower and sifting through pages and pages of data is
+  wasting a lot of her time. She sees this more evidently through those that
+  work along side her as they are also facing the same struggles with even less
+  Excel experience as her. She wants to find a more scalable solution but she
+  fears that her lack of digital knowledge will do her more harm than good, as a
+  result she fears that if she introduces a new application to serve her needs
+  better that she will find it hard and confusing to use. 
+  \item Dr.\ Alex Stark is a 30 year old associate professor who has recently
+  gotten funding for his innovative research idea and has been dedicating all
+  his time on perfecting its methodology. It has only been one year since his
+  research started but had recently found a great application of his ideas to
+  reach far more people and be more impactful that he had originally thought.
+  But with his current data management set up, he quickly realises that it is not
+  sustainable. He finds that there are many other solutions on the market but
+  they do not exactly meet his needs and cost a lot more than what he can spend
+  on a tool. He decided that the best way is to create his own tool but lacks
+  the software knowledge to create something stable and reliable. 
 \end{itemize}
-}
+    
+\subsection{Priorities Assigned to Users}
+\subsubsection{Primary Users}
+\begin{itemize}
+  \item Dr. Charles de Lannoy
+  \item Bassel Abdelkader
+  \item Student Assistant working on the experiment 
+\end{itemize}
 
-\plt{The template description comments should be disabled before submitting this
-  document for grading.}
+\subsubsection{Secondary Users}
+\begin{itemize}
+  \item Researcher with their own research studies 
+  \item The founder of the study
+\end{itemize}
+\subsection{User Participation}
+Since this project is a personalized solution for a research team, there is no
+other user participants other than the research time and others teams with a
+similar need. 
+\subsection{Maintenance Users and Service Technicians}
+Not a relevant section 
 
-\plt{You can borrow any wording from the text given in the template.  It is part
-  of the template, and not considered an instance of academic integrity.  Of
-  course, you need to cite the source of the template.}
+\section{Mandated Constraints}
+The following constraints highlight the restrictions and limitations imposed by the stakeholders, impacting the implementation of the product. 
+\subsection{Solution Constraints}
+\textbf{MC-1.} The product must accept Comma-Separated Value (CSV) files as input.
+\begin{itemize}
+  \item \emph{Rationale}: The lab apparatus generates and stores results as CSV files.
+  \item \emph{Fit Criterion}: The product's input process (the processing and acceptance of input data) into the database shall be approved by testers and developers.
+\end{itemize}
 
-\plt{When the documentation is done, it should be possible to trace back to the
-  source of every piece of information.  Some information will come from
-  external sources, like terminology.  Other information will be derived, like
-  General Definitions.}
+\subsection{Implementation Environment of the Current System}
+\textbf{MC-2.} The product must be able to run on a Windows machine.
+\begin{itemize}
+  \item \emph{Rationale}: Currently, the lab has a Windows machine that is used to operate the apparatus and analyse the produced results.
+  \item \emph{Fit Criterion}: The product shall be approved as Windows compliant by testers and developers.
+\end{itemize}
 
-\plt{An SRS document should have the following qualities: unambiguous,
-  consistent, complete, validatable, abstract and traceable.}
+\subsection{Off-the-Shelf Software}
+\emph{N/A}
 
-\plt{The overall goal of the SRS is that someone that meets the Characteristics
-  of the Intended Reader (Section~\ref{sec_IntendedReader}) can learn,
-  understand and verify the captured domain knowledge.  They should not have to
-  trust the authors of the SRS on any statements.  They should be able to
-  independently verify/derive every statement made.}
+\subsection{Anticipated Workplace Environment}
+\textbf{MC-3.} The product shall be used in the Chemical Engineering Lab run by Dr. Charles de Lannoy, Bassel Abdelkader and their team of researchers.
 
-\section{Introduction}
+\subsection{Partner or Collaborative Applications}
+\emph{N/A}
 
-\plt{The introduction section is written to introduce the problem.  It starts
-  general and focuses on the problem domain. The general advice is to start with
-a paragraph or two that describes the problem, followed by a ``roadmap''
-paragraph.  A roadmap orients the reader by telling them what sub-sections to
-expect in the Introduction section.}
+\subsection{Schedule Constraints}
+\textbf{MC-4.} The project must be finished within the course of the current academic year.
+\begin{itemize}
+  \item \emph{Rationale}: The finished product, as outlined in the project requirements, must be submitted by the end of the academic year.
+  A few relevant deadlines include:
+  \begin{itemize}
+    \item Proof of Concept Demonstration: November 11 to 22, 2024
+    \item Revision 0 Demonstration: February 3 to 14, 2025
+    \item Final Demonstration (Revision 1): March 24 to 30, 2025
+  \end{itemize}
+\end{itemize}
 
-\subsection{Purpose of Document}
+\subsection{Budget Constraints}
+\textbf{MC-5.} The total cost of the project must not exceed \$750.
+\begin{itemize}
+  \item \emph{Rationale}: The product must be economically feasible and all teams must have an equal budget to ensure conformity and equality in terms of access of resources.
+\end{itemize}
 
-\plt{This section summarizes the purpose of the SRS document.  It does not focus
-  on the problem itself.  The problem is described in the ``Problem
-  Description'' section (Section~\ref{Sec_pd}).  The purpose is for the document
-  in the context of the project itself, not in the context of this course.
-  Although the ``purpose'' of the document is to get a grade, you should not
-  mention this.  Instead, ``fake it'' as if this is a real project.  The purpose
-  section will be similar between projects.  The purpose of the document is the
-  purpose of the SRS, including communication, planning for the design stage,
-  etc.}
+\subsection{Enterprise Constraints}
+\emph{N/A}
 
-\subsection{Scope of Requirements} 
+\section{Naming Conventions and Terminology}
+The following are standardized terms used throughout the project and its
+documentation to ensure clarity and consistency in communication.
 
-\plt{Modelling the real world requires simplification.  The full complexity of
-  the actual physics, chemistry, biology is too much for existing models, and
-  for existing computational solution techniques.  Rather than say what is in
-  the scope, it is usually easier to say what is not.  You can think of it as
-  the scope is initially everything, and then it is constrained to create the
-  actual scope.  For instance, the problem can be restricted to 2 dimensions, or
-  it can ignore the effect of temperature (or pressure) on the material
-  properties, etc.}  
+\subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders Involved in the Project}
 
-\plt{The scope section is related to the assumptions section
-  (Section~\ref{sec_assumpt}).  However, the scope and the assumptions are not
-  at the same level of abstraction.  The scope is at a high level.  The focus is
-  on the ``big picture'' assumptions.  The assumptions section lists, and
-  describes, all of the assumptions.}
+\begin{itemize}
+    \item \textbf{Alkalinity Enhancement}: A process in ocean engineering to
+    increase the ocean's ability to absorb CO\textsubscript{2}.
+    \item \textbf{CO\textsubscript{2}}: Carbon Dioxide, a greenhouse gas that
+    contributes to global warming.
+    \item \textbf{Ion Exchange}: The process of exchanging ions between the
+    dilute base and seawater to increase alkalinity.
+    \item \textbf{pH Level}: A measure of acidity or alkalinity, critical in
+    assessing the effectiveness of the alkalinity enhancement process.
+    \item \textbf{Buffering Capacity}: The ability of seawater to resist changes
+    in pH, essential for maintaining stable conditions during experiments.
+    \item \textbf{Electrodialysis}: A process that uses electric fields to drive
+    ion movement through membranes, facilitating the generation of the dilute
+    base.
+    \item \textbf{Oceans' Carbon Cycle}: The natural process by which carbon is
+    exchanged between the ocean, atmosphere, and land, impacting global climate.
+    \item \textbf{POC (Proof of Concept)}: A demonstration used to verify that a
+    concept is feasible.
+    \item \textbf{V\&V (Verification and Validation)}: Ensures that the software
+    meets the required standards and performs as expected.
+    \item \textbf{CSV (Comma-Separated Values)}: A file format used for storing
+    tabular data, such as those from experiments.
+    \item \textbf{Data Migration}: The process of transferring data between
+    storage types or formats.
+    \item \textbf{Backend}: The server side responsible for logic, data
+    management, and API services.
+    \item \textbf{Frontend}: The user interface built using React, interacting
+    with the backend.
+    \item \textbf{Database}: A structured storage system (MongoDB) used to
+    manage project data.
+    \item \textbf{API (Application Programming Interface)}: The means by which
+    the frontend communicates with the backend, using GraphQL.
+    \item \textbf{CI/CD (Continuous Integration/Continuous Deployment)}:
+    Automating testing and deployment to ensure reliable updates.
+    \item \textbf{Git}: Distributed version control for tracking code changes
+    and enabling collaborative development.
+    \item \textbf{Kanban}: A task management method used in to track progress.
+    \item \textbf{Branch}: A separate version of the codebase where changes are
+    developed.
+    \item \textbf{Commit}: A recorded change to the codebase.
+    \item \textbf{Pull Request}: A request to merge changes into the main
+    codebase after review.
+    \item \textbf{Deployment}: Releasing the application to a live environment.
+\end{itemize}
 
-\plt{The scope section is relevant for later determining typical values of inputs. The scope should make it clear what inputs are reasonable to expect. This is a distinction between scope and context (context is a later section).  Scope affects the inputs while context affects how the software will be used.}
+\section{Relevant Facts And Assumptions}
+External factors that may have an effect on the product have been recorded as relevant facts and assumptions in this section.
+\subsection{Relevant Facts}
+Currently, two sources of data input are used -
+\begin{itemize}
+  \item The CSV files that contain datapoints generated by the apparatus.
+  \item The initial parameter values for each experiment such as power voltage, age of membrane, density module and more that are inputted into 
+  template excel files. These values are manually inputted by the user and remain constant throughout each experiment.
+\end{itemize}
 
-\subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
+\subsection{Business Rules}
+\emph{N/A}
+\subsection{Assumptions}
+\emph{N/A}
 
-\plt{This section summarizes the skills and knowledge of the readers of the
-  SRS.  It does NOT have the same purpose as the ``User Characteristics''
-  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the
-  people that will read, review and maintain the SRS.  They are the people that
-  will conceivably design the software that is intended to meet the
-  requirements.  The user, on the other hand, is the person that uses the
-  software that is built.  They may never read this SRS document.  Of course,
-  the same person could be a ``user'' and an ``intended reader.''}
-
-\plt{The intended reader characteristics should be written as unambiguously and
-  as specifically as possible.  Rather than say, the user should have an
-  understanding of physics, say what kind of physics and at what level.  For
-  instance, is high school physics adequate, or should the reader have had a
-  graduate course on advanced quantum mechanics?}
-
-\subsection{Organization of Document}
-
-\plt{This section provides a roadmap of the SRS document.  It will help the
-  reader orient themselves.  It will provide direction that will help them
-  select which sections they want to read, and in what order.  This section will
-  be similar between project.}
-
-\section{General System Description}
-
-This section provides general information about the system.  It identifies the
-interfaces between the system and its environment, describes the user
-characteristics and lists the system constraints.  \plt{This text can likely be
-  borrowed verbatim.}
-
-\plt{The purpose of this section is to provide general information about the
-  system so the specific requirements in the next section will be easier to
-  understand. The general system description section is designed to be
-  changeable independent of changes to the functional requirements documented in
-  the specific system description. The general system description provides a
-  context for a family of related models.  The general description can stay the
-  same, while specific details are changed between family members.}
-
-\subsection{System Context}
-
-\plt{Your system context will include a figure that shows the abstract view of
-  the software.  Often in a scientific context, the program can be viewed
-  abstractly following the design pattern of Inputs $\rightarrow$ Calculations
-  $\rightarrow$ Outputs.  The system context will therefore often follow this
-  pattern.  The user provides inputs, the system does the calculations, and then
-  provides the outputs to the user.  The figure should not show all of the
-  inputs, just an abstract view of the main categories of inputs (like material
-  properties, geometry, etc.).  Likewise, the outputs should be presented from
-  an abstract point of view.  In some cases the diagram will show other external
-  entities, besides the user.  For instance, when the software product is a
-  library, the user will be another software program, not an actual end user.
-  If there are system constraints that the software must work with external
-  libraries, these libraries can also be shown on the System Context diagram.
-  They should only be named with a specific library name if this is required by
-  the system constraint.}
-
-\begin{figure}[h!]
-\begin{center}
- \includegraphics[width=0.6\textwidth]{SystemContextFigure}
-\caption{System Context}
-\label{Fig_SystemContext} 
-\end{center}
+\section{The Scope of the Work}
+This section determines the boundaries of the project to be studied and outlines how it fits into its environment.
+\subsection{The Current Situation}
+Currently, a system of excel template files is used to store and manage the data. CSV files are generated by the lab apparatus
+which are then downloaded and copied onto an `experiment' excel template. This step involves getting rid of redundant data when a single CSV file is
+split into multiple excel files and removing inaccurate data (such as rows of zeroes).\\
+\newline
+This data in the experiment template is then analysed and the results from the analysis of each experiment is then added to another consolidated excel template,
+referred to here as `observations' that reords all experiment observations. This observations template also contains additional parameters for each experiment 
+such as membrane, configuration and more wich are entered manually by the user.
+\subsection{The Context of the Work}
+The path highlighted with blue arrows indicates the current process and how the existing data will be migrated.\\
+The path highlighted with green arrows indicates how the product is expected to work after installation.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.55]{Diagrams/Work Context Diagram.drawio.png}
+  \caption{Work Context Model}
 \end{figure}
 
-\plt{For each of the entities in the system context diagram its responsibilities
-  should be listed.  Whenever possible the system should check for data quality,
-  but for some cases the user will need to assume that responsibility.  The list
-  of responsibilities should be about the inputs and outputs only, and they
-  should be abstract.  Details should not be presented here.  However, the
-  information should not be so abstract as to just say ``inputs'' and
-  ``outputs''.  A summarizing phrase can be used to characterize the inputs.
-  For instance, saying ``material properties'' provides some information, but it
-  stays away from the detail of listing every required properties.}
-
-\begin{itemize}
-\item User Responsibilities:
-\begin{itemize}
-\item 
-\end{itemize}
-\item \progname{} Responsibilities:
-\begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
-\end{itemize}
-\end{itemize}
-
-\plt{Identify in what context the software will typically be used.  Is it for
-exploration? education? engineering work? scientific work?. Identify whether it
-will be used for mission-critical or safety-critical applications.} \plt{This
-additional context information is needed to determine how much effort should be
-devoted to the rationale section.  If the application is safety-critical, the
-bar is higher.  This is currently less structured, but analogous to, the idea to
-the Automotive Safety Integrity Levels (ASILs) that McSCert uses in their
-automotive hazard analyses.}
-
-\wss{The }
-\subsection{User Characteristics} \label{SecUserCharacteristics}
-
-\plt{This section summarizes the knowledge/skills expected of the user.
-  Measuring usability, which is often a required non-function requirement,
-  requires knowledge of a typical user.  As mentioned above, the user is a
-  different role from the ``intended reader,'' as given in
-  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the
-  user characteristics should be specific an unambiguous.  For instance, ``The
-  end user of \progname{} should have an understanding of undergraduate Level 1
-  Calculus and Physics.''}
-
-\subsection{System Constraints}
-
-\plt{System constraints differ from other type of requirements because they
-  limit the developers' options in the system design and they identify how the
-  eventual system must fit into the world. This is the only place in the SRS
-  where design decisions can be specified.  That is, the quality requirement for
-  abstraction is relaxed here.  However, system constraints should only be
-  included if they are truly required.}
-
-\section{Specific System Description}
-
-This section first presents the problem description, which gives a high-level
-view of the problem to be solved.  This is followed by the solution characteristics
-specification, which presents the assumptions, theories, definitions and finally
-the instance models.  \plt{Add any project specific details that are relevant
-  for the section overview.}
-
-\subsection{Problem Description} \label{Sec_pd}
-
-\progname{} is intended to solve ... \plt{What problem does your program solve?
-The description here should be in the problem space, not the solution space.}
-
-\subsubsection{Terminology and  Definitions}
-
-\plt{This section is expressed in words, not with equations.  It provide the
-  meaning of the different words and phrases used in the domain of the problem.
-The terminology is used to introduce concepts from the world outside of the
-mathematical model  The terminology provides a real world connection to give the
-mathematical model meaning.}
-
-This subsection provides a list of terms that are used in the subsequent
-sections and their meaning, with the purpose of reducing ambiguity and making it
-easier to correctly understand the requirements:
-
-\begin{itemize}
-
-\item 
-
-\end{itemize}
-
-\subsubsection{Physical System Description} \label{sec_phySystDescrip}
-
-\plt{The purpose of this section is to clearly and unambiguously state the
-  physical system that is to be modelled. Effective problem solving requires a
-  logical and organized approach. The statements on the physical system to be
-  studied should cover enough information to solve the problem. The physical
-  description involves element identification, where elements are defined as
-  independent and separable items of the physical system. Some example elements
-  include acceleration due to gravity, the mass of an object, and the size and
-  shape of an object. Each element should be identified and labelled, with their
-  interesting properties specified clearly. The physical description can also
-  include interactions of the elements, such as the following: i) the
-  interactions between the elements and their physical environment; ii) the
-  interactions between elements; and, iii) the initial or boundary conditions.}
-
-\plt{The elements of the physical system do not have to correspond to an actual
-physical entity.  They can be conceptual.  This is particularly important when
-the documentation is for a numerical method. }
-
-The physical system of \progname{}, as shown in Figure~?,
-includes the following elements:
-
-\begin{itemize}
-
-\item[PS1:] 
-
-\item[PS2:] ...
-
-\end{itemize}
-
-\plt{A figure here makes sense for most SRS documents}
-
-% \begin{figure}[h!]
-% \begin{center}
-% %\rotatebox{-90}
-% {
-%  \includegraphics[width=0.5\textwidth]{<FigureName>}
-% }
-% \caption{\label{<Label>} <Caption>}
-% \end{center}
-% \end{figure}
-
-\subsubsection{Goal Statements}
-
-\plt{The goal statements refine the ``Problem Description''
-  (Section~\ref{Sec_pd}).  A goal is a functional objective the system under
-  consideration should achieve. Goals provide criteria for sufficient
-  completeness of a requirements specification and for requirements
-  pertinence. Goals will be refined in Section “Instanced Models”
-  (Section~\ref{sec_instance}). Large and complex goals should be decomposed
-  into smaller sub-goals.  The goals are written abstractly, with a minimal
-  amount of technical language.  They should be understandable by non-domain
-  experts.}
-
-\noindent Given the \plt{inputs}, the goal statements are:
-
-\begin{itemize}
-
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] \plt{One
-    sentence description of the goal.  There may be more than one.  Each Goal
-    should have a meaningful label.}
-
-\end{itemize}
-
-\subsection{Solution Characteristics Specification}
-
-\plt{This section specifies the information in the solution domain of the system
-  to be developed. This section is intended to express what is required in
-  such a way that analysts and stakeholders get a clear picture, and the
-  latter will accept it. The purpose of this section is to reduce the problem
-  into one expressed in mathematical terms. Mathematical expertise is used to
-  extract the essentials from the underlying physical description of the
-  problem, and to collect and substantiate all physical data pertinent to the
-  problem.}
-
-\plt{This section presents the solution characteristics by successively refining
-  models.  It starts with the abstract/general Theoretical Models (TMs) and
-  refines them to the concrete/specific Instance Models (IMs).  If necessary
-  there are intermediate refinements to General Definitions (GDs).  All of these
-  refinements can potentially use Assumptions (A) and Data Definitions (DD).
-  TMs are refined to create new models, that are called GMs or IMs. DDs are not
-  refined; they are just used. GDs and IMs are derived, or refined, from other
-  models. DDs are not derived; they are just given. TMs are also just given, but
-  they are refined, not used.  If a potential DD includes a derivation, then
-  that means it is refining other models, which would make it a GD or an IM.}
-
-\plt{The above makes a distinction between ``refined'' and ``used.'' A model is
-  refined to another model if it is changed by the refinement. When we change a
-  general 3D equation to a 2D equation, we are making a refinement, by applying
-  the assumption that the third dimension does not matter. If we use a
-  definition, like the definition of density, we aren't refining, or changing
-  that definition, we are just using it.}
-
-\plt{The same information can be a TM in one problem and a DD in another.  It is
-  about how the information is used.  In one problem the definition of
-  acceleration can be a TM, in another it would be a DD.}
-
-\plt{There is repetition between the information given in the different chunks
-  (TM, GDs etc) with other information in the document.  For instance, the
-  meaning of the symbols, the units etc are repeated.  This is so that the
-  chunks can stand on their own when being read by a reviewer/user.  It also
-  facilitates reuse of the models in a different context.}
-
-\noindent \plt{The relationships between the parts of the document are show in
-  the following figure.  In this diagram ``may ref'' has the same role as
-  ``uses'' above.  The figure adds ``Likely Changes,'' which are able to
-  reference (use) Assumptions.}
+\section{Business Data Model and Data Dictionary}
+\subsection{Business Data Model}
+The diagram represents a business data model that encapsulates all the data that is
+created, referenced, updated and deleted by processes in the platform.
 
 \begin{figure}[H]
-  \includegraphics[scale=0.9]{RelationsBetweenTM_GD_IM_DD_A.pdf}
+  \centering
+  \includegraphics[scale=0.98]{Diagrams/Business Data Model.png}
+  \caption{Business Data Model}
 \end{figure}
 
-The instance models that govern \progname{} are presented in
-Subsection~\ref{sec_instance}.  The information to understand the meaning of the
-instance models and their derivation is also presented, so that the instance
-models can be verified.
+\subsection{Data Dictionary}
+\emph{N/A}
 
-\subsubsection{Types}
+\section{The Scope of the Product}
+The following section will highlight use cases of the product and how users and
+stakeholders will interact with the product.  
+\subsection{Product Boundary}
+Below is a use case diagram involving the two clients and major customers. The
+diagram includes the back end database as an actor as it interacts with the
+interface system. Level 1 to 3 labeled actors are part of the research time
+customer mentioned in section 2.2 where depending how the team is structured,
+there are differnt use cases for different level actors. These are added for
+clarity of the system.
 
-\plt{This section is optional. Defining types can make the document easier to
-understand.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{capstoneUseCase.png}
+  \caption{Use Case Diagram}
+\end{figure}
 
-\subsubsection{Scope Decisions}
 
-\plt{This section is optional.}
-\subsubsection{Modelling Decisions}
+\subsection{Product Use Case Table}
+The product use case table (PUC) is an extention of the use case diagram in the pervious section. The table aims to provide more details.
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|p{0.08\linewidth}|p{0.3\linewidth}|l|p{0.4\linewidth}|}
+    \hline
+    \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor/s} & \textbf{Input \& Output}\\
+    \hline
+    1 & Output CSV& \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\end{tabular} & \begin{tabular}[c]{@{}l@{}}Downloadable CSV file with\\ appropriate data (out)\\ Success or failure message\\ (out)\end{tabular}                                               \\
+    \hline
+    2 & Output Visual Plot & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher \end{tabular} & \begin{tabular}[c]{@{}l@{}}downloadable portable network\\ graphic (PNG) or portable\\ document format (PDF) file \\(out)\\ Online viewable plot graphic \\(out)\end{tabular}      \\
+    \hline
+    3 & Compare Return Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher \end{tabular} & \begin{tabular}[c]{@{}l@{}}Online viewable table of result \\(out)\\ Data analysis results of\\ involved data(out)\end{tabular}                                                \\
+    \hline
+    4 & Upload Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Database\end{tabular} & \begin{tabular}[c]{@{}l@{}}CSV file in expected format \\and attributes (in)\\ Success or failure user message \\(out)\\ Update database with inputted\\ data (out)\end{tabular} \\
+    \hline
+    5 & Add New Attributes to Dataset & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Database \end{tabular} & \begin{tabular}[c]{@{}l@{}}Update database with the new \\attribute (out)\\ Success or failure user message \\(out)\\ Attribute name of string type \\(in)\end{tabular}          \\
+    \hline
+    6 & Query for Data & \begin{tabular}[c]{@{}l@{}}Dr.\ Charles de Lannoy\\ Bassel Abdelkader\\ Intermediate Researcher\\ Entry Researcher\\ Database \end{tabular} & \begin{tabular}[c]{@{}l@{}}Visual online table with the \\queried data (out)\\ Selected attribute(s), dates,\\ restrictions (in)\end{tabular}\\
+    \hline
+    \end{tabular}
+    \caption{Product Use Cases}
+\end{table}  
 
-\plt{This section is optional.}
 
-\subsubsection{Assumptions} \label{sec_assumpt}
+\newpage  \subsection{Individual Product Use Cases (PUC's)}
+\subsubsection{Output CSV}
+\begin{itemize}
+  \item Description: The user can export/output the data that they have received
+  from any function on the website system
+  \item Pre-condition: There must be some data in the database. The information
+  the user wants to output must also be able to be stored in a CSV file 
+  \item Post-condition: The user will get to download the desired CSV file
+  containing data from the database. If the download file has been sent to the
+  system, the user will receive a success or failure message.
+  \item Basic path: After querying the data from the database is successful, the
+  user can click on the download CSV button to export the file onto their system.
+\end{itemize}
 
-\plt{The assumptions are a refinement of the scope.  The scope is general, where
-  the assumptions are specific.  All assumptions should be listed, even those
-  that domain experts know so well that they are rarely (if ever) written down.}
-\plt{The document should not take for granted that the reader knows which
-  assumptions have been made. In the case of unusual assumptions, it is
-  recommended that the documentation either include, or point to, an explanation
-  and justification for the assumption.}
-\plt{If it helps with the organization and understandability, the assumptions can be presented as sub sections.  The following sub-sections are options: background theory assumptions, helper theory assumptions, generic theory assumptions, problem specific assumptions, and rationale assumptions}
+\subsubsection{Output Visual Plot}
+\begin{itemize}
+  \item Description: The user is able to generate a graphical plot based on data
+  from the database. The contents of the graph can be customized to include any
+  sort of data that the user decides from the data base. The graph type can be determined by the user. 
+  \item Pre-condition: There must be some selected data to be used to plot a graph.
+  \item Post-condition: A online view of the plot will be generated and
+  displayed on the website. There will also be an option for downloadable version. 
+  \item Basic path: After querying the database for desired data, the user can
+  pick the option to plot the returned data. The website will then generate a
+  graphical plot based on the returned data.
+\end{itemize}
 
-This section simplifies the original problem and helps in developing the
-theoretical model by filling in the missing information for the physical system.
-The numbers given in the square brackets refer to the theoretical model [TM],
-general definition [GD], data definition [DD], instance model [IM], or likely
-change [LC], in which the respective assumption is used.
+\subsubsection{Compare Return Data}
+\begin{itemize}
+  \item Description: This use case will allow the user to compare two sets of
+  data such as differences or similarities among other criteria.
+  \item Pre-condition: There must be two sets of data and what attribute(s) are
+  being compared. 
+  \item Post-condition: The analysis of the data will be presented in a visual
+  manner. Possible outcome may include colour coded elements or a small statement. 
+  \item Basic path: After querying the database for desired data, the user can
+  choose to enable the compare function. The user will then need to pick what
+  attributes they would like to compare and then continue with the website
+  prompts which will eventually give the data analysis result.
+\end{itemize}
+
+\subsubsection{Upload Data}
+\begin{itemize}
+  \item Description: When the user has more experimental data and would like to
+  update the database, this function of the website will be used to take in the
+  data and update/add to the existing database.
+  \item Pre-condition: The file with the new data will be a CSV file and will
+  need to be uploaded through the website interface.
+  \item Post-condition: A success or failure message will be displayed to the
+  user once the file is done uploading and have been added to the database.
+  \item Basic path: The user will need to click on the upload data button and
+  find the file they wish to upload on their system and upload it through the
+  website's drop box. 
+\end{itemize}
+\subsubsection{Add New Attributes to Dataset}
+\begin{itemize}
+  \item Description: As the experiment and data become larger or changes have
+  been made, there will be times when the dataset will need to be changed by
+  adding new attributes.  
+  \item Pre-condition: The user must specify which dataset that they want to
+  edit. The user must then specify what is the attribute name is in the form of
+  a string type input. 
+  \item Post-condition: A success or failure message will be displayed to the
+  user once the new attribute has been added to the database. 
+  \item Basic path: The user will need to click on the edit dataset button. The
+  user must then fill in the input fields with the correct information
+\end{itemize}
+
+\subsubsection{Query for Data}
+\begin{itemize}
+  \item Description: The user will want to get data from their past experiments.
+  To do so, they will need to decide what they want. This is one of the main use
+  case for any user/actor. 
+  \item Pre-condition: The database must have the some data. The user's query
+  request must be filled in through the input fields. The fields can range from
+  dates, to strings, to constraints. 
+  \item Post-condition: The returned data will be shown to the user through a
+  visual table representation and will be presented with a range of other
+  functions that the user can do with the returned data.  
+  \item Basic path: The user will need to click on the query function button.
+  They will then need to fill in the input fields, go through the user prompts
+  to then get the output.
+\end{itemize}
+
+\section{Functional Requirements}
+This section outlines the key functionalities the application must satisfy with justifications and fit criteria, as well as proposed phase-in dates.
+\subsection{Data Input Requirements}
+  \begin{enumerate}
+    \item[\textbf{FR-1.}] The application shall allow the user to input new experiment data or parameters.
+    \begin{itemize}
+    \item \textit{Rationale}: The application needs to be kept up-to-date with ongoing experiments, which may include new parameters that did not exist previously.
+    \item \textit{Fit Criterion}: The user should be able to input new data and parameters without any errors.
+    \item \textit{Priority}: Medium; This is dependent on having FR-2 implemented and can be developed later on.
+    \item \textit{Phase-in Date}: Jan 17.
+    \item \textit{Related Requirements}: FR-2, PR-1, PR-14, SR-3.
+    \end{itemize}
+    \item[\textbf{FR-2.}] The application shall store experiment data in the database with all associated parameters and values correctly labelled.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures that data retrieval and analysis will be correct and accurate.
+      \item \textit{Fit Criterion}: The application's database parameters and values shall match the original experiment data parameters and values.
+      \item \textit{Priority}: High; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+      \item \textit{Phase-in Date}: Nov 10.
+      \item \textit{Related Requirements}: UHR-3, FR-1, FR-4, FR-5, FR-6, FR-8, FR-10, FR-11, PR-1, PR-6, PR-7, PR-12, PR-13, SR-3.
+    \end{itemize}
+  \end{enumerate}
+
+\subsection{Data Migration and Organization Requirements}
+  \begin{enumerate}
+    \item[\textbf{FR-3.}] The application shall read existing experiment data stored in .CSV files.
+    \begin{itemize}
+      \item \textit{Rationale}: Existing experiment data is stored in Excel spreadsheets and must be integrated into the new application for continuity and analysis.
+      \item \textit{Fit Criterion}: The application shall read and import the data files without any errors.
+      \item \textit{Priority}: High; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+      \item \textit{Phase-in Date}: Nov 10.
+      \item \textit{Related Requirements}: PR-12, SR-4, SR-5, SR-6.
+    \end{itemize}
+    \item[\textbf{FR-4.}] The application shall organize experiment data by timestamps and experiment ID for unique identification.
+    \begin{itemize}
+      \item \textit{Rationale}: Each experiment needs to be separately identified for quick retrieval of data and efficiency in search or query actions.
+      \item \textit{Fit Criterion}: Each ID and timestamp shall be traceable to one experiment.
+      \item \textit{Priority}: High; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+      \item \textit{Phase-in Date}: Nov 10.
+      \item \textit{Related Requirements}: FR-2, PR-7, FR-5, FR-6, FR-8, MSR-3, SR-3, SR-4, SR-5, SR-6.
+    \end{itemize}
+  \end{enumerate}
+
+\subsection{Data Search and Query Requirements}
+\begin{enumerate}
+  \item[\textbf{FR-5.}] The application shall allow the user to search for specific datasets based on different parameters.
+  \begin{itemize}
+    \item \textit{Rationale}: The user must be able to do quick look-ups of certain experiments and their results.
+    \item \textit{Fit Criterion}: The application shall retrieve the correct experiments based on the matching parameters.
+    \item \textit{Priority}: High; This is part of the functionalities that must be implemented for the proof of concept demonstration.
+    \item \textit{Phase-in Date}: Nov 10.
+    \item \textit{Related Requirements}: FR-2, FR-4, PR-6, FR-7, FR-10, PR-2.
+  \end{itemize}
+  \item[\textbf{FR-6.}] The application shall allow the user to query two or more parameters or datasets for comparison and analysis.
+  \begin{itemize}
+    \item \textit{Rationale}: Allows for direct comparisons between different experiment parameters and/or results, which is necessary for data analysis.
+    \item \textit{Fit Criterion}: The application shall retrieve the correct parameters and/or experiments based on the query inputs.
+    \item \textit{Priority}: High; This is one of the first functionalities that must be implemented for the proof of concept demonstration.
+    \item \textit{Phase-in Date}: Nov 10.
+    \item \textit{Related Requirements}: FR-2, FR-4, PR-6, FR-7, FR-10, FR-11, FR-15, PR-2.
+  \end{itemize}
+  \item[\textbf{FR-7.}] The application shall display the results of a user’s selected search or query in a format that is readable to the user.
+  \begin{itemize}
+    \item \textit{Rationale}: The user needs to see the results in a format that they can interpret.
+    \item \textit{Fit Criterion}: The results shall be displayed in a table with all labels correct and legible.
+    \item \textit{Priority}: Medium; Its implementation depends on the successful implementation of several other requirements, thus will be properly implemented at a later time.
+    \item \textit{Phase-in Date}: Jan 17.
+    \item \textit{Related Requirements}: FR-5, FR-6, PR-3, PR-10.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Data Visualization Requirements}
+\begin{enumerate}
+  \item[\textbf{FR-8.}] The application shall generate visual graphs based on selected parameters and datasets.
+  \begin{itemize}
+    \item \textit{Rationale}: Visual representation of the data allows for easy interpretation and graphical analysis.
+    \item \textit{Fit Criterion}: The result should display a graphical plot with a title, axes, labels, and a legend.
+    \item \textit{Priority}: Medium; Although this is a core functionality for the application, its implementation depends on the successful implementation of several other requirements, thus will be properly implemented at a later time.
+    \item \textit{Phase-in Date}: Jan 17.
+    \item \textit{Related Requirements}: FR-2, FR-4, FR-9, LFR-4, PR-5, PR-8, PR-10.
+  \end{itemize}
+  \item[\textbf{FR-9.}] The application shall allow the user to customize the data visualization by adjusting axes, data ranges, labels, etc.
+  \begin{itemize}
+    \item \textit{Rationale}: Allows the user to adjust the graphical representation to their needs for their analysis.
+    \item \textit{Fit Criterion}: Modifications to axes, data ranges, labels should be reflected in the generated graph in real-time.
+    \item \textit{Priority}: Low; This depends on the successful implementation of FR-8 and thus will be implemented at a later time.
+    \item \textit{Phase-in Date}: March 21.
+    \item \textit{Related Requirements}: FR-8.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Data Analysis Requirements}
+\begin{enumerate}
+    \item[\textbf{FR-10.}] The application shall analyze patterns and trends in the experiment data based on the user’s selected parameters.
+    \begin{itemize}
+      \item \textit{Rationale}: Trend analysis is critical for the user to discover important findings pertaining to the experiment.
+      \item \textit{Fit Criterion}: The application shall generate a result of the analysis to display to the user.
+      \item \textit{Priority}: Medium; Although this is a core functionality for the application, its implementation depends on the successful implementation of many other requirements and thus will be implemented at a later time.
+      \item \textit{Phase-in Date}: Jan 17.
+      \item \textit{Related Requirements}: FR-2, FR-5, FR-6, PR-6, FR-11.
+    \end{itemize}
+    \item[\textbf{FR-11.}] The application shall use machine learning algorithms to predict and interpolate the data.
+    \begin{itemize}
+      \item \textit{Rationale}: Allows for future predictions of data and efficiency when designing future experiments.
+      \item \textit{Fit Criterion}: The application shall generate a report of value predictions or interpolate a graph and provide the interpolated data points.
+      \item \textit{Priority}: Medium; Although this is a core functionality for the application, its implementation depends on the successful implementation of many other requirements and thus will be implemented at a later time.
+      \item \textit{Phase-in Date}: Jan 17.
+      \item \textit{Related Requirements}: FR-2, FR-6, FR-10, PR-6.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Error Tracking Requirements}
+This section outlines functional requirements for one of the project's stretch
+goals.
+\begin{enumerate}
+  \item[\textbf{FR-12.}] The application shall track and log errors in the experiment data.
+  \begin{itemize}
+    \item \textit{Rationale}: Users need to identify irrelevant or missing parameters.
+    \item \textit{Fit Criterion}: Missing values in the input data should be flagged.
+    \item \textit{Priority}: Low; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
+    \item \textit{Phase-in Date}: March 21.
+    \item \textit{Related Requirements}: FR-13, MSR-3, MSR-5, SR-9.
+  \end{itemize}
+  \item[\textbf{FR-13.}] The application shall remove data logged as errors.
+  \begin{itemize}
+    \item \textit{Rationale}: Ensures data is organized and produces accurate results in analysis.
+    \item \textit{Fit Criterion}: Flagged data should be removed from the database by the algorithm.
+    \item \textit{Priority}: Low; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
+    \item \textit{Phase-in Date}: March 21.
+    \item \textit{Related Requirements}: FR-12, SR-9.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{User Access Management Requirements}
+This section outlines functional requirements for one of the project's stretch
+goals.
+\begin{enumerate}
+  \item[\textbf{FR-14.}] The application shall allow the user to sign in with valid credentials.
+  \begin{itemize}
+    \item \textit{Rationale}: Ensures the data can only be accessed and modified by authorized users.
+    \item \textit{Fit Criterion}: The user shall be able to log in with a username and password.
+    \item \textit{Priority}: Medium; Although this requirement is part of the
+    stretch goals for the application, its implementation is prioritized over
+    the other stretch goals as role-based access control is critical for
+    preventing unauthorized modifications and ensuring the integrity of the
+    associated data.
+    \item \textit{Phase-in Date}: Jan 17.
+    \item \textit{Related Requirements}: PR-11, SR-1, SR-2, SR-8, SR-10, SR-11.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Data Export Requirements}
+This section outlines functional requirements for one of the project's stretch
+goals.
+\begin{enumerate}
+  \item[\textbf{FR-15.}] The application shall generate a report of queries in a session for the user to save or download.
+  \begin{itemize}
+    \item \textit{Rationale}: Allows user to keep a record of their findings for future use or reference.
+    \item \textit{Fit Criterion}: The report should be exported in CSV or PDF format.
+    \item \textit{Priority}: Low; As this is part of the stretch goals for the application, its implementation will not be considered until the higher priority requirements are satisfied.
+    \item \textit{Phase-in Date}: March 21.
+    \item \textit{Related Requirements}: FR-6.
+  \end{itemize}
+\end{enumerate}
+
+\section{Look and Feel Requirements}
+This section will highlight the look and feel of the web interface for the
+project involving the appearance and the style of the user interface and
+experience.
+\subsection{Appearance Requirements}
+\begin{enumerate}
+  \item[\textbf{LFR-1.}] The website should have a simple and organized layout, with
+  clearly defined sections where all major functions should be easily accessible
+  and viewable.
+  \begin{itemize}
+    \item \textit{Rationale:} Having a simple organized layout will ensure that the
+    navigation of the website is quick and intuitive for accessing features and
+    functions, which will enhance the user experience.
+    \item \textit{Fit Criterion:} A user should be able to identify all the major
+    functions of the website within five minutes of use.
+  \end{itemize}
+  
+  \item[\textbf{LFR-2.}] The website shall be responsive on all computer and laptop screens
+  aside from mobile screens.
+  \begin{itemize}
+    \item \textit{Rationale:} Having a responsive website will ensure that the
+    application accommodates the majority, if not all, of the user base in having a
+    proper user experience. 
+    \item \textit{Fit Criterion:} The usability of the website should be the same
+    as the default view on larger and smaller computer, laptop, and monitor screens.
+  \end{itemize}
+  
+  \item[\textbf{LFR-3.}] The website's functions and buttons shall be properly labeled
+  so that no button is ambiguous to users.
+  \begin{itemize}
+    \item \textit{Rationale:} Limiting ambiguity will ensure that users
+    understand and recognize the functions to minimize confusion and improve
+    efficiency.
+    \item \textit{Fit Criterion:} A user should be able to tell what all buttons
+    inherently do without needing to ask questions.
+  \end{itemize}
+  
+  \item[\textbf{LFR-4.}] The produced plot from the data shall be properly labeled.
+  \begin{itemize}
+    \item \textit{Rationale:} Properly labeling plots will help users
+    accurately interpret the data to make important analytical understandings.
+    \item \textit{Fit Criterion:} The plots should not be ambiguous; users
+    should be able to understand what the plot is about within five minutes of
+    viewing it.
+  \end{itemize}
+\end{enumerate}
+
+
+\subsection{Style Requirements}
+\begin{enumerate}
+  \item[\textbf{LFR-5.}] All icons on the website must be in the design standard. 
+  \begin{itemize}
+    \item \textit{Rationale:} To enforce an identity and unity for the website. 
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, 90\% of users should
+    see that there is unity among all the icons on the website. 
+  \end{itemize}
+  
+  \item[\textbf{LFR-6.}] All colors must match the theme of the website.
+  \begin{itemize}
+    \item \textit{Rationale:} Applying a theme will ensure users have
+    an engaging visual experience.
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, 80\% of users
+    should agree that there is a common theme throughout the website.
+  \end{itemize}
+  
+  \item[\textbf{LFR-7.}] All fonts are to be consistent throughout the website. 
+  \begin{itemize}
+    \item \textit{Rationale:} Consistent fonts will increase readability,
+    ensuring users can focus on the functionalities that matter on the page rather than inconsistencies. 
+    \item \textit{Fit Criterion:} After a user's first encounter with the product, there should
+    be no user who feels that any fonts do not belong on the website. 
+  \end{itemize}
+\end{enumerate}
+
+\section{Usability and Humanity Requirements}
+This section outlines the requirements that are intended to make the product usable and ergonomically acceptable to its users.
+\subsection{Ease of Use Requirements}
+\textbf{UHR-1.} The product must be easy to navigate and use for 85\% of individuals with basic computer literacy.
+\begin{itemize}
+  \item \emph{Rationale}: The product must be user-friendly. In the context of this project, basic computer literacy is defined to encompass five computer skills - using a keyboard
+  to type, using a mouse to navigate, understanding basic software applications such as word processing and spreadsheets, browsing the internet, and managaing files and folders.
+  \item \emph{Fit Criterion}: An individual with basic computer literacy, such as John Doe as described in \nameref{personas} must be able to launch the application and upload an input file
+  without any assistance from the administrator.
+\end{itemize}
+
+\subsection{Personalization and Internationalization Requirements}
+\textbf{UHR-2.} The current version of the product will only be available in English (EN-US) and more languages can be added in the later versions.
+\begin{itemize}
+  \item \emph{Rationale}: Currently, the product is only expected to be used by McMaster faculty and staff who are fluent in English.
+\end{itemize}
+\bigskip
+\textbf{UHR-3.} The product must recognize commonly used scientific and mathematical symbols.
+\begin{itemize}
+  \item \emph{Rationale}: The product shall be used to store scientific parameters as datapoints so the product must be able to recognize commonly used symbols used to specify scientific properties.
+  \item \emph{Fit Criterion}: The product must be able to recognize the uppercase and lowercase Greek Alphabet.
+\end{itemize}
+
+\subsection{Learning Requirements}
+\textbf{UHR-4.} 85\% of users must be able to use the product without any formal training and with minimal guidance.
+\begin{itemize}
+  \item \emph{Rationale}: The product shall be intuitive to use. Users must be able to freely naviagte and experiment with the product after a simple product walkthrough.
+  \item \emph{Fit Criterion}: A new user with basic computer literacy skills should be able to upload an input file, enter initial experiment parameters, select fields to be compared and view their graph
+  after a simple product walkthrough by the administrator.
+\end{itemize}
+
+\subsection{Understandability and Politeness Requirements}
+\textbf{UHR-5.} The product shall maintain consistent use of terminology across the platform to avoid confusion.
+\begin{itemize}
+  \item \emph{Rationale}: As an example, if the term "parameters" has been used in one part of the interface, it will not be used interchangeably with "variables" in a different part of the interface.
+  \item \emph{Fit Criterion}: A thorough visual inspection conducted by testers should not reveal any discrepancies.
+\end{itemize}
+
+\subsection{Accessibility Requirements}
+\textbf{UHR-6.} The web interface of the product must be fully compliant with the Web Content Accessibility Guidelines (WCAG) 2.1 standards at Level AA.
+\begin{itemize}
+  \item \emph{Rationale}: WCAG 2.1, Level AA compliance is an internationally accepted, common standard for making web content more accessible.
+  \item \emph{Fit Criterion}: Compliance with the standard will be tested by testers and measured using the Level AA compliance checklist.
+\end{itemize}
+
+\section{Performance Requirements}
+Performance requirements define the measurable standards the application must meet regarding speed, accuracy, robustness, and resource usage to ensure optimal performance of the application's functions.
+\subsection{Speed and Latency Requirements}
+\begin{enumerate}
+\item[\textbf{PR-1.}] The application shall store new data or parameters within 60 seconds of input.
+  \begin{itemize}
+    \item \textit{Rationale}: The speed at which the task can be completed depends on the size of the new data to be inputted or how the addition of a new parameter will affect the existing database structure. The quantified timeframe allows for adequate processing time that aligns with user expectations.
+    \item \textit{Related Requirements}: FR-1, FR-2.
+  \end{itemize}
+\item[\textbf{PR-2.}] The application shall take a maximum of 3 seconds to retrieve data from the database for search and query requests.
+  \begin{itemize}
+    \item \textit{Rationale}: The speed at which the task can be completed varies based on internet connectivity and the complexity of the query being executed.
+    \item \textit{Related Requirements}: FR-5, FR-6.
+  \end{itemize}
+\item[\textbf{PR-3.}] The interaction between the interface and the user shall have an average response time of 1 second under stable internet connection.
+  \begin{itemize}
+    \item \textit{Rationale}: Ensures a fluid interaction between the user and the application.
+    \item \textit{Related Requirements}: FR-7.
+  \end{itemize}
+\item[\textbf{PR-4.}] The application shall have a maximum latency of 2 seconds for search and query actions.
+  \begin{itemize}
+    \item \textit{Rationale}: Ensures that the delay between a user's request and the application's response is minimized to provide the user with quick feedback and a smoother user experience.
+  \end{itemize}
+\item[\textbf{PR-5.}] The application shall generate visualizations of data in an average time of 10 seconds, depending on the size of the dataset being processed.
+  \begin{itemize}
+    \item \textit{Rationale}: The time required to render a graph will be affected by the number of datapoints included in the plot. Larger datasets will take longer to process and display.
+    \item \textit{Related Requirements}: FR-8.
+  \end{itemize}
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Fit Criteria for PR-1 to PR-5}: The application shall satisfy the requirements above.
+\end{itemize}
+
+\subsection{Safety-Critical Requirements}
+N/A; the application does not have safety-critical requirements to consider.
+
+\subsection{Precision or Accuracy Requirements}
+\begin{enumerate}
+  \item[\textbf{PR-6.}] All parameter values shall be accurate to four decimal places.
+    \begin{itemize}
+      \item \textit{Related Requirements}: FR-2, FR-5, FR-6, FR-10, FR-11.
+    \end{itemize}
+  \item[\textbf{PR-7.}] All timestamps of experiment data shall be accurate to milliseconds.
+    \begin{itemize}
+      \item \textit{Related Requirements}: FR-2, FR-4.
+    \end{itemize}
+  \item[\textbf{PR-8.}] Values on visual data plots shall be accurate to four decimal places.
+    \begin{itemize}
+        \item \textit{Related Requirements}: FR-8.
+    \end{itemize}
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationales for PR-6 to PR-8}: Accuracy of the data is critical for data analysis, prediction, and interpolation.
+  \item \textit{Fit Criteria for PR-6 to PR-8}: The application shall satisfy the requirements above.
+\end{itemize}
+
+\subsection{Robustness or Fault-Tolerance Requirements}
+\begin{enumerate}
+  \item[\textbf{PR-9.}] The application shall not crash but display an error message if it loses connection to the backend server.
+  \item[\textbf{PR-10.}] The application shall not terminate but allow the user to view previously loaded queries and generated plots if it loses connection to the internet.
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationales for PR-9 and PR-10}: The application should not fail or crash when experiencing unexpected circumstances.
+  \item \textit{Related Requirements}: FR-7, FR-8.
+\end{itemize}
+
+\subsection{Capacity Requirements}
+\begin{enumerate}
+  \item[\textbf{PR-11.}] The application shall allow for up to three simultaneous users.
+    \begin{itemize}
+      \item \textit{Rationale}: The number of anticipated end-users is currently three.
+      \item \textit{Related Requirements}: FR-14.
+    \end{itemize}
+  \item[\textbf{PR-12.}] The application shall be capable of storing data for up to 300 experiments.
+    \begin{itemize}
+      \item \textit{Rationale}: The application must be capable of storing and processing large amounts of data.
+      \item \textit{Related Requirements}: FR-2, FR-3, PR-13.
+    \end{itemize}
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Fit Criteria for PR-11 and PR-12}: The application shall satisfy the requirements above.
+\end{itemize}
+
+\subsection{Scalability or Extensibility Requirements}
+\begin{enumerate}
+  \item[\textbf{PR-13.}] The application shall be able to process and store the existing data. The amount of data going into the application is expected to grow until the experiment study comes to an end.
+    \begin{itemize}
+      \item \textit{Related Requirements}: FR-2, PR-12, PR-15.
+    \end{itemize}
+  \item[\textbf{PR-14.}] The application shall be able to add additional parameters that did not previously exist in the database at the discretion of the user.
+    \begin{itemize}
+      \item \textit{Related Requirements}: FR-1, PR-15.
+    \end{itemize}
+\end{enumerate}
+\begin{itemize}
+  \item \textit{Rationales for PR-13 and PR-14}: The application must be able to expand to keep up with future experiments.
+\end{itemize}
+
+\subsection{Longevity Requirements}
+\begin{enumerate}
+  \item[\textbf{PR-15.}] The application shall operate for the duration of the experiment study.
+  \begin{itemize}
+    \item \textit{Related Requirements}: PR-13, PR-14.
+  \end{itemize}
+\end{enumerate}
+
+\section{Operational and Environmental Requirements}
+Operational requirements outline the conditions in which the application is expected to operate, which includes system compatibility and distribution requirements.
+\subsection{Expected Physical Environment}
+\begin{enumerate}
+  \item[\textbf{OER-1.}] The application shall operate in a typical lab environment with reliable internet connectivity.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures functionality in environments where end-users are most likely to use the application. 
+      \item \textit{Related Requirements}: MC-1
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Wider Environment Requirements}
+\begin{enumerate}
+  \item[\textbf{OER-2.}] The application shall be compatible with desktop environments running Windows.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures functionality in the technological environment the product is expected to run on.
+      \item \textit{Fit Criterion}: Testing will be conducted on the latest
+      version of the Windows operating system to verify that the application
+      runs without issues.
+      \item \textit{Related Requirements}: MC-2
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Requirements for Interfacing with Adjacent Systems}
+\begin{enumerate}
+  \item[\textbf{OER-3.}] The application shall operate on the most recent versions of Chromium-based web browsers.
+    \begin{itemize}
+      \item \textit{Rationale}: The application should be compatible with Chromium-based web browsers to ensure broad availability and smooth operation on widely-used platforms by the end-users.
+      \item \textit{Fit Criterion}: Performance testing shall be conducted on
+      the latest version of Google Chrome to verify the application loads within
+      5 seconds and functions without crashes or errors.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Productization Requirements}
+\begin{enumerate}
+  \item[\textbf{OER-4.}] The application shall be distributed as a web application.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures easy access and usability for the end-users who do not have enough experience in database management.
+    \end{itemize}
+  \item[\textbf{OER-5.}] The application shall provide an onboarding process
+  with user documentation that enables new users to navigate the interface and
+  complete basic tasks.
+    \begin{itemize}
+      \item \textit{Rationale}: Ensures that users can use the application without needing frequent external support.
+      \item \textit{Fit Criterion}: Usability testing shall verify that at least
+      85\% of test users are able to perform key tasks within 10 minutes
+      following the user documentation.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Release Requirements}
+\begin{enumerate}
+  \item[\textbf{OER-6.}] The first version of the application shall be released after project completion.
+    \begin{itemize}
+      \item \textit{Related Requirements}: MC-4.
+    \end{itemize}
+\end{enumerate}
+
+\section{Maintainability and Support Requirements}
+Maintenance requirements encompass the strategies and processes needed to ensure
+a system remains functional, efficient, and up-to-date throughout its lifecycle.
+
+\subsection{Maintenance Requirements}
+\begin{enumerate}
+  \item[\textbf{MSR-1.}] The application’s maintenance must be the
+  responsibility of the development team with no involvement from the users.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that skilled personnel handle maintenance.
+  \end{itemize}
+
+  \item[\textbf{MSR-2.}] Documentation must be provided to be referenced for
+  future maintenance and to enable seamless knowledge transfer to a new team.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures smooth onboarding and continuity in
+    development.
+    \item \textit{Fit Criterion:} The documentation must be updated with every
+    major release.
+    \item \textit{Related Requirements:} MSR-3.
+  \end{itemize}
+
+  \item[\textbf{MSR-3.}] The application must be designed to accommodate future
+  development, including the addition of new experimental parameters or features
+  without backwards progression.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the application can scale and evolve
+    without compromising existing features.
+    \item \textit{Related Requirements:} FR-4, FR-12, MSR-2.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Supportability Requirements}
+\begin{enumerate}
+  \item[\textbf{MSR-4.}] 
+  The application must have an intuitive user interface that allows users to
+  operate it independently without requiring external assistance.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures a user-friendly experience that reduces
+    the need for help desk support.
+    \item \textit{Fit Criterion:} At least 90\% of users should be able to
+    complete tasks without needing support.
+    \item \textit{Related Requirements:} LF-1, LF-2, LF-3, UHR-1, UHR-4.
+  \end{itemize}
+
+  \item[\textbf{MSR-5.}] The application must have automated guidance, such as
+  error messages, to assist users in troubleshooting common issues.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures users can resolve issues on their own,
+    reducing the volume of support requests.
+    \item \textit{Fit Criterion:} The documentation must be updated with every
+    major release and reviewed quarterly to ensure accuracy.
+    \item \textit{Related Requirements:} FR-12.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Adaptability Requirements}
+\begin{enumerate}
+  \item[\textbf{MSR-6.}] The application must be compatible with modern web
+  browsers to ensure widespread accessibility.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the application is accessible to a broad
+    range of users and devices.
+    \item \textit{Fit Criterion:} The application should at least be able to run
+    on the latest version of Chromium-based web browsers.
+    \item \textit{Related Requirements:} LF-1, LF-2.
+  \end{itemize}
+\end{enumerate}
+\section{Security Requirements}
+Security requirements focus on protecting data, controlling access, ensuring
+integrity, and auditing user actions within the application.
+
+\subsection{Access Requirements}
+\begin{enumerate}
+  \item[\textbf{SR-1.}] Access to the application must be restricted to
+  authorized personnel, with an authentication mechanism.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures that only authorized users can interact
+    with the application.
+    \item \textit{Fit Criterion:} Only users with valid credentials should
+    access the application.
+    \item \textit{Related Requirements:} FR-14, SR-2, SR-8, SR-10.
+  \end{itemize}
+
+  \item[\textbf{SR-2.}] Only authenticated users should have the ability to
+  query or modify the data, and each user’s access must be limited to their
+  capabilities within the application.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures users can only perform actions that align
+    with their roles.
+    \item \textit{Fit Criterion:} The application should restrict 100\% of
+    actions that are not permitted to the user's level of access.
+    \item \textit{Related Requirements:} FR-14, SR-1, SR-8.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Integrity Requirements}
+\begin{enumerate}
+  \item[\textbf{SR-3.}] The application must validate data inputs to ensure they
+  conform to expected formats and values before they are processed.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures only valid data is processed, reducing
+    errors.
+    \item \textit{Fit Criterion:} 100\% of inputs must pass validation checks
+    before processing.
+    \item \textit{Related Requirements:} FR-1, FR-2, FR-4.
+  \end{itemize}
+
+  \item[\textbf{SR-4.}] The application must not modify the data unnecessarily
+  through its transfer process.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the original data remains accurate and
+    unaltered.
+    \item \textit{Fit Criterion:} Data should remain unchanged unless explicitly
+    modified, with logs confirming its integrity.
+    \item \textit{Related Requirements:} FR-3, FR-4, SR-5, SR-6.
+  \end{itemize}
+
+  \item[\textbf{SR-5.}] The application must ensure that any data processed or
+  transferred is free from duplication or inconsistencies.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures data consistency and prevents corruption.
+    \item \textit{Fit Criterion:} The application must detect and prevent 100\%
+    of duplicated records.
+    \item \textit{Related Requirements:} FR-3, FR-4, SR-4, SR-6.
+  \end{itemize}
+
+  \item[\textbf{SR-6.}] The application must have safeguards in place to
+  maintain the accuracy of the transferred data.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures reliable data transfer without loss or
+    error.
+    \item \textit{Fit Criterion:} Transfer operations should maintain 100\% data
+    accuracy, verified by validation tests.
+    \item \textit{Related Requirements:} FR-3, FR-4, SR-4, SR-5.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Privacy Requirements}
+\begin{enumerate}
+  \item[\textbf{SR-7.}] All personal information related to experimental
+  participants or stakeholders, if applicable, must be anonymized and handled in
+  accordance with relevant privacy laws and regulations.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures user privacy and legal compliance.
+    \item \textit{Related Requirements:} SR-8.
+  \end{itemize}
+
+  \item[\textbf{SR-8.}] The application must restrict data sharing with external
+  parties unless expressly authorized by stakeholders, and users must be fully
+  informed about the privacy policies.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures transparency and control over data
+    sharing.
+    \item \textit{Related Requirements:} FR-14, SR-1, SR-2, SR-7.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Audit Requirements}
+\begin{enumerate}
+  \item[\textbf{SR-9.}] The application must maintain a comprehensive audit
+  trail, logging all access and modification events, including timestamps and
+  identities of users performing actions.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures accountability and traceability of
+    actions.
+    \item \textit{Fit Criterion:} 100\% of data access and modification events
+    must be logged and retrievable.
+    \item \textit{Related Requirements:} FR-12, FR-13.
+  \end{itemize}
+
+  \item[\textbf{SR-10.}] Audit logs must be securely stored and accessible only
+  by authorized personnel.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures the security and integrity of audit data.
+    \item \textit{Fit Criterion:} Logs must be encrypted and accessible only to
+    users with administrative privileges.
+    \item \textit{Related Requirements:} FR-14, SR-1.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Immunity Requirements}
+\begin{enumerate}
+  \item[\textbf{SR-11.}] The application must have proactive measures to detect
+  and mitigate suspicious activities, such as repeated unauthorized access
+  attempts, ensuring the application remains secure at all times.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures early detection and prevention of security
+    breaches.
+    \item \textit{Fit Criterion:} The application must detect and block
+    unauthorized attempts after three failed login attempts, with automated
+    alerts sent to administrators.
+    \item \textit{Related Requirements:} FR-14.
+  \end{itemize}
+\end{enumerate}
+
+\section{Cultural Requirements}
+\textbf{CR-1.} The product must not be biased towards certain geographic regions or countries and their societal norms.
+\begin{itemize}
+  \item \emph{Rationale}: In scientific fields, different countries use distinct systems of units with the two most
+  common systems being the metric system and the imperial system. The product must support multiple systems of units
+  and allow users to switch between them easily.
+\end{itemize}
+
+\section{Compliance Requirements}
+\emph{N/A} as no relevant standard compliance and legal requirements could be identified.
+
+\section{Open Issues}
+\lips
+\section{Off-the-Shelf Solutions}
+
+Off-the-shelf solutions are evaluated to explore whether existing products can
+meet the project’s needs or if custom development is required. By comparing
+available options, the team can determine which aspects of these products
+satisfy the project's requirements while also identifying their limitations.
+
+\subsection{Ready-Made Products}
+
+Products that could meet most or all of the project’s requirements without
+significant customization:
 
 \begin{itemize}
+    \item \textbf{Microsoft Power BI}: A business analytics tool capable of
+    handling large datasets, offering data import from CSV files and advanced
+    visualizations.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Supports CSV imports and data querying.
+            \item Scalable data handling.
+            \item Generates dynamic visualizations.
+        \end{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  \plt{Short description of each assumption.  Each assumption
-    should have a meaningful label.  Use cross-references to identify the
-    appropriate traceability to TM, GD, DD etc., using commands like dref, ddref
-    etc.  Each assumption should be atomic - that is, there should not be an
-    explicit (or implicit) ``and'' in the text of an assumption.}
+        \item \textbf{Limitations:}
+        \begin{itemize}
+            \item High-cost licensing for continuous use.
+            \item Real-time CSV data updates might be challenging to implement.
+            \item Lacks flexibility for scientific applications, especially
+            niche inter-parameter comparability.
+        \end{itemize}
+    \end{itemize}
 
+    \item \textbf{Tableau}: A data visualization tool known for creating
+    interactive dashboards from large datasets.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Powerful querying.
+            \item Generates dynamic visualizations.
+            \item Interactive dashboards with advanced analytics.
+        \end{itemize}
+
+        \item \textbf{Limitations:}
+        \begin{itemize}
+            \item High-cost licensing for continuous use.
+            \item Lacks support for scientific-specific customization.
+            \item Not designed for handling algorithmic data comparisons or
+            extending to new experimental parameters.
+        \end{itemize}
+    \end{itemize}
 \end{itemize}
 
-\subsubsection{Theoretical Models}\label{sec_theoretical}
+\subsection{Reusable Components}
 
-\plt{Theoretical models are sets of abstract mathematical equations or axioms
-  for solving the problem described in Section ``Physical System Description''
-  (Section~\ref{sec_phySystDescrip}). Examples of theoretical models are
-  physical laws, constitutive equations, relevant conversion factors, etc.}
+Products that could be used by the project.
 
-\plt{Optionally the theory section could be divided into subsections to provide more structure and improve understandability and reusability.  Potential subsections include the following: Context theories, background theories, helper theories, generic theories, problem specific theories, final theories and rationale theories.}
 
-This section focuses on the general equations and laws that \progname{} is based
-on.  \plt{Modify the examples below for your problem, and add additional models
-  as appropriate.}
-
-~\newline
-
-\noindent
-\deftheory
-% #2 refname of theory
-{TM:COE}
-% #3 label
-{Conservation of thermal energy}
-% #4 equation
-{
-  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$
-}
-% #5 description
-{
-  The above equation gives the conservation of energy for transient heat transfer in a material
-  of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
-  (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
-  $g$ is the volumetric heat generation
-  (\si{\watt\per\cubic\metre}), $T$ is the temperature
-  (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
-  the gradient operator.  For this equation to apply, other forms
-  of energy, such as mechanical energy, are assumed to be negligible in the
-  system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.
-}
-% #6 Notes
-{
-None.
-}
-% #7 Source
-{
-  \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}
-}
-% #8 Referenced by
-{
-  \dref{ROCT}
-}
-% #9 Preconditions
-{
-None
-}
-% #1 derivation - not applicable by default
-{}
-
-\plt{``Ref.\ By'' is used repeatedly with the different types of information.
-  This stands for Referenced By.  It means that the models, definitions and
-  assumptions listed reference the current model, definition or assumption.
-  This information is given for traceability.  Ref. By provides a pointer in the
-  opposite direction to what we commonly do.  You still need to have a reference
-  in the other direction pointing to the current model, definition or
-  assumption.  As an example, if TM1 is referenced by GD2, that means that GD2 will
-  explicitly include a reference to TM1.}
-
-~\newline
-
-\subsubsection{General Definitions}\label{sec_gendef}
-
-\plt{General Definitions (GDs) are a refinement of one or more TMs, and/or of
-  other GDs.  The GDs are less abstract than the TMs.  Generally the reduction
-  in abstraction is possible through invoking (using/referencing) Assumptions.
-  For instance, the TM could be Newton's Law of Cooling stated abstracting.  The
-  GD could take the general law and apply it to get a 1D equation.}
-
-This section collects the laws and equations that will be used in building the
-instance models.
-
-\plt{Some projects may not have any content for this section, but the section
-  heading should be kept.}  \plt{Modify the examples below for your problem, and
-  add additional definitions as appropriate.}
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-\hline
-\rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{NL}\\
-\hline
-Label &\bf Newton's law of cooling \\
-\hline
-% Units&$MLt^{-3}T^0$\\
-% \hline
-SI Units&\si{\watt\per\square\metre}\\
-\hline
-Equation&$ q(t) = h \Delta T(t)$  \\
-\hline
-Description &
-Newton's law of cooling describes convective cooling from a surface.  The law is
-stated as: the rate of heat loss from a body is proportional to the difference
-in temperatures between the body and its surroundings.
-\\
-& $q(t)$ is the thermal flux (\si{\watt\per\square\metre}).\\
-& $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
-	(\si{\watt\per\square\metre\per\celsius}).\\
-&$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
-between the environment and the object (\si{\celsius}).
-\\
-\hline
-  Source & Citation here \\
-  \hline
-  Ref.\ By & \ddref{FluxCoil}, \ddref{FluxPCM}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-\subsubsection*{Detailed derivation of simplified rate of change of temperature}
-
-\plt{This may be necessary when the necessary information does not fit in the
-  description field.}
-\plt{Derivations are important for justifying a given GD.  You want it to be
-  clear where the equation came from.}
-
-\subsubsection{Data Definitions}\label{sec_datadef}
-
-\plt{The Data Definitions are definitions of symbols and equations that are
-  given for the problem.  They are not derived; they are simply used by other
-  models.  For instance, if a problem depends on density, there may be a data
-  definition for the equation defining density.  The DDs are given information
-  that you can use in your other modules.}
-
-\plt{All Data Definitions should be used (referenced) by at least one other
-  model.}
-
-This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \plt{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-\hline
-\rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
-\hline
-Label& \bf Heat flux out of coil\\
-\hline
-Symbol &$q_C$\\
-\hline
-% Units& $Mt^{-3}$\\
-% \hline
-  SI Units & \si{\watt\per\square\metre}\\
-  \hline
-  Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
-  \hline
-  Description & 
-                $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
-                The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
-                assuming that Newton's Law 
-                of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-                the coil, which has area $A_C$ (\si{\square\metre}) and heat 
-                transfer coefficient $h_C$
-                (\si{\watt\per\square\metre\per\celsius}).  This equation
-                assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
-                of the coil (\aref{A_tlcoil}).
-  \\
-  \hline
-  Sources& Citation here \\
-  \hline
-  Ref.\ By & \iref{ewat}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-\subsubsection{Data Types}\label{sec_datatypes}
-
-\plt{This section is optional.  In many scientific computing programs it isn't
-  necessary, since the inputs and outpus are straightforward types, like reals,
-  integers, and sequences of reals and integers.  However, for some problems it
-  is very helpful to capture the type information.}
-
-\plt{The data types are not derived; they are simply stated and used by other
-  models.}
-
-\plt{All data types must be used by at least one of the models.}
-
-\plt{For the mathematical notation for expressing types, the recommendation is
-  to use the notation of~\citet{HoffmanAndStrooper1995}.}
-
-This section collects and defines all the data types needed to document the
-models. \plt{Modify the examples below for your problem, and add additional
-  definitions as appropriate.}
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Type Name & Name for Type\\
-  \hline
-  Type Def & mathematical definition of the type\\
-  \hline
-  Description & description here
-  \\
-  \hline
-  Sources & Citation here, if the type is borrowed from another source\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-\subsubsection{Instance Models} \label{sec_instance}    
-
-\plt{The motivation for this section is to reduce the problem defined in
-  ``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one
-  expressed in mathematical terms. The IMs are built by refining the TMs and/or
-  GDs.  This section should remain abstract.  The SRS should specify the
-  requirements without considering the implementation.}
-
-This section transforms the problem defined in Section~\ref{Sec_pd} into 
-one which is expressed in mathematical terms. It uses concrete symbols defined 
-in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
-identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
-
-The goals \plt{reference your goals} are solved by \plt{reference your instance
-  models}.  \plt{other details, with cross-references where appropriate.}
-\plt{Modify the examples below for your problem, and add additional models as
-  appropriate.}
-
-~\newline
-
-%Instance Model 1
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
-  \hline
-  Label& \bf Energy balance on water to find $T_W$\\
-  \hline
-  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
-  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
-  \hline
-  Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
-  &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
-  &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
-  \hline
-  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-  &$T_C$ is the coil temperature (\si{\celsius}).\\
-  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-  & The above equation applies as long as the water is in liquid form,
-  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
-  and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-  \\
-  \hline
-  Sources& Citation here \\
-  \hline
-  Ref.\ By & \iref{epcm}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-%~\newline
-
-\subsubsection*{Derivation of ...}
-
-\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases
-  where the derivation cannot be described under the Description field, it will
-  be necessary to include this subsection.}
-
-\subsubsection{Input Data Constraints} \label{sec_DataConstraints}    
-
-Table~\ref{TblInputVar} shows the data constraints on the input output
-variables.  The column for physical constraints gives the physical limitations
-on the range of values that can be taken by the variable.  The column for
-software constraints restricts the range of inputs to reasonable values.  The
-software constraints will be helpful in the design stage for picking suitable
-algorithms.  The constraints are conservative, to give the user of the model the
-flexibility to experiment with unusual situations.  The column of typical values
-is intended to provide a feel for a common scenario.  The uncertainty column
-provides an estimate of the confidence with which the physical quantities can be
-measured.  This information would be part of the input if one were performing an
-uncertainty quantification exercise.
-
-The specification parameters in Table~\ref{TblInputVar} are listed in
-Table~\ref{TblSpecParams}.
-
-\begin{table}[!h]
-  \caption{Input Variables} \label{TblInputVar}
-  \renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l l l c} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
-                             \textbf{Typical Value} & \textbf{Uncertainty}\\
-  \midrule 
-  $L$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 \si[per-mode=symbol] {\metre} & 10\%
-  \\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\noindent 
-\begin{description}
-\item[(*)] \plt{you might need to add some notes or clarifications}
-\end{description}
-
-\begin{table}[!h]
-\caption{Specification Parameter Values} \label{TblSpecParams}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Value} \\
-  \midrule 
-  $L_\text{min}$ & 0.1 \si{\metre}\\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
-
-\noindent
-A correct solution must exhibit \plt{fill in the details}.  \plt{These
-  properties are in addition to the stated requirements.  There is no need to
-  repeat the requirements here.  These additional properties may not exist for
-  every problem.  Examples include conservation laws (like conservation of
-  energy or mass) and known constraints on outputs, which are usually summarized
-  in tabular form.  A sample table is shown in Table~\ref{TblOutputVar}}
-
-\begin{table}[!h]
-\caption{Output Variables} \label{TblOutputVar}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} \\
-  \midrule 
-  $T_W$ & $T_\text{init} \leq T_W \leq T_C$ (by~\aref{A_charge})
-  \\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\plt{This section is not for test cases or techniques for verification and
-  validation.  Those topics will be addressed in the Verification and Validation
-  plan.}
-
-\section{Requirements}
-
-\plt{The requirements refine the goal statement.  They will make heavy use of
-  references to the instance models.}
-
-This section provides the functional requirements, the business tasks that the
-software is expected to complete, and the nonfunctional requirements, the
-qualities that the software is expected to exhibit.
-
-\subsection{Functional Requirements}
-
-\noindent \begin{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] \plt{Requirements
-    for the inputs that are supplied by the user.  This information has to be
-    explicit.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] \plt{It isn't
-    always required, but often echoing the inputs as part of the output is a
-    good idea.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] \plt{Calculation
-    related requirements.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:]
-  \plt{Verification related requirements.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] \plt{Output related
-    requirements.}
-
-\end{itemize}
-
-\plt{Every IM should map to at least one requirement, but not every requirement
-  has to map to a corresponding IM.}
-
-\subsection{Nonfunctional Requirements}
-
-\plt{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
-\plt{The goal is for the nonfunctional requirements to be unambiguous, abstract
-  and verifiable.  This isn't easy to show succinctly, so a good strategy may be
-to give a ``high level'' view of the requirement, but allow for the details to
-be covered in the Verification and Validation document.}
-\plt{An absolute requirement on a quality of the system is rarely needed.  For
-  instance, an accuracy of 0.0101 \% is likely fine, even if the requirement is
-  for 0.01 \% accuracy.  Therefore, the emphasis will often be more on
-  describing now well the quality is achieved, through experimentation, and
-  possibly theory, rather than meeting some bar that was defined a priori.}
-\plt{You do not need an entry for correctness in your NFRs.  The purpose of the
-  SRS is to record the requirements that need to be satisfied for correctness.
-  Any statement of correctness would just be redundant. Rather than discuss
-  correctness, you can characterize how far away from the correct (true)
-  solution you are allowed to be.  This is discussed under accuracy.}
-
-\noindent \begin{itemize}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy} \plt{Characterize the accuracy by giving the context/use for
-    the software.  Maybe something like, ``The accuracy of the computed
-    solutions should meet the level needed for $<$engineering or scientific
-    application$>$.  The level of accuracy achieved by \progname{} shall be
-    described following the procedure given in Section~X of the Verification and
-    Validation Plan.''  A link to the VnV plan would be a nice extra.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
-  \plt{Characterize the usability by giving the context/use for the software.
-    You should likely reference the user characteristics section.  The level of
-    usability achieved by the software shall be described following the
-    procedure given in Section~X of the Verification and Validation Plan.  A
-    link to the VnV plan would be a nice extra.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
-  \textbf{Maintainability} \plt{The effort required to make any of the likely
-    changes listed for \progname{} should be less than FRACTION of the original
-    development time.  FRACTION is then a symbolic constant that can be defined
-    at the end of the report.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability} \plt{This NFR is easier to write than the others.  The
-    systems that \progname{} should run on should be listed here.  When possible
-    the specific versions of the potential operating environments should be
-    given.  To make the NFR verifiable a statement could be made that the tests
-    from a given section of the VnV plan can be successfully run on all of the
-    possible operating environments.}
-
-\item Other NFRs that might be discussed include verifiability,
-  understandability and reusability.
-
-\end{itemize}
-
-\subsection{Rationale}
-
-\plt{Provide a rationale for the decisions made in the documentation.  Rationale
-should be provided for scope decisions, modelling decisions, assumptions and
-typical values.}
-
-\section{Likely Changes}    
-
-\noindent \begin{itemize}
-
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with a reference to the related assumption (aref), as appropriate.}
-
-\end{itemize}
-
-\section{Unlikely Changes}    
-
-\noindent \begin{itemize}
-
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
-
-\end{itemize}
-
-\section{Traceability Matrices and Graphs}
-
-The purpose of the traceability matrices is to provide easy references on what
-has to be additionally modified if a certain component is changed.  Every time a
-component is changed, the items in the column of that component that are marked
-with an ``X'' may have to be modified as well.  Table~\ref{Table:trace} shows the
-dependencies of theoretical models, general definitions, data definitions, and
-instance models with each other. Table~\ref{Table:R_trace} shows the
-dependencies of instance models, requirements, and data constraints on each
-other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, and likely changes on
-the assumptions.
-
-\plt{You will have to modify these tables for your problem.}
-
-\plt{The traceability matrix is not generally symmetric.  If GD1 uses A1, that
-  means that GD1's derivation or presentation requires invocation of A1.  A1
-  does not use GD1.  A1 is ``used by'' GD1.}
-
-\plt{The traceability matrix is challenging to maintain manually.  Please do
-  your best.  In the future tools (like Drasil) will make this much easier.}
-
-\afterpage{
-\begin{landscape}
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
-\hline
-\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
-\label{Table:A_trace}
-\end{table}
-\end{landscape}
-}
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline        
-	& \tref{T_COE}& \tref{T_SHE}& \tref{T_LHE}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
-\hline
-\tref{T_COE}     & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_LHE}     & & & & & & & & & & & & & \\ \hline
-\dref{NL}        & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
-\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
-\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
-\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
-\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
-\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
-\label{Table:trace}
-\end{table}
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline
-	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
-\hline
-\iref{ewat}            & & X& & & & X& X \\ \hline
-\iref{epcm}            & X& & & X& & X& X \\ \hline
-\iref{I_HWAT}          & & & & & & X& X \\ \hline
-\iref{I_HPCM}          & & X& & & & X& X \\ \hline
-\rref{R_RawInputs}     & & & & & & & \\ \hline
-\rref{R_MassInputs}    & & & & & & X& \\ \hline
-\rref{R_CheckInputs}   & & & & & X& & \\ \hline
-\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
-\rref{R_TempWater}     & X& & & & & & \\ \hline 
-\rref{R_TempPCM}       & & X& & & & & \\ \hline
-\rref{R_EnergyWater}   & & & X& & & & \\ \hline
-\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
-\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
-\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
-\rref{R_timeMeltEnd}   & & X& & & & & \\ 
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
-\label{Table:R_trace}
-\end{table}
-
-The purpose of the traceability graphs is also to provide easy references on
-what has to be additionally modified if a certain component is changed.  The
-arrows in the graphs represent dependencies. The component at the tail of an
-arrow is depended on by the component at the head of that arrow. Therefore, if a
-component is changed, the components that it points to should also be
-changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, likely changes, and
-assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
-instance models, requirements, and data constraints on each other.
-
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=\textwidth]{ATrace.png}
-% 		}
-% 		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections Between Items of Different Sections}
-% 	\end{center}
-% \end{figure}
-
-
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=0.7\textwidth]{RTrace.png}
-% 		}
-% 		\caption{\label{Fig_RTrace} Traceability Matrix Showing the Connections Between Requirements, Instance Models, and Data Constraints}
-% 	\end{center}
-% \end{figure}
-
-\section{Development Plan}
-
-\plt{This section is optional.  It is used to explain the plan for developing
-  the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course  this is
-  where you can indicate which requirements will be implemented as part of the
-  course, and which will be ``faked'' as future work.  This section can be
-  organized as a prioritized list of requirements, or it could should the
-  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
-
-\section{Values of Auxiliary Constants}
-
-\plt{Show the values of the symbolic parameters introduced in the report.}
-
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
-
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
-
-\newpage
-
-\bibliographystyle {plainnat}
-\bibliography {../../refs/References}
-
-\newpage
-
-\noindent \plt{The following is not part of the template, just some things to consider
-  when filing in the template.}
-
-\noindent \plt{Grammar, flow and \LaTeX advice:
 \begin{itemize}
-\item For Mac users \texttt{*.DS\_Store} should be in \texttt{.gitignore}
-\item \LaTeX{} and formatting rules
-\begin{itemize}
-\item Variables are italic, everything else not, includes subscripts (link to
-  document)
-\begin{itemize}
-\item \href{https://physics.nist.gov/cuu/pdf/typefaces.pdf}{Conventions}
-\item Watch out for implied multiplication
-\end{itemize}
-\item Use BibTeX
-\item Use cross-referencing
-\end{itemize}
-\item Grammar and writing rules
-\begin{itemize}
-\item Acronyms expanded on first usage (not just in table of acronyms)
-\item ``In order to'' should be ``to''
-\end{itemize}
-\end{itemize}}
+    \item \textbf{D3.js}: A JavaScript library for creating dynamic, interactive
+    visualizations.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Highly customizable for complex data visualizations.
+            \item Integrates with web technologies (e.g., React).
+        \end{itemize}
+    \end{itemize}
 
-\noindent \plt{Advice on using the template:
-\begin{itemize}
-\item Difference between physical and software constraints
-\item Properties of a correct solution means \emph{additional} properties, not
-  a restating of the requirements (may be ``not applicable'' for your problem).
-  If you have a table of output constraints, then these are properties of a
-  correct solution.
-\item Assumptions have to be invoked somewhere
-\item ``Referenced by'' implies that there is an explicit reference
-\item Think of traceability matrix, list of assumption invocations and list of
-  reference by fields as automatically generatable
-\item If you say the format of the output (plot, table etc), then your
-  requirement could be more abstract
+    \item \textbf{Plotly.js}: A JavaScript library for building interactive
+    plots and graphs in web applications.
+    
+    \begin{itemize}
+        \item \textbf{Key Features:}
+        \begin{itemize}
+            \item Customizable graphs and charts for web interfaces.
+            \item Supports real-time updates.
+        \end{itemize}
+    \end{itemize}
 \end{itemize}
-}
+
+
+\subsection{Products That Can Be Copied}
+N/A; no product exists that fits all the requirements out-of-the-box.
+
+
+\section{New Problems}
+This section outlines potential problems the new application may introduce into the  environment in which it will be deployed.
+\subsection{Effects on the Current Environment}
+The application is expected to be compatible with the current implementation environment. There should be no adverse effects that come from the new application.
+
+\subsection{Effects on the Installed Systems}
+N/A; There should be no conflicts with existing systems.
+
+\subsection{Potential User Problems}
+N/A; There are no anticipated user problems.
+
+\subsection{Limitations in the Anticipated Implementation Environment That May
+Inhibit the New Product}
+The reliance on stable internet connection may pose limitations on product access and functionality. Additionally, the server must have sufficient resources allocated to handle the anticipated volume of data and data processing demands.
+
+\subsection{Follow-Up Problems}
+Scalability may become a concern if data volume grows larger than anticipated, which will require monitoring and adjustments to ensure optimal performance.
+
+\section{Tasks}
+The team will follow an effective task management plan that emphasizes
+structure, iterative progress, milestone tracking, and accountability for
+successful project outcomes. 
+\subsection{Project Planning}
+
+The team will adopt an agile lifecycle approach, focusing on iterative progress
+and adaptability. Work will be organized into stages, milestones, and phases,
+with regular reviews and adjustments to ensure alignment with goals. Issues are
+managed via GitHub and all communications are documented to ensure
+accountability. Stakeholder feedback will be integrated throughout the process
+to ensure the solution meets evolving requirements.\\
+\newline
+In addition, project planning will include weekly team meetings, biweekly
+supervisor meetings. Deliverables are categorized into stages where roles are
+rotated among team members to share responsibility.
+
+\subsection{Planning of the Milestones}
+
+The milestones provide a structured approach to the project's documentation,
+planning, and demonstration activities. By the deadlines, the team is expected
+to complete and review the documents to ensure accuracy, compliance with project
+requirements, and readiness for subsequent stages.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \textbf{Stage} & \textbf{Milestone} & \textbf{Deadline} \\
+  \hline
+  Stage 1 & Problem Statement, POC Plan, Development Plan & Sept 24 \\
+  \texttt{} & Requirements Document Revision 0 & Oct 9 \\
+  \hline
+  Stage 2 & Hazard Analysis & Oct 23 \\
+  \texttt{} & V\&V Plan Revision 0 & Nov 1 \\
+  \hline
+  Stage 3 & POC Demonstration & Nov 11 - 22 \\
+  \hline
+  Stage 4 & Design Document Revision 0 & Jan 15 \\
+  \hline
+  Stage 5 & Revision 0 Demonstration & Feb 3 - 14\\
+  \hline
+  Stage 6 & V\&V Report Revision 0 & Mar 7 \\
+  \hline
+  Stage 7 & Final Demonstration (Revision 1) & Mar 24 - 30\\
+  \texttt{} & EXPO Demonstration & Apr TBD \\
+  \texttt{} & Final Documentation (Revision 1) & Apr 2 \\
+  \hline
+  \end{tabular}
+  \caption{Project Decomposition and Deadlines}
+  \label{table:2}
+\end{table}
+
+\subsection{Planning of the Development Phases}
+
+The development phases outline the progression of the project's coding and
+implementation efforts. Each phase is focused on achieving significant technical
+progress that works alongside the milestones to allow for incremental progress
+and continuous refinement.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \textbf{Stage} & \textbf{Milestone} & \textbf{Deadline} \\
+  \hline
+  Phase 1 & Backend Database Development & Nov 1 \\
+  \texttt{} & Data Migration Algorithm & Nov 8 \\
+  \texttt{} & POC Functional Testing & Nov 10 \\
+  \texttt{} & POC Demonstration & Nov 11 \\
+  \hline
+  Phase 2 & Backend Refinement \& Bug Fixes & Dec 6 \\
+  \texttt{} & Basic Frontend Development & Jan 3 \\
+  \texttt{} & Frontend-Backend Integration & Jan 17 \\
+  \texttt{} & Preliminary Testing \& Bug Resolution & Jan 24 \\
+  \texttt{} & Revision 0 Demonstration & Feb 3 \\
+  \hline
+  Phase 3 & Final Frontend Features Development & Feb 14 \\
+  \texttt{} & Backend Optimization & Feb 21 \\
+  \texttt{} & Full System Testing \& Debugging & March 21 \\
+  \texttt{} & Revision 1 Final Demonstration & March 24 \\
+  \hline
+  \end{tabular}
+  \caption{Project Development Phases and Deadlines}
+\end{table}
+
+\noindent\textbf{Phase 1} focuses on the Proof of Concept (POC), where the team
+is expected to develop and present a functional prototype that demonstrates the
+core features and feasibility of the project. This phase focuses on the backend,
+including building a database capable of querying and sorting data, and
+implementing an algorithm to transfer data from a CSV file into the database
+format.\newline\newline
+\noindent\textbf{Phase 2} involves the Revision 0 Demonstration, where the
+backend is expected to be fully completed according to the project requirements.
+In addition, a basic frontend will be developed and integrated into a website to
+allow interaction with the backend functionality. It is expected that some bugs
+or issues will be displayed. \newline\newline
+\noindent\textbf{Phase 3} Phase 3 is the Revision 1 Final Demonstration, where
+the final version of the project is presented. During this phase, final frontend
+features will be developed to improve the user interface. The backend will be
+optimized for performance. Full system testing and debugging will address any
+outstanding issues.  This phase represents the culmination of all development
+efforts, with a fully functioning product that meets all requirements.
+Ultimately, it highlights the project's readiness for production.
+
+\section{Migration to the New Product}
+This section includes a list of coversion activities that are necessary that are necessary for the project planning process and outlines a rough timeline for their implementation.
+\subsection{Requirements for Migration to the New Product}
+The following conversion tasks have been identified as a part of the project planning process.
+\subsubsection{Use of Phased Implementation}
+The system will not be implemented in phases and would be installed as a part of a single process after testing and approval. This would be done following Stage 7 described in table
+\ref{table:2} and Phase 3.
+
+\subsubsection{Data Conversion}
+\label{data}
+Currently, the files are stored in CSV format. In order to make them compatiable for migration to the new database, the files must be converted into the appropriate format, likely, 
+JavaScript Object Notaion (JSON) format. This means that a special program must be written to transport the data as the new system will only accept JSON files. 
+The goal is, when a file is inputted to the new system (in CSV format), the program will convert it to JSON so that the data can be entered into the database.
+
+\subsubsection{Major Components}
+The product has been decomposed into the following major components that will be put in place based on this timeline - 
+\begin{itemize}
+  \item Database with migrated data and funtionality to compare parameters by the Proof of Concept Demonstration
+  \item Interface that allows inputting data and adding new parametersby the end of December 2024
+  \item Dashboard that allows analysis of data and visualizing graphs by the end of January 2025
+\end{itemize}
+
+\subsubsection{Decomissioning the Old Product}
+Based on conversations with primary stakeholders, it has been determined that there is no need to run the new product in parallel with the existing product. After the database is set-up
+by Stage 3 as outlined in table \ref{table:2}, all existing data up until that point will be migrated to the new database. The old product will be used to record data from continued experiments
+which will be migrated to the new database at the end of each month post Stage 3 and up until Stage 7.\\
+\newline
+Since the old product is just a collection of spreadsheets, no special effort is needed to decomission them. A visual inspection and testing will be performed by testers and stakeholders 
+each time the data is migrated to the new product to ensure its accuracy and integrity.
+
+\subsection{Data That Has to be Modified or Translated for the New System}
+\subsubsection{Current Technology}
+Currently the data is retreived in the form of CSV files and copied onto existing Excel templates that are used to clean, sort and analyse 
+the data. Although the templates are sophisticated and well-deisgned, a lot of manual work is involved to flag incorrect data (rows of zeroes for 
+all parameters), remove redundant data (the data file is sometimes split into multiple CSV files that might contain some overlapping data) and more.\\
+\newline
+Some of the collected paramteric data is also inaccurate (such as the power voltage and density module) and so those columns of data are ignored.
+To compare different experiments, the user is required to switch between experiment files to view their respective graphs. This is cumbersome and as 
+the number of experiments increase, unsustainable in the long-term.
+
+\subsubsection{Data Translation}
+A scirpt will be written to automate the translation of files from CSV to JSON format. This has been described in detail in the \nameref{data} section.
+
+\section{Costs}
+\emph{N/A}
+\section{User Documentation Requirements}
+User documentation will cover the more complicated features and functionalities of the website.\\
+
+\noindent This documentation will include how to add new attributes to the dataset, how
+to request data plots and any major functionality features.\\ \newline
+This document is intended to be a help/tutorial for the end users who will be
+using the site for its functionalities. Its target is for those who have limited
+software knowledge. Although most functions aims to be as intuitive as possible
+to the user, since this is an analysis application there should be documentation
+explaining for those who have no idea about how research data works and how to
+interact with it using the website.
+
+\subsection{Training Requirements}
+No training is required to use the end product.
+\section{Waiting Room}
+The following requirements are beyond the sophistication of, or time allowed for, initial release of the product.
+\subsection{Automatically Download Data from Lab Apparatus}
+\textbf{WR-1.}: The product shall automatically download the CSV data files from the lab apparatus and after conversion, upload them to the database.
+\begin{itemize}
+  \item \emph{Rationale}: Currently, the data has to be manually exported from the machine at the end of every week to ensure that the data does not get lost or overwritten.
+  \item \emph{Expected Version}: Version 2
+\end{itemize}
+
+\subsection{Dynamic Dashboard to Generate Data Reports}
+\textbf{WR-2.}: The product shall include a dashboard that hosts multiple visual plots that are dynamically updated based on changes in the data.
+\begin{itemize}
+  \item \emph{Rationale}: For the initial release, only basic plots that are already being used by the user will be available for viewing. Whenever data is modified, the graph
+  must be regenerated to view the updated plot.
+  \item \emph{Expected Version}: Version 2
+\end{itemize}
+
+\subsection{Machine Learning Analysis and Projections}
+\textbf{WR-3.}: The product shall use machine learning algorithms to automatically compare parameters and generate visual graphs based on simple text prompts.
+\begin{itemize}
+  \item \emph{Rationale}: The idea is to use artificial intelligence to suggest parametric comparisons or visual graphs that the user might not have though of. The aim is to
+  explore analyses that might not have been considered by a user.
+  \item \emph{Expected Version}: Version 3
+\end{itemize}
+
+\subsection{Mobile Development}
+\textbf{WR-4.}: The product shall have a mobile version.
+\begin{itemize}
+  \item \emph{Rationale}: The project can be extended to include a mobile application version of the product to increase accessibility and reachability.
+  \item \emph{Expected Version}: Version 4
+\end{itemize}
+
+\section{Ideas for Solution}
+\begin{itemize}
+  \item Use a NoSQL database such as MongoDB instead of a SQL database.
+  \item Use JavaScript to implement the interface. 
+\end{itemize}
 
 \newpage{}
-\section*{Appendix --- Reflection}
+\section*{Appendix A --- Traceability}
+This section was added to the Volere template to provide a traceability table for the functional and non-functional requirements.
+\begin{longtable}[c]{| m{3.4cm} | m{4cm} | m{5.3cm} |}
+  \hline
+  \textbf{Requirement ID} & \textbf{Dependent on} & \textbf{Traced from} \\ \hline
+  \endhead
+  FR-1 & FR-2 & PR-1, PR-14, SR-3 \\ \hline
+  FR-2 & UHR-3 & FR-1, FR-4, FR-5, FR-6, FR-8, FR-10, FR-11, PR-1, PR-6, PR-7, PR-12, PR-13, SR-3 \\ \hline
+  FR-3 & N/A & PR-12, SR-4, SR-5, SR-6 \\ \hline
+  FR-4 & FR-2, PR-7 & FR-5, FR-6, FR-8, MSR-3, SR-3, SR-4, SR-5, SR-6 \\ \hline
+  FR-5 & FR-2, FR-4, PR-6 & FR-7, FR-10, PR-2 \\ \hline
+  FR-6 & FR-2, FR-4, PR-6 & FR-7, FR-10, FR-11, FR-15, PR-2 \\ \hline
+  FR-7 & FR-5, FR-6 & PR-3, PR-10 \\ \hline
+  FR-8 & FR-2, FR-4 & FR-9, LFR-4, PR-5, PR-8, PR-10 \\ \hline
+  FR-9 & FR-8 & N/A \\ \hline
+  FR-10 & FR-2, FR-5, FR-6, PR-6 & FR-11 \\ \hline
+  FR-11 & FR-2, FR-6, FR-10, PR-6 & N/A \\ \hline
+  FR-12 & N/A & FR-13, MSR-3, MSR-5, SR-9 \\ \hline
+  FR-13 & FR-12 & SR-9 \\ \hline
+  FR-14 & N/A & PR-11, SR-1, SR-2, SR-8, SR-10, SR-11 \\ \hline
+  FR-15 & FR-6 & N/A \\ \hline
+  LFR-1 & N/A & UHR-1, MSR-4, MSR-6 \\ \hline
+  LFR-2 & N/A & MSR-4, MSR-6 \\ \hline
+  LFR-3 & N/A & UHR-1, MSR-4 \\ \hline
+  LFR-4 & FR-8 & N/A \\ \hline
+  LFR-5 & N/A & N/A \\ \hline
+  LFR-6 & N/A & N/A \\ \hline
+  LFR-7 & N/A & N/A \\ \hline
+  UHR-1 & LFR-1, LFR-3 & MSR-4 \\ \hline
+  UHR-2 & N/A & N/A \\ \hline
+  UHR-3 & N/A & FR-2 \\ \hline
+  UHR-4 & N/A & MSR-4 \\ \hline
+  PR-1 & FR-1, FR-2 & N/A \\ \hline
+  PR-2 & FR-5, FR-6 & N/A \\ \hline
+  PR-3 & FR-7 & N/A \\ \hline
+  PR-4 & N/A & N/A \\ \hline
+  PR-5 & FR-8 & N/A \\ \hline
+  PR-6 & FR-2 & FR-5, FR-6, FR-10, FR-11 \\ \hline
+  PR-7 & FR-2 & FR-4 \\ \hline
+  PR-8 & FR-8 & N/A \\ \hline
+  PR-9 & N/A & N/A \\ \hline
+  PR-10 & FR-7, FR-8 & N/A \\ \hline
+  PR-11 & FR-14 & N/A \\ \hline
+  PR-12 & FR-2, FR-3 & PR-13 \\ \hline
+  PR-13 & FR-2, PR-12 & PR-15 \\ \hline
+  PR-14 & FR-1 & PR-15 \\ \hline
+  PR-15 & PR-13, PR-14 & N/A \\ \hline
+  OER-1 & N/A & MC-1 \\ \hline
+  OER-2 & N/A & MC-2 \\ \hline
+  OER-3 & N/A & N/A \\ \hline
+  OER-4 & N/A & N/A \\ \hline
+  OER-5 & N/A & N/A \\ \hline
+  OER-6 & N/A & MC-4 \\ \hline
+  MSR-1 & N/A & N/A \\ \hline
+  MSR-2 & N/A & MSR-3 \\ \hline
+  MSR-3 & FR-4, FR-12, MSR-2 & N/A \\ \hline
+  MSR-4 & LFR-1, LFR-2, LFR-3, UHR-1, UHR-4 & N/A \\ \hline
+  MSR-5 & FR-12 & N/A \\ \hline
+  MSR-6 & LFR-1, LFR-2 & N/A \\ \hline
+  SR-1 & FR-14 & SR-2, SR-8, SR-10 \\ \hline
+  SR-2 & FR-14, SR-1 & SR-8 \\ \hline
+  SR-3 & FR-1, FR-2, FR-4 & N/A \\ \hline
+  SR-4 & FR-3, FR-4 & SR-5, SR-6 \\ \hline
+  SR-5 & FR-3, FR-4, SR-4, SR-6 & N/A \\ \hline
+  SR-6 & FR-3, FR-4, SR-4 & SR-5 \\ \hline
+  SR-7 & SR-8 & N/A \\ \hline
+  SR-8 & FR-14, SR-1, SR-2 & SR-7 \\ \hline
+  SR-9 & FR-12, FR-13 & N/A \\ \hline
+  SR-10 & FR-14, SR-1 & N/A \\ \hline
+  SR-11 & FR-14 & N/A \\ \hline
+  \caption{Traceability table of the requirements.}
+\end{longtable}
 
-\wss{Not required for CAS 741}
+\newpage{}
+\section*{Appendix B --- Reflection}
 
 The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  
-
-\input{../Reflection.tex}
+graduate attribute of Lifelong Learning.  Please answer the following questions:
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how did
-  you resolve them?
-  \item How many of your requirements were inspired by speaking to your
-  client(s) or their proxies (e.g. your peers, stakeholders, potential users)?
-  \item Which of the courses you have taken, or are currently taking, will help
-  your team to be successful with your capstone project.
+  \item What went well while writing this deliverable?\\
+  
+  Writing this deliverable gave us greater clarity regarding the project and made us think of questions we hadn't
+  considered before such as what our data migration plan would look like, if we need RBAC (Role Based Access Control) and what each role 
+  and security level should include and more.\\
+
+  Additionally, we had already acquired significant knowledge about our supervisors' needs/expectations for the project before we began the 
+  writing process, which gave us a clearer guide on modelling our requirements and allowed us to start earlier rather than later. As a result, 
+  we were able to develop an initial draft, which they reviewed and provided feedback on, enabling us to refine our document in an iterative manner.
+  \item What pain points did you experience during this deliverable, and how did you resolve them?\\
+  
+  The major pain point for this deliverable was the length and the amount of content that had to be condensed into a single document in such a short
+  span of time. With deadline for other courses, coordinating with supervisors and giving them enough time to review our SRS for feedback - most of
+  the steps felt rushed. Since the Volere template is so detailed, we also ran into multiple issues where we either did not know what a section or
+  sub-section was asking for or figuring out what to write for a non-relevant section that is included in the rubric.\\
+
+  However, we were able to address our questions and concerns through a meeting that we had scheduled with our TA, on top of the informal review session.
+  This helped us gain a better understanding of the expectations for each section we faced difficulties with.
+  \item How many of your requirements were inspired by speaking to you client(s) or proxies (e.g. your peers,
+  stakeholders, potential users)?\\
+
+  Most of our FRs were inspired by our client, primarily our supervisors. Since they do not have a concrete plan for how they want this project implemented
+  and instead have an abstract idea of what they would want to see in the product, it gave us a lot more room to be creative and consider multiple scenarios
+  for our requirements, ultimately choosing the ones that suit our project the best. Most of the NFRs had to be brainstormed by our team and then validated by
+  the stakeholders since they hadn't given much thought to these aspects of the product.
+  \item Which of the courses you have taken, or are currently taking, will help your team be successful with your capstone project?\\
+
+  3RA3 or Software Engineering Requirements was very helpful in writing up the SRS because we weren't completely clueless and did not have to spend a lot of time
+  researching what an SRS is or what requirements are. This meant we could dive straight into work. Another course that has been helpful is 3DB3 or Databases mostly
+  because after taking that course, we've had experience dealing with relational databases and were able to determine very early on how a relational database would
+  not be the most suitable for our project and thus, pivot towards NoSQL databases.
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete this capstone project?  Examples of possible knowledge
   to acquire include domain specific knowledge from the domain of your
   application, or software engineering knowledge, mechatronics knowledge or
   computer science knowledge.  Skills may be related to technology, or writing,
   or presentation, or team management, etc.  You should look to identify at
-  least one item for each team member.
+  least one item for each team member.\\
+
+  This question was answered individually by all the team members and their responses are as follows:\\
+  \begin{enumerate}
+    \item Jason Tran\\
+    To successfully complete our project, I will need to learn more about backend and data migration. As I have more professional experience with the frontend or
+    how to connect the front end to the backend, I will now need to learn the final step of creating the backend itself. This includes how to code with Python and
+    how to create algorithms myself.
+    \newline
+    \item Jennifer Ye\\
+    Although I have good skills in writing and team management, the one item that I will need to acquire in this capstone is my back-end knowledge. I know how back-end
+    applications works with aspects like APIs and databases as a general concept, but I have no real experience with implementation. With this capstone project being an
+    end-to-end project, with a focus on back end, I believe it will be critical for me to grain that knowledge to be an impactful team member to the project.\\
+    
+    More specifically, I will need to acquire more advanced knowledge of databases and API creation. My strength is in mobile and web development, but since that 
+    portion of the project is in the later half of the project, I do not want to wait for then to be impactful. I would like to learn and practice the knowledge throughout the term.
+    \newline
+    \item Kate Min\\
+    I will direct my focus towards machine learning algorithms and NoSQL databases. While I have experience with PostgreSQL, I'm not as familiar with NoSQL/MongoDB to make
+    significant contributions at this time.\\
+    
+    Developing a strong foundation in this area would allow me to contribute meaningfully to the backend development. I don't have much experience in machine learning, but this
+    aspect will be essential to our application for data analysis. Successfully acquiring the knowledge needed in both areas will strengthen my ability to work on different parts of the project.
+    \newline
+    \item Sumanya Gulati\\
+    Using version control conventions and such for a large-scale project. In the past, my use of git has been limited to just storing code in a centralized repository that my team
+    members could access. We did not do any proper documentation or reviews.\\
+    
+    This is the first project where our team has come up with a merging strategy, naming conventions and more to keep the git history clean and to ensure conformity and proper documentation.
+    In terms of technology, I have never worked with NoSQL databases before so I am looking forward to exploring that!
+  \end{enumerate}
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
+  member pursue, and why did they make this choice?\\
+
+  This question was answered individually by all the team members and their responses are as follows:\\
+  \begin{enumerate}
+    \item Jason Tran\\
+    I will utilize two approaches on my learning experience, which is to explore resources online and jump straight into the deep end. This will apply what I have learned online in a real application
+    which, in my experience, allows me to connect the dots a lot faster. Ultimately, jumping into the deep end will help progress the project along and create an iterative learning style.
+    \newline
+    \item Jennifer Ye\\
+    One approach I will use to learn more about API and database creation is to follow tutorial crash courses. With this method, I can have a clearer fundamental understanding on the concepts.
+    This might include parts like how they operate, simple manipulation and customization.\\
+    
+    Another approach which can also serve as a follow up approach will be to use them in practice and to learn as I go. This can be in the form of a quick side project. I will be pursuing both as
+    I deem it necessary to be able to succeed in gaining the knowledge in a valuable way. I think learning all the content/knowledge of the back-end from tutorials and cash courses might even be all
+    I need to gain the knowledge and contribute to the project on that front.\\
+    
+    However, with my learning style, I would do better if I also applied the things I learned. This can be done straight from the capstone project, or even having a small side project to just apply
+    what I learned before going into the project is another possibility. In conclusion, I will be using the first method to gain the knowledge I need but will also do the second method due to my learning style.
+    \newline
+    \item Kate Min\\
+    I don't expect the learning curve from Postgres to MongoDB to be too steep, so either an online course or doing a guided project would be ideal. I would go with the latter approach to gain the necessary
+    knowledge/experience quickly, since we'll want to implement the database early on in the development process.\\
+    
+    Both an online course or a small-scale project would give me a strong foundation in ML models. I'd prefer to take an online course as it would allow me to gain a deeper understanding and more experience
+    over time. Since we'll likely focus on implementing the ML at a later time, it will be easier for me to grasp the core concepts and thus make significant contributions to its implementation.
+    \newline
+    \item Sumanya Gulati\\
+    The two approaches to mastering git and NoSQL databases would be following a tutorial to learn how git works and basic commands; and, just practicing it for all deliverables and learning along the way.\\
+    
+    I will be leveraging my existing knowledge of git commands and workflows and use it to learn how it can be adapted to large-scale, long-term projects that are maintainable and scalable. As for the NoSQL database,
+    I would choose the former strategy and follow a guided tutorial first to familiarize myself with the topic so I can actually contribute to the project.
+  \end{enumerate}
 \end{enumerate}
 
 \end{document}

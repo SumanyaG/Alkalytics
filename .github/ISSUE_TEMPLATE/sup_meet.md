@@ -10,17 +10,15 @@ assignees: ''
 **Date and Time**
 
 **Attendance**
-
-- [ ] team member1
-- [ ] team member2
-- [ ] team member3
-- [ ] team member4
-- [ ] team member5
+- [ ] Bassel Abdulkader
+- [ ] Dr. Charles de Lannoy
+- [ ] Sumanya Gulati
+- [ ] Kate Min
+- [ ] Jennifer Ye
+- [ ] Jason Tran
 
 **Agenda**
-
 - 
 
 **Questions to Ask**
-
 -

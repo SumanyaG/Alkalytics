@@ -12,13 +12,11 @@ assignees: ''
 **Date and Time**
 
 **Attendance**
-
-- [ ] team member1
-- [ ] team member2
-- [ ] team member3
-- [ ] team member4
-- [ ] team member5
+- [ ] Chris Schankula
+- [ ] Sumanya Gulati
+- [ ] Jason Tran
+- [ ] Jennifer Ye
+- [ ] Kate Min
 
 **Questions to Ask**
-
 -
