@@ -24,6 +24,10 @@ jobs:
     name: Run ESLint
     runs-on: ubuntu-latest
     
+    defaults:
+      run:
+        working-directory: src/frontend
+    
     steps:
       - uses: actions/checkout@v4
         with:
