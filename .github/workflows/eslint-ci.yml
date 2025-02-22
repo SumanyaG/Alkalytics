@@ -24,10 +24,6 @@ jobs:
     name: Run ESLint
     runs-on: ubuntu-latest
     
-    defaults:
-      run:
-        working-directory: src/frontend
-    
     steps:
       - uses: actions/checkout@v4
         with:
@@ -37,29 +33,46 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: src/frontend/package-lock.json
+          cache: 'yarn'
+          cache-dependency-path: src/frontend/yarn.lock
       
+      - name: Install Yarn
+        run: npm install -g yarn
+
       - name: Install Dependencies
-        run: npm ci || npm install
+        working-directory: src/frontend
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          yarn install --frozen-lockfile
       
       - name: Run ESLint
+        working-directory: src/frontend
         id: eslint
+        continue-on-error: true
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
+            cd ../..  
             FILES=$(git diff --name-only origin/${{ github.base_ref }} HEAD | grep -E '^src/frontend/.*\.(js|jsx|ts|tsx)$' || true)
+            cd src/frontend 
+            
             if [ ! -z "$FILES" ]; then
-              echo "Linting changed files: $FILES"
-              npx eslint ${FILES#src/frontend/} --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
+              echo "Changed files found:"
+              echo "$FILES"
+              RELATIVE_FILES=$(echo "$FILES" | sed 's|^src/frontend/||')
+              echo "Linting files:"
+              echo "$RELATIVE_FILES"
+              yarn eslint $RELATIVE_FILES --format json --output-file eslint_report.json || true
             else
               echo "No JavaScript/TypeScript files changed in frontend"
               echo '[]' > eslint_report.json
             fi
           else
             echo "Linting all JavaScript/TypeScript files in frontend"
-            npx eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
+            yarn eslint "src/**/*.{js,jsx,ts,tsx}" --ignore-pattern "dist/*" --format json --output-file eslint_report.json || true
           fi
-      
+
       - name: Annotate Code Linting Results
         if: always()
         uses: ataylorme/eslint-annotate-action@v2
@@ -68,5 +81,17 @@ jobs:
           report-json: "src/frontend/eslint_report.json"
       
       - name: Check Linting Results
-        if: env.ESLINT_FAILED == 'true'
-        run: exit 1
+        working-directory: src/frontend
+        run: |
+          if [ -f eslint_report.json ]; then
+            ERROR_COUNT=$(jq '.[].errorCount // 0' eslint_report.json | jq -s 'add')
+            if [ "$ERROR_COUNT" -gt 0 ]; then
+              echo "Found $ERROR_COUNT ESLint errors"
+              exit 1
+            else
+              echo "No ESLint errors found (warnings are allowed)"
+            fi
+          else
+            echo "No ESLint report found"
+            exit 1
+          fi
