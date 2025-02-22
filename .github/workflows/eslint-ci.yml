@@ -50,6 +50,7 @@ jobs:
       - name: Run ESLint
         working-directory: src/frontend
         id: eslint
+        continue-on-error: true
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             cd ../..  
@@ -62,14 +63,14 @@ jobs:
               RELATIVE_FILES=$(echo "$FILES" | sed 's|^src/frontend/||')
               echo "Linting files:"
               echo "$RELATIVE_FILES"
-              yarn eslint $RELATIVE_FILES --format json --output-file eslint_report.json
+              yarn eslint $RELATIVE_FILES --format json --output-file eslint_report.json || true
             else
               echo "No JavaScript/TypeScript files changed in frontend"
               echo '[]' > eslint_report.json
             fi
           else
             echo "Linting all JavaScript/TypeScript files in frontend"
-            yarn eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json
+            yarn eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json || true
           fi
       
       - name: Annotate Code Linting Results
@@ -80,6 +81,17 @@ jobs:
           report-json: "src/frontend/eslint_report.json"
       
       - name: Check Linting Results
-        if: env.ESLINT_FAILED == 'true'
         working-directory: src/frontend
-        run: exit 1
+        run: |
+          if [ -f eslint_report.json ]; then
+            ERROR_COUNT=$(jq '.[].errorCount // 0' eslint_report.json | jq -s 'add')
+            if [ "$ERROR_COUNT" -gt 0 ]; then
+              echo "Found $ERROR_COUNT ESLint errors"
+              exit 1
+            else
+              echo "No ESLint errors found (warnings are allowed)"
+            fi
+          else
+            echo "No ESLint report found"
+            exit 1
+          fi
