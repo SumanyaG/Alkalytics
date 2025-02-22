@@ -29,10 +29,11 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X} \toprule {\bf Date} & {\bf Version}
+\begin{tabularx}{\textwidth}{p{4cm}p{1.5cm}X} \toprule {\bf Date} & {\bf Version}
 & {\bf Notes}\\
 \midrule
-4 Nov 2024 & 0.0 & Add initial draft for PoC.\\
+4 November 2024 & 1.0 & Add initial draft for PoC.\\
+11 November 2024 & 1.1 & Update document to include peer review suggestions.\\
 \bottomrule
 \end{tabularx}
 
@@ -325,8 +326,8 @@ design documents are completed. Additionally, peer reviews from classmates will
 provide critical suggestions for improvement.
 
 \subsubsection{Code Conformity Verification}
-The team will verify that the code adheres to SOLID design principles, ensuring
-modular and maintainable code structures.
+Using informal code reviews, the team will verify that the code adheres to SOLID
+design principles, ensuring a modular and maintainable codebase.
 
 \subsubsection{Formal Team Review}
 A formal review with team members will occur after initial document creation,
@@ -488,14 +489,32 @@ Initial State: Database is running and ready to intake data
 					
 Input: Dataset to be stored, in .CSV format
 					
-Output: Data that is inputted is sent into the system, then labelled and stored
-successfully
+Output: The inputted data is stored in the system with proper labels and without
+any data loss or errors
 
 Test Case Derivation: When the data is sent to the system, the data should be
 stored somewhere and labelled properly before it can be queried.
 					
 How test will be performed: The test can be performed by sending a test sample
 of varying sizes to the storage in the system.
+
+\item {FR-ST1.1}
+
+Control: Manual
+					
+Initial State: Database is running and ready to intake data
+					
+Input: New singluar data point 
+					
+Output: The inputted data is stored in the system with proper labels and without
+any data loss or errors.
+
+Test Case Derivation: When the data is sent to the system, the data should be
+stored somewhere and labelled properly before it can be queried.
+					
+How test will be performed: The test can be performed by sending a single data
+point with the correct number of attributes to store in
+the system.
 
 \end{enumerate}
 
@@ -695,7 +714,8 @@ NFR: LFR-2
 
 Type: Manual
 
-Initial State: Application running on multiple different devices
+Initial State: Application running on a 15" laptop, 24" monitor, standard smart
+phone and/or tablet
 
 Input/Condition: Manual tester's engagement with application
 
