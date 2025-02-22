@@ -1,5 +1,6 @@
 name: JavaScript/TypeScript Linter
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.js'
@@ -33,19 +34,14 @@ jobs:
         with:
           node-version: '20'
       
-      # Remove npm cache action since we're handling package installation differently
-      
       - name: Install Dependencies
         run: |
-          # Initialize npm if package.json doesn't exist
           if [ ! -f package.json ]; then
             npm init -y
           fi
           
-          # Install ESLint and related packages
           npm install --save-dev eslint @eslint/js @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
           
-          # Create ESLint config if it doesn't exist
           if [ ! -f .eslintrc.json ]; then
             echo '{
               "extends": [
@@ -74,7 +70,6 @@ jobs:
         id: eslint
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            # For pull requests, only lint changed files
             FILES=$(git diff --name-only origin/${{ github.base_ref }} HEAD | grep -E '\.(js|jsx|ts|tsx)$' || true)
             if [ ! -z "$FILES" ]; then
               echo "Linting changed files: $FILES"
@@ -84,7 +79,6 @@ jobs:
               echo '[]' > eslint_report.json
             fi
           else
-            # On direct pushes, lint all files
             echo "Linting all JavaScript/TypeScript files"
             npx eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
           fi
