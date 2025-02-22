@@ -5,7 +5,7 @@ The folders and files for this folder are as follows:
 - **HazardAnalysis**: Includes the Hazard Analysis
 - **Presentations**:
 - **ProblemStatementAndGoals**: Includes the Problem Statement, Goals and Stretch Goals for the project
-- **projMngmnt**:
+- **projMngmnt**: Includes the Proof of Concept, Revision 0 and Revision 1 Team Contribution Reports
 - **ReflectAndTrace**:
 - **SRS**: Contains the Volere Software Requirements Specification Document
 - **UserGuide**:
