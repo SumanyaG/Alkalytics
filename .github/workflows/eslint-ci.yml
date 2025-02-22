@@ -24,10 +24,6 @@ jobs:
     name: Run ESLint
     runs-on: ubuntu-latest
     
-    defaults:
-      run:
-        working-directory: src/frontend
-    
     steps:
       - uses: actions/checkout@v4
         with:
@@ -37,20 +33,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: src/frontend/package-lock.json
       
       - name: Install Dependencies
-        run: npm ci || npm install
+        working-directory: src/frontend
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          npm install
       
       - name: Run ESLint
+        working-directory: src/frontend
         id: eslint
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
+            cd ../..  
             FILES=$(git diff --name-only origin/${{ github.base_ref }} HEAD | grep -E '^src/frontend/.*\.(js|jsx|ts|tsx)$' || true)
+            cd src/frontend 
+            
             if [ ! -z "$FILES" ]; then
-              echo "Linting changed files: $FILES"
-              npx eslint ${FILES#src/frontend/} --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
+              echo "Changed files found:"
+              echo "$FILES"
+              RELATIVE_FILES=$(echo "$FILES" | sed 's|^src/frontend/||')
+              echo "Linting files:"
+              echo "$RELATIVE_FILES"
+              npx eslint $RELATIVE_FILES --format json --output-file eslint_report.json --max-warnings=0 || echo "ESLINT_FAILED=true" >> $GITHUB_ENV
             else
               echo "No JavaScript/TypeScript files changed in frontend"
               echo '[]' > eslint_report.json
@@ -69,4 +76,5 @@ jobs:
       
       - name: Check Linting Results
         if: env.ESLINT_FAILED == 'true'
+        working-directory: src/frontend
         run: exit 1
