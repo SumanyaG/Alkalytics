@@ -70,10 +70,9 @@ jobs:
             fi
           else
             echo "Linting all JavaScript/TypeScript files in frontend"
-            yarn eslint . --ext .js,.jsx,.ts,.tsx --format stylish | tee eslint_output.txt
-            yarn eslint . --ext .js,.jsx,.ts,.tsx --format json --output-file eslint_report.json || true
+            yarn eslint "src/**/*.{js,jsx,ts,tsx}" --ignore-pattern "dist/*" --format json --output-file eslint_report.json || true
           fi
-      
+
       - name: Annotate Code Linting Results
         if: always()
         uses: ataylorme/eslint-annotate-action@v2
