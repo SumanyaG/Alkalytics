@@ -1,5 +1,8 @@
 \documentclass[12pt, titlepage]{article}
 
+\usepackage[parfill]{parskip}
+\usepackage{soul}
+\usepackage{float}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
@@ -23,14 +26,14 @@
 	
 \maketitle
 
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \section{Revision History}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
+4 March 2025 & 1.0 & Initial Draft\\
 Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -43,12 +46,23 @@ Date 2 & 1.1 & Notes\\
 \begin{tabular}{l l} 
   \toprule		
   \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
+  \midrule
+  CSV & Comma-Separated Values\\
+  FR & Functional Requirement\\
+  LFR & Look and Feel Requirement\\
+  MG & Module Guide\\
+  MSR & Maintainability and Support Requirement\\
+  NFR & Nonfunctional Requirement\\
+  OER & Operational and Environmental Requirement\\
+  PR & Performance Requirement\\
+  SR & Security Requirement\\
+  SRS & Software Requirements Specification\\
+  ST & System Test\\
+  UHR & Usability and Humanity Requirement\\
+  VnV & Verification and Validation\\
+  WCAG & Web Content Accessibility Guidelines\\
   \bottomrule
 \end{tabular}\\
-
-\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
 
 \newpage
 
@@ -62,17 +76,602 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
+\section{Overview}
+This document provides a comprehensive summary of the Verification and
+Validation (VnV) process for the Alkalytics project. It includes reports and analysis of system testing and unit testing results, along with traceability between test cases, the software modules in the
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{Module
+Guide} (MG), and the requirements outlined in the
+\href{https://github.com/SumanyaG/Alkalytics/blob/f856af96669275cc29428a8f2cd4b863e4523ff6/docs/SRS/SRS.pdf}{Software
+Requirements Specification} (SRS). Additionally, it highlights changes made to
+the implementation based on testing outcomes and user feedback.
 
 \section{Functional Requirements Evaluation}
 
+\subsection{Data Input and Storage}
+\begin{enumerate}
+\item{\textbf{FR-ST1}} \label{FR:ST1}
+
+Control: Manual
+
+Initial State: Database is running and ready to intake data
+
+Input: \texttt{SAMPLE\_.CSV\_FILE}
+
+Expected Output: The inputted data is stored in the system with proper labels
+and without any data loss or errors
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain.
+
+\item{\textbf{FR-ST1.1}} \label{FR:ST1.1}
+
+Control: Manual
+
+Initial State: Database is running and ready to intake data
+
+Input: \texttt{SAMPLE\_DATA\_POINT}: 
+
+Expected Output: The inputted data is stored in the system with proper labels
+and without any data loss or errors.
+
+Actual Output: The inputted data is stored in the system under the correct label
+and without any data loss or errors.
+
+Result: \textcolor{green}{Pass}
+%if fail, explain actual output.
+\end{enumerate}
+
+\subsection{Data Querying and Results}
+\begin{enumerate}
+\item{\textbf{FR-ST2}} \label{FR:ST2}
+
+Control: Manual
+
+Initial State: The system is not running any jobs, and the user interface is
+cleared.
+
+Input: \texttt{SAMPLE\_PARAMETERS}: \{\}
+
+Expected Output: A human-readable and customizable visualization of correct
+results corresponding to the selected parameters from the input
+
+Actual Output: 
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain actual output.
+\end{enumerate}
+
+\subsection{Data Analysis}
+\begin{enumerate}
+\item{\textbf{FR-ST3}} \label{FR:ST3}
+
+Control: Manual
+
+Initial State: The application's cleared user interface which has not yet been
+used to query data, with no graph showing yet.
+
+Input: \texttt{SAMPLE\_QUERY}: \{\}
+
+Expected Output: A small written human-readable paragraph explaining the input
+data.
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain actual output.
+\end{enumerate}
+
+\subsection{Data Hygiene}
+\begin{enumerate}
+  \item{\textbf{\st{FR-ST4}}} OUT OF SCOPE; Stretch Goal Requirement \label{FR:ST4}
+
+Control: Manual
+
+Initial State: The application's cleared user interface which has not yet been
+used to query data, with no graph showing yet.
+
+Input: \texttt{SAMPLE\_.CSV\_FILE}
+
+Expected Output: A log file documenting errors found in the input data and/or
+removals of missing data.
+
+\end{enumerate}
+
+\subsection{User Access}
+\begin{enumerate}
+\item{\textbf{FR-ST5}} \label{FR:ST5}
+
+Control: Manual
+
+Initial State: User interface shows a login page, with no login credentials
+currently used
+
+Input: \texttt{SAMPLE\_VALID\_EMAIL, SAMPLE\_VALID\_PASSWORD}
+                        
+Expected Output: The page redirects to the page designated after login
+
+Actual Output: Once credentials are submitted, the page redirects to the main
+home page of the application.
+
+Result: \textcolor{green}{Pass}
+\end{enumerate}
+
+\subsection{Data Export}
+\begin{enumerate}
+\item{\textbf{\st{FR-ST6}}} OUT OF SCOPE; Stretch Goal Requirement \label{FR:ST6}
+
+Control: Manual
+
+Initial State: User interface after multiple usages of data queries
+
+Input: \texttt{USER ACTION => BUTTON CLICK}
+
+Expected Output: Query report will be downloaded to the user's device
+
+\end{enumerate}
+
 \section{Nonfunctional Requirements Evaluation}
 
-\subsection{Usability}
-		
-\subsection{Performance}
+\subsection{Look and Feel}
+\begin{enumerate}
+\item{\textbf{NFR-LF1}} \label{NFR:LF1}
 
-\subsection{etc.}
+Type: User Demo, Manual
+
+Initial State: Fully functional application ready for user interaction, starting
+at the login page
+
+Input/Condition: User engagement with application
+
+Expected Output: 90\% of responses in the Navigation and Ease of Use section of
+the usability survey are at least 'Neither easy nor difficult'; 85\% of users
+navigate the entire application within 10 minutes.
+
+Actual Output: \texttt{User's answers to usability survey, time taken to
+complete tasks or navigate site}
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain why output doesn't meet expectations for pass.
+
+\item{\textbf{NFR-LF2}} \label{NFR:LF2}
+
+Type: Manual
+
+Initial State: Application running on a 15" laptop, 24" monitor, standard smart
+phone and/or tablet
+
+Input/Condition: Manual tester's engagement with application
+
+Expected Output: Number of inconsistencies found across all devices $\leq$ 10.
+
+Actual Output: \texttt{\# of inconsistencies found in the application's
+layout across devices, explanation of inconsistencies?}
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain why output doesn't meet expectations for pass.
+\end{enumerate}
+
+\subsection{Usability}
+\begin{enumerate}
+\item{\textbf{NFR-UH1}} \label{NFR:UH1}
+
+Type: User Demo, Manual
+
+Initial State: Fully functional application ready for user interaction, starting
+at the login page
+
+Input/Condition: User engagement with application, set of tasks to complete
+
+Expected Output: 85\% of users ask for help no more than 3 times; 90\% of
+responses to the Learning section of the usability survey are at least 'Neither
+easy nor difficult'.
+
+Actual Output: \texttt{User's answers to usability survey, \# of times user
+asked usability test conductor for help}
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain why output doesn't meet expectations for pass.
+
+\item{\textbf{NFR-UH2}} \label{NFR:UH2}
+
+Type: Manual
+  
+Initial State: Fully developed application, starting at the login page
+  
+Input/Condition: Manual tester using application
+
+Expected Output: 0 language discrepancies found in the application.
+  
+Actual Output: 0 language discrepancies found in the application.
+
+Result: \textcolor{green}{Pass}
+%if fail, explain why output doesn't meet expectations for pass.
+
+\item{\textbf{NFR-UH3}} \label{NFR:UH3}
+
+Type: Manual
+
+Initial State: Application ready to take in data
+
+Input/Condition: \texttt{SAMPLE\_.CSV\_FILE}
+
+Expected Output: Error logs from unrecognized characters, or successful upload
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain why output doesn't meet expectations for pass.
+
+\item{\textbf{NFR-UH4}} \label{NFR:UH4}
+
+Type: Manual
+
+Initial State: Application ready for use
+
+Input/Condition: Tester engagement using third party tools
+
+Expected Output: List of accessibility issues in accordance to Web Content
+Accessibility Guidelines (WCAG), and checklists for if page is screen-readable
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+%if fail, explain why output doesn't meet expectations for pass.
+\end{enumerate}
+
+\subsection{Performance}
+\begin{enumerate}
+\item{\textbf{NFR-P1}} \label{NFR:P1}
+
+Type: Manual
+
+Initial State: Application navigated to upload page, ready to upload file
+  
+Input/Condition: \texttt{SAMPLE\_.CSV\_FILE}
+  
+Expected Output: Average upload duration $\leq$ \texttt{UPLOAD\_TIME}
+
+\texttt{UPLOAD\_TIME} = 60 seconds
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P2}} \label{NFR:P2}
+
+Type: Manual
+
+Initial State: Application navigated to querying page, ready to make query
+
+Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
+
+Expected Output: Average query response duration $\leq$ \texttt{QUERY\_TIME}
+
+\texttt{QUERY\_TIME} = 3 seconds
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P3}} \label{NFR:P3}
+
+Type: Manual
+
+Initial State: Application ready to use
+
+Input/Condition: Tester engagement
+
+Expected Output: Average response time of buttons on website $\leq$
+\texttt{RESPONSE\_TIME}
+
+\texttt{RESPONSE\_TIME} = 2 seconds
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P4}} \label{NFR:P4}
+
+Type: Manual
+
+Initial State: Application navigated to graphs page, ready to make query to
+generate graphs
+
+Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
+  
+Expected Output: Average time taken to generate graphs/visualizations $\leq$
+\texttt{GRAPH\_TIME}
+
+\texttt{GRAPH\_TIME}: 10 seconds
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P5}} \label{NFR:P5}
+
+Type: Manual
+
+Initial State: Application navigated to query page, ready to make query
+
+Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
+
+Expected Output: A check for precision of numbers in different components of
+system
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P6}} \label{NFR:P6}
+
+Type: Manual
+
+Initial State: Application running as normal
+
+Input/Condition: Tester temporarily taking down back end
+
+Expected Output: Error messages properly displayed
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P7}} \label{NFR:P7}
+
+Type: Manual
+
+Initial State: Application running as normal
+
+Input/Condition: Tester temporarily disconnects internet connection
+
+Expected Output: Previously generated plots and previous queries still working
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P8}} \label{NFR:P8}
+
+Type: Manual
+
+Initial State: Three devices ready to run application
+
+Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
+
+Expected Output: System response time while under load $\leq$
+\texttt{RESPONSE\_TIME\_THRESHOLD}
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-P9}} \label{NFR:P9}
+
+Type: Data Generation, Automated
+
+Initial State: A database with a known amount of experiment data
+
+Input/Condition: \texttt{DUMMY\_DATA}
+
+Expected Output: Observations on system health after large payload
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\end{enumerate}
+
+\subsection{Operational and Environmental}
+\begin{enumerate}
+\item{\textbf{NFR-OE1}} \label{NFR:OE1}
+
+Type: Manual
+
+Initial State: Application running on a windows device as a web application on a
+Chromium based browser.
+
+Input/Condition: Tester engagement
+
+Expected Output: A list of all discovered issues with the application that arise
+due to environment compatibility
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+            
+\item\textbf{{NFR-OE2}} \label{NFR:OE2}
+
+Type: Manual, User Demo
+
+Initial State: Application running and ready for use on home screen
+
+Input/Condition: User engagement
+
+Expected Output: Survey results depicting subjective complexity of onboarding
+process
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+\end{enumerate}
+
+\subsection{Maintainability and Support}
+\begin{enumerate}
+\item{\textbf{NFR-MS1}} \label{NFR:MS1}
+
+Type: Manual, User Demo
+
+Initial State: Application running, ready for use
+
+Input/Condition: User engagement
+
+Expected Output: Observations on user's ability to complete tasks without
+support
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+					
+\item{\textbf{NFR-MS2}} \label{NFR:MS2}
+
+Type: Manual
+
+Initial State: Multiple Chromium-based web browsers open
+
+Input/Condition: Tester Engagement
+
+Expected Output: All abnormal behaviour of web pages observed on each different
+web browser
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+\end{enumerate}
+
+\subsection{Security}
+\begin{enumerate}
+\item{\textbf{NFR-SR1}} \label{NFR:SR1}
+
+Type: Manual
+
+Initial State: Application login page is displayed.
+
+Input/Condition: \texttt{SAMPLE\_VALID\_CREDENTIALS,
+SAMPLE\_INVALID\_CREDENTIALS}
+
+Expected Output: Access is granted or denied based on the validity of the credentials provided.
+
+Actual Output: Access is granted for the \texttt{SAMPLE\_VALID\_CREDENTIALS},
+which consisted of a registered email and correct password, and
+consistently denied for the \texttt{SAMPLE\_INVALID\_CREDENTIALS}, which
+consisted of the following test inputs:
+  \begin{itemize}
+    \item Registered email, incorrect password
+    \item Unregistered email, correct password
+    \item Unregistered email, incorrect password
+  \end{itemize}
+
+Result: \textcolor{green}{Pass}
+
+\item{\textbf{NFR-SR2}} \label{NFR:SR2}
+
+Type: Manual
+
+Initial State: Application logged in with multiple user roles (e.g., admin,
+researcher, research assistant).
+
+Input/Condition: Tester interacts with the application using on different user roles.
+  
+Expected Output: Access to query or modify data and perform sensitive operations is restricted according to user roles.
+
+Actual Output: Only admin and researchers were able to modify data and these
+operations were not available to users with the role of research assistant.
+
+Result: \textcolor{green}{Pass}
+
+\item{\textbf{NFR-SR3}} \label{NFR:S3}
+
+Type: Manual
+
+Initial State: User is logged into the application.
+
+Input/Condition: User remains inactive for a specified period.
+
+Expected Output: User is automatically logged out after a predefined period of
+inactivity.
+
+Actual Output: The user was not logged out after 15 minutes of inactivity.
+
+Result: \textcolor{red}{Fail}
+
+\item{\textbf{NFR-SR4}} \label{NFR:SR4}
+
+Type: Manual
+
+Initial State: Application is open, ready for data entry and CSV upload.
+
+Input/Condition: \texttt{VALID\_DATA, INVALID\_DATA, CORRUPTED\_DATA}
+
+Expected Output: All invalid inputs and CSV uploads are rejected, and only valid data entries are processed.
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{NFR-SR5}} \label{NFR:SR5}
+
+Type: Manual
+
+Initial State: Application database contains a set of unique, validated records.
+Application interface is open for data entry, processing, and transfer actions
+
+Input/Condition: \texttt{SAMPLE\_DUPLICATE\_RECORD}
+
+Expected Output: Duplicate records are detected and prevented, and data accuracy
+is maintained during all transfer operations.
+
+Actual Output:
+
+Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+
+\item{\textbf{\st{NFR-SR6}}} OUT OF SCOPE \label{NFR:SR6}
+
+Type: Manual/Automated
+
+Initial State: Database is operational, with storage capacity at or below normal
+usage. Alert system is configured, and the administrator contact information is
+set up to receive notifications. 
+
+Input/Condition: Tester simulates increasing database storage usage to exceed
+the \texttt{STORAGE\_THRESHOLD}.
+
+Expected Output: System successfully detects when storage usage exceeds
+\texttt{STORAGE\_THRESHOLD} and sends a timely alert to administrators.
+
+\item{\textbf{\st{NFR-SR7}}} OUT OF SCOPE \label{NFR:SR7}
+
+Type: Manual/Automated
+
+Initial State: The application is operational, with logging features configured
+and permissions for accessing logs assigned to administrators only.
+
+Input/Condition: Tester performs various access and modification actions within
+the application, then attempts to access the audit logs with both authorized and
+unauthorized user accounts.
+  
+Expected Output: All actions are logged with timestamps and user identities, and
+audit logs are accessible only to authorized users, with proper encryption.
+
+\item{\textbf{\st{NFR-SR8}}} OUT OF SCOPE \label{NFR:SR8}
+
+Type: Manual
+
+Initial State: Application login screen is open. Administrator contact
+information is configured to receive security alerts.
+
+Input/Condition: Tester attempts multiple failed logins to trigger the
+suspicious activity detection mechanism.
+
+Expected Output:  Application detects and blocks access after three failed
+attempts, sends an alert to administrators, and locks out the user temporarily.
+
+\item{\textbf{\st{NFR-SR9}}} OUT OF SCOPE \label{NFR:SR9}
+
+Type: Automated/Manual
+
+Initial State: Application is running under typical workload conditions.
+Monitoring tools and alerts for CPU and memory usage are enabled.
+
+Input/Condition: Tester simulates a high workload to approach system resource
+limits, observing the system's monitoring and optimization response.
+  
+Expected Output: The system actively manages CPU and memory usage, preventing
+overload and maintaining performance stability.
+
+\end{enumerate}
 	
 \section{Comparison to Existing Implementation}	
 
@@ -80,46 +679,294 @@ This section will not be appropriate for every project.
 
 \section{Unit Testing}
 
+\subsection{Data Storage Module}
+\subsection{Data Retrieval Module}
+\subsection{Visualization Module}
+\subsection{User Management Module}
+
 \section{Changes Due to Testing}
+\subsection{Changes Due to Supervisor Feedback}
+
+Our supervisor suggested the current data visualization form intake could be
+improved by allowing the user to filter the experiment data by additional
+parameters, rather than only by the date it was performed. This feature will be
+added to the final product.
+
+They have also requested to add a new feature that was not originally part of
+the requirements. This feature allows the user to compute a variety of
+efficiency factors related to the data, measuring the efficiencies of the
+membrane used in the experiment. This feature will be added to the final
+product, but thorough validation testing will be limited due to time
+constraints.
+
 
 \wss{This section should highlight how feedback from the users and from 
 the supervisor (when one exists) shaped the final product.  In particular 
 the feedback from the Rev 0 demo to the supervisor (or to potential users) 
 should be highlighted.}
 
+\subsection{Changes Due to Failed Tests}
+\subsubsection{\hyperref[NFR:S3]{NFR-S3}}
+The system did not automatically log out the user after a period of inactivity.
+This was due to the lack of a session timeout manager, which will be implemented in the final product.
+
 \section{Automated Testing}
+Pytest was used as the automated testing framework for Python. Unit test suites
+were written and executed using Pytest, which supports fixtures,
+parameterization, and code coverage metrics, making automated testing more
+efficient and flexible.
 		
 \section{Trace to Requirements}
+
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID & FR-ST1 & FR-ST1.1 & FR-ST2 & FR-ST3 & FR-ST4 & FR-ST5 & FR-ST6\\
+  \hline
+  \hline
+  FR-1 & X & X & & & & &\\
+  \hline
+  FR-2 & X & X & & & & &\\
+  \hline
+  FR-3 & X & X & & & & &\\
+  \hline
+  FR-4 & X & X & & & & &\\
+  \hline
+  FR-5 & & & X & & & &\\
+  \hline
+  FR-6 & & & X & & & &\\
+  \hline
+  FR-7 & & & X & & & &\\
+  \hline
+  FR-8 & & & X & & & &\\
+  \hline
+  FR-9 & & & X & & & &\\
+  \hline
+  FR-10 & & & & X & & &\\
+  \hline
+  FR-11 & & & & X & & &\\
+  \hline
+  FR-12 & & & & & X & &\\
+  \hline
+  FR-13 & & & & & X & &\\
+  \hline
+  FR-14 & & & & & & X &\\
+  \hline
+  FR-15 & & & & & & & X\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Functional Requirements}
+  \label{table:traceFR}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID \{NFR-\} & LF1 & LF2 & UH1 & UH2 & UH3 & UH4 & OE1 & OE2 & MSR1 & MSR2\\
+  \hline
+  \hline
+  LFR-1 & X & & & & & & & & &\\
+  \hline
+  LFR-2 & & X & & & & & & & &\\
+  \hline
+  LFR-3 & X & & & & & & & & &\\
+  \hline
+  LFR-4 & X & & & & & & & & &\\
+  \hline
+  LFR-5 & X & & & & & & & & &\\
+  \hline
+  LFR-6 & X & & & & & & & & &\\
+  \hline
+  LFR-7 & X & & & & & & & & &\\
+  \hline
+  UHR-1 & & & X & & & & & & &\\
+  \hline
+  UHR-2 & & & & X & & & & & &\\
+  \hline
+  UHR-3 & & & & & X & & & & &\\
+  \hline
+  UHR-4 & & & X & & & & & & &\\
+  \hline
+  UHR-5 & & & X & & & & & & &\\
+  \hline
+  UHR-6 & & & & & & X & & & &\\
+  \hline
+  OER-2 & & & & & & & X & & &\\
+  \hline
+  OER-3 & & & & & & & X & & &\\
+  \hline
+  OER-4 & & & & & & & X & & &\\
+  \hline
+  OER-5 & & & & & & & & X & &\\
+  \hline
+  MSR-4 & & & & & & & & & X &\\
+  \hline
+  MSR-6 & & & & & & & & & & X\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Nonfunctional Requirements (Part 1)}
+  \label{table:traceNFR1}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID \{NFR-\} & P1 & P2 & P3 & P4 & P5 & P6 & P7 & P8 & P9\\
+  \hline
+  \hline
+  PR-1 & X & & & & & & & &\\
+  \hline
+  PR-2 & & X & & & & & & &\\
+  \hline
+  PR-3 & & & X & & & & & &\\
+  \hline
+  PR-4 & & X & & & & & & &\\
+  \hline
+  PR-5 & & & & X & & & & &\\
+  \hline
+  PR-6 & & & & & X & & & &\\
+  \hline
+  PR-7 & & & & & X & & & &\\
+  \hline
+  PR-8 & & & & & X & & & &\\
+  \hline
+  PR-9 & & & & & & X & & &\\
+  \hline
+  PR-10 & & & & & & & X & &\\
+  \hline
+  PR-11 & & & & & & & & X &\\
+  \hline
+  PR-12 & & & & & & & & & X\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Nonfunctional Requirements (Part 2)}
+  \label{table:traceNFR2}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID \{NFR-\} & SR1 & SR2 & SR3 & SR4 & SR5 & SR6 & SR7 & SR8 & SR9\\
+  \hline
+  \hline
+  SR-1 & X & & & & & & & &\\
+  \hline
+  SR-2 & & X & & & & & & &\\
+  \hline
+  SR-3 & & X & & & & & & &\\
+  \hline
+  SR-4 & & & X & & & & & &\\
+  \hline
+  SR-5 & & & & X & & & & &\\
+  \hline
+  SR-6 & & & & & X & & & &\\
+  \hline
+  SR-7 & & & & & X & & & &\\
+  \hline
+  SR-8 & & & & & X & & & &\\
+  \hline
+  SR-9 & & & & X & & & & &\\
+  \hline
+  SR-12 & & & & & & X & & &\\
+  \hline
+  SR-13 & & & & & & & X & &\\
+  \hline
+  SR-14 & & & & & & & X & &\\
+  \hline
+  SR-15 & & & & & & & X & &\\
+  \hline
+  SR-16 & & & & & & & & X &\\
+  \hline
+  SR-17 & & & & & & & & & X\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Nonfunctional Requirements (Part 3)}
+  \label{table:traceNFR3}
+\end{table}
 		
 \section{Trace to Modules}		
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID & FR-ST1 & FR-ST1.1 & FR-ST2 & FR-ST3 & FR-ST4 & FR-ST5 & FR-ST6\\
+  \hline
+  \hline
+  M1 & & & & & & &\\
+  \hline
+  M2 & & & & & & &\\
+  \hline
+  M3 & & & & & & &\\
+  \hline
+  M4 & & & & & & &\\
+  \hline
+  M5 & & & & & & &\\
+  \hline
+  M6 & & & & & & &\\
+  \hline
+  M7 & & & & & & &\\
+  \hline
+  M8 & & & & & & &\\
+  \hline
+  M9 & & & & & & &\\
+  \hline
+  M10 & & & & & & &\\
+  \hline
+  M11 & & & & & & &\\
+  \hline
+  M12 & & & & & & &\\
+  \hline
+  M13 & & & & & & &\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Modules}
+  \label{table:modTrace}
+\end{table}
 
 \section{Code Coverage Metrics}
 
-\bibliographystyle{plainnat}
-\bibliography{../../refs/References}
+%\bibliographystyle{plainnat}
+%\bibliography{../../refs/References}
 
 \newpage{}
 \section*{Appendix --- Reflection}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Reflection.
-
-\input{../Reflection.tex}
-
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-  \item Which parts of this document stemmed from speaking to your client(s) or
-  a proxy (e.g. your peers)? Which ones were not, and why?
-  \item In what ways was the Verification and Validation (VnV) Plan different
-  from the activities that were actually conducted for VnV?  If there were
-  differences, what changes required the modification in the plan?  Why did
+  \item \textbf{What went well while writing this deliverable?}
+
+  Writing the general structure of the report was straightforward as we could
+  refer back to the tests we had written in the VnV Plan (cont. later)
+
+  \item \textbf{What pain points did you experience during this deliverable, and
+  how did you resolve them?}
+
+  Constructing and executing all of our tests was the biggest challenge. Due to time constraints, (cont. later)
+
+  \item \textbf{Which parts of this document stemmed from speaking to your
+  client(s) or a proxy (e.g. your peers)? Which ones were not, and why?}
+
+  \item \textbf{In what ways was the Verification and Validation (VnV) Plan
+  different from the activities that were actually conducted for VnV?  If there
+  were differences, what changes required the modification in the plan?  Why did
   these changes occur?  Would you be able to anticipate these changes in future
   projects?  If there weren't any differences, how was your team able to clearly
   predict a feasible amount of effort and the right tasks needed to build the
   evidence that demonstrates the required quality?  (It is expected that most
-  teams will have had to deviate from their original VnV Plan.)
+  teams will have had to deviate from their original VnV Plan.)}
 \end{enumerate}
 
 \end{document}
