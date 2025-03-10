@@ -130,14 +130,19 @@ Control: Manual
 Initial State: The system is not running any jobs, and the user interface is
 cleared.
 
-Input: \texttt{SAMPLE\_PARAMETERS}: \{\}
+Input: \texttt{SAMPLE\_PARAMETERS}: \{Graph: Line, Experiment Dates: 2024-11-05,
+Parameter Type: Data Sheet, X Parameter: C1 Cond, Y Parameter: C1 Temp, X Axis
+Label: C1 Cond, Y Axis Label: C1 Temp, Graph Title: 2024-11-05 C1 Cond vs C1
+Temp \}
 
 Expected Output: A human-readable and customizable visualization of correct
 results corresponding to the selected parameters from the input
 
-Actual Output: 
+Actual Output: Line graph visual displaying the data points from the data sheet
+with the axis custom labeled and graph title. A line of best fit is also
+displayed on the graph.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 %if fail, explain actual output.
 \end{enumerate}
 
