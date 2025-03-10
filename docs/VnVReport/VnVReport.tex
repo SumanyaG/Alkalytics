@@ -1,7 +1,6 @@
 \documentclass[12pt, titlepage]{article}
 
 \usepackage[parfill]{parskip}
-\usepackage{soul}
 \usepackage{float}
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -21,7 +20,7 @@
 	
 \maketitle
 
-\pagenumbering{arabic}
+\pagenumbering{roman}
 
 \section{Revision History}
 
@@ -94,6 +93,10 @@ Initial State: Database is running and ready to intake data
 
 Input: \texttt{SAMPLE\_.CSV\_FILE}
 
+\begin{footnotesize}
+  *Note: Actual experiment data cannot be provided publicly.
+\end{footnotesize}
+
 Expected Output: The inputted data is stored in the system with proper labels
 and without any data loss or errors
 
@@ -109,7 +112,11 @@ Control: Manual
 
 Initial State: Database is running and ready to intake data
 
-Input: \texttt{SAMPLE\_DATA\_POINT}: 
+Input: \texttt{SAMPLE\_DATA\_POINT}: \texttt{\{NEW\_EXPERIMENT\_ROW\}}
+
+\begin{footnotesize}
+  *Note: Actual experiment data cannot be provided publicly.
+\end{footnotesize}
 
 Expected Output: The inputted data is stored in the system with proper labels
 and without any data loss or errors.
@@ -155,14 +162,20 @@ Control: Manual
 Initial State: The application's cleared user interface which has not yet been
 used to query data, with no graph showing yet.
 
-Input: \texttt{SAMPLE\_QUERY}: \{\}
+Input: \texttt{SAMPLE\_PARAMETERS}: \{Graph: Scatter, Experiment Dates: 2024-09-26,
+Parameter Type: Data Sheet, X Parameter: C1 pH, Y Parameter: C1 Temp, X Axis
+Label: C1 pH, Y Axis Label: C1 Temp\}
 
 Expected Output: A small written human-readable paragraph explaining the input
 data.
 
-Actual Output:
+Actual Output: A linear regression line is plotted with the resulting graph
+output, along with information about how well the regression line fits with the
+data.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: Neutral. The actual output does not match the original expected output,
+however, the linear regression line provides a clear trend analysis and has been
+determined to be more useful than a text-based analysis.
 %if fail, explain actual output.
 \end{enumerate}
 
@@ -409,14 +422,16 @@ Type: Manual
 
 Initial State: Application navigated to query page, ready to make query
 
-Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
+Input/Condition: \texttt{SAMPLE\_QUERY : \{NaCl $\ge$ 1.0\}}
 
 Expected Output: A check for precision of numbers in different components of
-system
+system. Values should be accurate to 4 decimal places.
 
-Actual Output:
+Actual Output: Parameter values displayed with an accuracy matching that of the
+original spreadsheet data. All parameters exceeded the accuracy of 4 decimal
+places, satisfying the requirement.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-P6}} \label{NFR:P6}
 
@@ -428,9 +443,10 @@ Input/Condition: Tester temporarily taking down back end
 
 Expected Output: Error messages properly displayed
 
-Actual Output:
+Actual Output: Displayed appropriate error messages for all components
+indicating that data could not be retrieved from backend services.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-P7}} \label{NFR:P7}
 
@@ -636,7 +652,7 @@ throughout the transfer process.
 
 Result: \textcolor{green}{Pass}
 
-\item{\textbf{\st{NFR-SR6}}} OUT OF SCOPE \label{NFR:SR6}
+\item{\textbf{NFR-SR6}}; Out of Scope \label{NFR:SR6}
 
 Type: Manual/Automated
 
@@ -650,7 +666,12 @@ the \texttt{STORAGE\_THRESHOLD}.
 Expected Output: System successfully detects when storage usage exceeds
 \texttt{STORAGE\_THRESHOLD} and sends a timely alert to administrators.
 
-\item{\textbf{\st{NFR-SR7}}} OUT OF SCOPE \label{NFR:SR7}
+Actual Output: Feature not implemented; notification system is considered a
+stretch goal.
+
+Result: \textcolor{red}{Fail}
+
+\item{\textbf{NFR-SR7}}; Out of Scope \label{NFR:SR7}
 
 Type: Manual/Automated
 
@@ -664,7 +685,12 @@ unauthorized user accounts.
 Expected Output: All actions are logged with timestamps and user identities, and
 audit logs are accessible only to authorized users, with proper encryption.
 
-\item{\textbf{\st{NFR-SR8}}} OUT OF SCOPE \label{NFR:SR8}
+Actual Output: Feature not implemented; audit system is considered a stretch
+goal.
+
+Result: \textcolor{red}{Fail}
+
+\item{\textbf{NFR-SR8}}; Out of Scope \label{NFR:SR8}
 
 Type: Manual
 
@@ -677,7 +703,12 @@ suspicious activity detection mechanism.
 Expected Output:  Application detects and blocks access after three failed
 attempts, sends an alert to administrators, and locks out the user temporarily.
 
-\item{\textbf{\st{NFR-SR9}}} OUT OF SCOPE \label{NFR:SR9}
+Actual Output: Application detects failed login attempts but does not send
+alerts. Notification system is considered a stretch goal.
+
+Result: \textcolor{red}{Fail}
+
+\item{\textbf{NFR-SR9}}; Out of Scope \label{NFR:SR9}
 
 Type: Automated/Manual
 
@@ -689,6 +720,11 @@ limits, observing the system's monitoring and optimization response.
   
 Expected Output: The system actively manages CPU and memory usage, preventing
 overload and maintaining performance stability.
+
+Actual Output: Not conducted due to resource constraints and complexity in
+simulating high workload conditions in the current testing environment.
+
+Result: \textcolor{red}{Fail}
 
 \end{enumerate}
 	
@@ -725,6 +761,10 @@ feedback from the Rev 0 demo to the supervisor (or to potential users) should be
 highlighted.}
 
 \subsection{Changes Due to Failed Tests}
+The following sections outline changes that will be made to the implementation
+following a failed test or tests. This does not include tests for stretch goal
+requirements that failed.
+
 \subsubsection{\hyperref[NFR:S3]{NFR-S3}} The system did not automatically log
 out the user after a period of inactivity. This was due to the lack of a session
 timeout manager, which will be implemented in the final product.
