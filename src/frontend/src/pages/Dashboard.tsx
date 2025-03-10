@@ -1,8 +1,8 @@
 import useTable from "../hooks/useTable";
 import Table from "../components/table/Table";
-import BarGraph from "../components/graphs/bar-graph";
-import ScatterPlot from "../components/graphs/scatter-plot";
-import LineGraph from "../components/graphs/line-plot";
+import BarGraph from "../components/graph/bar-graph";
+import ScatterPlot from "../components/graph/scatter-plot";
+import LineGraph from "../components/graph/line-plot";
 import useGraphs from "../hooks/useGraphs";
 
 const Dashboard = () => {

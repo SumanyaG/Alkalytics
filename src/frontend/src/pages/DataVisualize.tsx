@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import GraphSideBar from "../components/sidebars/GraphSideBar";
-import ScatterPlot from "../components/graphs/scatter-plot";
-import LineGraph from "../components/graphs/line-plot";
-import BarGraph from "../components/graphs/bar-graph";
+import GraphSideBar from "../components/sidebar/GraphSideBar";
+import ScatterPlot from "../components/graph/scatter-plot";
+import LineGraph from "../components/graph/line-plot";
+import BarGraph from "../components/graph/bar-graph";
 import { useQuery, gql, useMutation } from "@apollo/client";
 
 type FormDataType = {
