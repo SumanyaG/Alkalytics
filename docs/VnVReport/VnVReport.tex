@@ -6,13 +6,8 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
-\hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=red,
-    urlcolor=blue
-}
+\hypersetup{ colorlinks, citecolor=black, filecolor=black, linkcolor=red,
+    urlcolor=blue }
 \usepackage[round]{natbib}
 
 \input{../Comments}
@@ -30,8 +25,8 @@
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X} \toprule {\bf Date} & {\bf Version}
+& {\bf Notes}\\
 \midrule
 4 March 2025 & 1.0 & Initial Draft\\
 Date 2 & 1.1 & Notes\\
@@ -78,7 +73,9 @@ Date 2 & 1.1 & Notes\\
 
 \section{Overview}
 This document provides a comprehensive summary of the Verification and
-Validation (VnV) process for the Alkalytics project. It includes reports and analysis of system testing and unit testing results, along with traceability between test cases, the software modules in the
+Validation (VnV) process for the Alkalytics project. It includes reports and
+analysis of system testing and unit testing results, along with traceability
+between test cases, the software modules in the
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{Module
 Guide} (MG), and the requirements outlined in the
 \href{https://github.com/SumanyaG/Alkalytics/blob/f856af96669275cc29428a8f2cd4b863e4523ff6/docs/SRS/SRS.pdf}{Software
@@ -89,7 +86,7 @@ the implementation based on testing outcomes and user feedback.
 
 \subsection{Data Input and Storage}
 \begin{enumerate}
-\item{\textbf{FR-ST1}} \label{FR:ST1}
+  \item{\textbf{FR-ST1}} \label{FR:ST1}
 
 Control: Manual
 
@@ -100,9 +97,10 @@ Input: \texttt{SAMPLE\_.CSV\_FILE}
 Expected Output: The inputted data is stored in the system with proper labels
 and without any data loss or errors
 
-Actual Output:
+Actual Output: Data successfully stored in the database with correct key-value
+pairs; no data loss or errors were detected.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 %if fail, explain.
 
 \item{\textbf{FR-ST1.1}} \label{FR:ST1.1}
@@ -165,7 +163,7 @@ Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
 
 \subsection{Data Hygiene}
 \begin{enumerate}
-  \item{\textbf{\st{FR-ST4}}} OUT OF SCOPE; Stretch Goal Requirement \label{FR:ST4}
+  \item{\textbf{FR-ST4}}; Stretch Goal Requirement \label{FR:ST4}
 
 Control: Manual
 
@@ -176,6 +174,11 @@ Input: \texttt{SAMPLE\_.CSV\_FILE}
 
 Expected Output: A log file documenting errors found in the input data and/or
 removals of missing data.
+
+Actual Output: Feature not implemented; as this is a stretch goal, the
+functionality is currently not available.
+
+Result: \textcolor{red}{Fail}
 
 \end{enumerate}
 
@@ -200,7 +203,7 @@ Result: \textcolor{green}{Pass}
 
 \subsection{Data Export}
 \begin{enumerate}
-\item{\textbf{\st{FR-ST6}}} OUT OF SCOPE; Stretch Goal Requirement \label{FR:ST6}
+  \item{\textbf{FR-ST6}}; Stretch Goal Requirement \label{FR:ST6}
 
 Control: Manual
 
@@ -210,6 +213,10 @@ Input: \texttt{USER ACTION => BUTTON CLICK}
 
 Expected Output: Query report will be downloaded to the user's device
 
+Actual Output: Feature not implemented; as this is a stretch goal, the
+functionality is currently not available.
+
+Result: \textcolor{red}{Fail}
 \end{enumerate}
 
 \section{Nonfunctional Requirements Evaluation}
@@ -246,8 +253,8 @@ Input/Condition: Manual tester's engagement with application
 
 Expected Output: Number of inconsistencies found across all devices $\leq$ 10.
 
-Actual Output: \texttt{\# of inconsistencies found in the application's
-layout across devices, explanation of inconsistencies?}
+Actual Output: \texttt{\# of inconsistencies found in the application's layout
+across devices, explanation of inconsistencies?}
 
 Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
 %if fail, explain why output doesn't meet expectations for pass.
@@ -323,23 +330,24 @@ Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
 
 \subsection{Performance}
 \begin{enumerate}
-\item{\textbf{NFR-P1}} \label{NFR:P1}
+  \item{\textbf{NFR-P1}} \label{NFR:P1}
 
 Type: Manual
 
 Initial State: Application navigated to upload page, ready to upload file
-  
+
 Input/Condition: \texttt{SAMPLE\_.CSV\_FILE}
-  
+
 Expected Output: Average upload duration $\leq$ \texttt{UPLOAD\_TIME}
 
 \texttt{UPLOAD\_TIME} = 60 seconds
 
-Actual Output:
+Actual Output: File uploaded in 48 seconds on average, satisfying the
+performance requirements.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
-\item{\textbf{NFR-P2}} \label{NFR:P2}
+  \item{\textbf{NFR-P2}} \label{NFR:P2}
 
 Type: Manual
 
@@ -348,12 +356,12 @@ Initial State: Application navigated to querying page, ready to make query
 Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
 
 Expected Output: Average query response duration $\leq$ \texttt{QUERY\_TIME}
+where \texttt{QUERY\_TIME} = 3 seconds
 
-\texttt{QUERY\_TIME} = 3 seconds
+Actual Output: Query response time averaged less than 0.1, satisfying the
+performance requirement.
 
-Actual Output:
-
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-P3}} \label{NFR:P3}
 
@@ -450,7 +458,7 @@ Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
 
 \item{\textbf{NFR-P9}} \label{NFR:P9}
 
-Type: Data Generation, Automated
+Control: Data Generation, Automated
 
 Initial State: A database with a known amount of experiment data
 
@@ -458,9 +466,10 @@ Input/Condition: \texttt{DUMMY\_DATA}
 
 Expected Output: Observations on system health after large payload
 
-Actual Output:
+Actual Output: Large payload are processed with slight performance degradation,
+but still satisfying performance requirements.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \end{enumerate}
 
@@ -542,12 +551,13 @@ Initial State: Application login page is displayed.
 Input/Condition: \texttt{SAMPLE\_VALID\_CREDENTIALS,
 SAMPLE\_INVALID\_CREDENTIALS}
 
-Expected Output: Access is granted or denied based on the validity of the credentials provided.
+Expected Output: Access is granted or denied based on the validity of the
+credentials provided.
 
 Actual Output: Access is granted for the \texttt{SAMPLE\_VALID\_CREDENTIALS},
-which consisted of a registered email and correct password, and
-consistently denied for the \texttt{SAMPLE\_INVALID\_CREDENTIALS}, which
-consisted of the following test inputs:
+which consisted of a registered email and correct password, and consistently
+denied for the \texttt{SAMPLE\_INVALID\_CREDENTIALS}, which consisted of the
+following test inputs:
   \begin{itemize}
     \item Registered email, incorrect password
     \item Unregistered email, correct password
@@ -563,9 +573,11 @@ Type: Manual
 Initial State: Application logged in with multiple user roles (e.g., admin,
 researcher, research assistant).
 
-Input/Condition: Tester interacts with the application using on different user roles.
+Input/Condition: Tester interacts with the application using on different user
+roles.
   
-Expected Output: Access to query or modify data and perform sensitive operations is restricted according to user roles.
+Expected Output: Access to query or modify data and perform sensitive operations
+is restricted according to user roles.
 
 Actual Output: Only admin and researchers were able to modify data and these
 operations were not available to users with the role of research assistant.
@@ -586,7 +598,6 @@ inactivity.
 Actual Output: The user was not logged out after 15 minutes of inactivity.
 
 Result: \textcolor{red}{Fail}
-
 \item{\textbf{NFR-SR4}} \label{NFR:SR4}
 
 Type: Manual
@@ -595,27 +606,30 @@ Initial State: Application is open, ready for data entry and CSV upload.
 
 Input/Condition: \texttt{VALID\_DATA, INVALID\_DATA, CORRUPTED\_DATA}
 
-Expected Output: All invalid inputs and CSV uploads are rejected, and only valid data entries are processed.
+Expected Output: All invalid inputs and CSV uploads are rejected, and only valid
+data entries are processed.
 
-Actual Output:
+Actual Output: Valid data entries were processed correctly. All invalid inputs
+were rejected with a visual cue, and/or error message.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
-\item{\textbf{NFR-SR5}} \label{NFR:SR5}
+  \item{\textbf{NFR-SR5}} \label{NFR:SR5}
 
 Type: Manual
 
 Initial State: Application database contains a set of unique, validated records.
-Application interface is open for data entry, processing, and transfer actions
+Application interface is open for data entry, processing, and transfer actions.
 
 Input/Condition: \texttt{SAMPLE\_DUPLICATE\_RECORD}
 
 Expected Output: Duplicate records are detected and prevented, and data accuracy
 is maintained during all transfer operations.
 
-Actual Output:
+Actual Output: Duplicate records are detected and filtered out through indexing, thus data accuracy maintained
+throughout the transfer process.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{\st{NFR-SR6}}} OUT OF SCOPE \label{NFR:SR6}
 
@@ -700,15 +714,15 @@ product, but thorough validation testing will be limited due to time
 constraints.
 
 
-\wss{This section should highlight how feedback from the users and from 
-the supervisor (when one exists) shaped the final product.  In particular 
-the feedback from the Rev 0 demo to the supervisor (or to potential users) 
-should be highlighted.}
+\wss{This section should highlight how feedback from the users and from the
+supervisor (when one exists) shaped the final product.  In particular the
+feedback from the Rev 0 demo to the supervisor (or to potential users) should be
+highlighted.}
 
 \subsection{Changes Due to Failed Tests}
-\subsubsection{\hyperref[NFR:S3]{NFR-S3}}
-The system did not automatically log out the user after a period of inactivity.
-This was due to the lack of a session timeout manager, which will be implemented in the final product.
+\subsubsection{\hyperref[NFR:S3]{NFR-S3}} The system did not automatically log
+out the user after a period of inactivity. This was due to the lack of a session
+timeout manager, which will be implemented in the final product.
 
 \section{Automated Testing}
 Pytest was used as the automated testing framework for Python. Unit test suites
@@ -767,7 +781,8 @@ efficient and flexible.
   \centerline{
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
   \hline
-  Test ID \{NFR-\} & LF1 & LF2 & UH1 & UH2 & UH3 & UH4 & OE1 & OE2 & MSR1 & MSR2\\
+  Test ID \{NFR-\} & LF1 & LF2 & UH1 & UH2 & UH3 & UH4 & OE1 & OE2 & MSR1 &
+  MSR2\\
   \hline
   \hline
   LFR-1 & X & & & & & & & & &\\
@@ -939,8 +954,7 @@ efficient and flexible.
 
 \section{Code Coverage Metrics}
 
-%\bibliographystyle{plainnat}
-%\bibliography{../../refs/References}
+%\bibliographystyle{plainnat} \bibliography{../../refs/References}
 
 \newpage{}
 \section*{Appendix --- Reflection}
@@ -954,7 +968,8 @@ efficient and flexible.
   \item \textbf{What pain points did you experience during this deliverable, and
   how did you resolve them?}
 
-  Constructing and executing all of our tests was the biggest challenge. Due to time constraints, (cont. later)
+  Constructing and executing all of our tests was the biggest challenge. Due to
+  time constraints, (cont. later)
 
   \item \textbf{Which parts of this document stemmed from speaking to your
   client(s) or a proxy (e.g. your peers)? Which ones were not, and why?}
