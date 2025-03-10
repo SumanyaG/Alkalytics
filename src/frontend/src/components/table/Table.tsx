@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from "react";
-import "tailwindcss/tailwind.css";
 import { gql, useMutation } from "@apollo/client";
 import TableBody from "./TableBody";
 import TableFooter from "./TableFooter";
