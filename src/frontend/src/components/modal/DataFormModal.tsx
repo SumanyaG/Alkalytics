@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Stepper, Step, StepLabel, TextField, IconButton } from "@mui/material";
-import SingleDropdown from "../datavisualizeform/SingleDropdown";
-import MultipleSelectCheckmarks from "../datavisualizeform/MultiSelectDropDown";
-import ExpandableSection from "../datavisualizeform/ExpandableSection";
+import SingleDropdown from "../dropdown/SingleDropdown";
+import MultipleSelectCheckmarks from "../dropdown/MultiSelectDropDown";
+import ExpandableSection from "../expandable/ExpandableSection";
 import { FormDataContext } from "../../pages/DataVisualize";
 import { useQuery, gql } from "@apollo/client";
 
