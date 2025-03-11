@@ -64,8 +64,6 @@
 
 \listoftables %if appropriate
 
-\listoffigures %if appropriate
-
 \newpage
 
 \pagenumbering{arabic}
@@ -82,7 +80,8 @@ Requirements Specification} (SRS). Tests and test procedures are derived from th
 implementation based on testing outcomes and user feedback.
 
 \section{Functional Requirements Evaluation}
-
+This section outlines the manual system tests that were run and their sub-
+sequent results and outputs for all listed functional requirements.
 \subsection{Data Input and Storage}
 \begin{enumerate}
   \item{\textbf{FR-ST1}} \label{FR:ST1}
@@ -238,8 +237,9 @@ Result: \textcolor{red}{Fail}
 \end{enumerate}
 
 \section{Nonfunctional Requirements Evaluation}
-
-\subsection{Look and Feel}
+This section outlines the manual system tests that were run and their sub-
+sequent results and outputs for all listed non-functional requirements.
+\subsection{Look and Feel} \label{NFR-LF}
 \begin{enumerate}
 \item{\textbf{NFR-LF1}} \label{NFR:LF1}
 
@@ -254,11 +254,22 @@ Expected Output: 90\% of responses in the Navigation and Ease of Use section of
 the usability survey are at least 'Neither easy nor difficult'; 85\% of users
 navigate the entire application within 10 minutes.
 
-Actual Output: \texttt{User's answers to usability survey, time taken to
-complete tasks or navigate site}
+Actual Output: \newline
+The following answers are based on the Usability Survey provided in the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}
+{Verification and Validation Plan}. The test was conducted on 2 users.
+\begin{itemize}
+  \item Navigation and Ease of Use
+  \begin{enumerate}
+    \item \textbf{User 1:} \emph{Very Easy}, \textbf{User 2:} \emph{Somewhat Easy}
+    \item \textbf{User 1:} \emph{Somewhat Easy}, \textbf{User 2:} \emph{Somewhat Easy}
+  \end{enumerate}
+  Calculated percentage of user responses that are at least `Neither easy nor difficult' = 100\%.
+  \item Time to navigate the application end to end: \textbf{User 1:} 7.63 minutes, \textbf{User 2:} 8.5 minutes.
+  
+  Calculated percentage of users that are able to navigate the application in under 10 minutes = 100\%.
+\end{itemize}
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
-%if fail, explain why output doesn't meet expectations for pass.
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-LF2}} \label{NFR:LF2}
 
@@ -308,11 +319,13 @@ Expected Output: 85\% of users ask for help no more than 3 times; 90\% of
 responses to the Learning section of the usability survey are at least 'Neither
 easy nor difficult'.
 
-Actual Output: \texttt{User's answers to usability survey, \# of times user
-asked usability test conductor for help}
+Actual Output: \newline
+The answers for the Usability Survey have been provided in test output for test \ref{NFR:LF1} in section \ref{NFR-LF}.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
-%if fail, explain why output doesn't meet expectations for pass.
+The users did not have to ask the usability test conductor for help at all. With that said, however, it must be noted 
+that the users had been walked through a virtual demo of the application a couple of weeks prior to the usability testing.
+
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-UH2}} \label{NFR:UH2}
 
@@ -448,8 +461,16 @@ Expected Output: Average time taken to generate graphs/visualizations $\leq$
 \texttt{GRAPH\_TIME}: 10 seconds
 
 Actual Output:
+\begin{itemize}
+  \item Test Execution 1: 8.2 seconds
+  \item Test Execution 2: 9.1 seconds
+  \item Test Execution 3: 7.9 seconds
+  \item Test Execution 4: 8.7 seconds
+  \item Test Execution 5: 9.5 seconds
+\end{itemize}
+Average Time Taken = 8.7 seconds
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-P5}} \label{NFR:P5}
 
@@ -494,8 +515,13 @@ Input/Condition: Tester temporarily disconnects internet connection
 Expected Output: Previously generated plots and previous queries still working
 
 Actual Output:
+\begin{itemize}
+  \item Previously generated plots remain visible and interactive.
+  \item Queries executed before disconnection are still accessible and functional.
+  \item No errors or crashes observed during the disconnection period.
+\end{itemize}
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-P8}} \label{NFR:P8}
 
@@ -508,9 +534,16 @@ Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
 Expected Output: System response time while under load $\leq$
 \texttt{RESPONSE\_TIME\_THRESHOLD}
 
-Actual Output:
+Actual Output: \newline
+\texttt{RESPONSE\_TIME\_THRESHOLD} = 3 seconds
+\begin{itemize}
+  \item Device 1 Response Time: 1.8 seconds
+  \item Device 2 Response Time: 1.9 seconds
+  \item Device 1 Response Time: 1.7 seconds
+\end{itemize}
+Average Response Time Under Load = 1.8 seconds
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 
 \item{\textbf{NFR-P9}} \label{NFR:P9}
 
@@ -559,9 +592,12 @@ Input/Condition: User engagement
 Expected Output: Survey results depicting subjective complexity of onboarding
 process
 
-Actual Output:
+Actual Output: \newline
+Based on the usability testing results provided in section \ref{NFR-LF} for test \ref{NFR:LF1}, as a 100\% 
+of the users found the navigation process to be at least `somewhat easy', it can be concluded that the onboarding
+process is intuitive and user-friendly.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 \end{enumerate}
 
 \subsection{Maintainability and Support}
@@ -577,9 +613,28 @@ Input/Condition: User engagement
 Expected Output: Observations on user's ability to complete tasks without
 support
 
-Actual Output:
+Actual Output: \newline
+Observations from Usability Testing 
+\begin{enumerate}
+  \item \textbf{User 1:}
+  \begin{itemize}
+    \item Successfully completed all assigned tasks such as navigating to the graphs 
+    page, generating a graph etc. without any assistance.
+    \item Did not ask for help or clarification during the session.
+    \item Completed the tasks in 7.63 minutes.
+  \end{itemize}
+  \item \textbf{User 2:}
+  \begin{itemize}
+    \item Successfully completed all assigned tasks such as navigating to the graphs 
+    page, generating a graph etc. without any assistance.
+    \item Did not ask for help or clarification during the session.
+    \item Completed the tasks in 8.5 minutes.
+  \end{itemize}
+\end{enumerate}
+Percentage of users who completed tasks without support = 100\%. 
+Average Time to complete tasks = 8.07 minutes.
 
-Result: \textcolor{green}{Pass} OR \textcolor{red}{Fail}
+Result: \textcolor{green}{Pass}
 					
 \item{\textbf{NFR-MS2}} \label{NFR:MS2}
 
@@ -1204,16 +1259,34 @@ implementation, thus this section is omitted.
   \item \textbf{What went well while writing this deliverable?}
 
   Writing the general structure of the report was straightforward as we could
-  refer back to the tests we had written in the VnV Plan (cont. later)
+  refer back to the tests we had written in the VnV Plan. Having detailed system tests 
+  planned out made testing the system a lot easier given that we had a well established
+  jumping ground.
 
   \item \textbf{What pain points did you experience during this deliverable, and
   how did you resolve them?}
 
-  Constructing and executing all of our tests was the biggest challenge. Due to
-  time constraints, (cont. later)
+  Constructing and executing all of our unit tests was the biggest challenge primarily due to
+  time constraints. To combat this, the team lead held regular check-ins to ensure that everyone's
+  individual timelines were aligned.
+
+  We also ran into the issue of interpreting ambiguous user feedback during the usability testing. This 
+  was resolved by consulting back to our course 4HC3 - Human Computer Interaction and changing the style of the 
+  session so that instead of open-ended feedback, the user is asked to choose from pre-determined options with 
+  the choice to provide additional feedback later on.
 
   \item \textbf{Which parts of this document stemmed from speaking to your
   client(s) or a proxy (e.g. your peers)? Which ones were not, and why?}
+
+  Most of the non-functional requirements stemmed from speaking to our clients who acted as the users for 
+  the usability test. They were consulted when conducting system tests and ensuring that the outlined tests were 
+  in alignment with the application requirements. 
+
+  The parts of the document related to automated testing and unit testing such as testing the hooks and APIs and more 
+  did not stem from speaking to the clients or peers. This is because most of the tests were to ensure that the system 
+  compiles and functions correctly from a technical perspective rather than focusing on user experience or usability. These 
+  tests were derived from the development team's understanding of the system architecture, coding standards, and best practices 
+  for ensuring reliability, performance and maintainability.
 
   \item \textbf{In what ways was the Verification and Validation (VnV) Plan
   different from the activities that were actually conducted for VnV?  If there
@@ -1223,6 +1296,19 @@ implementation, thus this section is omitted.
   predict a feasible amount of effort and the right tasks needed to build the
   evidence that demonstrates the required quality?  (It is expected that most
   teams will have had to deviate from their original VnV Plan.)}
+
+  The primary way in which the VnV Plan is different from the activities that were actually conducted for 
+  the VnV Report is implementation of features. After Revision 0, the scope of the project was changed after consulting the professor 
+  ans given the change in the priority of requirements from the client. This resulted in a number of features now being labelled as 
+  stretch goals which were, at the time of testing, not implemented. Thus, the tests for these features had to be labelled as `Out of Scope'.
+
+  Given more experience in the iterative nature of a software project of this scale, we would like to believe that we can manage the project 
+  expectations better and define a more realistic implementation timeline at the get go, in the future.
+
+  Additionally, for a few features, the scope of implementation had to be reduced. One example is the user management system and authorization 
+  protocols. These were not implemented in as robust a fashion as earlier expected due to the limited resources at the team's disposal. For instance, it was
+  mutually decided that it would be better to allocate the time and effort required to make the protocol more robust to instead implement additional
+  analysis features.
 \end{enumerate}
 
 \end{document}
