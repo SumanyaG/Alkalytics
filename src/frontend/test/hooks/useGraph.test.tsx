@@ -40,7 +40,7 @@ const mocks = [
   {
     request: {
       query: GET_GRAPH,
-      variable: { latest: 0 },
+      variables: { latest: 0 },
     },
     result: {
       data: {
@@ -51,7 +51,7 @@ const mocks = [
   {
     request: {
       query: GET_GRAPH,
-      variable: { latest: 1 },
+      variables: { latest: 1 },
     },
     result: {
       data: {
@@ -62,7 +62,7 @@ const mocks = [
 ];
 
 describe("useGraphs", () => {
-  it("should fetch multiple graphs when latest=0", async () => {
+  it("should fetch all graphs when latest=0", async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <MockedProvider mocks={mocks} addTypename={false}>
         {children}
@@ -89,7 +89,7 @@ describe("useGraphs", () => {
     });
   });
 
-  it("should fetch single graph when latest=1", async () => {
+  it("should fetch latest graph when latest=1", async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <MockedProvider mocks={mocks} addTypename={false}>
         {children}
@@ -103,7 +103,7 @@ describe("useGraphs", () => {
     });
 
     expect(result.current).toEqual({
-      latestGraphs: [mockGraphs[0]],
+      latestGraphs: mockGraphs[0],
       loading: false,
       error: undefined,
     });
