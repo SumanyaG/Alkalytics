@@ -16,7 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "include": ["src", "frontend/src/**/*"]
 }

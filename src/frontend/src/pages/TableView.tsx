@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Table from "../components/table/Table";
-import ListSidebar from "../components/sidebars/ListSidebar";
+import ListSidebar from "../components/sidebar/ListSidebar";
 import useTable from "../hooks/useTable";
 
 type TableViewProps = {};

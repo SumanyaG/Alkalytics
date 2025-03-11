@@ -379,6 +379,8 @@ class GeneratedGraphs(BaseModel):
     graphType: str
     data: List[Dict]
     properties: List[Dict]
+    attributes: List[str]
+
 @app.put("/generatedGraphs")
 async def addGeneratedGraphs(payload: GeneratedGraphs):
     """
@@ -392,7 +394,8 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
         "_id": nextId,  
         "graphtype": payload.graphType,
         "data": payload.data,
-        "properties": payload.properties
+        "properties": payload.properties,
+        "attributes": payload.attributes
     }
 
     try:

@@ -10,7 +10,6 @@
 \hypersetup{ colorlinks, citecolor=blue, filecolor=black, linkcolor=red,
     urlcolor=blue }
 \usepackage[round]{natbib}
-\usepackage{longtable}
 \usepackage{comment}
 
 
@@ -167,17 +166,12 @@ serving a distinct role in guiding the testing processes:
     and reliability.
 
     \item
-    \textbf{\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/SoftArchitecture/MG.pdf}{Module
+    \textbf{\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{Module
     Guide (MG)}:} The MG provides detailed documentation on the structure,
-    functionality, and usage of each module within the application, serving as a
-    reference for developers and testers to understand modules.
+    functionality, and usage of each module within the application. It also
+    includes the Module Interface Specification (MIS), serving as a reference
+    for developers and testers to understand modules.
 
-    \item
-    \textbf{\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/SoftDetailedDes/MIS.pdf}{Module
-    Interface Specification (MIS)}:} The MIS outlines the interfaces between
-    different modules, detailing the expected inputs, outputs, and interaction
-    protocols. This specification is crucial for ensuring seamless communication
-    and adhering a standard between modules.
 \end{itemize}
 
 
@@ -187,8 +181,8 @@ This section outlines the Verification and Validation (VnV) responsibilities of
 each team member and the team supervisor. It presents comprehensive verification
 plans for the
 \href{https://github.com/SumanyaG/Alkalytics/blob/f856af96669275cc29428a8f2cd4b863e4523ff6/docs/SRS/SRS.pdf}{SRS},
-design documents (including MIS, MG, and System Design), the VnV plan itself,
-and the system implementation.\\
+design documents (including the MG), the VnV plan itself, and the system
+implementation.\\
 \newline Additionally, the automated testing and verification tools intended for
 use in the VnV process have been specified. Verification tasks will be carried
 out by the VnV team in a sequential manner as each phase progresses, with
@@ -458,9 +452,9 @@ ensure adherence to functional and nonfunctional requirements.
     application is ready for deployment.
 \end{itemize}
 
-\section{System Tests}
-This section covers all tests for different areas of the system. Table
-\ref{table:traceability} defines the relationships between functional and
+\section{System Tests} \label{systemTests}
+This section covers all tests for different areas of the system. Tables
+\ref{table:traceFR}, \ref{table:traceNFR1}, \ref{table:traceNFR2}, \ref{table:traceNFR3} defines the relationships between functional and
 non-functional requirements defined in the SRS to test cases outlined in this
 document in the form of a traceability matrix.
 
@@ -1428,104 +1422,189 @@ misconfigurations within the environment.
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\begin{longtable}{|p{0.45\linewidth}|p{0.45\linewidth}|} \caption{Traceability
-  Matrix for Test Cases and Requirements} \label{table:traceability}\\
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
   \hline
-  \textbf{Req. ID} & \textbf{System Test ID} \\
+  Test ID & FR-ST1 & FR-ST1.1 & FR-ST2 & FR-ST3 & FR-ST4 & FR-ST5 & FR-ST6\\
   \hline
-  FR-1 & FR-SLN1\\
-  FR-2 & \\
-  FR-3 & \\
-  FR-4 & \\
   \hline
-  FR-5 & FR-SLN2\\
-  FR-6 & \\
-  FR-7 & \\
-  FR-8 & \\
-  FR-9 & \\
+  FR-1 & X & X & & & & &\\
   \hline
-  FR-10 & FR-SL3\\
-  FR-11 & \\
+  FR-2 & X & X & & & & &\\
   \hline
-  FR-12 & FR-SL4\\
-  FR-13 & \\
+  FR-3 & X & X & & & & &\\
   \hline
-  FR-14 & FR-SL5\\
+  FR-4 & X & X & & & & &\\
   \hline
-  FR-15 & FR-SL6\\
+  FR-5 & & & X & & & &\\
   \hline
-  UHR-1 & NFR-UH1\\
-  UHR-4 & \\
-  UHR-5 & \\
+  FR-6 & & & X & & & &\\
   \hline
-  UHR-2 & NFR-UH2\\
+  FR-7 & & & X & & & &\\
   \hline
-  UHR-3 & NFR-UH3\\
+  FR-8 & & & X & & & &\\
   \hline
-  UHR-6 & NFR-UH4\\
+  FR-9 & & & X & & & &\\
   \hline
-  PR-1 & NFR-P1\\
+  FR-10 & & & & X & & &\\
   \hline
-  PR-2 & NFR-P2\\
-  PR-4 & \\
+  FR-11 & & & & X & & &\\
   \hline
-  PR-3 & NFR-P3\\
+  FR-12 & & & & & X & &\\
   \hline
-  PR-5 & NFR-P4\\
+  FR-13 & & & & & X & &\\
   \hline
-  PR-6 & NFR-P5\\
-  PR-7 & \\
-  PR-8 & \\
+  FR-14 & & & & & & X &\\
   \hline
-  PR-9 & NFR-P6\\
+  FR-15 & & & & & & & X\\
   \hline
-  PR-10 & NFR-P7\\
-  \hline
-  PR-11 & NFR-P8\\
-  \hline
-  PR-12 & NFR-P9\\
-  \hline
-  OER-2 & NFR-OE1\\
-  OER-3 & \\
-  OER-4 & \\
-  \hline
-  OER-5 & NFR-OE2\\
-  \hline
-  MSR-4 & NFR-MSR1\\
-  \hline
-  MSR-6 & NFR-MSR2\\
-  \hline
-  SR-1 & NFR-SR1\\
-  \hline
-  SR-2 & NFR-SR2\\
-  SR-3 & \\
-  \hline
-  SR-4 & NFR-SR3\\
-  \hline
-  SR-5 & NFR-SR4\\
-  SR-9 & \\
-  \hline
-  SR-6 & NFR-SR5\\
-  SR-7 & \\
-  SR-8 & \\
-  \hline
-  SR-12 & NFR-SR6\\
-  \hline
-  SR-13 & NFR-SR7\\
-  SR-14 & \\
-  SR-15 & \\
-  \hline
-  SR-16 & NFR-SR8\\
-  \hline
-  SR-17 & NFR-SR9\\
-  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Functional Requirements}
+  \label{table:traceFR}
+\end{table}
 
-\end{longtable}
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID \{NFR-\} & LF1 & LF2 & UH1 & UH2 & UH3 & UH4 & OE1 & OE2 & MSR1 & MSR2\\
+  \hline
+  \hline
+  LFR-1 & X & & & & & & & & &\\
+  \hline
+  LFR-2 & & X & & & & & & & &\\
+  \hline
+  LFR-3 & X & & & & & & & & &\\
+  \hline
+  LFR-4 & X & & & & & & & & &\\
+  \hline
+  LFR-5 & X & & & & & & & & &\\
+  \hline
+  LFR-6 & X & & & & & & & & &\\
+  \hline
+  LFR-7 & X & & & & & & & & &\\
+  \hline
+  UHR-1 & & & X & & & & & & &\\
+  \hline
+  UHR-2 & & & & X & & & & & &\\
+  \hline
+  UHR-3 & & & & & X & & & & &\\
+  \hline
+  UHR-4 & & & X & & & & & & &\\
+  \hline
+  UHR-5 & & & X & & & & & & &\\
+  \hline
+  UHR-6 & & & & & & X & & & &\\
+  \hline
+  OER-2 & & & & & & & X & & &\\
+  \hline
+  OER-3 & & & & & & & X & & &\\
+  \hline
+  OER-4 & & & & & & & X & & &\\
+  \hline
+  OER-5 & & & & & & & & X & &\\
+  \hline
+  MSR-4 & & & & & & & & & X &\\
+  \hline
+  MSR-6 & & & & & & & & & & X\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Nonfunctional Requirements (Part 1)}
+  \label{table:traceNFR1}
+\end{table}
 
-\section{Unit Test Description}
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID \{NFR-\} & P1 & P2 & P3 & P4 & P5 & P6 & P7 & P8 & P9\\
+  \hline
+  \hline
+  PR-1 & X & & & & & & & &\\
+  \hline
+  PR-2 & & X & & & & & & &\\
+  \hline
+  PR-3 & & & X & & & & & &\\
+  \hline
+  PR-4 & & X & & & & & & &\\
+  \hline
+  PR-5 & & & & X & & & & &\\
+  \hline
+  PR-6 & & & & & X & & & &\\
+  \hline
+  PR-7 & & & & & X & & & &\\
+  \hline
+  PR-8 & & & & & X & & & &\\
+  \hline
+  PR-9 & & & & & & X & & &\\
+  \hline
+  PR-10 & & & & & & & X & &\\
+  \hline
+  PR-11 & & & & & & & & X &\\
+  \hline
+  PR-12 & & & & & & & & & X\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Nonfunctional Requirements (Part 2)}
+  \label{table:traceNFR2}
+\end{table}
 
-This section will not be filled in until after the MIS (detailed design
-document) has been completed.
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID \{NFR-\} & SR1 & SR2 & SR3 & SR4 & SR5 & SR6 & SR7 & SR8 & SR9\\
+  \hline
+  \hline
+  SR-1 & X & & & & & & & &\\
+  \hline
+  SR-2 & & X & & & & & & &\\
+  \hline
+  SR-3 & & X & & & & & & &\\
+  \hline
+  SR-4 & & & X & & & & & &\\
+  \hline
+  SR-5 & & & & X & & & & &\\
+  \hline
+  SR-6 & & & & & X & & & &\\
+  \hline
+  SR-7 & & & & & X & & & &\\
+  \hline
+  SR-8 & & & & & X & & & &\\
+  \hline
+  SR-9 & & & & X & & & & &\\
+  \hline
+  SR-12 & & & & & & X & & &\\
+  \hline
+  SR-13 & & & & & & & X & &\\
+  \hline
+  SR-14 & & & & & & & X & &\\
+  \hline
+  SR-15 & & & & & & & X & &\\
+  \hline
+  SR-16 & & & & & & & & X &\\
+  \hline
+  SR-17 & & & & & & & & & X\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Nonfunctional Requirements (Part 3)}
+  \label{table:traceNFR3}
+\end{table}
+
+\section{Unit Test Description} \label{unitTests}
+
+This section describes the unit testing strategy that will be used to verify the
+software modules defined in the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{MG}. Table \ref{table:modTrace1} shows the
+relationships between the modules and the test cases.
 
 \begin{comment}
 \wss{Reference your MIS (detailed design document) and explain your overall
@@ -1544,114 +1623,135 @@ well-documented, with meaningful names for all of the tests.}
 
 \subsection{Unit Testing Scope}
 
+Unit testing will be conducted for the following modules:
+\begin{itemize}
+  \item \textbf{M6: Data Storage Module}
+  \item \textbf{M7: Data Retrieval Module}
+  \item \textbf{M12: Visualization Module}
+  \item \textbf{M13: User Management Module}
+  \item \textbf{M16: Data Validation Module}
+\end{itemize}
+
+\noindent The following modules are outside of the scope:
+\begin{itemize}
+  \item \textbf{M11: UI Design Module}
+  \item \textbf{M15: Data Ingestion Module}
+  \item \textbf{M17: Data Transformation Module}
+  \item \textbf{M20: Notifications Module}
+\end{itemize}
+
+\noindent Modules M11, M15, M17 rely on external libraries, thus the team
+assumes they are already verified. Module M20 is a lower-priority module that
+will be considered for verification upon implementation.\\
+
+\noindent The philosophy for unit test selection is as follows: tests are
+created for each module, testing both normal and edge-case behaviours. Tests are
+provided in the \texttt{test} directory of the project repository, named
+according to the relevant module, for example: \texttt{test\_m6.py}\\
+
+\noindent Each test case in a singlular file is named according to the function
+being tested, prefixed with \texttt{test}, for example: \texttt{def
+test\_get\_data()} and include the input and expected outputs with assertions
+for automated validation.
+
 \begin{comment}
 \wss{What modules are outside of the scope.  If there are modules that are
   developed by someone else, then you would say here if you aren't planning on
   verifying them.  There may also be modules that are part of your software, but
   have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
-\end{comment}
+  explain your rationale for the ranking of module importance.
 
-\subsection{Tests for Functional Requirements}
-
-\begin{comment}
 \wss{Most of the verification will be through automated unit testing.  If
   appropriate specific modules can be verified by a non-testing based technique.
   That can also be documented in this section.}
-
-\subsubsection{Module 1}
 
 \wss{Include a blurb here to explain why the subsections below cover the module.
   References to the MIS would be good.  You will want tests from a black box
   perspective and from a white box perspective.  Explain to the reader how the
   tests were selected.}
-
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will be
-  automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will be
-  automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
-\item{...\\}
-    
-\end{enumerate}
-
-\subsubsection{Module 2}
-
-...
 \end{comment}
 
-\subsection{Tests for Nonfunctional Requirements}
-\begin{comment}
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
+\subsection{Tests for M6: Data Storage Module}
 
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
+The Data Storage Module handles the proper uplaod and saving of data to the
+database. The unit tests for this module will ensure that data is correctly
+stored and can be retrieved.
 
-\subsubsection{Module ?}
-		
-\begin{enumerate}
+\begin{itemize}
+  \item
+\end{itemize}
 
-\item{test-id1\\}
+\subsection{Tests for M7: Data Retrieval Module}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will be
-  automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+The Data Retrieval Module handles querying and fetching data from the database.
+The unit tests will verify the correctness of data retrieval logic.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\begin{itemize}
+  \item
+\end{itemize}
 
-\end{enumerate}
+\subsection{Tests for M12: Visualization Module}
 
-\subsubsection{Module ?}
+The Visualization Module handles the rendering of graphs and visual
+representations of the data. The unit tests are used to ensure that the correct
+data is being processed and visualized as intended.
 
-...
-\end{comment}
+\begin{itemize}
+  \item
+\end{itemize}
+
+\subsection{Tests for M13: User Management Module}
+
+The User Management Module handles user authentication, role-based access
+control (RBAC), and user session management. The unit tests will verify that
+users can register, log in, and interact with the system based on their roles
+and permissions.
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\subsection{Tests for M16: Data Validation Module}
+
+The Data Validation Module ensures that data is validated before it is processed
+or stored. The unit tests will verify that the system catches invalid data and
+that only valid data is passed for further processing.
+
+\begin{itemize}
+  \item
+\end{itemize}
+
 \subsection{Traceability Between Test Cases and Modules}
+
+\begin{table}[H]
+  \centering
+  \centerline{
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  Test ID & FR-ST1 & FR-ST1.1 & FR-ST2 & FR-ST3 & FR-ST4 & FR-ST5 & FR-ST6\\
+  \hline
+  \hline
+  M6 & X & X & & & & &\\
+  \hline
+  M7 & & & & & & &\\
+  \hline
+  M11 & & & & & & &\\
+  \hline
+  M12 & & & & & & &\\
+  \hline
+  M13 & & & & & & &\\
+  \hline
+  M15 & & & & & & &\\
+  \hline
+  M16 & & & & & & &\\
+  \hline
+  M17 & & & & & & &\\
+  \hline
+  \end{tabular}
+  }
+  \caption{Traceability Matrix for Test Cases and Modules (Part 1)}
+  \label{table:modTrace1}
+\end{table}
 
 %\wss{Provide evidence that all of the modules have been considered.}
 				

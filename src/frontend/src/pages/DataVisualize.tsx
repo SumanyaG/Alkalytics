@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import GraphSideBar from "../components/sidebars/GraphSideBar";
-import ScatterPlot from "../components/graphs/scatter-plot";
-import LineGraph from "../components/graphs/line-plot";
-import BarGraph from "../components/graphs/bar-graph";
+import GraphSideBar from "../components/sidebar/GraphSideBar";
+import ScatterPlot from "../components/graph/scatter-plot";
+import LineGraph from "../components/graph/line-plot";
+import BarGraph from "../components/graph/bar-graph";
 import { useQuery, gql, useMutation } from "@apollo/client";
 
 type FormDataType = {
@@ -106,11 +106,13 @@ const SAVE_GRAPH = gql`
     $graphType: String!
     $data: [JSON]!
     $properties: [JSON]!
+    $attributes: [String!]!
   ) {
     addGeneratedGraphs(
       graphType: $graphType
       data: $data
       properties: $properties
+      attributes: $attributes
     )
   }
 `;
@@ -248,6 +250,7 @@ const DataVisualize: React.FC = () => {
           graphType: selectedGraphType,
           data: data?.getFilterCollectionData?.data ?? [],
           properties: [graphProperties], 
+          attributes: [selectedParamX, selectedParamY]
         },
       });
     } catch (error) {
@@ -260,13 +263,13 @@ const DataVisualize: React.FC = () => {
   };
 
   const handleGraphSelect = (graphData: any) => {
-    setSelectedGraphData(graphData);
     const transformedData = graphData.data ? transformDataForScatter(graphData.data) : [];
+    setSelectedGraphData(transformedData)
     setSubmit(true);
   };
 
   React.useEffect(() => {
-    if (!loading && submit) {
+    if (!loading && !selectedGraphData && submit) {
       saveGraph();
     }
   }, [loading, submit, data?.getFilterCollectionData?.data]);
@@ -325,13 +328,11 @@ const DataVisualize: React.FC = () => {
                         height={dimensions.height}
                         lineData={lineData}
                       />
-                      <div className="relative mt-2 p-2">
+                      {R_squared ? (<div className="relative mt-2 p-2">
                         <h6>
-                          R<sup>2</sup> (coefficient of determination):{" "}
-                          {R_squared ? R_squared.toFixed(2) : "Loading..."}
+                          R<sup>2</sup> (coefficient of determination): {""}{R_squared.toFixed(2)}
                         </h6>
-                        {R_squared ? (
-                          R_squared < 0.5 ? (
+                        {R_squared < 0.5 ? (
                             <p>
                               The linear model explains less than 50% of the
                               variability in the data, suggesting a poor fit.
@@ -343,10 +344,8 @@ const DataVisualize: React.FC = () => {
                               strong fit.
                             </p>
                           )
-                        ) : (
-                          <p>Loading...</p>
-                        )}
-                      </div>
+                        }
+                      </div>) : ""}
                     </>
                   ) : null}
                 </div>

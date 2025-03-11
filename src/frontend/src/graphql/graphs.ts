@@ -16,7 +16,7 @@ export const typeDefs = gql`
     }
     
     type Mutation {
-      addGeneratedGraphs(graphType: String!, data:[JSON]!, properties:[JSON]!): String!
+      addGeneratedGraphs(graphType: String!, data:[JSON]!, properties:[JSON]!, attributes: [String!]!): String!
    }
 `;
 
@@ -101,9 +101,9 @@ export const resolvers = {
   Mutation: {
     addGeneratedGraphs: async(
         _:undefined,
-        {graphType, data, properties}:{graphType: string, data:[], properties:[]}):Promise<string> => {
+        {graphType, data, properties, attributes}:{graphType: string, data:[], properties:[], attributes: string[]}):Promise<string> => {
             try {
-            const response = await axios.put("http://127.0.0.1:8000/generatedGraphs", {graphType, data, properties}, {
+            const response = await axios.put("http://127.0.0.1:8000/generatedGraphs", {graphType, data, properties, attributes}, {
               headers: { "Content-Type": "application/json" },
             });
 
