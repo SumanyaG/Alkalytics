@@ -14,7 +14,7 @@ jest.mock("@apollo/client", () => ({
 // Mock child components
 jest.mock("../../../src/components/dropdown/SingleDropdown", () => ({
   __esModule: true,
-  default: ({ onChange, options }) => (
+  default: ({ onChange, options }: { onChange: (value: string) => void; options: { value: string; label: string }[] }) => (
     <select
       data-testid="mock-dropdown"
       onChange={(e) => onChange(e.target.value)}
@@ -30,7 +30,7 @@ jest.mock("../../../src/components/dropdown/SingleDropdown", () => ({
 
 jest.mock("../../../src/components/dropdown/MultiSelectDropDown", () => ({
   __esModule: true,
-  default: ({ onChange, dates }) => (
+  default: ({ onChange, dates }: { onChange: (values: string[]) => void; dates: string[] }) => (
     <select
       data-testid="mock-multiselect"
       multiple
@@ -74,9 +74,14 @@ const mockContextValue = {
   setMinY: jest.fn(),
   maxY: "",
   setMaxY: jest.fn(),
+  graphTitle: "",
   setGraphTitle: jest.fn(),
+  xLabel: "",
   setXLabel: jest.fn(),
+  yLabel: "",
   setYLabel: jest.fn(),
+  submit: false,
+  setSubmit: jest.fn(),
 };
 
 describe("DataFormModal", () => {

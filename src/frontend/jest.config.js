@@ -16,8 +16,14 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
 
+  transformIgnorePatterns: ["/node_modules/(?!d3|d3-array)"],
+
   // Module handling
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+
+  moduleNameMapper: {
+      "d3": "<rootDir>/node_modules/d3/dist/d3.min.js",
+  },
 
   // Setup file to include jest-dom matchers
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
