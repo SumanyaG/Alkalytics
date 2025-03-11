@@ -28,7 +28,7 @@
 & {\bf Notes}\\
 \midrule
 4 March 2025 & 1.0 & Initial Draft\\
-Date 2 & 1.1 & Notes\\
+10 March 2025 & 1.1 & Add Results\\
 \bottomrule
 \end{tabularx}
 
@@ -77,9 +77,10 @@ analysis of system testing and unit testing results, along with traceability
 between test cases, the software modules in the
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{Module
 Guide} (MG), and the requirements outlined in the
-\href{https://github.com/SumanyaG/Alkalytics/blob/f856af96669275cc29428a8f2cd4b863e4523ff6/docs/SRS/SRS.pdf}{Software
-Requirements Specification} (SRS). Additionally, it highlights changes made to
-the implementation based on testing outcomes and user feedback.
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software
+Requirements Specification} (SRS). Tests and test procedures are derived from the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}{Module
+Guide}{VnV Plan} document. Additionally, it highlights changes made to the
+implementation based on testing outcomes and user feedback.
 
 \section{Functional Requirements Evaluation}
 
@@ -767,7 +768,13 @@ Result: \textcolor{red}{Fail}
 
 \section{Unit Testing}
 
+The following subsections outline the unit tests relevant to each module. Each
+subsection includes a table or table(s) with a summary of the results for each test,
+where each test includes a link to its corresponding test file in the project repository.
+
 \subsection{Data Storage Module}
+Table \ref{UT:DataStorage} provides a summary of the results for each test that is
+relevant to the User Management module.
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|l|l|}
@@ -812,7 +819,8 @@ Result: \textcolor{red}{Fail}
 
 \newpage
 \subsection{Data Retrieval Module}
-
+Tables \ref{UT:DataRetrieval} provides a summary of the results for each test that is
+relevant to the User Management module.
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|l|l|}
@@ -845,33 +853,43 @@ Result: \textcolor{red}{Fail}
 \subsection{Visualization Module}
 
 \subsection{User Management Module}
-Table \ref{UT:UM} provides a summary of the results for each test, where each
-test includes a link to its corresponding test file in the project repository.
+Table \ref{UT:UM} provides a summary of the results for each test that is
+relevant to the User Management module.
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|c|}
+  \begin{tabular}{|l|l|l|l|}
     \hline
-    \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
+    \textbf{Test ID} & \textbf{Test Description} & \textbf{Result}\\
     \hline
-    6.4-UT1 & & \\
+    6.4-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Creates a new user} & Pass\\
     \hline
-    6.4-UT2 & & \\
+    6.4-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Skips user creation if already registered} & Pass\\
     \hline
-    6.4-UT3 & & \\
+    6.4-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Validates login attempt with correct password} & Pass \\
     \hline
-    6.4-UT4 & & \\
+    6.4-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Invalidates login attempt with incorrect password} & Pass\\
     \hline
-    6.4-UT5 & & \\
+    6.4-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Retrieves current user's email and role} & Pass \\
     \hline
-    6.4-UT6 & & \\
+    6.4-UT6 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Creates session information for current user} & Pass\\
     \hline
-    6.4-UT7 & & \\
+    6.4-UT7 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Removes session information for current user} & Pass\\
     \hline
-    6.4-UT8 & & \\
+    6.4-UT8 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Updates current user's password} & Pass\\
     \hline
-    6.4-UT9 & & \\
+    6.4-UT9 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Updates current user's role} & Pass\\
     \hline
-    6.4-UT10 & & \\
+    6.4-UT10 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Removes existing user} & Pass\\
+    \hline
+    6.4-UT11 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Handles removal of nonexisting user} & Pass\\
+    \hline
+    6.4-UT13 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/AccountMenu.test.tsx}{Handles logout and user redirected to login page} & Pass\\
+    \hline
+    6.4-UT14 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/ProtectedRoute.test.tsx}{Handles page access when not logged in} & Pass\\
+    \hline
+    6.4-UT15 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{Checks for session creation when logged in} & Pass\\
+    \hline
+    6.4-UT16 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{Checks for session removal when logged out} & Pass\\
     \hline
   \end{tabular}
   \caption{Unit tests summary for User Management Module}
@@ -894,10 +912,10 @@ product, but thorough validation testing will be limited due to time
 constraints.
 
 
-\wss{This section should highlight how feedback from the users and from the
-supervisor (when one exists) shaped the final product.  In particular the
-feedback from the Rev 0 demo to the supervisor (or to potential users) should be
-highlighted.}
+%\wss{This section should highlight how feedback from the users and from the
+%supervisor (when one exists) shaped the final product.  In particular the
+%feedback from the Rev 0 demo to the supervisor (or to potential users) should be
+%highlighted.}
 
 \subsection{Changes Due to Failed Tests}
 The following sections outline changes that will be made to the implementation
@@ -917,9 +935,9 @@ product.
 
 \section{Automated Testing}
 Pytest was used as the automated testing framework for Python. Unit test suites
-were written and executed using Pytest, which supports fixtures,
-parameterization, and code coverage metrics, making automated testing more
-efficient and flexible.
+were executed using Pytest, which supports fixtures, parameterization, and code
+coverage metrics, making automated testing more efficient and flexible. Jest was
+used as the automated testing framework for React components.
 		
 \section{Trace to Requirements}
 
@@ -1111,39 +1129,32 @@ efficient and flexible.
   Test ID & FR-ST1 & FR-ST1.1 & FR-ST2 & FR-ST3 & FR-ST4 & FR-ST5 & FR-ST6\\
   \hline
   \hline
-  M1 & & & & & & &\\
+  M6 & X & X & & & X & &\\
   \hline
-  M2 & & & & & & &\\
+  M7 & & & X & X & & &\\
   \hline
-  M3 & & & & & & &\\
+  M11 & & & X & & & &\\
   \hline
-  M4 & & & & & & &\\
+  M12 & & & X & & & &\\
   \hline
-  M5 & & & & & & &\\
+  M13 & & & & & & X &\\
   \hline
-  M6 & & & & & & &\\
+  M15 & X & & & & & &\\
   \hline
-  M7 & & & & & & &\\
+  M16 & & & & & X & &\\
   \hline
-  M8 & & & & & & &\\
-  \hline
-  M9 & & & & & & &\\
-  \hline
-  M10 & & & & & & &\\
-  \hline
-  M11 & & & & & & &\\
-  \hline
-  M12 & & & & & & &\\
-  \hline
-  M13 & & & & & & &\\
+  M17 & & & & & & & X\\
   \hline
   \end{tabular}
   }
-  \caption{Traceability Matrix for Test Cases and Modules}
-  \label{table:modTrace}
+  \caption{Traceability Matrix for System Test Cases and Modules}
+  \label{table:modTrace1}
 \end{table}
 
 \section{Code Coverage Metrics}
+The team has determined code coverage metrics were not indicative of valuable
+information in relation to the validation and verification of the
+implementation, thus this section is omitted.
 
 %\bibliographystyle{plainnat} \bibliography{../../refs/References}
 
