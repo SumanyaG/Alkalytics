@@ -11,7 +11,6 @@ import Table, {
   SET_COLUMN_TYPES,
 } from "../../../src/components/table/Table";
 
-// Mock child components
 jest.mock("../../../src/components/table/TableBody", () => ({
   __esModule: true,
   default: jest.fn(
@@ -239,14 +238,12 @@ jest.mock("../../../src/components/modal/SetColumnTypesModal", () => ({
   )),
 }));
 
-// Sample mock data
 const mockData = [
   { experimentId: "exp1", "#": 1, Date: "2023-01-01", Membrane: "Type A" },
   { experimentId: "exp2", "#": 2, Date: "2023-01-02", Membrane: "Type B" },
   { experimentId: "exp3", "#": 3, Date: "2023-01-03", Membrane: "Type C" },
 ];
 
-// GraphQL mocks
 const mocks = [
   {
     request: {
@@ -350,11 +347,9 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Simulate searching
     const searchInput = screen.getByTestId("search-input");
     fireEvent.change(searchInput, { target: { value: "Type A" } });
 
-    // Wait for debounced search to take effect
     await waitFor(
       () => {
         expect(screen.getAllByTestId("table-row")).toHaveLength(1);
@@ -374,14 +369,11 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Open modal
     fireEvent.click(screen.getByTestId("add-column-btn"));
     expect(screen.getByTestId("add-column-modal")).toBeInTheDocument();
 
-    // Submit modal
     fireEvent.click(screen.getByTestId("submit-add-column"));
 
-    // Check if the mutation was called and refetch triggered
     await waitFor(() => {
       expect(refetchDataMock).toHaveBeenCalled();
     });
@@ -398,14 +390,11 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Open modal
     fireEvent.click(screen.getByTestId("add-row-btn"));
     expect(screen.getByTestId("add-row-modal")).toBeInTheDocument();
 
-    // Submit modal
     fireEvent.click(screen.getByTestId("submit-add-row"));
 
-    // Check if the mutation was called and refetch triggered
     await waitFor(() => {
       expect(refetchDataMock).toHaveBeenCalled();
     });
@@ -422,14 +411,11 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Open modal
     fireEvent.click(screen.getByTestId("remove-column-btn"));
     expect(screen.getByTestId("remove-column-modal")).toBeInTheDocument();
 
-    // Submit modal
     fireEvent.click(screen.getByTestId("submit-remove-column"));
 
-    // Check if the mutation was called and refetch triggered
     await waitFor(() => {
       expect(refetchDataMock).toHaveBeenCalled();
     });
@@ -446,18 +432,14 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Select a row
     const checkbox = screen.getByTestId("row-checkbox-exp1");
     fireEvent.click(checkbox);
 
-    // Open modal
     fireEvent.click(screen.getByTestId("remove-row-btn"));
     expect(screen.getByTestId("remove-row-modal")).toBeInTheDocument();
 
-    // Submit modal
     fireEvent.click(screen.getByTestId("submit-remove-row"));
 
-    // Check if the mutation was called and refetch triggered
     await waitFor(() => {
       expect(refetchDataMock).toHaveBeenCalled();
     });
@@ -474,14 +456,11 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Open modal
     fireEvent.click(screen.getByTestId("set-column-types-btn"));
     expect(screen.getByTestId("set-column-types-modal")).toBeInTheDocument();
 
-    // Submit modal
     fireEvent.click(screen.getByTestId("submit-column-types"));
 
-    // Check if the mutation was called and refetch triggered
     await waitFor(() => {
       expect(refetchDataMock).toHaveBeenCalled();
     });
@@ -498,14 +477,11 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Select a row
     const checkbox = screen.getByTestId("row-checkbox-exp1");
     fireEvent.click(checkbox);
 
-    // Deselect the same row
     fireEvent.click(checkbox);
 
-    // The remove row button should be disabled
     expect(screen.getByTestId("remove-row-btn")).toHaveAttribute("disabled");
   });
 
@@ -520,10 +496,8 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Click on a cell to update it
     fireEvent.click(screen.getByTestId("cell-0-#"));
 
-    // Check if the mutation was called and refetch triggered
     await waitFor(() => {
       expect(refetchDataMock).toHaveBeenCalled();
     });
@@ -540,10 +514,8 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Click the apply function button
     fireEvent.click(screen.getByTestId("apply-function-btn"));
 
-    // Check if the mutation was called and refetch triggered
     await waitFor(() => {
       expect(refetchDataMock).toHaveBeenCalled();
     });
@@ -560,7 +532,6 @@ describe("Table Component", () => {
       </MockedProvider>
     );
 
-    // Component should render without crashing
     expect(screen.getByTestId("table-header")).toBeInTheDocument();
     expect(screen.getByTestId("table-body")).toBeInTheDocument();
     expect(screen.getByTestId("table-footer")).toBeInTheDocument();

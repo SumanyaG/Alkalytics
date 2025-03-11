@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import TableBody from "../../../src/components/table/TableBody";
 import { DataRow } from "../../../src/components/table/Table";
 
-// Mock data
 const mockData: DataRow[] = [
   {
     _id: "1",
@@ -46,7 +45,6 @@ describe("TableBody Component", () => {
   test("renders basic table structure", () => {
     render(<TableBody {...mockProps} />);
 
-    // Verify column headers using more specific queries
     expect(
       screen.getByRole("columnheader", { name: /A: ID/i })
     ).toBeInTheDocument();
@@ -54,7 +52,6 @@ describe("TableBody Component", () => {
       screen.getByRole("columnheader", { name: /B: EXPERIMENTID/i })
     ).toBeInTheDocument();
 
-    // Verify data rows
     expect(screen.getByText("exp1")).toBeInTheDocument();
     expect(screen.getByText("value1")).toBeInTheDocument();
   });
@@ -100,12 +97,10 @@ describe("TableBody Component", () => {
     const input = screen.getByDisplayValue("value1");
     userEvent.type(input, "{enter}");
 
-    // Verify uploading status
     await waitFor(() => {
       expect(cell.closest("td")).toHaveClass("border-yellow-500");
     });
 
-    // Verify success status
     await waitFor(() => {
       expect(cell.closest("td")).toHaveClass("border-green-500");
     });

@@ -6,7 +6,6 @@ import * as formulajs from "formulajs";
 import TableFooter from "../../../src/components/table/TableFooter";
 import { useAuth } from "../../../src/context/authContext";
 
-// Mock dependencies
 jest.mock("../../../src/context/authContext");
 jest.mock("formulajs");
 

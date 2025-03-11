@@ -3,13 +3,11 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import TableHeader from "../../../src/components/table/TableHeader";
 import { useAuth } from "../../../src/context/authContext";
 
-// Mock the useAuth hook
 jest.mock("../../../src/context/authContext", () => ({
   useAuth: jest.fn(),
 }));
 
 describe("TableHeader Component", () => {
-  // Default props
   const defaultProps = {
     columns: ["column1", "column2", "column3"],
     tableName: "Test Table",
@@ -36,10 +34,8 @@ describe("TableHeader Component", () => {
     const select = screen.getByRole("combobox");
     expect(select).toBeInTheDocument();
 
-    // Check "All Columns" option
     expect(screen.getByText("All Columns")).toBeInTheDocument();
 
-    // Check if all columns are rendered as options
     expect(screen.getByText("COLUMN1")).toBeInTheDocument();
     expect(screen.getByText("COLUMN2")).toBeInTheDocument();
     expect(screen.getByText("COLUMN3")).toBeInTheDocument();
@@ -79,7 +75,6 @@ describe("TableHeader Component", () => {
   });
 
   test("renders Set Column Types button for admin users with experiment graphType", () => {
-    // Mock admin role
     (useAuth as jest.Mock).mockReturnValue({ userRole: { role: "admin" } });
 
     render(<TableHeader {...defaultProps} graphType="experiment" />);
@@ -89,7 +84,6 @@ describe("TableHeader Component", () => {
   });
 
   test("calls onSetColumnTypes when Set Column Types button is clicked", () => {
-    // Mock admin role
     (useAuth as jest.Mock).mockReturnValue({ userRole: { role: "admin" } });
 
     render(<TableHeader {...defaultProps} graphType="experiment" />);
@@ -101,7 +95,6 @@ describe("TableHeader Component", () => {
   });
 
   test("doesn't show Set Column Types button when graphType is not experiment", () => {
-    // Mock admin role
     (useAuth as jest.Mock).mockReturnValue({ userRole: { role: "admin" } });
 
     render(<TableHeader {...defaultProps} graphType="other" />);
