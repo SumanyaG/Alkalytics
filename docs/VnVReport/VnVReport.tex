@@ -768,8 +768,79 @@ Result: \textcolor{red}{Fail}
 \section{Unit Testing}
 
 \subsection{Data Storage Module}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
+    \hline
+    6.3-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Uploads experiments and data} & Pass \\
+    \hline
+    6.3-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Links data to experiments} & Pass \\
+    \hline
+    6.3-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Uploads data when experiment exists} & Pass \\
+    \hline
+    6.3-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Skips data upload if no experiment exists} & Pass \\
+    \hline
+    6.1-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Cleans data by removing empty values} & Pass \\
+    \hline
+    6.1-UT6 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Checks for duplicate experiments} & Pass \\
+    \hline
+    6.1-UT7 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles multiple matching experiments} & Pass \\
+    \hline
+    6.1-UT8 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles no matching experiments} & Pass \\
+    \hline
+    6.3-UT9 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Runs full migration process} & Pass \\
+    \hline
+    6.3-UT10 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles experiment upload errors} & Pass \\
+    \hline
+    6.3-UT11 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles data upload errors} & Pass \\
+    \hline
+    6.3-UT12 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsxy}{Shows upload status indicators} & Pass \\
+    \hline
+    6.3-UT13 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsx}{Handles drag over and drop event with valid file} & Pass \\
+    \hline
+    6.3-UT14 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsx}{Handles file input change event with valid file} & Pass \\
+    \hline
+    6.2-UT15 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/TableBody.test.tsx}{Handles cell editing} & Pass \\
+    \hline
+  \end{tabular}
+  \caption{Unit tests summary for Data Storage Module}
+  \label{UT:DataStorage}
+\end{table}
 
+
+\newpage
 \subsection{Data Retrieval Module}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
+    \hline
+    6.2.1-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Initialize with default values} & Pass \\
+    \hline
+    6.2.1-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch experiment IDs} & Pass \\
+    \hline
+    6.2.1-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch experiments} & Pass \\
+    \hline
+    6.2.1-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch data} & Pass \\
+    \hline
+    6.2.1-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Handle Apollo error states} & Pass \\
+    \hline
+    6.2.1-UT6 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Refetch experiments and data} & Pass \\
+    \hline
+    6.2.1-UT7 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Call RefetchExperiments function} & Pass \\
+    \hline
+    6.2.1-UT8 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Call RefetchData function} & Pass \\
+    \hline
+    6.2.1-UT9 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/TableHeader.test.tsx}{Filter data by search keyword} & Pass \\
+    \hline
+  \end{tabular}
+  \caption{Unit tests summary for Data Retrieval Module}
+  \label{UT:DataRetrieval}
+\end{table}
 
 \subsection{Visualization Module}
 
