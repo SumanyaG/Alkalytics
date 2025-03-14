@@ -80,9 +80,7 @@ async def upload(payload: FilesPayload):
             except Exception as decode_error:
                 raise HTTPException(
                     status_code=400,
-                    detail=f"Invalid base64 content for file: {
-                        filePayload.filename}",
-                ) from decode_error
+                    detail=f"Invalid base64 content for file: {filePayload.filename}",) from decode_error
 
             sanitized_filename = sanitizeFilename(filePayload.filename)
             tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
@@ -178,8 +176,7 @@ async def manualUpload(payload: ManualUploadPayload):
             except Exception as decode_error:
                 raise HTTPException(
                     status_code=400,
-                    detail=f"Invalid base64 content for file: {
-                        filePayload.filename}",
+                    detail=f"Invalid base64 content for file: {filePayload.filename}",
                 ) from decode_error
 
             sanitized_filename = sanitizeFilename(filePayload.filename)
