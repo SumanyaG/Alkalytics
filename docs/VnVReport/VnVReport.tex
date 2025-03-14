@@ -29,6 +29,7 @@
 \midrule
 4 March 2025 & 1.0 & Initial Draft\\
 10 March 2025 & 1.1 & Add Results\\
+14 March 2025 & 1.2 & Add DataVisualize Unit Tests\\
 \bottomrule
 \end{tabularx}
 
@@ -944,7 +945,35 @@ relevant to the Data Retrieval module.
   \caption{Unit tests summary for Data Retrieval useGraph Hook}
   \label{UT:DataRetrieval3}
 \end{table}
+
 \subsection{Visualization Module}
+Table \ref{UT:VM} provides a summary of the results for each test that is
+relevant to the Data Visualization module.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
+    \hline
+    6.3-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders without crashing} & Pass \\
+    \hline
+    6.3-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders GraphSideBar component} & Pass \\
+    \hline
+    6.3-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders correct graph type} & Skipped \\
+    \hline
+    6.3-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders with correct graph title} & Skipped \\
+    \hline
+    6.3-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders with correct axis labels} & Skipped \\
+    \hline
+  \end{tabular}
+  \caption{Unit tests summary for Data Visualization Module}
+  \label{UT:VM}
+\end{table}
+
+Tests 6.3-UT3, 6.3-UT4, and 6.3-UT5 were skipped due to ongoing debugging and recalibration of the module. Although they are included in the test suite for full test 
+coverage, the team is already aware of the existing issues and is actively addressing them. Running these tests only to deliberately fail them is not meaningful at 
+this stage. The team will rerun the skipped tests once the debugging process is complete and will update their results at that time.
 
 \subsection{User Management Module}
 Table \ref{UT:UM} provides a summary of the results for each test that is
