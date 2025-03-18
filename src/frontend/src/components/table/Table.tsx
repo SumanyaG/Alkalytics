@@ -233,14 +233,18 @@ const Table: React.FC<TableProps> = ({
         <div className="relative z-10 flex flex-col h-full">
           <TableHeader
             columns={columns}
-            columnTypes={columnTypes}
-            data={filteredData}
-            highlightKeyword={debouncedKeyword}
+            tableName={tableName}
+            selectedColumn={selectedColumn}
+            setSelectedColumn={setSelectedColumn}
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
+            onSetColumnTypes={() => setIsSetColumnTypesModalOpen(true)}
             graphType={graphType}
           />
           <div style={{ flex: 1, overflow: "hidden" }}>
             <TableBody
               columns={columns}
+              columnTypes={columnTypes}
               data={filteredData}
               highlightKeyword={debouncedKeyword}
               graphType={graphType}
