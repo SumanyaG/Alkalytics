@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ArrowUpward, ArrowDownward, UnfoldMore } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { DataRow } from "./Table";
+import type { DataRow } from "./Table";
 
 type TableProps = {
   data: DataRow[];
@@ -59,12 +59,13 @@ const TableBody: React.FC<TableProps> = ({
       const bValue = b[sortConfig.column!]?.toString() ?? "";
 
       const isNumeric =
-        !isNaN(parseFloat(aValue)) && isFinite(parseFloat(aValue));
+        !isNaN(Number.parseFloat(aValue)) &&
+        isFinite(Number.parseFloat(aValue));
 
       if (isNumeric) {
         return sortConfig.direction === "asc"
-          ? parseFloat(aValue) - parseFloat(bValue)
-          : parseFloat(bValue) - parseFloat(aValue);
+          ? Number.parseFloat(aValue) - Number.parseFloat(bValue)
+          : Number.parseFloat(bValue) - Number.parseFloat(aValue);
       } else {
         return sortConfig.direction === "asc"
           ? aValue.localeCompare(bValue)
@@ -182,20 +183,21 @@ const TableBody: React.FC<TableProps> = ({
     const status = uploadStatus[`${rowIndex}-${column}`];
     switch (status) {
       case "uploading":
-        return "border-2 border-yellow-500 rounded-lg px-2 py-1";
+        return "border-2 border-blue-300 bg-blue-50/50 rounded-lg px-2 py-1";
       case "success":
-        return "border-2 border-green-500 rounded-lg px-2 py-1";
+        return "border-2 border-green-300 bg-green-50/50 rounded-lg px-2 py-1";
       default:
         return "";
     }
   };
+
   const formattedColumns = columns.map(
     (col, index) => `${String.fromCharCode(65 + index)}: ${col}`
   );
 
   return (
     <div
-      className="h-full box-border px-4 overflow-auto overflow-scroll"
+      className="box-border h-full overflow-auto px-4"
       style={{
         minHeight: "100%",
         maxHeight: "100%",
@@ -204,20 +206,20 @@ const TableBody: React.FC<TableProps> = ({
       }}
     >
       <table className="min-w-full border-collapse">
-        <thead className="sticky top-0 z-2 bg-white">
-          <tr>
+        <thead className="sticky top-0 z-2 bg-white/95 backdrop-blur-sm">
+          <tr className="border-b border-blue-100/30">
             {graphType === "experiment" && (
-              <th className="px-4 py-2 text-left text-xs font-semibold text-gray-600"></th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-blue-500"></th>
             )}
             {formattedColumns.map((formattedColumn, index) => {
               const [label, column] = formattedColumn.split(": ");
               return (
                 <th
                   key={column}
-                  className="px-4 py-2 text-left font-semibold text-gray-600"
+                  className="px-4 py-3 text-left font-semibold text-blue-500"
                 >
                   <div className="flex items-center">
-                    <span className="text-gray-400 text-xs mr-2">{label}:</span>
+                    <span className="mr-2 text-xs text-blue-400">{label}:</span>
                     <span className="text-blue-900">
                       {formatColumnHeader(column)}
                     </span>
@@ -225,23 +227,29 @@ const TableBody: React.FC<TableProps> = ({
                       <IconButton
                         size="small"
                         onClick={() => handleSort(column)}
-                        className="ml-2"
+                        className="ml-2 text-blue-500 hover:text-blue-700"
                       >
                         {sortConfig.column === column ? (
                           sortConfig.direction === "asc" ? (
-                            <ArrowUpward fontSize="small" />
+                            <ArrowUpward
+                              fontSize="small"
+                              className="text-blue-600"
+                            />
                           ) : sortConfig.direction === "desc" ? (
-                            <ArrowDownward fontSize="small" />
+                            <ArrowDownward
+                              fontSize="small"
+                              className="text-blue-600"
+                            />
                           ) : (
                             <UnfoldMore
                               fontSize="small"
-                              style={{ opacity: 0.3 }}
+                              className="text-blue-300"
                             />
                           )
                         ) : (
                           <UnfoldMore
                             fontSize="small"
-                            style={{ opacity: 0.3 }}
+                            className="text-blue-300"
                           />
                         )}
                       </IconButton>
@@ -252,26 +260,31 @@ const TableBody: React.FC<TableProps> = ({
             })}
           </tr>
         </thead>
-        <tbody className="bg-white">
+        <tbody>
           {sortedData.map((row, rowIndex) => {
             const isEvenRow = rowIndex % 2 === 0;
             return (
               <tr
                 key={rowIndex}
-                className={`${isEvenRow ? "" : "bg-slate-50"}`}
+                className={`border-b border-blue-50 transition-colors duration-150 hover:bg-blue-50/50 ${
+                  isEvenRow ? "bg-white" : "bg-blue-50/20"
+                }`}
               >
                 {graphType === "experiment" && (
-                  <td className="px-4 py-3 text-gray-600 text-xs whitespace-nowrap">
-                    <input
-                      type="checkbox"
-                      onChange={() => setSelectedRows(row)}
-                    />
+                  <td className="px-4 py-3 text-xs text-blue-700 whitespace-nowrap">
+                    <div className="flex items-center justify-center">
+                      <input
+                        type="checkbox"
+                        onChange={() => setSelectedRows(row)}
+                        className="h-4 w-4 rounded border-blue-300 text-blue-600 focus:ring-blue-500"
+                      />
+                    </div>
                   </td>
                 )}
                 {columns.map((column) => (
                   <td
                     key={column}
-                    className={`px-4 py-3 text-gray-600 text-xs whitespace-nowrap ${
+                    className={`px-4 py-3 text-xs text-blue-800 whitespace-nowrap ${
                       editingCell?.rowIndex === rowIndex &&
                       editingCell?.column === column
                         ? "!px-2 !py-1"
@@ -289,7 +302,7 @@ const TableBody: React.FC<TableProps> = ({
                       <input
                         type="text"
                         ref={inputRef}
-                        className="w-full border border-blue-500 rounded-lg px-2 py-1 focus:outline-none"
+                        className="w-full rounded-lg border border-blue-300 bg-white/90 px-2 py-1 text-blue-900 backdrop-blur-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                         value={editValue}
                         onChange={(e) => handleInputChange(e.target.value)}
                         onKeyDown={(e) => handleKeyPress(e, rowIndex, column)}

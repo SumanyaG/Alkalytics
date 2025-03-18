@@ -1,3 +1,5 @@
+import type React from "react";
+
 import { useContext, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import {
@@ -18,11 +20,16 @@ type GraphSideBarProps = {
   onGraphSelect: (graphData: any) => void;
 };
 
-const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) => {
+const GraphSideBar: React.FC<GraphSideBarProps> = ({
+  onSubmit,
+  onGraphSelect,
+}) => {
   const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
 
   const { latestGraphs, loading, error } = useGraphs(0);
-  const validGraphs = latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ?? [];
+  const validGraphs =
+    latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
+    [];
 
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -98,93 +105,117 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
     <div className="flex">
       <div
         className={`${
-          isOpen ? "w-72" : "w-20"
-        } bg-white text-blue-900 h-screen p-5 pt-2 relative shadow-lg rounded-lg duration-200 transition-all`}
+          isOpen ? "min-w-72" : "min-w-20"
+        } relative h-screen overflow-hidden rounded-r-xl border-r border-white/20 bg-white/95 p-5 pt-2 shadow-[5px_0_30px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-all duration-300`}
       >
-        <ul className="gap-x-2 pt-6">
-          <li>
-            <IconButton
-              color="inherit"
-              onClick={() => setIsOpen(!isOpen)}
-              className={`absolute -top-2 right-0 w-7 transform ${
-                !isOpen && "rotate-180"
-              } transition-transform ${
-                !isOpen ? "left-1/2 transform -translate-x-1/2" : "left-auto"
-              }`}
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(219,234,254,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(219,234,254,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-70"></div>
+        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent"></div>
+
+        {/* Toggle button */}
+        <IconButton
+          color="primary"
+          onClick={() => setIsOpen(!isOpen)}
+          className={`absolute -right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md transition-all hover:bg-blue-50 ${
+            !isOpen && "rotate-180"
+          } transform transition-transform ${
+            !isOpen ? "left-1/2 -translate-x-1/2 transform" : "left-auto"
+          }`}
+        >
+          <KeyboardDoubleArrowRight className="text-blue-500" />
+        </IconButton>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col h-[calc(100%-20px)] pt-6">
+          {/* New Graph Button Section */}
+          <div className="mb-4">
+            <div
+              className={`flex items-center ${isOpen ? "justify-between" : ""}`}
             >
-              <KeyboardDoubleArrowRight />
-            </IconButton>
-          </li>
-          <div className={`relative mt-3 mb-8 items-center ${isOpen ? "" : "ml-3"}`}>
-            <li className="flex rounded-md hover:bg-light-white text-sm items-center gap-x-4">
-              <Button
-                startIcon={<Add />}
-                color="inherit"
-                className="absolute top-0 left-1/2 transform -translate-x-1/2"
-                onClick={() => {
-                  setModalOpen(true);
-                  resetFields();
-                }}
-              >
+              <div className="flex items-center pl-[0.65rem]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                  <Add className="text-blue-600" />
+                </div>
                 {isOpen && (
-                  <span
-                    className="text-base pl-2 transition-all duration-200 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
+                  <Button
+                    className="ml-2 text-sm font-semibold text-blue-900 hover:bg-blue-50/70"
+                    onClick={() => {
+                      setModalOpen(true);
+                      resetFields();
+                    }}
                   >
                     Generate New Graph
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Recent Graphs Section */}
+          <div className="flex-1 flex flex-col mt-2 overflow-hidden">
+            <div
+              className={`flex items-center ${isOpen ? "justify-between" : ""}`}
+            >
+              <div className="flex items-center pl-[0.65rem]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                  <History className="text-blue-600" />
+                </div>
+                {isOpen && (
+                  <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                    RECENTLY GENERATED GRAPHS
                   </span>
                 )}
-              </Button>
-            </li>
+              </div>
+            </div>
+
+            {/* Graphs List - scrollable area */}
+            <div className="flex-1 overflow-y-auto pl-[0.9rem] pr-1 mt-1">
+              <ul className="pb-4">
+                {loading ? (
+                  <li className="text-sm font-semibold text-blue-400">
+                    LOADING...
+                  </li>
+                ) : error ? (
+                  <li className="text-sm font-semibold text-red-500">
+                    Error fetching graphs
+                  </li>
+                ) : (
+                  validGraphs.map((r) => (
+                    <li
+                      key={r._id}
+                      onClick={() => handleSelectGraph(r._id)}
+                      className={`flex ${
+                        isOpen ? "gap-2" : ""
+                      } cursor-pointer items-center rounded-lg p-1 mb-0.5 transition-all duration-200 hover:bg-blue-50/70 ${
+                        selectedGraphId === r._id
+                          ? "bg-blue-100/70 shadow-sm"
+                          : ""
+                      }`}
+                    >
+                      {r.graphtype === "bar" ? (
+                        <BarChart className="text-blue-600" fontSize="small" />
+                      ) : r.graphtype === "line" ? (
+                        <ShowChart className="text-blue-600" fontSize="small" />
+                      ) : r.graphtype === "scatter" ? (
+                        <ScatterPlot
+                          className="text-blue-600"
+                          fontSize="small"
+                        />
+                      ) : null}
+                      {isOpen && (
+                        <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
+                          {r.properties[0]?.["graph title"] === ""
+                            ? r.graphtype + " Graph"
+                            : r.properties[0]?.["graph title"]}
+                        </span>
+                      )}
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
           </div>
-          <div className={`relative mt-0 mb-4 items-center ${isOpen ? "ml-1" : "ml-2"}`}>
-            <li className="flex text-sm items-center">
-              <History />
-              {isOpen && (
-                <span
-                  className="text-xs pl-2 transition-all duration-200 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
-                >
-                  RECENTLY GENERATED GRAPHS
-                </span>
-              )}
-            </li>
-          </div>
-          <div className={`relative items-center ${isOpen ? "-ml-0" : "-ml-3"}`}>
-            {loading ? (
-              <li className="flex ml-2 font-semibold text-sm">LOADING...</li>
-            ) : error ? (
-              <li className="flex ml-2 font-semibold text-sm">Error fetching graphs</li>
-            ) : validGraphs.map((r) => (
-            <li
-              key={r._id}
-              className={`flex rounded-md hover:bg-light-white text-sm items-center gap-x-4 mb-2 
-                ${
-                selectedGraphId === r._id ? "bg-blue-100" : ""
-              }`}
-            >
-              <Button color="inherit" className="flex" onClick={() => handleSelectGraph(r._id)}>
-                <span>
-                  {r.graphtype === "bar" ? (
-                    <BarChart />
-                  ) : r.graphtype === "line" ? (
-                    <ShowChart />
-                  ) : r.graphtype === "scatter" ? (
-                    <ScatterPlot />
-                  ) : null}
-                </span>
-                {isOpen && (
-                <span
-                  className="text-sm pl-2 origin-left transition-all duration-200 font-medium whitespace-nowrap overflow-hidden text-ellipsis"
-                >
-                  {r.properties[0]?.["graph title"] === ""
-                    ? r.graphtype + " Graph"
-                    : r.properties[0]?.["graph title"]}{" "}
-                </span>
-              )}
-              </Button>
-            </li>
-          ))}
-          </div>
-        </ul>
+        </div>
       </div>
       {modalOpen && (
         <GenerateGraphModal setOpenModal={setModalOpen} onSubmit={onSubmit} />

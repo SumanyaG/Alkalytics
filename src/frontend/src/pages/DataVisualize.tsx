@@ -95,10 +95,10 @@ const FILTER_COLLECTDATA = gql`
       dates: $dates
       analysis: $analysis
     ) {
-        data
-        analysisRes
-      }
+      data
+      analysisRes
     }
+  }
 `;
 
 const SAVE_GRAPH = gql`
@@ -186,16 +186,16 @@ const DataVisualize: React.FC = () => {
       attributes: [selectedParamX, selectedParamY],
       collection: selectedParamType,
       dates: selectedDates,
-      analysis: selectedGraphType === "scatter"
+      analysis: selectedGraphType === "scatter",
     },
     skip: !submit,
   });
 
   const transformDataForScatter = (rawData: any[]) => {
     return rawData.map((item, index) => ({
-      label: `Point ${index + 1}`,  
+      label: `Point ${index + 1}`,
       x: parseFloat(item[selectedParamX]),
-      y: parseFloat(item[selectedParamY])
+      y: parseFloat(item[selectedParamY]),
     }));
   };
 
@@ -225,9 +225,9 @@ const DataVisualize: React.FC = () => {
   const { slope, intercept, R_squared } = analysisRes[0] || {};
   const lineData =
     slope && intercept ? validateAndTransformAnalysis(slope, intercept) : [];
-  
+
   const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
-  
+
   const graphProperties = {
     "graph title": graphTitle,
     "Selected Dates": selectedDates,
@@ -249,8 +249,8 @@ const DataVisualize: React.FC = () => {
         variables: {
           graphType: selectedGraphType,
           data: data?.getFilterCollectionData?.data ?? [],
-          properties: [graphProperties], 
-          attributes: [selectedParamX, selectedParamY]
+          properties: [graphProperties],
+          attributes: [selectedParamX, selectedParamY],
         },
       });
     } catch (error) {
@@ -263,8 +263,10 @@ const DataVisualize: React.FC = () => {
   };
 
   const handleGraphSelect = (graphData: any) => {
-    const transformedData = graphData.data ? transformDataForScatter(graphData.data) : [];
-    setSelectedGraphData(transformedData)
+    const transformedData = graphData.data
+      ? transformDataForScatter(graphData.data)
+      : [];
+    setSelectedGraphData(transformedData);
     setSubmit(true);
   };
 
@@ -281,30 +283,37 @@ const DataVisualize: React.FC = () => {
         setDimensions({ width, height });
       }
     };
-  
+
     updateDimensions();
     const resizeObserver = new ResizeObserver(updateDimensions);
     if (containerRef.current) {
       resizeObserver.observe(containerRef.current);
     }
-  
+
     return () => resizeObserver.disconnect();
   }, []);
 
   return (
-    <FormDataContext.Provider value={contextValue}>   
-      <div className="flex">                         
-        <GraphSideBar                                
-          onSubmit={handleGraphData} 
-          onGraphSelect={handleGraphSelect} 
+    <FormDataContext.Provider value={contextValue}>
+      <div className="relative flex min-h-screen bg-white">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,23,97,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(6,23,97,0.05)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-blue-200 blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-indigo-200 blur-3xl"></div>
+        <GraphSideBar
+          onSubmit={handleGraphData}
+          onGraphSelect={handleGraphSelect}
         />
-        <div className="flex-1 overflow-hidden">      
+        <div className="flex-1 overflow-hidden">
           <div className="p-8 h-full w-full flex items-center justify-center">
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error.message}</p>}
             {submit && (
               <div className="w-full h-full max-w-[1200px] aspect-[4/3]">
-                <div ref={containerRef} className="relative w-full h-full p-4 bg-white rounded-lg shadow-lg">
+                <div
+                  ref={containerRef}
+                  className="relative w-full h-full p-4 bg-white rounded-lg shadow-lg"
+                >
                   {selectedGraphType === "bar" ? (
                     <BarGraph
                       data={selectedGraphData?.data || graphData}
@@ -328,11 +337,13 @@ const DataVisualize: React.FC = () => {
                         height={dimensions.height}
                         lineData={lineData}
                       />
-                      {R_squared ? (<div className="relative mt-2 p-2">
-                        <h6>
-                          R<sup>2</sup> (coefficient of determination): {""}{R_squared.toFixed(2)}
-                        </h6>
-                        {R_squared < 0.5 ? (
+                      {R_squared ? (
+                        <div className="relative mt-2 p-2">
+                          <h6>
+                            R<sup>2</sup> (coefficient of determination): {""}
+                            {R_squared.toFixed(2)}
+                          </h6>
+                          {R_squared < 0.5 ? (
                             <p>
                               The linear model explains less than 50% of the
                               variability in the data, suggesting a poor fit.
@@ -343,9 +354,11 @@ const DataVisualize: React.FC = () => {
                               variability in the data, suggesting a moderate to
                               strong fit.
                             </p>
-                          )
-                        }
-                      </div>) : ""}
+                          )}
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </>
                   ) : null}
                 </div>

@@ -43,7 +43,7 @@ const Register = () => {
 
   const passwordHelperText =
     password.length > 0 ? (
-      <div className="text-xs text-gray-500 mt-2 mx-0 px-0">
+      <div className="text-xs text-blue-300 mt-2 mx-0 px-0">
         <div>• Must be at least 8 characters</div>
         <div>• Contain at least one uppercase letter</div>
         <div>• Contain at least one number</div>
@@ -80,74 +80,122 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-blue-50 to-blue-100">
-      <div className="flex flex-col items-center justify-center w-[80vw] max-w-[600px] min-h-[400px] h-auto rounded-3xl p-8 mb-8 bg-[#fdfdfd] shadow-lg border border-gray-200 transition-transform duration-300">
-        <h1 className="text-4xl text-blue-900 font-bold text-center mb-4">
-          Alkalytics
-        </h1>
-        <h2 className="text-lg font-semibold text-center mb-6">Register</h2>
-        <form
-          method="POST"
-          onSubmit={handleSubmit}
-          className="flex flex-col space-y-6 w-[250px]"
-        >
-          <TextField
-            id="outlined-basic"
-            label="Email"
-            type="email"
-            variant="outlined"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            error={!!errorMessage && errorMessage.includes("valid email")}
-            helperText={
-              errorMessage &&
-              errorMessage.includes("valid email") &&
-              "Please enter a valid email address."
-            }
-          />
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            error={!!errorMessage && errorMessage.includes("Password")}
-            helperText={passwordHelperText}
-          />
-          <FormControl fullWidth>
-            <InputLabel id="role-select-label">Select Role</InputLabel>
-            <Select
-              labelId="role-select-label"
-              id="role-select"
-              value={role}
-              label="Select Role"
-              onChange={(e) => setRole(e.target.value as string)}
-              required
-            >
-              <MenuItem value="admin">Admin</MenuItem>
-              <MenuItem value="researcher">Researcher</MenuItem>
-              <MenuItem value="assistant">Research Assistant</MenuItem>
-            </Select>
-          </FormControl>
-          <button
-            type="submit"
-            className="mt-4 bg-blue-600 text-white py-3 px-6 rounded-xl hover:bg-blue-700 shadow-md transition-transform transform hover:scale-105 font-semibold"
-          >
-            Register
-          </button>
-        </form>
-        <button onClick={routeChange} className="mt-6">
-          Already have an account?
-          <span className="text-blue-700 font-semibold"> Login</span>
-        </button>
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#050b2e] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]">
+      {/* Glowing orbs */}
+      <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl"></div>
 
-        {error && (
-          <div className="mt-8 text-red-600 flex items-center">
-            <ErrorIcon className="mr-2" />
-            There was a problem creating your account.
+      {/* Grid lines */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,23,97,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(6,23,97,0.1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+
+      <div className="relative w-full max-w-md px-8 py-10 sm:px-10 sm:py-12">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.2)] backdrop-blur-xl transition-all duration-300 hover:shadow-[0_8px_32px_rgba(59,130,246,0.3)]">
+          {/* Logo glow effect */}
+          <div className="relative mb-8 text-center">
+            <div className="absolute left-1/2 top-1/2 h-12 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/20 blur-xl"></div>
+            <h1 className="relative mb-2 bg-gradient-to-r white bg-clip-text text-3xl font-bold text-transparent">
+              Alkalytics
+            </h1>
+            <p className="text-sm text-blue-300">Create your account</p>
           </div>
-        )}
+
+          <form method="POST" onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="email" className="block text-sm text-blue-300">
+                Email
+              </label>
+              <div className="group relative">
+                <TextField
+                  id="email"
+                  type="email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-blue-200/30 focus:border-blue-400/50 focus:bg-white/10 focus:ring-2 focus:ring-blue-400/20"
+                  placeholder="Enter your email"
+                  error={!!errorMessage && errorMessage.includes("valid email")}
+                  helperText={
+                    errorMessage &&
+                    errorMessage.includes("valid email") &&
+                    "Please enter a valid email address."
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm text-blue-300"
+                >
+                  Password
+                </label>
+              </div>
+              <div className="group relative">
+                <TextField
+                  id="password"
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="!pb-2 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-blue-200/30 focus:border-blue-400/50 focus:bg-white/10 focus:ring-2 focus:ring-blue-400/20"
+                  placeholder="Enter your password"
+                  error={!!errorMessage && errorMessage.includes("Password")}
+                  helperText={passwordHelperText}
+                />
+              </div>
+            </div>
+
+            <FormControl fullWidth className="group relative text-white">
+              <label
+                id="role-select-label"
+                className="block text-sm text-blue-300"
+              >
+                Select Role
+              </label>
+              <Select
+                labelId="role-select-label"
+                id="role-select"
+                value={role}
+                onChange={(e) => setRole(e.target.value as string)}
+                required
+                className="w-full rounded-lg border border-white/10 bg-white text-sm text-white outline-none transition-all placeholder:text-blue-200/30 focus:border-blue-400/50 focus:bg-white/10 focus:ring-2 focus:ring-blue-400/20"
+              >
+                <MenuItem value="admin">Admin</MenuItem>
+                <MenuItem value="researcher">Researcher</MenuItem>
+                <MenuItem value="assistant">Research Assistant</MenuItem>
+              </Select>
+            </FormControl>
+
+            <button
+              type="submit"
+              className="group relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 py-3 text-sm font-bold text-white shadow-[0_4px_20px_rgba(59,130,246,0.5)] transition-all duration-300 hover:shadow-[0_4px_20px_rgba(79,70,229,0.7)]"
+            >
+              <span className="relative z-10">Register</span>
+              <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+              <span className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-cyan-400 to-blue-400 transition-all duration-300 group-hover:w-full"></span>
+            </button>
+          </form>
+
+          {error && (
+            <div className="mt-6 flex items-center rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300 backdrop-blur-sm">
+              <ErrorIcon className="mr-2 h-5 w-5" />
+              There was a problem creating your account.
+            </div>
+          )}
+
+          <div className="mt-8 text-center">
+            <button
+              onClick={routeChange}
+              className="group relative text-sm text-blue-300 transition-colors hover:text-blue-200"
+            >
+              Already have an account?
+              <span className="ml-1 font-bold text-blue-400 group-hover:text-blue-300">
+                Login
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

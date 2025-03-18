@@ -98,23 +98,21 @@ const Table: React.FC<TableProps> = ({
   const columnTypes = {
     //hardcoded until fetch from db
     "#": "number",
-    "Date": "date",
-    "Membrane": "text",
-    "Configuration": "text",
+    Date: "date",
+    Membrane: "text",
+    Configuration: "text",
     "# of Stacks": "number",
     "Flow Rate (L/H)": "number",
     "Potential Diff (V)": "number",
     "Current Limit (A)": "number",
-    "NaCL": "number",
-    "NaHCO3": "number",
-    "NaOH": "number",
-    "HCL": "number",
-    "Na2So4": "number",
+    NaCL: "number",
+    NaHCO3: "number",
+    NaOH: "number",
+    HCL: "number",
+    Na2So4: "number",
     "NaHCO3.1": "number",
-    "Total": "number",
-    "t2": "number",
-    "t3": "number",
-    "Notes": "text",
+    Total: "number",
+    Notes: "text",
   };
 
   const filteredData = useMemo(() => {
@@ -233,40 +231,48 @@ const Table: React.FC<TableProps> = ({
   };
 
   return (
-    <div className="h-screen flex flex-col items-center min-h-screen w-full p-8 text-blue-900">
-      <div className="w-full shadow-lg rounded-lg flex flex-col overflow-hidden border-gray-300 bg-white h-full">
-        <TableHeader
-          columns={columns}
-          tableName={tableName}
-          selectedColumn={selectedColumn}
-          setSelectedColumn={setSelectedColumn}
-          searchKeyword={searchKeyword}
-          setSearchKeyword={setSearchKeyword}
-          onSetColumnTypes={() => setIsSetColumnTypesModalOpen(true)}
-          graphType={graphType}
-        />
-        <div style={{ flex: 1, overflow: "hidden" }}>
-          <TableBody
+    <div className="flex h-screen min-h-screen w-full flex-col items-center p-8 text-blue-900">
+      <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/20 bg-white/95 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(219,234,254,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(219,234,254,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-70"></div>
+        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent"></div>
+        <div className="absolute right-0 top-0 h-full w-1 bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent"></div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col h-full">
+          <TableHeader
             columns={columns}
-            data={filteredData}
-            highlightKeyword={debouncedKeyword}
+            tableName={tableName}
+            selectedColumn={selectedColumn}
+            setSelectedColumn={setSelectedColumn}
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
+            onSetColumnTypes={() => setIsSetColumnTypesModalOpen(true)}
             graphType={graphType}
+          />
+          <div style={{ flex: 1, overflow: "hidden" }}>
+            <TableBody
+              columns={columns}
+              data={filteredData}
+              highlightKeyword={debouncedKeyword}
+              graphType={graphType}
+              selectedRows={selectedRows}
+              setSelectedRows={handleRowSelectionChange}
+              onUpdateCell={handleUpdateData}
+            />
+          </div>
+          <TableFooter
+            data={data}
+            columns={columns}
+            onAddColumn={() => setIsColumnModalOpen(true)}
+            onAddRow={() => setIsRowModalOpen(true)}
+            onRemoveColumn={() => setIsRemoveColumnModalOpen(true)}
+            onRemoveRow={() => setIsRemoveRowModalOpen(true)}
             selectedRows={selectedRows}
-            setSelectedRows={handleRowSelectionChange}
-            onUpdateCell={handleUpdateData}
+            graphType={graphType}
+            onApplyFunction={handleUpdateData}
           />
         </div>
-        <TableFooter
-          data={data}
-          columns={columns}
-          onAddColumn={() => setIsColumnModalOpen(true)}
-          onAddRow={() => setIsRowModalOpen(true)}
-          onRemoveColumn={() => setIsRemoveColumnModalOpen(true)}
-          onRemoveRow={() => setIsRemoveRowModalOpen(true)}
-          selectedRows={selectedRows}
-          graphType={graphType}
-          onApplyFunction={handleUpdateData}
-        />
       </div>
 
       {isSetColumnTypesModalOpen && (

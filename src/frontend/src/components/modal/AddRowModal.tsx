@@ -61,33 +61,33 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div
-        className={`bg-white rounded-lg shadow-lg max-w-xl w-full p-6 overflow-hidden border-4 ${
+        className={`w-full max-w-xl overflow-hidden rounded-xl border bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all ${
           loading
-            ? "border-yellow-500"
+            ? "border-yellow-300/50"
             : error
-            ? "border-red-500"
-            : "border-transparent"
+            ? "border-red-300/50"
+            : "border-white/20"
         }`}
       >
         <div className="flex flex-col h-full">
-          <h1 className="text-xl font-bold text-blue-900 mb-2">Add New Row</h1>
-          <div className="flex-1 overflow-y-auto max-h-[45vh]">
-            <div className="space-y-4">
+          <h1 className="mb-4 text-xl font-bold text-blue-900">Add New Row</h1>
+          <div className="max-h-[45vh] flex-1 overflow-y-auto pr-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {columns.map((column) => {
                 if (column === "_id") return null;
                 if (column === "experimentId") {
                   return (
-                    <section key={column}>
-                      <h2 className="text-sm text-blue-900 font-semibold mb-1">
+                    <section key={column} className="col-span-full">
+                      <h2 className="mb-1 text-sm font-semibold text-blue-700">
                         {column.replace(/_/g, " ").toUpperCase()}
                       </h2>
                       <input
                         type="text"
                         value={`#${newRowData["#"]} ${newRowData["Date"]}`}
                         readOnly
-                        className="w-full p-2 rounded-lg my-2 border border-gray-300 bg-gray-100"
+                        className="w-full rounded-lg border border-blue-100 bg-blue-50/30 px-4 py-2 text-sm text-blue-900"
                       />
                     </section>
                   );
@@ -95,7 +95,7 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
 
                 return (
                   <section key={column}>
-                    <h2 className="text-sm text-blue-900 font-semibold mb-1">
+                    <h2 className="mb-1 text-sm font-semibold text-blue-700">
                       {column.replace(/_/g, " ").toUpperCase()}
                     </h2>
                     <input
@@ -108,10 +108,10 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
                       }
                       value={newRowData[column]}
                       onChange={(e) => handleChange(column, e.target.value)}
-                      className="w-full p-2 rounded-lg my-2 border border-gray-300"
+                      className="w-full rounded-lg border border-blue-100 bg-white/80 px-4 py-2 text-sm text-blue-900 shadow-sm backdrop-blur-sm transition-all focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
                     {column === "#" && isDuplicate && (
-                      <p className="text-red-500 text-xs mt-1">
+                      <p className="mt-1 text-xs text-red-500">
                         This # value already exists.
                       </p>
                     )}
@@ -120,10 +120,10 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
               })}
             </div>
           </div>
-          <div className="flex justify-end space-x-4 mt-4">
+          <div className="mt-6 flex justify-end space-x-3">
             <button
               onClick={() => setIsModalOpen(false)}
-              className="py-2 px-4 rounded-lg bg-gray-300 text-gray-700 hover:bg-gray-400"
+              className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-blue-900 shadow-sm ring-1 ring-blue-100 transition-all hover:bg-blue-50"
             >
               Cancel
             </button>
@@ -135,19 +135,22 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
                 !newRowData["Date"] ||
                 loading
               }
-              className="py-2 px-4 flex items-center justify-center space-x-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-300 disabled:text-gray-500"
+              className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:shadow-lg disabled:opacity-50"
             >
-              {loading ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 mr-2 border-t-2 border-white rounded-full"
-                    viewBox="0 0 24 24"
-                  />
-                  <span>Submitting...</span>
-                </>
-              ) : (
-                <span>Submit</span>
-              )}
+              <span className="relative z-10 flex items-center">
+                {loading ? (
+                  <>
+                    <svg
+                      className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
+                      viewBox="0 0 24 24"
+                    />
+                    <span>Submitting...</span>
+                  </>
+                ) : (
+                  <span>Submit</span>
+                )}
+              </span>
+              <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-disabled:opacity-0"></span>
             </button>
           </div>
         </div>
