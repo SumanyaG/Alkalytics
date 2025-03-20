@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { title } from "process";
 
 interface DataPoint {
   label: string;
@@ -32,8 +33,8 @@ interface BarGraphProps {
 const BarGraph: React.FC<BarGraphProps> = ({ 
   data, 
   properties = {},
-  width = 928,
-  height = 600
+  width = 1000,
+  height = 700
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -43,10 +44,10 @@ const BarGraph: React.FC<BarGraphProps> = ({
     d3.select(svgRef.current).selectAll("*").remove();
 
     const margin = {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 40
+      top: 30,
+      right: 25,
+      bottom: 60,
+      left: 20
     };
 
     const innerWidth = width - margin.left - margin.right;
@@ -68,6 +69,10 @@ const BarGraph: React.FC<BarGraphProps> = ({
 
     const barPadding = 0.2;
     const barWidth = (innerWidth / data.length) * (1 - barPadding);
+
+    const autoXLabel = generateXLabel(properties);
+    const autoYLabel = generateYLabel(properties);
+    const autoTitle = generateTitle(properties);
 
     const xScale = d3.scaleUtc()
       .domain([xMin, xMax])
@@ -98,7 +103,7 @@ const BarGraph: React.FC<BarGraphProps> = ({
         .attr("y", -6)
         .attr("fill", "currentColor")
         .attr("text-anchor", "end")
-        .text(properties["x label"] || ""));
+        .text(properties["x label"] || autoXLabel));
 
     g.append("g")
       .attr("transform", `translate(${margin.left},0)`)
@@ -108,15 +113,16 @@ const BarGraph: React.FC<BarGraphProps> = ({
         .attr("y", margin.top)
         .attr("fill", "currentColor")
         .attr("text-anchor", "start")
-        .text(properties["y label"] || ""));
-
-    if (properties["graph title"]) {
+        .text(properties["y label"] || autoYLabel));
+    
+    const titleText = properties["graph title"] || autoTitle;
+    if (titleText) {
       svg.append("text")
         .attr("x", width / 2)
         .attr("y", margin.top / 2)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
-        .text(properties["graph title"]);
+        .text(titleText);
     }
 
     g.selectAll("rect")
@@ -134,6 +140,50 @@ const BarGraph: React.FC<BarGraphProps> = ({
       });
 
   }, [data, properties, width, height]);
+
+  const generateXLabel = (props: GraphProperties): string => {
+    if (props["x time min"] !== undefined && props["x time max"] !== undefined) {
+      return "Time";
+    }
+    if (props["min x"] !== undefined && props["max x"] !== undefined) {
+      return "X Value";
+    }
+    return "X Axis";
+  }
+
+  const generateYLabel = (props: GraphProperties): string => {
+    if (props["y time min"] !== undefined && props["y time max"] !== undefined) {
+      return "Time";
+    }
+    if (props["min y"] !== undefined && props["max y"] !== undefined) {
+      return "Y Value";
+    }
+    return "Y Axis";
+  }
+
+  const generateTitle = (props: GraphProperties): string => {
+    if (props["Selected Dates"] && props["Selected Dates"].length > 0) {
+      return `Data for ${props["Selected Dates"].join(", ")}`;
+    }
+
+    const xPart = props["min x"] !== undefined && props["max x"] !== undefined 
+      ? `X: ${props["min x"]} to ${props["max x"]}` 
+      : "";
+  
+    const yPart = props["min y"] !== undefined && props["max y"] !== undefined 
+      ? `Y: ${props["min y"]} to ${props["max y"]}` 
+      : "";
+    
+    if (xPart && yPart) {
+      return `Bar Graph (${xPart}, ${yPart})`;
+    } else if (xPart) {
+      return `Bar Graph (${xPart})`;
+    } else if (yPart) {
+      return `Bar Graph (${yPart})`;
+    }
+
+    return "Bar Graph";
+  }
 
   return <svg ref={svgRef}></svg>;
 };

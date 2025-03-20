@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import GraphSideBar from "../components/sidebar/GraphSideBar";
 import ScatterPlot from "../components/graph/scatter-plot";
-import LineGraph from "../components/graph/line-plot";
+import LineGraph from "../components/graph/line-graph";
 import BarGraph from "../components/graph/bar-graph";
 import { useQuery, gql, useMutation } from "@apollo/client";
 

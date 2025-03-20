@@ -14,7 +14,7 @@ interface GenerateGraphModal {
 const graphTypes = [
   { value: "bar", label: "Bar Chart" },
   { value: "line", label: "Line Chart" },
-  { value: "scatter", label: "Single Plot" },
+  { value: "scatter", label: "Scatter Plot" },
 ];
 const paramType = [
   { value: "data", label: "Data Sheet" },
