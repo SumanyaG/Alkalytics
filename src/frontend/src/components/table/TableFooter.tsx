@@ -16,6 +16,7 @@ type TableFooterProps = {
   selectedRows: Set<string>;
   graphType?: string;
   onApplyFunction: (updatedData: Record<string, unknown>) => Promise<void>;
+  onComputeEfficiency: () => void;
 };
 
 const TableFooter: React.FC<TableFooterProps> = ({
@@ -28,6 +29,7 @@ const TableFooter: React.FC<TableFooterProps> = ({
   selectedRows,
   graphType,
   onApplyFunction,
+  onComputeEfficiency,
 }) => {
   const [isEditDropdownOpen, setIsEditDropdownOpen] = useState(false);
   const [fxValues, setFxValues] = useState("");
@@ -75,6 +77,10 @@ const TableFooter: React.FC<TableFooterProps> = ({
     onRemoveRow();
     closeDropdown();
   };
+
+  const handleComputeEff = () => {
+    onComputeEfficiency();
+  }
 
   const handleFxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFxValues(e.target.value);
@@ -293,6 +299,18 @@ const TableFooter: React.FC<TableFooterProps> = ({
               className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600 transition-colors hover:bg-blue-200"
             >
               <Help className="h-5 w-5" />
+            </button>
+          </div>
+        )}
+
+        {graphType === "experiment" && userRole.role !== "assistant" && (
+          <div className="flex relative">
+            <button
+              onClick={handleComputeEff}
+              className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg"
+            >
+              <span className="relative z-10 flex items-center">Compute &eta;</span>
+              <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
             </button>
           </div>
         )}

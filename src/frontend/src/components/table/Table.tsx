@@ -8,6 +8,8 @@ import RemoveColumnModal from "../modal/RemoveColumnModal";
 import RemoveRowModal from "../modal/RemoveRowModal";
 import TableHeader from "./TableHeader";
 import SetColumnTypesModal from "../modal/SetColumnTypesModal";
+import EfficiencyModal from "../modal/EfficiencyModal";
+import useTable from "../../hooks/useTable";
 
 export type DataRow = Record<string, string | number | undefined | null>;
 
@@ -47,6 +49,12 @@ export const SET_COLUMN_TYPES = gql`
   }
 `;
 
+export const COMPUTE_EFF = gql`
+  mutation ComputeEfficiency($experimentId: String!, $selectedEfficiencies: [String!]!, $timeInterval: Int!) {
+    computeEfficiency(experimentId: $experimentId, selectedEfficiencies: $selectedEfficiencies, timeInterval: $timeInterval)
+  }
+`;
+
 const GET_COLUMN_TYPES = gql`
   query GetColumnTypes {
     getColumnTypes
@@ -74,9 +82,9 @@ const Table: React.FC<TableProps> = ({
   const [isRowModalOpen, setIsRowModalOpen] = useState(false);
   const [isRemoveColumnModalOpen, setIsRemoveColumnModalOpen] = useState(false);
   const [isRemoveRowModalOpen, setIsRemoveRowModalOpen] = useState(false);
-  const [isSetColumnTypesModalOpen, setIsSetColumnTypesModalOpen] =
-    useState(false);
+  const [isColumnTypesModalOpen, setIsColumnTypesModalOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+  const [isEfficiencyModalOpen, setIsEfficiencyModalOpen] = useState(false);
 
   const [addColumn] = useMutation(ADD_COLUMN);
   const [addRow] = useMutation(ADD_ROW);
@@ -84,6 +92,9 @@ const Table: React.FC<TableProps> = ({
   const [removeRow] = useMutation(REMOVE_ROW);
   const [updateData] = useMutation(UPDATE_DATA);
   const [setColumnTypes] = useMutation(SET_COLUMN_TYPES);
+  const [computeEfficiency] = useMutation(COMPUTE_EFF);
+
+  const { ids } = useTable();
 
   const { data: columnTypesData, refetch } = useQuery<{
     getColumnTypes: Record<string, string>[];
@@ -202,11 +213,33 @@ const Table: React.FC<TableProps> = ({
         variables: { newColumnTypes },
       });
       if (data.setColumnTypes) {
-        setIsSetColumnTypesModalOpen(false);
+        setIsColumnTypesModalOpen(false);
         refetch();
       }
     } catch (error) {
       console.error("Error updating column types:", error);
+    }
+  };
+
+  const handleCompute = async (
+    experimentId: string,
+    selectedEfficiencies: string[],
+    timeInterval: number
+  ) => {
+    try {
+      console.log("handleCompute: Arguments passed to mutation:", {
+        experimentId,
+        selectedEfficiencies,
+        timeInterval,
+      });
+      const { data } = await computeEfficiency({
+        variables: { experimentId, selectedEfficiencies, timeInterval },
+      });
+      if (data.computeEfficiency) {
+        setIsEfficiencyModalOpen(false);
+      }
+    } catch (error) {
+      console.error("Error computing efficiencies:", error);
     }
   };
 
@@ -238,7 +271,7 @@ const Table: React.FC<TableProps> = ({
             setSelectedColumn={setSelectedColumn}
             searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
-            onSetColumnTypes={() => setIsSetColumnTypesModalOpen(true)}
+            onSetColumnTypes={() => setIsColumnTypesModalOpen(true)}
             graphType={graphType}
           />
           <div style={{ flex: 1, overflow: "hidden" }}>
@@ -263,15 +296,16 @@ const Table: React.FC<TableProps> = ({
             selectedRows={selectedRows}
             graphType={graphType}
             onApplyFunction={handleUpdateData}
+            onComputeEfficiency={() => setIsEfficiencyModalOpen(true)}
           />
         </div>
       </div>
 
-      {isSetColumnTypesModalOpen && (
+      {isColumnTypesModalOpen && (
         <SetColumnTypesModal
           columns={columns}
           columnTypes={columnTypes}
-          setIsModalOpen={setIsSetColumnTypesModalOpen}
+          setIsModalOpen={setIsColumnTypesModalOpen}
           onUpdateColumnTypes={handleSetColumnTypes}
         />
       )}
@@ -311,6 +345,14 @@ const Table: React.FC<TableProps> = ({
           selectedRows={selectedRows}
           onRemoveRow={handleRemoveRow}
         />
+      )}
+
+      {/* Efficiency Modal */}
+      {isEfficiencyModalOpen && (
+        <EfficiencyModal 
+          setIsModalOpen={setIsEfficiencyModalOpen}
+          experiments={ids}
+          onComputeEfficiencies={handleCompute}/>
       )}
     </div>
   );
