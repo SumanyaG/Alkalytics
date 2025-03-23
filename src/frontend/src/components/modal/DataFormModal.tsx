@@ -112,8 +112,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
 
   const experimentParam = (expAttr?.getCollectionAttrs ?? [])
     .filter(
-      (item: string) =>
-        !["_id", "experimentId", "#", "Notes"].includes(item)
+      (item: string) => !["_id", "experimentId", "#", "Notes"].includes(item)
     ) // Exclude specific attributes
     .map((item: string) => ({
       value: item,
@@ -310,6 +309,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                   label="Graph Type"
                   required={true}
                   onChange={setSelectedGraphType}
+                  value={selectedGraphType}
                 />
               }
             />
@@ -327,6 +327,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                     label="Param Type"
                     required={true}
                     onChange={setSelectedParamType}
+                    value={selectedParamType}
                   />
                 }
               />
@@ -344,6 +345,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                       label="X"
                       required={true}
                       onChange={setSelectedParamX}
+                      value={selectedParamX}
                     />
                     <SingleDropdown
                       options={
@@ -354,6 +356,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                       label="Y"
                       required={true}
                       onChange={setSelectedParamY}
+                      value={selectedParamY}
                     />
                   </div>
                 }
@@ -373,11 +376,13 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                       options={xValues}
                       label={selectedParamX}
                       onChange={setXValue}
+                      value={xValue}
                     />
                     <SingleDropdown
                       options={yValues}
                       label={selectedParamY}
                       onChange={setYValue}
+                      value={yValue}
                     />
                   </div>
                 }
