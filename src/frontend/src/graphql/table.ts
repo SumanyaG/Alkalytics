@@ -16,6 +16,7 @@ export const typeDefs = gql`
     removeColumn(columnName: String!): String!
     removeRow(experimentIds: [String]!): String!
     setColumnTypes(newColumnTypes: JSON!): String!
+    computeEfficiency(experimentId: String!, selectedEfficiencies: [String!]!, timeInterval: Int!): String!
   }
 `;
 
@@ -199,5 +200,26 @@ export const resolvers = {
         throw new Error("Failed to update column types.");
       }
     },
+
+    computeEfficiency: async (
+      _: undefined,
+      { experimentId, selectedEfficiencies, timeInterval }: { experimentId: string, selectedEfficiencies: string[], timeInterval: number }
+    ): Promise<string> => {
+      try {
+        const response = await axios.post("http://127.0.0.1:8000/calculate-efficiencies",
+          { experimentId, selectedEfficiencies, timeInterval },
+          { headers: { "Content-Type": "application/json" }}
+        );
+
+        if (response.data.status === "success" || response.data.status === "repeated") {
+          return response.data.message;
+        } else {
+          throw new Error("Failed to compute efficiencies.");
+        }
+      } catch (error) {
+        console.error("Error computing efficiencies: ", error instanceof Error ? error.message : error);
+        throw new Error("Failed to compute efficiencies.")
+      };
+    }
   },
 };

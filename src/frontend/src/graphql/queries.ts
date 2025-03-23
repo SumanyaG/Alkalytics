@@ -9,7 +9,7 @@ export const typeDefs = gql`
     getExperimentIds: [String!]!
     getExperiments: [JSON]!
     getData(experimentId: String!): [JSON]!
-    getCollectionAttrs(collection: String!): [String!]!
+    getEfficiencies: [JSON]!
   }
 `;
 
@@ -71,6 +71,24 @@ export const resolvers = {
           error instanceof Error ? error.message : error
         );
         throw new Error("Failed to fetch experiments.");
+      }
+    },
+
+    getEfficiencies: async (): Promise<Record<string, DataRow>[]> => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/efficiencies", {
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.data.status === "success") {
+          return response.data.data;
+        } else {
+          throw new Error("No efficiency calculations found.");
+        }
+      } catch(error) {
+        console.error("Error fetching efficiency calculations:", 
+          error instanceof Error ? error.message : error
+        );
+        throw new Error("Failed to fetch efficiency calculations.");
       }
     },
     }, 
