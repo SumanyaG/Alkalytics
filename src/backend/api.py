@@ -444,10 +444,36 @@ async def getLastestGraph(payload: GeneratedGraphRequest):
         raise HTTPException(status_code=500, detail=f"Error in retreaving latest {payload.latest} graphs: {str(e)}")
     finally:
         client.close()
+
+class RemoveGraphRequest(BaseModel):
+    graphId: int
+
+@app.delete("/generatedGraphs/remove-graph")
+async def removeGraph(payload: RemoveGraphRequest):
+    """
+    Removes a graph from the list of latest graphs
+    """
+
+    connection = getConnection("graphs")
+    collection, client = connection["collection"], connection["client"]
+
+    try:
+        result = collection.delete_one(
+            {"_id": payload.graphId}
+        )
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Graph not found.")
+        return {
+            "status": "success",
+            "message": f"Successfully removed graph {payload.graphId}",
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error removing graph: {str(e)}")
+    finally:
+        client.close()
         
 class DataRequest(BaseModel):
     experimentId: str
-
 
 @app.post("/data")
 async def getExperimentData(payload: DataRequest):

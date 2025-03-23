@@ -18,6 +18,7 @@ export const typeDefs = gql`
     
     type Mutation {
       addGeneratedGraphs(graphType: String!, data:[JSON]!, properties:[JSON]!, attributes: [String!]!): String!
+      removeGraph(graphId: Int!): String!
    }
 `;
 
@@ -142,6 +143,32 @@ export const resolvers = {
               error instanceof Error ? error.message : error
             );
             throw new Error("Failed to fetch experiment with given attributes.");
+          }
+        },
+        removeGraph: async (
+          _: undefined,
+          { graphId }: { graphId: number }
+        ): Promise<string> => {
+          try {
+            const response = await axios.delete(
+              "http://127.0.0.1:8000/generatedGraphs/remove-graph",
+              {
+                data: { graphId },
+                headers: { "Content-Type": "application/json" },
+              }
+            );
+    
+            if (response.data.status === "success") {
+              return response.data.message;
+            } else {
+              throw new Error("Failed to remove graph.");
+            }
+          } catch (error) {
+            console.error(
+              "Error removing graph:",
+              error instanceof Error ? error.message : error
+            );
+            throw new Error("Failed to remove graph.");
           }
         },
     }
