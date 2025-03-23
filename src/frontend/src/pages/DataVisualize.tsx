@@ -123,6 +123,12 @@ const SAVE_GRAPH = gql`
   }
 `;
 
+const REMOVE_GRAPH = gql`
+  mutation RemoveGraph($graphId: Int!) {
+    removeGraph(graphId: $graphId)
+  }
+`;
+
 const DataVisualize: React.FC = () => {
   const [selectedGraphType, setSelectedGraphType] = useState<string>("");
   const [selectedParamType, setSelectedParamType] = useState<string>("");
@@ -183,6 +189,16 @@ const DataVisualize: React.FC = () => {
     setYLabel,
     submit,
     setSubmit,
+  };
+  const [removeGraph] = useMutation(REMOVE_GRAPH);
+  const handleRemoveGraph = async (graphId: number) => {
+    try {
+      const { data } = await removeGraph({
+        variables: { graphId },
+      });
+    } catch (error) {
+      console.error("Error removing graph:", error);
+    }
   };
 
   const { data, loading, error } = useQuery<{
@@ -310,6 +326,7 @@ const DataVisualize: React.FC = () => {
         <GraphSideBar
           onSubmit={handleGraphData}
           onGraphSelect={handleGraphSelect}
+          deleteGraph={handleRemoveGraph}
         />
         <div className="flex-1 overflow-hidden">
           <div className="p-8 h-full w-full flex items-center justify-center">
