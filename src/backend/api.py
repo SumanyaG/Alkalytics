@@ -258,7 +258,8 @@ async def getCollectionAttrs(payload:DataAttrs):
 class ExperimentFilter(BaseModel):
     collection: str
     attributes: List[str]
-    dates:Optional[List[str]] = None
+    xValue: Optional[str] = ""
+    yValue: Optional[str] = ""
     analysis: Optional[bool] = False
 
 @app.post("/filterCollectionData")
@@ -266,28 +267,6 @@ async def getFilterCollectionData(payload: ExperimentFilter):
     """
     Fetches the data needed to generate graphs
     """
-    # Prepare attributes for projection
-    attrs = {field: 1 for field in payload.attributes}
-    attrs["Date"] = 1
-
-    # Helper function to fetch and process data
-    async def fetch_and_process_data(collection, query, projection, client):
-        try:
-            filtered_data = collection.find(query, projection)
-            data_list = list(filtered_data)
-            data_list = [cleanData(item) for item in data_list]
-
-            if not data_list:
-                raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
-            
-            return {"status": "success", "data": data_list}
-        
-        except Exception as e:
-            return {"status": "error", "message": str(e)}
-        
-        finally:
-            client.close()
-
     def performAnalysis(data, attributes):
         if len(attributes) != 2:
             raise ValueError("The simple linear regression requires 2 variables.")
@@ -322,55 +301,92 @@ async def getFilterCollectionData(payload: ExperimentFilter):
             "R_squared": R_squared
         }
         return [result]
-
-    # Need to get experimentId from the Dates selected
-    if payload.collection == "data" and payload.dates:
-        # Get experiment IDs from the "experiments" collection
-        experiments_conn = getConnection("experiments")
-        experiments_collection, experiments_client = experiments_conn["collection"], experiments_conn["client"]
-
-        experiment_ids = [
-            item["experimentId"]
-            for item in experiments_collection.find(
-                {"Date": {"$in": payload.dates}}, 
-                {"experimentId": 1, "_id": 0}
-            )
-        ]
-        experiments_client.close()
-
-        if not experiment_ids:
-            raise HTTPException(status_code=404, detail="No experiments found for the given dates.")
-
-        # Fetch data from the collection using experiment IDs
-        target_conn = getConnection(payload.collection)
-        target_collection, target_client = target_conn["collection"], target_conn["client"]
-
-        query = {"experimentId": {"$in": experiment_ids}}
-        attrs["experimentId"] = 1
-        response = await fetch_and_process_data(target_collection, query, attrs, target_client)
-
-    # Handle all other cases
-    else:
-        target_conn = getConnection(payload.collection)
-        target_collection, target_client = target_conn["collection"], target_conn["client"]
-
-        if len(payload.dates) > 0:
-            query = {"Date": {"$in": payload.dates}}
-        else:
-            query = {}
-        response = await fetch_and_process_data(target_collection, query, attrs, target_client)
-
-    # Check if analysis is requested
-    if payload.analysis:
+    
+    def get_numeric_value(value: str) -> float | str:
+        """
+        Attempt to convert string to float, return original if fails
+        """
         try:
-            analysisResults = performAnalysis(response["data"], payload.attributes)
-            if analysisResults:
-                response["analysisRes"] = analysisResults
-        except Exception as e:
-            response["analysisRes"] = "error"
-            print(f"Error performing analysis: {e}")
+            return float(value)
+        except ValueError:
+            return value
+        
+    def build_query(attributes: List[str], x_value: str, y_value: str):
+        """
+        Construct MongoDB query from input values
+        """
+        query = {}
+        
+        if x_value:
+            query[attributes[0]] = get_numeric_value(x_value)
+        if y_value:
+            query[attributes[1]] = get_numeric_value(y_value)
+            
+        return query
+    try:
+        # Prepare attributes for projection
+        attrs = {field: 1 for field in payload.attributes}
+        attrs["_id"] = 0
+        print("x",payload.xValue, "y", payload.yValue)
+        target_conn = getConnection(payload.collection)
+        target_collection, target_client = target_conn["collection"], target_conn["client"]
+        
+        query = build_query(payload.attributes, payload.xValue, payload.yValue)
 
+        try:
+            filtered_data = target_collection.find(query, attrs)
+            data_list = list(filtered_data)
+            data_list = [cleanData(item) for item in data_list]
+
+            if not data_list:
+                raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
+            response = {"status": "success", "data": data_list}
+        
+        except Exception as e:
+            print("yikes")
+            response = {"status": "error", "message": str(e)}
+
+        # Check if analysis is requested
+        if payload.analysis:
+            try:
+                analysisResults = performAnalysis(response["data"], payload.attributes)
+                if analysisResults:
+                    response["analysisRes"] = analysisResults
+            except Exception as e:
+                response["analysisRes"] = "error"
+                print(f"Error performing analysis: {e}")
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        response = {"status": "error", "message": str(e)}
+    finally:
+        if target_client:
+            target_client.close()
     return response
+
+class AttributeValues(BaseModel):
+    collection: str
+    attribute: str
+
+@app.post("/filterCollectionData/attrValues")
+async def getFilterCollectionAttrValues(payload: AttributeValues):
+    """
+    Fetches all values of a certain attribute in a collection
+    """
+    target_conn = getConnection(payload.collection)
+    target_collection = target_conn["collection"]
+    attribute_values = []
+    try:
+        unique_values = target_collection.distinct(payload.attribute)
+        unique_values = [x for x in unique_values if not (isinstance(x, float) and math.isnan(x))]
+        attribute_values = sorted(unique_values)
+        if attribute_values:
+            return {"status": "success", "data": unique_values}
+        else:
+            return {"status": "error", "message": "There is no attribute with that name found in the data"}
+
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 class GeneratedGraphs(BaseModel):
     graphType: str

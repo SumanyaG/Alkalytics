@@ -11,7 +11,8 @@ export const typeDefs = gql`
 
   type Query {
     getCollectionAttrs(collection: String!): [String!]!
-    getFilterCollectionData(attributes: [String!]!, collection: String!, dates:[String], analysis: Boolean): filterCollectionDataResponse
+    getFilterCollectionData(attributes: [String!]!, collection: String!, xValue: String, yValue:String, analysis: Boolean): filterCollectionDataResponse
+    getFilterCollectionAttrValues(attribute: String!, collection: String!):[String!]!,
     getLastestGraph(latest:Int):[JSON]
     }
     
@@ -51,10 +52,10 @@ export const resolvers = {
   
       getFilterCollectionData: async (
         _: undefined,
-        { attributes, collection, dates, analysis }: { attributes: string[]; collection: string, dates: string[], analysis?: Boolean }
+        { attributes, collection, xValue, yValue, analysis }: { attributes: string[]; collection: string, xValue?: string, yValue?:string, analysis?: Boolean }
       ):Promise<filterCollectionDataResponse> => {
         try {
-          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, dates, analysis}, {
+          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, xValue, yValue, analysis}, {
             headers: { "Content-Type": "application/json" },
           });
           if (response.data.status === "success") {
@@ -77,6 +78,28 @@ export const resolvers = {
           throw new Error("Failed to fetch experiment with given attributes.");
         }
       },
+      getFilterCollectionAttrValues: async (
+        _: undefined,
+        { attribute, collection}: { attribute: string; collection: string}
+      ):Promise<any> => {
+        try {
+          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData/attrValues", {attribute, collection}, {
+            headers: { "Content-Type": "application/json" },
+          });
+          if (response.data.status === "success") {
+            return response.data.data || []
+          } else {
+            throw new Error("No data has the given attributes.");
+          }
+        } catch (error) {
+          console.error(
+            "Error fetching experiment with given attributes:",
+            error instanceof Error ? error.message : error
+          );
+          throw new Error("Failed to fetch experiment with given attributes.");
+        }
+      },
+
         getLastestGraph: async(
           _:undefined,
           {latest}:{latest:Number}):Promise<any> => {
