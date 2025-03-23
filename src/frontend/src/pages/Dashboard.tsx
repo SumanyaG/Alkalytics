@@ -5,7 +5,6 @@ import BarGraph from "../components/graph/bar-graph";
 import ScatterPlot from "../components/graph/scatter-plot";
 import LineGraph from "../components/graph/line-plot";
 import useGraphs from "../hooks/useGraphs";
-// import { ChevronDown, BarChart3, LineChart, ScatterChart } from "lucide-react";
 
 const Dashboard = () => {
   const {
@@ -23,7 +22,6 @@ const Dashboard = () => {
     latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
     [];
 
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [animateGraphs, setAnimateGraphs] = useState(false);
 
   useEffect(() => {
@@ -43,10 +41,6 @@ const Dashboard = () => {
     }));
   };
 
-  const getGraphIcon = (type: string) => {
-    return;
-  };
-
   return (
     <div className="relative min-h-screen bg-white p-8">
       {/* Background elements */}
@@ -56,14 +50,10 @@ const Dashboard = () => {
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-[1800px]">
-        <h1 className="mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-3xl font-bold text-transparent">
-          Dashboard
-        </h1>
-
         <div className="space-y-8">
           {/* GENERATED GRAPHS */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-md transition-all duration-300">
-            <h2 className="mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
+          <div className="rounded-2xl border border-gray-200 bg-transparent p-6 shadow-md transition-all duration-300">
+            <h2 className="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
               Generated Graphs
             </h2>
 
@@ -109,7 +99,6 @@ const Dashboard = () => {
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-indigo-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
                       <div className="absolute top-4 left-4 flex items-center space-x-2">
-                        {/* {getGraphIcon(graphtype)} */}
                         <span className="text-sm font-bold text-blue-600">
                           {properties[0]?.["graph title"] ||
                             `${
@@ -152,7 +141,6 @@ const Dashboard = () => {
               ) : (
                 <div className="group relative aspect-square overflow-hidden rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm transition-all duration-300">
                   <div className="flex h-full w-full flex-col items-center justify-center rounded-lg">
-                    {/* <BarChart3 className="mb-4 h-12 w-12 text-blue-600/30" /> */}
                     <div className="text-center text-blue-600/70">
                       No graphs generated yet
                     </div>
@@ -166,70 +154,40 @@ const Dashboard = () => {
           </div>
 
           {/* DATA TABLE */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-md transition-all duration-300">
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
+          <div className="rounded-2xl border border-gray-200 bg-transparent p-6 shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <h2 className="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
                 Data Table
               </h2>
 
               <div className="relative">
-                <button
-                  onClick={() => setIsSelectOpen(!isSelectOpen)}
-                  className="group flex items-center space-x-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-blue-600 shadow-sm transition-all duration-200 hover:bg-gray-50"
+                <select
+                  value={selectedExperiment}
+                  onChange={(e) => handleSelectExperiment(e.target.value)}
+                  className="appearance-none group flex items-center space-x-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-blue-600 shadow-sm transition-all duration-200 hover:bg-gray-50 focus:outline-none"
                 >
-                  <span>
-                    {selectedExperiment === "Exp"
-                      ? "All Experiments"
-                      : selectedExperiment}
-                  </span>
-                  {/* <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-200 ${
-                      isSelectOpen ? "rotate-180" : ""
-                    }`}
-                  /> */}
-                  <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-gradient-to-r from-blue-400 to-indigo-400 transition-all duration-300 group-hover:w-full"></span>
-                </button>
-
-                {isSelectOpen && (
-                  <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg border border-gray-200 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
-                      <button
-                        onClick={() => {
-                          handleSelectExperiment("Exp");
-                          setIsSelectOpen(false);
-                        }}
-                        className={`block w-full px-4 py-2 text-left text-sm ${
-                          selectedExperiment === "Exp"
-                            ? "bg-blue-600 text-white"
-                            : "text-gray-700 hover:bg-gray-100"
-                        }`}
-                      >
-                        All Experiments
-                      </button>
-
-                      {ids.map((expSheet: string) => (
-                        <button
-                          key={expSheet}
-                          onClick={() => {
-                            handleSelectExperiment(expSheet);
-                            setIsSelectOpen(false);
-                          }}
-                          className={`block w-full px-4 py-2 text-left text-sm ${
-                            selectedExperiment === expSheet
-                              ? "bg-blue-600 text-white"
-                              : "text-gray-700 hover:bg-gray-100"
-                          }`}
-                        >
-                          {expSheet}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                  <option
+                    label="Select an experiment to view"
+                    value="Exp"
+                    disabled={selectedExperiment !== "Exp"}
+                  ></option>
+                  <option
+                    value="Exp"
+                    label="All Experiments"
+                    disabled={selectedExperiment === "Exp"}
+                  >
+                    All Experiments
+                  </option>
+                  {ids.map((expSheet: string) => (
+                    <option key={expSheet} value={expSheet}>
+                      {expSheet}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
-            <div className="h-[60vh] overflow-hidden">
+            <div className="-mx-9 -my-4">
               <Table
                 tableName={tableName}
                 data={sortedData}

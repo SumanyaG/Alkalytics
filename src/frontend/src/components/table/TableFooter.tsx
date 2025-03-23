@@ -305,7 +305,7 @@ const TableFooter: React.FC<TableFooterProps> = ({
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 rounded-lg -mt-[100vh] flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <div className="w-full max-w-md overflow-hidden rounded-xl border border-white/20 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm">
             <h2 className="mb-2 text-lg font-bold text-blue-900">
               Function Bar Guide
