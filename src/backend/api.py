@@ -740,12 +740,28 @@ async def getEfficiencies():
     connection = getConnection("efficiencies")
     collection, client = connection["collection"], connection["client"]
 
+    fieldOrder = [
+        "_id",
+        "experimentId",
+        "Time Interval",
+        "Current Efficiency (HCl)",
+        "Current Efficiency (NaOH)",
+        "Voltage Drop Efficiency",
+        "Reaction Efficiency",
+        "Overall Efficiency"
+    ]
+
     try:
         efficiencies = collection.find()
         efficenciesList = list(efficiencies)
-        efficenciesList = [cleanData(item) for item in efficenciesList]
-        if efficenciesList:
-            return {"status": "success", "data": efficenciesList}
+        
+        # clean and reorder fields for each record in collection
+        reordered = [
+            {field: cleanData(item).get(field) for field in fieldOrder}
+            for item in efficenciesList
+        ]
+        if reordered:
+            return {"status": "success", "data": reordered}
         else:
             raise HTTPException(status_code=404, detail="No efficiency calculations found.")
 
