@@ -766,19 +766,26 @@ async def getExperimentData(experimentId: str, interval: int):
     dataCollection, dataClient = dataConnection["collection"], dataConnection["client"]
 
     query = {"experimentId": experimentId}
-    
-    if interval != 0:
-         # get timestamp of first data point to set end time
-        experiment = dataCollection.find_one({ "experimentId": experimentId}, {"_id": 0, "Time": 1})
-        if not experiment:
-            raise HTTPException(status_code=404, detail=f"getExperimentData: No experiment found for experimentId: {experimentId}")
-        startTime = datetime.strptime(experiment["Time"], "%Y/%m/%d %H:%M:%S")
-        endTime = startTime + timedelta(minutes=interval)
-        query["Time"] = {"$lte": endTime.strftime("%Y/%m/%d %H:%M:%S")}
-
     projection = {"Time": 1, "U Cmm": 1, "U Stac": 1, "I Cmm": 1, "C1 Cond": 1, "C2 Cond": 1}
-
     try:
+        if interval > 0:
+            # get timestamp of first data point to set end time
+            experiment = dataCollection.find_one({ "experimentId": experimentId}, {"_id": 0, "Time": 1})
+            if not experiment:
+                raise HTTPException(status_code=404, detail=f"getExperimentData: No experiment found for experimentId: {experimentId}")
+            startTime = datetime.strptime(experiment["Time"], "%Y/%m/%d %H:%M:%S")
+            endTime = startTime + timedelta(minutes=interval)
+            query["Time"] = {"$lte": endTime.strftime("%Y/%m/%d %H:%M:%S")}
+        elif interval < 0:
+            # get timestamp of last data point to set start time
+            experiment = dataCollection.find({"experimentId": experimentId}).sort("Time", -1).limit(1)
+            experiment = list(experiment)
+            if not experiment:
+                raise HTTPException(status_code=404, detail=f"getExperimentData: No experiment found for experimentId: {experimentId}")
+            endTime = datetime.strptime(experiment[0]["Time"], "%Y/%m/%d %H:%M:%S")
+            startTime = endTime - timedelta(minutes=abs(interval))
+            query["Time"] = {"$gte": startTime.strftime("%Y/%m/%d %H:%M:%S")}
+
         data = dataCollection.find(query, projection).sort({"Time": 1})
         if not data:
             raise HTTPException(status_code=404, detail="No data found for the given experimentId.")
@@ -810,8 +817,8 @@ async def compute(efficiency, experiment, results, payload):
         volHCl, volNaOH = experiment.get("HCL"), experiment.get("NaOH")
         if volHCl is None or volNaOH is None:
             raise Exception("Missing data for final volumes.")
-        fullResults = await getExperimentData(payload.experimentId, 0) if payload.timeInterval != 0 else results
-        return computeReactionEfficiency(fullResults, volHCl, volNaOH)
+        reactionResults = await getExperimentData(payload.experimentId, -5)
+        return computeReactionEfficiency(reactionResults, volHCl, volNaOH)
 
     return None
 

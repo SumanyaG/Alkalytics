@@ -27,18 +27,23 @@ def convertCondtoConc(cond: float, compound: str) -> float:
     return ppm/(MOLAR_MASS[compound]*1000)
 
 def groupData(data, interval: int = 5) -> list:
-    """Groups data into cumulative 5-minute intervals."""
+    """Groups data into 5-minute intervals."""
     start_time = datetime.strptime(data[0]["Time"], "%Y/%m/%d %H:%M:%S")
     for entry in data:
         entry["ElapsedTime"] = (datetime.strptime(entry["Time"], "%Y/%m/%d %H:%M:%S") - start_time).total_seconds() / 60
 
-    cumulative_intervals = []
-    cumulative_data = []
+    intervals = []
+    current_group = []
     for entry in data:
-        cumulative_data.append(entry)
-        if entry["ElapsedTime"] >= len(cumulative_intervals) * interval + interval:
-            cumulative_intervals.append(cumulative_data[:])
-    return cumulative_intervals
+        current_group.append(entry)
+        if entry["ElapsedTime"] >= len(intervals) * interval + interval:
+            intervals.append(current_group[:])
+            current_group = []
+    
+    if current_group:
+        intervals.append(current_group)
+    
+    return intervals
 
 def computeCurrentEfficiency(data, compound: str, finalVol: float, numTriplets: int):
     """ Computes the current efficiency for either HCl or NaOH. """
@@ -63,9 +68,9 @@ def computeCurrentEfficiency(data, compound: str, finalVol: float, numTriplets: 
         avgConc = convertCondtoConc(avgCond, compound)
         deltaConc = avgConc - initialConc
         currentEfficiency = (deltaConc * finalVol * FARADAY_CONSTANT) / (numTriplets * timeInterval * avgCurr * 60)
-        interval_effs.append(currentEfficiency * 100)
+        interval_effs.append(currentEfficiency)
 
-    return np.mean(interval_effs) if interval_effs else 0
+    return np.mean(interval_effs) * 100 if interval_effs else 0
 
 def computeVoltageDropEfficiency(data):
     """ Computes voltage drop efficiency. """
@@ -73,10 +78,6 @@ def computeVoltageDropEfficiency(data):
     interval_effs = []
 
     for i, group in enumerate(groupedData):
-        timeInterval = (i + 1) * 5
-        if timeInterval == 5:
-            continue
-
         avgUStack = np.mean([entry["U Stac"] for entry in group])
         avgUTotal = np.mean([entry["U Cmm"] for entry in group])
 
@@ -85,41 +86,21 @@ def computeVoltageDropEfficiency(data):
             continue
 
         voltageDropEfficiency = (avgUStack / avgUTotal)
-        interval_effs.append(voltageDropEfficiency * 100)
+        interval_effs.append(voltageDropEfficiency)
 
-    return np.mean(interval_effs) if interval_effs else 0
+    return np.mean(interval_effs) * 100 if interval_effs else 0
 
 def computeReactionEfficiency(data, volHCl, volNaOH):
     """ Computes reaction efficiency using final average concentrations and
     volumes. """
 
-    groupedData = groupData(data)
-    concHCl_avgs = []
-    concNaOH_avgs = []
+    avgCondHCl = np.mean([entry["C1 Cond"] for entry in data])
+    avgCondNaOH = np.mean([entry["C2 Cond"] for entry in data])
 
-    for i, group in enumerate(groupedData):
-        timeInterval = (i + 1) * 5
-        if timeInterval == 5:
-            continue
-
-        avgCondHCl = np.mean([entry["C1 Cond"] for entry in group])
-        avgCondNaOH = np.mean([entry["C2 Cond"] for entry in group])
-
-        if avgCondNaOH == 0:
-            concNaOH_avgs.append(0)
-            continue
-
-        avgConcHCl = convertCondtoConc(avgCondHCl, "HCL")
-        avgConcNaOH = convertCondtoConc(avgCondNaOH, "NaOH")
-
-        concHCl_avgs.append(avgConcHCl)
-        concNaOH_avgs.append(avgConcNaOH)
-
-
-    total_hcl_avg =  np.mean(concHCl_avgs)
-    total_naoh_avg = np.mean(concNaOH_avgs)
+    concHCl = convertCondtoConc(avgCondHCl, "HCL")
+    concNaOH = convertCondtoConc(avgCondNaOH, "NaOH")
     
-    reactionEfficiency = (total_hcl_avg * volHCl) / (total_naoh_avg * volNaOH)
+    reactionEfficiency = (concHCl * volHCl) / (concNaOH * volNaOH)
     return reactionEfficiency * 100
 
 def computeOverallEfficiency(efficiencies):
