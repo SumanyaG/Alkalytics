@@ -14,6 +14,7 @@ const TableView: React.FC<TableViewProps> = () => {
     handleSelectExperiment,
     refetchData,
     refetchExperiments,
+    refetchEfficiencies,
   } = useTable();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -41,7 +42,11 @@ const TableView: React.FC<TableViewProps> = () => {
           tableName={tableName}
           data={sortedData}
           refetchData={
-            selectedExperiment === "Exp" ? refetchExperiments : refetchData
+            selectedExperiment === "Exp"
+              ? refetchExperiments
+              : selectedExperiment === "Efficiency Calculations"
+              ? refetchEfficiencies
+              : refetchData
           }
           graphType={selectedExperiment === "Exp" ? "experiment" : "data"}
         />

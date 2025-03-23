@@ -237,6 +237,7 @@ const Table: React.FC<TableProps> = ({
       });
       if (data.computeEfficiency) {
         setIsEfficiencyModalOpen(false);
+        refetchData();
       }
     } catch (error) {
       console.error("Error computing efficiencies:", error);
