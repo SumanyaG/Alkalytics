@@ -26,12 +26,12 @@ const GET_EFFICIENCIES = gql`
   }
 `;
 
-const useTable = () => {
+const useTable = (defaultExperiment: string) => {
   const {
     data: experimentIds,
   } = useQuery<{ getExperimentIds: string[] }>(GET_EXPERIMENT_IDS);
 
-  const [selectedExperiment, setSelectedExperiment] = useState<string>("Exp");
+  const [selectedExperiment, setSelectedExperiment] = useState<string>(defaultExperiment);
 
   const {
     data: dataResponse,

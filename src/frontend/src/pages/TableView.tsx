@@ -15,7 +15,7 @@ const TableView: React.FC<TableViewProps> = () => {
     refetchData,
     refetchExperiments,
     refetchEfficiencies,
-  } = useTable();
+  } = useTable("Exp");
 
   const [isOpen, setIsOpen] = useState(true);
 

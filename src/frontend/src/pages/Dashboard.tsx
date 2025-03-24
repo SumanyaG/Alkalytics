@@ -8,14 +8,10 @@ import useGraphs from "../hooks/useGraphs";
 
 const Dashboard = () => {
   const {
-    ids,
-    selectedExperiment,
     sortedData,
     tableName,
-    handleSelectExperiment,
-    refetchData,
-    refetchExperiments,
-  } = useTable();
+    refetchEfficiencies,
+  } = useTable("Efficiency Calculations");
 
   const { latestGraphs, loading, error } = useGraphs(3);
   const validGraphs =
@@ -157,10 +153,10 @@ const Dashboard = () => {
           <div className="rounded-2xl border border-gray-200 bg-transparent p-6 shadow-md transition-all duration-300">
             <div className="flex items-center justify-between">
               <h2 className="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
-                Data Table
+                Data Analysis
               </h2>
 
-              <div className="relative">
+              {/* <div className="relative">
                 <select
                   value={selectedExperiment}
                   onChange={(e) => handleSelectExperiment(e.target.value)}
@@ -184,18 +180,14 @@ const Dashboard = () => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
             </div>
 
             <div className="-mx-9 -my-4">
               <Table
                 tableName={tableName}
                 data={sortedData}
-                refetchData={
-                  selectedExperiment === "Exp"
-                    ? refetchExperiments
-                    : refetchData
-                }
+                refetchData={refetchEfficiencies}
                 graphType={""}
               />
             </div>
