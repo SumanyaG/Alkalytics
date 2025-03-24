@@ -303,7 +303,7 @@ const TableBody: React.FC<TableProps> = ({
                     editingCell?.column === column ? (
                       <input
                         type={
-                          columnTypes[0][column] === "number"
+                          columnTypes[0]?.[column] === "number"
                             ? "number"
                             : "text"
                         }
@@ -314,7 +314,9 @@ const TableBody: React.FC<TableProps> = ({
                         onChange={(e) => handleInputChange(e.target.value)}
                         onKeyDown={(e) => handleKeyPress(e, rowIndex, column)}
                         autoFocus
-                        placeholder={`${columnTypes[0][column].replace(/^\w/, (c) => c.toUpperCase())}`}
+                        placeholder={columnTypes[0]?.[column]
+                          ? columnTypes[0][column].replace(/^\w/, (c) => c.toUpperCase())
+                          : "DEFAULT: Text"}
                       />
                     ) : (
                       getHighlightedText(flattenData(row[column] || ""))

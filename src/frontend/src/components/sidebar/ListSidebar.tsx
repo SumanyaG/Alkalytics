@@ -3,10 +3,12 @@ import IconButton from "@mui/material/IconButton";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import DatasetOutlined from "@mui/icons-material/DatasetOutlined";
+import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
 
 interface ListSidebarProps {
   experimentIds: string[];
   experimentSheets?: string[];
+  efficiencies?: string[];
   selectedExperiment: string | null;
   onSelectExperiment: (experimentId: string) => void;
   isOpen: boolean;
@@ -16,6 +18,7 @@ interface ListSidebarProps {
 const ListSidebar: React.FC<ListSidebarProps> = ({
   experimentIds,
   experimentSheets = ["Exp"],
+  efficiencies = ["Efficiency Calculations"],
   selectedExperiment,
   onSelectExperiment,
   isOpen,
@@ -65,6 +68,46 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
           <div className="max-h-24 overflow-y-auto pl-[0.9rem] scrollbar-thin">
             <ul className="mt-1">
               {experimentSheets.map((item, index) => (
+                <li
+                  key={`experiments-${index}`}
+                  onClick={() => onSelectExperiment(item)}
+                  className={`flex ${
+                    isOpen ? "gap-2" : ""
+                  } h-6 cursor-pointer items-center rounded-lg p-1 transition-all duration-200 hover:bg-blue-50/70 ${
+                    selectedExperiment === item
+                      ? "bg-blue-100/70 shadow-sm"
+                      : ""
+                  }`}
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
+                  <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
+                    {isOpen ? item : undefined}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Efficiencies Section */}
+        <div className="my-2">
+          <div
+            className={`flex items-center ${isOpen ? "justify-between" : ""}`}
+          >
+            <div className="flex items-center pl-[0.65rem]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                <CalculateOutlinedIcon className="text-blue-600" />
+              </div>
+              {isOpen && (
+                <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                  EFFICIENCIES
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="max-h-24 overflow-y-auto pl-[0.9rem] scrollbar-thin">
+            <ul className="mt-1">
+              {efficiencies.map((item, index) => (
                 <li
                   key={`experiments-${index}`}
                   onClick={() => onSelectExperiment(item)}
