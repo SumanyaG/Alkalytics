@@ -23,6 +23,7 @@
 \midrule
 14 March 2025 & Sumanya Gulati & Initial Draft\\
 17 March 2025 & Sumanya Gulati & Add list of navigation tasks\\
+20 March 2025 & Sumanya Gulati & Update test details and add observations\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -45,11 +46,11 @@ Usability Testing Session.
 \midrule
 \textbf{Test Mode} & In-person \\
 \midrule
-\textbf{Start Time} &  \\
+\textbf{Start Time} & 12:00 PM \\
 \midrule
-\textbf{End Time} &  \\
+\textbf{End Time} & 12:50 PM \\
 \midrule
-\textbf{Additional Notes} &  \\
+\textbf{Additional Notes} & - \\
 \bottomrule
 \end{tabularx}
 \caption{User and Session Details} \label{UserDetails}
@@ -58,20 +59,20 @@ Usability Testing Session.
 \section{Navigation Tasks to be Performed}
 For the purpose of this usability session, the subject has been asked to perform the following tasks, in order:
 \begin{enumerate}
-  \item Upload a data sheet.
-  \item Upload another data sheet with the same experiment date.
-  \item Locate this data sheet in the table view page.
-  \item Navigate to the experiment table and perform the following operations -
+  \item Upload a data sheet. \label{T1}
+  \item Upload another data sheet with the same experiment date. \label{T2}
+  \item Locate this data sheet in the table view page. \label{T3}
+  \item Navigate to the experiment table and perform the following operations - \label{T4}
   \begin{enumerate}
     \item Add a new row.
     \item Delete an existing row.
     \item Add a new column.
     \item Delete an existing column.
   \end{enumerate}
-  \item Calculate the average of any couple of values in the experiment table.
+  \item Calculate the average of any couple of values in the experiment table. \label{T5}
   \item \emph{(Optional):} Perform additional excel-based functions on the values in the experiment table.
-  \item Search for a datapoint in the table using the column and value.
-  \item Generate a graph using all available customization options for the experiment data from \textbf{September 26}.
+  \item Search for a datapoint in the table using the column and value. \label{T6}
+  \item Generate a graph using all available customization options for the experiment data from \textbf{September 26}. \label{T7}
 \end{enumerate}
 
 \section{User Answers}
@@ -141,5 +142,43 @@ the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1 ou
   \end{itemize}
 
 \section{Test Conductor Observations}
+\subsection{Queries}
+\begin{enumerate}
+  \item For tasks \ref{T1} and \ref{T2}, do the sheets have to be uploaded as data sheets or experiment sheets? How 
+  are they different? \label{Q1} 
+  \item Very hard to validate task \ref{T3} by having to do multiple look-ups. \label{Q2}
+  \item For task \ref{T3}, the subject had to spend roughly 2 minutes trying different format options to look up the file name in the 
+  experiment table. \label{Q3}
+  \item For task \ref{T4}, the subject was unable to find out which page to navigate to in order to perform the given actions. \label{Q4}
+\end{enumerate}
+
+\subsection{Elements Behaving Unexpectedly}
+\begin{enumerate}
+  \item The calculations bar did not work despite multiple tries. The help/info button next to the bar did not help much. Thus, subject was 
+  unable to perform task \ref{T5}.
+  \item For task \ref{T6}, the search bar does not return all relevant values. Only a few values are displayed.
+\end{enumerate}
+
+\subsection{Additional Subject Feedback}
+\begin{enumerate}
+  \item Change home icon to something more intuitive and more descriptive of `summary data'.
+  \item The queries page looks very cluttered and similar buttons and modals should be positioned together to help with user flow.
+  \item For edit functionality, there are no scenarios where the user should be allowed to overwrite imported data in the experiments table. 
+  User action should be restricted to add/edit values only to columns that were not imported from a data file.
+\end{enumerate}
+
+\section{Proposed Changes}
+\begin{itemize}
+  \item For query \ref{Q1}, rename `data sheet' to `raw data' and `experiment sheet' to `processed data' or `summarized data/results'.
+  \item For query \ref{Q2}, add date and timestamp to the dashboard for when a data sheet was uploaded.
+  \item For query \ref{Q3}, add a pop-up or a help button mentioning that file ID must be entered in the format \emph{yyyy-mm-dd} to avoid 
+  confusion.
+  \item For query \ref{Q4}, rename queries page and replace icon to something more relevant.
+  \item Separate the edit and calculations bar in the queries page. Place the edit button along the set column types button and the search bar,
+  separate from calculations.
+  \item For task \ref{T6}, allow for more comprehensive search functionality. For example, seraching \emph{1.5*} should display all values that start
+  with 1.5 such as 1.58, 1.534 etc.
+  \item Implement an edit button for graph generation so user can select different parameters for a graph without going through the entire form every time.
+\end{itemize}
 
 \end{document}
