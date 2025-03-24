@@ -40,7 +40,7 @@ const useTable = (defaultExperiment: string) => {
     refetch: refetchData,
   } = useQuery<{ getData: DataRow[] }>(GET_DATA, {
     variables: { experimentId: selectedExperiment },
-    skip: selectedExperiment === "Exp" || selectedExperiment === "Efficiency Calculations",
+    skip: selectedExperiment === "Experiment Log" || selectedExperiment === "Efficiency Calculations",
   });
 
   const {
@@ -49,7 +49,7 @@ const useTable = (defaultExperiment: string) => {
     error: experimentsError,
     refetch: refetchExperiments,
   } = useQuery<{ getExperiments: DataRow[] }>(GET_EXPERIMENTS, {
-    skip: selectedExperiment !== "Exp",
+    skip: selectedExperiment !== "Experiment Log",
   });
 
   const {
@@ -72,7 +72,7 @@ const useTable = (defaultExperiment: string) => {
 
   const sortedData = useMemo(() => {
     const dataToSort =
-      selectedExperiment === "Exp"
+      selectedExperiment === "Experiment Log"
         ? experiments
         : selectedExperiment === "Efficiency Calculations"
         ? efficiencyData
@@ -86,7 +86,7 @@ const useTable = (defaultExperiment: string) => {
   }, [selectedExperiment, data, experiments, efficiencyData]);
 
   const tableName =
-    selectedExperiment === "Exp"
+    selectedExperiment === "Experiment Log"
       ? experimentsLoading
         ? "Loading all experiments..."
         : experimentsError

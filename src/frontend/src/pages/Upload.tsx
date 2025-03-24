@@ -153,7 +153,7 @@ const Upload: React.FC = () => {
           }`}
         >
           <UploadArea
-            sectionTitle="Experiment Files"
+            sectionTitle="Experiment Log Files"
             files={experimentFiles}
             setFiles={setExperimentFiles}
             inputId="experimentFileInput"
@@ -166,7 +166,7 @@ const Upload: React.FC = () => {
           </div>
 
           <UploadArea
-            sectionTitle="Data Files"
+            sectionTitle="Raw Data Files"
             files={dataFiles}
             setFiles={setDataFiles}
             inputId="dataFileInput"

@@ -17,7 +17,7 @@ interface ListSidebarProps {
 
 const ListSidebar: React.FC<ListSidebarProps> = ({
   experimentIds,
-  experimentSheets = ["Exp"],
+  experimentSheets = ["Experiment Log"],
   efficiencies = ["Efficiency Calculations"],
   selectedExperiment,
   onSelectExperiment,
@@ -60,7 +60,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
               </div>
               {isOpen && (
                 <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
-                  EXPERIMENTS
+                  SUMMARIZED DATA
                 </span>
               )}
             </div>
@@ -139,7 +139,7 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
               </div>
               {isOpen && (
                 <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
-                  DATA
+                  RAW DATA
                 </span>
               )}
             </div>

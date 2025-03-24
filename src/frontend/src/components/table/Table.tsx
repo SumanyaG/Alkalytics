@@ -94,7 +94,7 @@ const Table: React.FC<TableProps> = ({
   const [setColumnTypes] = useMutation(SET_COLUMN_TYPES);
   const [computeEfficiency] = useMutation(COMPUTE_EFF);
 
-  const { ids } = useTable("Exp");
+  const { ids } = useTable("Experiment Log");
 
   const { data: columnTypesData, refetch } = useQuery<{
     getColumnTypes: Record<string, string>[];

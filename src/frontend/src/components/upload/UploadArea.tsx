@@ -204,7 +204,7 @@ const UploadArea = memo(
                 <WarningIcon className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0 text-blue-600" />
                 <p className="text-xs text-gray-600">
                   Files will be processed and linked to your experiments. Make
-                  sure your data files match the experiment naming convention
+                  sure your raw data files match the experiment naming convention
                   for automatic linking.
                 </p>
               </div>
