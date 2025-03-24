@@ -7,7 +7,7 @@ const GET_GRAPH = gql`
 `;
 
 const useGraphs = (latestNum: number) => {
-  const { data: generatedGraphData, loading, error } = useQuery<{ getLastestGraph: any[] }>(
+  const { data: generatedGraphData, loading, error, refetch } = useQuery<{ getLastestGraph: any[] }>(
     GET_GRAPH,
     {
       variables: { latest: latestNum },
@@ -16,7 +16,7 @@ const useGraphs = (latestNum: number) => {
 
   const latestGraphs = generatedGraphData?.getLastestGraph ?? [];
 
-  return { latestGraphs, loading, error }
+  return { latestGraphs, loading, error, refetch }
 };
 
 export default useGraphs;

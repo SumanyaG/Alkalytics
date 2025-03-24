@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Stepper, Step, StepLabel, TextField, IconButton } from "@mui/material";
 import SingleDropdown from "../dropdown/SingleDropdown";
-import MultipleSelectCheckmarks from "../dropdown/MultiSelectDropDown";
 import ExpandableSection from "../expandable/ExpandableSection";
 import { FormDataContext } from "../../pages/DataVisualize";
 import { useQuery, gql } from "@apollo/client";
@@ -43,85 +42,35 @@ const GET_ATTRS = gql`
   }
 `;
 
-const FILTER_COLLECTDATA = gql`
-  query GetFilterCollectionData(
-    $attributes: [String!]!
+const GET_ATTR_VALUES = gql`
+  query GetFilterCollectionAttrValues(
+    $attribute: String!
     $collection: String!
-    $dates: [String!]!
   ) {
-    getFilterCollectionData(
-      attributes: $attributes
+    getFilterCollectionAttrValues(
+      attribute: $attribute
       collection: $collection
-      dates: $dates
-    ) {
-        data
-        analysisRes
-    }
+    )
   }
 `;
-
 const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
   setOpenModal,
   onSubmit,
 }) => {
-  const { data: dataAttr } = useQuery<{ getCollectionAttrs: any[] }>(
-    GET_ATTRS,
-    { variables: { collection: "data" } }
-  );
-  const datasheetParam = (dataAttr?.getCollectionAttrs ?? [])
-    .filter(
-      (item: string) =>
-        !["_id", "experimentId", "#", "dataSheetId"].includes(item)
-    )
-    .map((item: string) => ({
-      value: item,
-      label: item,
-    }));
-
-  const { data: expAttr } = useQuery<{ getCollectionAttrs: any[] }>(GET_ATTRS, {
-    variables: { collection: "experiments" },
-  });
-
-  const experimentParam = (expAttr?.getCollectionAttrs ?? [])
-    .filter(
-      (item: string) =>
-        !["_id", "experimentId", "#", "Date", "Notes"].includes(item)
-    ) // Exclude specific attributes
-    .map((item: string) => ({
-      value: item,
-      label: item,
-    }));
-
-  const { data: filteredData } = useQuery<{
-    getFilterCollectionData: {
-      data: any[];
-      analysisRes?: any[];
-    };
-  }>(FILTER_COLLECTDATA, {
-    variables: { attributes: ["Date"], collection: "experiments", dates: [] },
-  });
-
-  const dateOptions = (filteredData?.getFilterCollectionData?.data ?? []).map(
-    (item) => item.Date
-  );
-
-  const steps = ["Graph", "Data", "Parameters", "Customize"];
-  const [activeStep, setActiveStep] = useState(0);
-  const [xAxisError, setXAxisError] = useState<string | null>(null);
-  const [yAxisError, setYAxisError] = useState<string | null>(null);
-
   // Imported states
   const {
     selectedGraphType,
     setSelectedGraphType,
-    selectedDates,
-    setSelectedDates,
     selectedParamType,
     setSelectedParamType,
     selectedParamX,
     setSelectedParamX,
     selectedParamY,
     setSelectedParamY,
+    xValue,
+    setXValue,
+    yValue,
+    setYValue,
     timeMinX,
     setTimeMinX,
     timeMaxX,
@@ -143,6 +92,74 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     setYLabel,
   } = useContext(FormDataContext);
 
+  const { data: dataAttr } = useQuery<{ getCollectionAttrs: any[] }>(
+    GET_ATTRS,
+    { variables: { collection: "data" } }
+  );
+  const datasheetParam = (dataAttr?.getCollectionAttrs ?? [])
+    .filter(
+      (item: string) =>
+        !["_id", "experimentId", "#", "dataSheetId"].includes(item)
+    )
+    .map((item: string) => ({
+      value: item,
+      label: item,
+    }));
+
+  const { data: expAttr } = useQuery<{ getCollectionAttrs: any[] }>(GET_ATTRS, {
+    variables: { collection: "experiments" },
+  });
+
+  const experimentParam = (expAttr?.getCollectionAttrs ?? [])
+    .filter(
+      (item: string) => !["_id", "experimentId", "#", "Notes"].includes(item)
+    ) // Exclude specific attributes
+    .map((item: string) => ({
+      value: item,
+      label: item,
+    }));
+
+  const { data: xAttr } = useQuery<{ getFilterCollectionAttrValues: any[] }>(
+    GET_ATTR_VALUES,
+    {
+      variables: {
+        attribute: selectedParamX,
+        collection: selectedParamType,
+      },
+      skip: !selectedParamX || !selectedParamType,
+    }
+  );
+
+  const xValues = (xAttr?.getFilterCollectionAttrValues ?? []).map(
+    (item: any) => ({
+      value: item,
+      label: item,
+    })
+  );
+
+  const { data: yAttr } = useQuery<{ getFilterCollectionAttrValues: any[] }>(
+    GET_ATTR_VALUES,
+    {
+      variables: {
+        attribute: selectedParamY,
+        collection: selectedParamType,
+      },
+      skip: !selectedParamY || !selectedParamType,
+    }
+  );
+
+  const yValues = (yAttr?.getFilterCollectionAttrValues ?? []).map(
+    (item: any) => ({
+      value: item,
+      label: item,
+    })
+  );
+
+  const steps = ["Graph", "Parameters", "Filter", "Customize"];
+  const [activeStep, setActiveStep] = useState(0);
+  const [xAxisError, setXAxisError] = useState<string | null>(null);
+  const [yAxisError, setYAxisError] = useState<string | null>(null);
+
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
       setActiveStep(activeStep + 1);
@@ -155,9 +172,6 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
       return !selectedGraphType;
     }
     if (activeStep === 1) {
-      return !selectedDates;
-    }
-    if (activeStep === 2) {
       return !selectedParamType || !selectedParamX || !selectedParamY;
     }
     return false;
@@ -295,27 +309,14 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                   label="Graph Type"
                   required={true}
                   onChange={setSelectedGraphType}
+                  value={selectedGraphType}
                 />
               }
             />
           )}
-          {/* Data */}
-          {activeStep === 1 && (
-            <Input
-              label="Experiment Dates"
-              description=" Select the experimental date(s) of the datasheet(s)"
-              children={
-                <MultipleSelectCheckmarks
-                  dates={dateOptions}
-                  required={true}
-                  values={selectedDates}
-                  onChange={setSelectedDates}
-                />
-              }
-            />
-          )}
+
           {/* Parameters */}
-          {activeStep === 2 && (
+          {activeStep === 1 && (
             <div>
               <Input
                 label="Parameter Type"
@@ -326,51 +327,70 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                     label="Param Type"
                     required={true}
                     onChange={setSelectedParamType}
+                    value={selectedParamType}
                   />
                 }
               />
-              {selectedParamType === "experiments" &&
-              selectedDates.length <= 1 ? (
-                <div className="flex justify-center">
-                  <p className="text-red-500">
-                    More than 1 experiment date must be selected for this
-                    parameter
-                  </p>
-                </div>
-              ) : (
-                <Input
-                  label="Compare Parameters"
-                  description="Select axis parameters"
-                  children={
-                    <div>
-                      <SingleDropdown
-                        options={
-                          selectedParamType === "data"
-                            ? datasheetParam
-                            : experimentParam
-                        }
-                        label="X"
-                        required={true}
-                        onChange={setSelectedParamX}
-                      />
-                      <SingleDropdown
-                        options={
-                          selectedParamType === "data"
-                            ? datasheetParam
-                            : experimentParam
-                        }
-                        label="Y"
-                        required={true}
-                        onChange={setSelectedParamY}
-                      />
-                    </div>
-                  }
-                />
-              )}
+              <Input
+                label="Compare Parameters"
+                description="Select axis parameters"
+                children={
+                  <div>
+                    <SingleDropdown
+                      options={
+                        selectedParamType === "data"
+                          ? datasheetParam
+                          : experimentParam
+                      }
+                      label="X"
+                      required={true}
+                      onChange={setSelectedParamX}
+                      value={selectedParamX}
+                    />
+                    <SingleDropdown
+                      options={
+                        selectedParamType === "data"
+                          ? datasheetParam
+                          : experimentParam
+                      }
+                      label="Y"
+                      required={true}
+                      onChange={setSelectedParamY}
+                      value={selectedParamY}
+                    />
+                  </div>
+                }
+              />
             </div>
           )}
 
-          {/* Parameters */}
+          {/* Data */}
+          {activeStep === 2 && (
+            <div>
+              <Input
+                label="Filter Parameters"
+                description="Filter by a value"
+                children={
+                  <div>
+                    <SingleDropdown
+                      options={xValues}
+                      label={selectedParamX}
+                      onChange={setXValue}
+                      value={xValue}
+                    />
+                    <SingleDropdown
+                      options={yValues}
+                      label={selectedParamY}
+                      onChange={setYValue}
+                      value={yValue}
+                    />
+                  </div>
+                }
+              />
+            </div>
+          )}
+
+          {/* Customize */}
           {activeStep === 3 && (
             <div>
               <div className="flex items-center mb-6 justify-between">

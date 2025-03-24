@@ -11,6 +11,7 @@ import {
   History,
 } from "@mui/icons-material";
 import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
 import GenerateGraphModal from "../modal/DataFormModal";
 import { FormDataContext } from "../../pages/DataVisualize";
 import useGraphs from "../../hooks/useGraphs";
@@ -18,15 +19,17 @@ import useGraphs from "../../hooks/useGraphs";
 type GraphSideBarProps = {
   onSubmit: () => void;
   onGraphSelect: (graphData: any) => void;
+  deleteGraph: (graphId: number) => Promise<void>;
 };
 
 const GraphSideBar: React.FC<GraphSideBarProps> = ({
   onSubmit,
   onGraphSelect,
+  deleteGraph,
 }) => {
   const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
 
-  const { latestGraphs, loading, error } = useGraphs(0);
+  const { latestGraphs, loading, error, refetch } = useGraphs(0);
   const validGraphs =
     latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
     [];
@@ -36,7 +39,6 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
 
   const {
     setSelectedGraphType,
-    setSelectedDates,
     setSelectedParamType,
     setSelectedParamX,
     setSelectedParamY,
@@ -56,7 +58,6 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
 
   const resetFields = () => {
     setSelectedGraphType("");
-    setSelectedDates([]);
     setSelectedParamType("");
     setSelectedParamX("");
     setSelectedParamY("");
@@ -77,7 +78,6 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
   const handleGraphData = (graphData: any) => {
     setSelectedGraphType(graphData.graphtype);
     setGraphTitle(graphData.properties[0]?.["graph title"] || "");
-    setSelectedDates(graphData.properties[0]?.["Selected Dates"] || []);
     setTimeMinX(graphData.properties[0]?.["x time min"] || "");
     setTimeMaxX(graphData.properties[0]?.["x time max"] || "");
     setTimeMinY(graphData.properties[0]?.["y time min"] || "");
@@ -184,7 +184,7 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
                     <li
                       key={r._id}
                       onClick={() => handleSelectGraph(r._id)}
-                      className={`flex ${
+                      className={` group flex justify-between ${
                         isOpen ? "gap-2" : ""
                       } cursor-pointer items-center rounded-lg p-1 mb-0.5 transition-all duration-200 hover:bg-blue-50/70 ${
                         selectedGraphId === r._id
@@ -192,23 +192,39 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
                           : ""
                       }`}
                     >
-                      {r.graphtype === "bar" ? (
-                        <BarChart className="text-blue-600" fontSize="small" />
-                      ) : r.graphtype === "line" ? (
-                        <ShowChart className="text-blue-600" fontSize="small" />
-                      ) : r.graphtype === "scatter" ? (
-                        <ScatterPlot
-                          className="text-blue-600"
-                          fontSize="small"
-                        />
-                      ) : null}
-                      {isOpen && (
-                        <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
-                          {r.properties[0]?.["graph title"] === ""
-                            ? r.graphtype + " Graph"
-                            : r.properties[0]?.["graph title"]}
-                        </span>
-                      )}
+                      <div>
+                        {r.graphtype === "bar" ? (
+                          <BarChart
+                            className="text-blue-600"
+                            fontSize="small"
+                          />
+                        ) : r.graphtype === "line" ? (
+                          <ShowChart
+                            className="text-blue-600"
+                            fontSize="small"
+                          />
+                        ) : r.graphtype === "scatter" ? (
+                          <ScatterPlot
+                            className="text-blue-600"
+                            fontSize="small"
+                          />
+                        ) : null}
+                        {isOpen && (
+                          <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {r.properties[0]?.["graph title"] === ""
+                              ? r.graphtype + " Graph"
+                              : r.properties[0]?.["graph title"]}
+                          </span>
+                        )}
+                      </div>
+                      <DeleteIcon
+                        className="invisible group-hover:visible text-gray-600"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteGraph(r._id);
+                          refetch();
+                        }}
+                      ></DeleteIcon>
                     </li>
                   ))
                 )}

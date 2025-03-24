@@ -8,8 +8,6 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 type FormDataType = {
   selectedGraphType: string;
   setSelectedGraphType: (value: string) => void;
-  selectedDates: string[];
-  setSelectedDates: (value: string[]) => void;
   selectedParamType: string;
   setSelectedParamType: (value: string) => void;
   selectedParamX: string;
@@ -17,6 +15,10 @@ type FormDataType = {
   selectedParamY: string;
   setSelectedParamY: (value: string) => void;
   timeMinX: string;
+  setXValue: (value: string) => void;
+  xValue: string;
+  setYValue: (value: string) => void;
+  yValue: string;
   setTimeMinX: (value: string) => void;
   timeMaxX: string;
   setTimeMaxX: (value: string) => void;
@@ -45,14 +47,16 @@ type FormDataType = {
 const defaultContextValue: FormDataType = {
   selectedGraphType: "",
   setSelectedGraphType: () => {},
-  selectedDates: [],
-  setSelectedDates: () => {},
   selectedParamType: "",
   setSelectedParamType: () => {},
   selectedParamX: "",
   setSelectedParamX: () => {},
   selectedParamY: "",
   setSelectedParamY: () => {},
+  xValue: "",
+  setXValue: () => {},
+  yValue: "",
+  setYValue: () => {},
   timeMinX: "",
   setTimeMinX: () => {},
   timeMaxX: "",
@@ -84,15 +88,17 @@ export const FormDataContext =
 
 const FILTER_COLLECTDATA = gql`
   query GetFilterCollectionData(
-    $attributes: [String!]!
     $collection: String!
-    $dates: [String]
+    $attributes: [String!]!
+    $xValue: String
+    $yValue: String
     $analysis: Boolean
   ) {
     getFilterCollectionData(
       attributes: $attributes
       collection: $collection
-      dates: $dates
+      xValue: $xValue
+      yValue: $yValue
       analysis: $analysis
     ) {
       data
@@ -117,12 +123,19 @@ const SAVE_GRAPH = gql`
   }
 `;
 
+const REMOVE_GRAPH = gql`
+  mutation RemoveGraph($graphId: Int!) {
+    removeGraph(graphId: $graphId)
+  }
+`;
+
 const DataVisualize: React.FC = () => {
   const [selectedGraphType, setSelectedGraphType] = useState<string>("");
-  const [selectedDates, setSelectedDates] = React.useState<string[]>([]);
   const [selectedParamType, setSelectedParamType] = useState<string>("");
   const [selectedParamX, setSelectedParamX] = useState<string>("");
   const [selectedParamY, setSelectedParamY] = useState<string>("");
+  const [xValue, setXValue] = useState<string>("");
+  const [yValue, setYValue] = useState<string>("");
   const [timeMinX, setTimeMinX] = useState("");
   const [timeMaxX, setTimeMaxX] = useState("");
   const [timeMinY, setTimeMinY] = useState("");
@@ -142,14 +155,16 @@ const DataVisualize: React.FC = () => {
   const contextValue: FormDataType = {
     selectedGraphType,
     setSelectedGraphType,
-    selectedDates,
-    setSelectedDates,
     selectedParamType,
     setSelectedParamType,
     selectedParamX,
     setSelectedParamX,
     selectedParamY,
     setSelectedParamY,
+    xValue,
+    setXValue,
+    yValue,
+    setYValue,
     timeMinX,
     setTimeMinX,
     timeMaxX,
@@ -175,6 +190,16 @@ const DataVisualize: React.FC = () => {
     submit,
     setSubmit,
   };
+  const [removeGraph] = useMutation(REMOVE_GRAPH);
+  const handleRemoveGraph = async (graphId: number) => {
+    try {
+      const { data } = await removeGraph({
+        variables: { graphId },
+      });
+    } catch (error) {
+      console.error("Error removing graph:", error);
+    }
+  };
 
   const { data, loading, error } = useQuery<{
     getFilterCollectionData: {
@@ -185,7 +210,6 @@ const DataVisualize: React.FC = () => {
     variables: {
       attributes: [selectedParamX, selectedParamY],
       collection: selectedParamType,
-      dates: selectedDates,
       analysis: selectedGraphType === "scatter",
     },
     skip: !submit,
@@ -230,7 +254,6 @@ const DataVisualize: React.FC = () => {
 
   const graphProperties = {
     "graph title": graphTitle,
-    "Selected Dates": selectedDates,
     "x time min": timeMinX ? parseFloat(timeMinX) : undefined,
     "x time max": timeMaxX ? parseFloat(timeMaxX) : undefined,
     "y time min": timeMinY ? parseFloat(timeMinY) : undefined,
@@ -303,6 +326,7 @@ const DataVisualize: React.FC = () => {
         <GraphSideBar
           onSubmit={handleGraphData}
           onGraphSelect={handleGraphSelect}
+          deleteGraph={handleRemoveGraph}
         />
         <div className="flex-1 overflow-hidden">
           <div className="p-8 h-full w-full flex items-center justify-center">
