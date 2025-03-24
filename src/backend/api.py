@@ -402,7 +402,11 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
     connection = getConnection("graphs")
     collection, client = connection["collection"], connection["client"]
 
-    nextId = collection.count_documents({}) + 1
+    latest = collection.find().sort({"_id":-1}).limit(1)
+    data_list = list(latest)
+    data_list = [cleanData(item) for item in data_list]
+    nextId = data_list[0]["_id"] + 1
+    
     graph = {
         "_id": nextId,  
         "graphtype": payload.graphType,
@@ -412,6 +416,7 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
     }
 
     try:
+        print("testing")
         collection.insert_one(graph)
         return {"status": "success", "message": f"Added generated graph {graph} to storage."}
     except Exception as e:
