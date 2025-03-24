@@ -29,7 +29,7 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
 }) => {
   const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
 
-  const { latestGraphs, loading, error } = useGraphs(0);
+  const { latestGraphs, loading, error, refetch } = useGraphs(0);
   const validGraphs =
     latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
     [];
@@ -222,6 +222,7 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
                         onClick={(e) => {
                           e.stopPropagation();
                           deleteGraph(r._id);
+                          refetch();
                         }}
                       ></DeleteIcon>
                     </li>
