@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import * as formulajs from "formulajs";
 import type { DataRow } from "./Table";
 import { useAuth } from "../../context/authContext";
-import { Add, Remove, Functions, Help } from "@mui/icons-material";
+import { Add, Remove, Functions, Help, Settings } from "@mui/icons-material";
 
 type TableFooterProps = {
   columns: string[];
@@ -13,6 +13,7 @@ type TableFooterProps = {
   onAddRow: () => void;
   onRemoveColumn: () => void;
   onRemoveRow: () => void;
+  onSetColumnTypes: () => void;
   selectedRows: Set<string>;
   graphType?: string;
   onApplyFunction: (updatedData: Record<string, unknown>) => Promise<void>;
@@ -26,6 +27,7 @@ const TableFooter: React.FC<TableFooterProps> = ({
   onAddRow,
   onRemoveColumn,
   onRemoveRow,
+  onSetColumnTypes,
   selectedRows,
   graphType,
   onApplyFunction,
@@ -89,6 +91,11 @@ const TableFooter: React.FC<TableFooterProps> = ({
 
   const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColumn(e.target.value);
+  };
+
+  const handleSetColumnTypeChange = () => {
+    onSetColumnTypes();
+    closeDropdown();
   };
 
   const excelColumnToIndex = (column: string): number => {
@@ -170,10 +177,10 @@ const TableFooter: React.FC<TableFooterProps> = ({
 
   return (
     <div className="relative z-10 border-t border-blue-100/50 bg-white/95 px-4 py-3 backdrop-blur-sm">
-      <div className="flex h-full w-full flex-row justify-between">
+      <div className="flex h-full w-full flex-row justify-between items-center">
         <div className="relative">
           {graphType === "experiment" && userRole.role !== "assistant" && (
-            <div className="relative">
+            <div className="flex relative">
               <button
                 onClick={toggleEditDropdown}
                 className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg"
@@ -213,6 +220,14 @@ const TableFooter: React.FC<TableFooterProps> = ({
                   >
                     <Remove className="mr-2 h-4 w-4" />
                     Remove Row
+                  </button>
+
+                  <button
+                    onClick={handleSetColumnTypeChange}
+                    className="flex w-full items-center px-4 py-2 text-left text-sm text-blue-700 transition-colors hover:bg-blue-50"
+                  >
+                    <Settings className="mr-2 h-1 w-1" />
+                    Set Column Types
                   </button>
                 </div>
               )}

@@ -1,5 +1,4 @@
 import type React from "react";
-import { useAuth } from "../../context/authContext";
 import { Search } from "@mui/icons-material";
 
 type TableHeaderProps = {
@@ -9,7 +8,6 @@ type TableHeaderProps = {
   setSelectedColumn: React.Dispatch<React.SetStateAction<string>>;
   searchKeyword: string;
   setSearchKeyword: React.Dispatch<React.SetStateAction<string>>;
-  onSetColumnTypes: () => void;
   graphType?: string;
 };
 
@@ -20,14 +18,8 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   setSelectedColumn,
   searchKeyword,
   setSearchKeyword,
-  onSetColumnTypes,
   graphType,
 }) => {
-  const { userRole } = useAuth();
-
-  const handleSetColumnTypeChange = () => {
-    onSetColumnTypes();
-  };
 
   return (
     <div className="border-b border-blue-100/50">
@@ -41,16 +33,6 @@ const TableHeader: React.FC<TableHeaderProps> = ({
         </div>
 
         <div className="flex items-center space-x-3">
-          {graphType === "experiment" && userRole.role === "admin" && (
-            <button
-              onClick={handleSetColumnTypeChange}
-              className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg"
-            >
-              <span className="relative z-10">Set Column Types</span>
-              <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
-            </button>
-          )}
-
           <div className="relative">
             <select
               className="h-10 w-52 appearance-none rounded-lg border border-blue-100 bg-white/80 pl-3 pr-10 text-sm text-blue-900 shadow-sm backdrop-blur-sm transition-all focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-200"

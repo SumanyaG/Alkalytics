@@ -111,7 +111,7 @@ const Table: React.FC<TableProps> = ({
   const columns = useMemo(() => {
     if (data.length === 0) return [];
 
-    const keys = Object.keys(data[0]);
+    const keys = Object.keys(data[data.length - 1]);
     return keys
       .filter((k) => k !== "Notes")
       .concat(keys.includes("Notes") ? ["Notes"] : []);
@@ -272,7 +272,6 @@ const Table: React.FC<TableProps> = ({
             setSelectedColumn={setSelectedColumn}
             searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
-            onSetColumnTypes={() => setIsColumnTypesModalOpen(true)}
             graphType={graphType}
           />
           <div style={{ flex: 1, overflow: "hidden" }}>
@@ -294,6 +293,7 @@ const Table: React.FC<TableProps> = ({
             onAddRow={() => setIsRowModalOpen(true)}
             onRemoveColumn={() => setIsRemoveColumnModalOpen(true)}
             onRemoveRow={() => setIsRemoveRowModalOpen(true)}
+            onSetColumnTypes={() => setIsColumnTypesModalOpen(true)}
             selectedRows={selectedRows}
             graphType={graphType}
             onApplyFunction={handleUpdateData}
