@@ -438,15 +438,8 @@ async def getLastestGraph(payload: GeneratedGraphRequest):
     collection, client = connection["collection"], connection["client"]
 
     try:
-        latestGraphs = []
-        totalData = collection.count_documents({})
-        count = 0
-        if payload.latest == 0: payload.latest = totalData
-
-        while count < payload.latest:
-            data = collection.find_one({"_id": totalData-count})
-            latestGraphs.append(data)
-            count = count + 1
+        limit = payload.latest if payload.latest and payload.latest > 0 else 0
+        latestGraphs = list(collection.find().sort("_id", -1).limit(limit))
         return latestGraphs
     except Exception as e: 
         raise HTTPException(status_code=500, detail=f"Error in retreaving latest {payload.latest} graphs: {str(e)}")
