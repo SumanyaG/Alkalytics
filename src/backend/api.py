@@ -323,14 +323,12 @@ async def getFilterCollectionData(payload: ExperimentFilter):
             query[attributes[1]] = get_numeric_value(y_value)
             
         return query
-    try:
-        # Prepare attributes for projection
-        attrs = {field: 1 for field in payload.attributes}
-        attrs["_id"] = 0
-        print("x",payload.xValue, "y", payload.yValue)
-        target_conn = getConnection(payload.collection)
-        target_collection, target_client = target_conn["collection"], target_conn["client"]
-        
+    target_conn = getConnection(payload.collection)
+    target_collection, target_client = target_conn["collection"], target_conn["client"]
+    attrs = {field: 1 for field in payload.attributes}
+    attrs["_id"] = 0
+
+    try:        
         query = build_query(payload.attributes, payload.xValue, payload.yValue)
 
         try:
@@ -343,7 +341,6 @@ async def getFilterCollectionData(payload: ExperimentFilter):
             response = {"status": "success", "data": data_list}
         
         except Exception as e:
-            print("yikes")
             response = {"status": "error", "message": str(e)}
 
         # Check if analysis is requested
@@ -416,7 +413,6 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
     }
 
     try:
-        print("testing")
         collection.insert_one(graph)
         return {"status": "success", "message": f"Added generated graph {graph} to storage."}
     except Exception as e:
