@@ -856,8 +856,9 @@ async def compute(efficiency, experiment, results, payload):
     Helper function to call corresponding efficiency computation functions.
     """
     if efficiency in ["Current Efficiency (HCl)", "Current Efficiency (NaOH)"]:
+        VOLUME_FIELD = "Final volume (L) "
         compound = "HCL" if efficiency == "Current Efficiency (HCl)" else "NaOH"
-        finalVol, numStacks = experiment.get(compound), experiment.get("# of Stacks")
+        finalVol, numStacks = experiment.get(VOLUME_FIELD + compound), experiment.get("# of Stacks")
         if finalVol is None or numStacks is None:
             raise Exception(f"Missing data for final volumes or number of stacks (triplets).")
         return computeCurrentEfficiency(results, compound, finalVol, numStacks)
@@ -866,7 +867,8 @@ async def compute(efficiency, experiment, results, payload):
         return computeVoltageDropEfficiency(results)
 
     if efficiency == "Reaction Efficiency":
-        volHCl, volNaOH = experiment.get("HCL"), experiment.get("NaOH")
+        VOLUME_FIELD = "Final volume (L) "
+        volHCl, volNaOH = experiment.get(VOLUME_FIELD + "HCL"), experiment.get(VOLUME_FIELD + "NaOH")
         if volHCl is None or volNaOH is None:
             raise Exception("Missing data for final volumes.")
         reactionResults = await getExperimentData(payload.experimentId, -5)
@@ -917,7 +919,6 @@ async def calculateEfficiency(payload: EfficiencyRequest):
             computedEfficiencies[efficiency] = await compute(efficiency, experiment, results, payload)
         except Exception as e:
             computedEfficiencies[efficiency] = 0
-            print(f"Error computing {efficiency}: {str(e)}")
             raise Exception(f"Error computing {efficiency}: {str(e)}")
 
     # handle overall efficiency calculation if requested
