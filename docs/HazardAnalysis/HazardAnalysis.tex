@@ -43,6 +43,9 @@
 25 October 2024 & Jason Tran & Add sections 5 and 6\\
 25 October 2024 & Jennifer Ye & Add sections 1 and 4\\
 26 October 2024 & Sumanya Gulati & Add sections 3 and Appendix - Reflection\\
+26 October 2024 & Jason Tran& Updated to adhere to 
+\href{https://github.com/SumanyaG/Alkalytics/issues/111}{111},
+\href{https://github.com/SumanyaG/Alkalytics/issues/158}{158}. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -167,134 +170,144 @@ The following are assumptions made about the software of the system.
 \section{Failure Mode and Effect Analysis}
 \newgeometry{margin=2cm}
 \begin{landscape}
-    \begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{4cm}|p{4cm}|p{1.25cm}|p{1cm}|}
-        \hline
-        \textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of
-        Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} &
-        \textbf{SR} & \textbf{Ref} \\
-        \hline
-        \endfirsthead
-        
-        \hline
-        \textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of
-        Failure} & \textbf{Causes of Failure} & \textbf{Recommended Action} &
-        \textbf{SR} & \textbf{Ref} \\
-        \hline
-        \endhead
-        
-        \hline
-        \endfoot
-        Authentication & Unauthorized user access & Data breach, loss of data
-        integrity & Weak security protocols & Strengthen authentication
-        mechanisms & SR-1, SR-2 & H1-1 \\
-        \cline{2-7}
-        \texttt{} & User unable to log in & Loss of productivity & System
-        downtime, credential errors & Ensure high system uptime and credential
-        recovery & FR-14, SR-1, SR-4 & H1-2 \\
-        \cline{1-7}
-        CSV Data Migration & Data not uploaded to the database & Loss of data
-        availability & Incorrect file format or server issue & Validate file
-        format and ensure server uptime & FR-3, FR-4, SR-9 & H2-1 \\
-        \cline{2-7}
-        \texttt{} & Data partially uploaded & Incomplete data leads to incorrect
-        analysis & Timeout during upload, corrupted file & Implement
-        error-checking during upload & FR-3, FR-2 & H2-2 \\
-        \cline{2-7}
-        \texttt{} & Duplicate data entries & Conflicting results in data
-        analysis & No validation for duplicates & Add duplicate data detection
-        and rejection logic & SR-5, FR-4, SR-7 & H2-3 \\
-        \cline{1-7}
-        Data Visualization & Incorrect graph rendering & Misleading or
-        inaccurate data interpretation & Inaccurate parameter selection &
-        Improve input validation, real-time graph updates & FR-8, FR-9 & H3-1 \\
-        \cline{2-7}
-        \texttt{} & Slow graph rendering & Poor user experience & Large dataset
-        or inefficient plotting algorithm & Optimize graph rendering speed &
-        PR-5, PR-2 & H3-2 \\
-        \cline{1-7}
-        Query Functionality & Data not returned or delayed & User frustration,
-        inability to retrieve data & Database connection or query input error &
-        Optimize query performance and error handling & FR-5, FR-6, PR-2 & H4-1
-        \\
-        \cline{2-7}
-        \texttt{} & Incorrect data returned & Incorrect conclusions from user &
-        Misconfigured query logic & Validate query structure and results & PR-6,
-        FR-5 & H4-2 \\
-        \cline{2-7}
-        \texttt{} & Query results outdated & Decisions based on stale data &
-        Data not refreshed in database & Implement data refresh strategy &
-        PR-14, FR-6 & H4-3 \\
-        \cline{1-7}
-        Data Export & CSV export generates corrupted files & Data cannot be used
-        in external systems & Incorrect formatting logic & Implement robust
-        export validation & FR-15, PR-6, SR-3 & H5-1 \\
-        \cline{2-7}
-        \texttt{} & Export missing data & Partial data exported, incomplete
-        reports & Timeout during export or data truncation & Ensure export
-        process handles large data volumes & FR-15, PR-8 & H5-2 \\
-        \cline{2-7}
-        \texttt{} & Session timeout too short & User repeatedly logged out,
-        inconvenience & Incorrect session configuration & Increase session
-        timeout settings & FR-14, SR-16, SR-4 & H5-3 \\
-        \cline{1-7}
-        Backend Database & Database connection lost & Data retrieval fails,
-        analysis halted & Network issues, server downtime & Improve database
-        fault-tolerance and backups & PR-9, PR-10 & H6-1 \\
-        \cline{2-7}
-        \texttt{} & Data corruption during storage & Loss of data integrity &
-        Incorrect write operations or hardware failure & Implement database
-        checksums and backups & SR-6, SR-7 & H6-2 \\
-        \cline{2-7}
-        \texttt{} & Insufficient storage space & Application crashes or stops
-        accepting data & Lack of storage planning & Increase storage capacity
-        and monitor usage & PR-12, PR-13 & H6-3 \\
-        \cline{1-7}
-        Frontend Interface & UI unresponsive & Poor user experience, tasks
-        uncompleted & JavaScript errors, resource overload, slow internet &
-        Debug UI code, efficient resource management & FR-7, PR-3 & H7-1 \\
-        \cline{2-7}
-        \texttt{} & Elements not displayed correctly & Confusion, incorrect
-        actions performed & Browser compatibility issues & Test for
-        compatibility across browsers & LFR-1, OER-3 & H7-2 \\
-        \cline{2-7}
-        \texttt{} & Data input fields allow invalid entries & Corrupted data
-        entered into system & No input validation & Enforce input validation on
-        frontend & FR-1, FR-4, SR-7 & H7-3 \\
-        \cline{1-7}
-        Performance & Slow page load times & User frustration, reduced
-        productivity & Unoptimized frontend/backend code & Optimize code and
-        database queries & PR-3, PR-5 & H8-1 \\
-        \cline{2-7}
-        \texttt{} & High CPU/memory usage & System instability, crashes &
-        Inefficient data processing or memory leaks & Implement memory
-        management and resource monitoring & PR-4, PR-2 & H8-2 \\
-        \cline{1-7}
-        Error Tracking & Errors not logged & Difficulty identifying and
-        resolving issues & Lack of error handling in code & Implement detailed
-        error logging & FR-12, FR-13 & H9-1 \\
-        \cline{2-7}
-        \texttt{} & Logged errors not displayed to user & Users unaware of
-        issues & Incomplete error-handling UI & Display errors to user,
-        troubleshooting tips & MSR-5, PR-9 & H9-2 \\
-        \cline{2-7}
-        \texttt{} & Errors logged but not categorized & Troubleshooting becomes
-        complex & Poor error categorization & Create detailed error categories
-        and log structure & MSR-5, FR-12 & H9-3 \\
-        \cline{1-7}
-        Machine Learning Analysis & Incorrect data prediction & Misleading
-        trends, faulty decisions & Inaccurate algorithm configuration & Improve
-        machine learning validation steps & FR-11 & H10-1 \\
-        \cline{2-7}
-        \texttt{} & Model training incomplete & Model unable to provide accurate
-        predictions & Insufficient data or faulty training process & Ensure
-        ample, clean training data & FR-11, PR-8 & H10-2 \\
-        \cline{2-7}
-        \texttt{} & Training data overfitting & Model provides unreliable
-        results & Model too tightly fitted to training data & Implement
-        regularization techniques & FR-11 & H10-3 \\
-        
-    \end{longtable}
+  \begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{4cm}|p{4cm}|p{1.25cm}|p{1cm}|}
+      \hline
+      \textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of Failure}
+      & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} &
+      \textbf{Ref} \\
+      \hline
+      \endfirsthead
+      
+      \hline
+      \textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of Failure}
+      & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} &
+      \textbf{Ref} \\
+      \hline
+      \endhead
+      
+      \hline
+      \endfoot
+      Authentication & Unauthorized user access & Data breach, loss of data
+      integrity & Weak security protocols, poor session management & Strengthen
+      authentication mechanisms, enforce MFA & SR-1, SR-2 & H1-1 \\
+      \cline{2-7}
+      \texttt{} & User unable to log in & Loss of productivity for affected
+      users, potential lockout during critical operations & System downtime,
+      credential errors, incorrect password policy & Ensure high system uptime,
+      implement account recovery options & FR-14, SR-1, SR-4 & H1-2 \\
+      \cline{1-7}
+      CSV Data Migration & Data not uploaded to the database & Loss of data
+      availability, missing records in reports & Incorrect file format, server
+      issue, unsupported encoding & Validate file format, encoding, and ensure
+      server uptime & FR-3, FR-4, SR-9 & H2-1 \\
+      \cline{2-7}
+      \texttt{} & Data partially uploaded & Incomplete data leads to incorrect
+      reports, potential duplication on retry & Timeout during upload, corrupted
+      file, network disconnect & Implement transaction rollback for partial
+      uploads, retry logic for failures & FR-3, FR-2 & H2-2 \\
+      \cline{2-7}
+      \texttt{} & Duplicate data entries & Conflicting results in analysis,
+      redundant storage usage & No validation for duplicates, improper indexing
+      & Add duplicate detection and rejection logic before insertion & SR-5,
+      FR-4, SR-7 & H2-3 \\
+      \cline{1-7}
+      Data Visualization & Incorrect graph rendering & Misleading insights,
+      incorrect decision-making & Inaccurate parameter selection, incorrect data
+      mapping & Improve input validation, enable real-time data verification &
+      FR-8, FR-9 & H3-1 \\
+      \cline{2-7}
+      \texttt{} & Slow graph rendering & Delayed analysis, poor user experience
+      & Large dataset, inefficient plotting algorithm, memory leaks & Optimize
+      graph rendering with efficient algorithms & PR-5, PR-2 & H3-2 \\
+      \cline{1-7}
+      Query Functionality & Data not returned or delayed & Users unable to
+      retrieve necessary data, system bottlenecks & Database connection issues,
+      poorly optimized queries & Optimize indexing, caching, and error handling
+      in query execution & FR-5, FR-6, PR-2 & H4-1 \\
+      \cline{2-7}
+      \texttt{} & Incorrect data returned & Misleading results, incorrect
+      decisions & Misconfigured query logic, incorrect joins or filters &
+      Validate query logic, implement automated query testing & PR-6, FR-5 &
+      H4-2 \\
+      \cline{2-7}
+      \texttt{} & Query results outdated & Users work with old data, impacting
+      real-time decisions & Lack of data refresh, stale cache & Implement
+      scheduled data refresh and cache invalidation & PR-14, FR-6 & H4-3 \\
+      \cline{1-7}
+      Data Export & CSV export generates corrupted files & Data cannot be
+      processed by external systems & Incorrect formatting logic, encoding
+      issues & Implement robust export validation, include file integrity checks
+      & FR-15, PR-6, SR-3 & H5-1 \\
+      \cline{2-7}
+      \texttt{} & Export missing data & Incomplete reports, misleading analysis
+      & Timeout during export, data truncation, incorrect filtering & Ensure
+      export process handles large data, implement chunked exports & FR-15, PR-8
+      & H5-2 \\
+      \cline{2-7}
+      \texttt{} & Session timeout too short & Frequent logouts, user frustration
+      & Misconfigured session settings, premature session expiry & Adjust
+      session timeout dynamically based on user activity & FR-14, SR-16, SR-4 &
+      H5-3 \\
+      \cline{1-7}
+      Backend Database & Database connection lost & System downtime, inability
+      to retrieve or update data & Network failure, server crash & Implement
+      database redundancy, failover mechanisms & PR-9, PR-10 & H6-1 \\
+      \cline{2-7}
+      \texttt{} & Data corruption during storage & Loss of data integrity,
+      incorrect analysis & Faulty write operations, hardware failure & Implement
+      checksums, enable automated backups & SR-6, SR-7 & H6-2 \\
+      \cline{2-7}
+      \texttt{} & Insufficient storage space & System crashes, inability to
+      store new data & Poor storage management, lack of monitoring & Increase
+      storage capacity, implement monitoring alerts & PR-12, PR-13 & H6-3 \\
+      \cline{1-7}
+      Frontend Interface & UI unresponsive & Users unable to complete tasks,
+      frustration & JavaScript errors, resource overload & Debug UI, optimize
+      resource management & FR-7, PR-3 & H7-1 \\
+      \cline{2-7}
+      \texttt{} & Elements not displayed correctly & Confusion, incorrect user
+      actions & Browser compatibility issues, incorrect CSS/HTML structure &
+      Test compatibility across different browsers & LFR-1, OER-3 & H7-2 \\
+      \cline{2-7}
+      \texttt{} & Data input fields allow invalid entries & Corrupts stored
+      data, leading to incorrect operations & No input validation, improper form
+      handling & Enforce strict input validation rules & FR-1, FR-4, SR-7 & H7-3
+      \\
+      \cline{1-7}
+      Performance & Slow page load times & User frustration, reduced efficiency
+      & Unoptimized frontend/backend code, large assets & Optimize assets, use
+      lazy loading, improve database indexing & PR-3, PR-5 & H8-1 \\
+      \cline{2-7}
+      \texttt{} & High CPU/memory usage & System instability, crashes &
+      Inefficient data processing, memory leaks & Implement garbage collection,
+      optimize memory usage & PR-4, PR-2 & H8-2 \\
+      \cline{1-7}
+      Error Tracking & Errors not logged & Hard to diagnose issues, delayed
+      troubleshooting & Lack of proper error handling in code & Implement
+      centralized error logging & FR-12, FR-13 & H9-1 \\
+      \cline{2-7}
+      \texttt{} & Logged errors not displayed to user & Users unaware of system
+      issues, lack of feedback & Incomplete UI error handling & Display
+      meaningful error messages to users & MSR-5, PR-9 & H9-2 \\
+      \cline{2-7}
+      \texttt{} & Errors logged but not categorized & Troubleshooting
+      complexity, inefficient debugging & Poor error categorization strategy &
+      Implement structured error categorization & MSR-5, FR-12 & H9-3 \\
+      \cline{1-7}
+      Machine Learning Analysis & Incorrect predictions & Misleading trends,
+      faulty decisions & Poor training data, overfitting & Improve training data
+      quality, implement cross-validation & FR-11 & H10-1 \\
+      \cline{2-7}
+      \texttt{} & Model training incomplete & Model unable to make predictions &
+      Insufficient training data, process failure & Ensure sufficient, clean
+      training data, handle interruptions & FR-11, PR-8 & H10-2 \\
+      \cline{2-7}
+      \texttt{} & Overfitting of training data & Model provides unreliable
+      results & Training data too specific, lack of generalization & Implement
+      regularization, cross-validation & FR-11 & H10-3 \\
+  \end{longtable}
 \end{landscape}
+
 
 \restoregeometry
 
