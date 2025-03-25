@@ -69,12 +69,24 @@
   7 October 2024 & 1.1 & Incorporated feedback and presented during informal presentation with TA.\\
   11 October 2024 & 1.2 & Finished document for PoC submission.\\
   11 November 2024 & 1.3 & Updated document to include peer review changes.\\
+  25 March 2025 & 1.4 & Updated to adhere to 
+\href{https://github.com/SumanyaG/Alkalytics/issues/149}{149}, 
+\href{https://github.com/SumanyaG/Alkalytics/issues/152}{152}, 
+\href{https://github.com/SumanyaG/Alkalytics/issues/154}{154}, and 
+\href{https://github.com/SumanyaG/Alkalytics/issues/155}{155}. \\
   \bottomrule
   \end{tabularx}
 
 ~\\
 
 ~\newpage
+\section{Symbolic Parameters}
+The following symbolic parameters are used throughout the document:
+
+\begin{itemize}
+\item $TIMEOUT\_LIMIT = 60$ (Timeout for processes in seconds)
+\end{itemize}
+
 \section{Purpose of the Project}
 \subsection{User Business}
 This project aims to aid in the data management and analysis of an ocean
@@ -157,7 +169,7 @@ term, the project will be passed back to the research team to maintain.
   way to manage the data, they know that it is not up to their decision on what
   tools are being used but suggested that there could be another better solution
   to use. 
-  \item Dr.\ Carly Kelvon is a 60 years old professor at a university and
+  \item Dr.\ Carly Kelvon is a $TIMEOUT\_LIMIT$ years old professor at a university and
   is working on her own research project for over five years. She has gathered
   lots of data and thankfully she has always been great at Excel. However, other
   the last two years she has found that Excel is becoming less sustainable. The
@@ -759,7 +771,7 @@ This section outlines the requirements that are intended to make the product usa
 Performance requirements define the measurable standards the application must meet regarding speed, accuracy, robustness, and resource usage to ensure optimal performance of the application's functions.
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}
-\item[\textbf{PR-1.}] The application shall store new data or parameters within 60 seconds of input.
+\item[\textbf{PR-1.}] The application shall store new data or parameters within $TIMEOUT\_LIMIT$ seconds of input.
   \begin{itemize}
     \item \textit{Rationale}: The speed at which the task can be completed depends on the size of the new data to be inputted or how the addition of a new parameter will affect the existing database structure. The quantified timeframe allows for adequate processing time that aligns with user expectations.
     \item \textit{Related Requirements}: FR-1, FR-2.
@@ -930,24 +942,28 @@ a system remains functional, efficient, and up-to-date throughout its lifecycle.
   responsibility of the development team with no involvement from the users.
   \begin{itemize}
     \item \textit{Rationale:} Ensures that skilled personnel handle maintenance.
+    \item \textit{Fit Criterion:} All maintenance tasks must be logged, with no 
+    direct user intervention recorded.
   \end{itemize}
 
-  \item[\textbf{MSR-2.}] Documentation must be provided to be referenced for
-  future maintenance and to enable seamless knowledge transfer to a new team.
+  \item[\textbf{MSR-2.}] Documentation must be provided for future maintenance 
+  and to enable seamless knowledge transfer to new teams.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures smooth onboarding and continuity in
+    \item \textit{Rationale:} Ensures smooth onboarding and continuity in 
     development.
-    \item \textit{Fit Criterion:} The documentation must be updated with every
-    major release.
+    \item \textit{Fit Criterion:} The documentation must be updated with every 
+    major release and must be reviewed semi-annually.
     \item \textit{Related Requirements:} MSR-3.
   \end{itemize}
 
-  \item[\textbf{MSR-3.}] The application must be designed to accommodate future
-  development, including the addition of new experimental parameters or features
+  \item[\textbf{MSR-3.}] The application must be designed to accommodate future 
+  development, including the addition of new experimental parameters or features 
   without backwards progression.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures the application can scale and evolve
+    \item \textit{Rationale:} Ensures the application can scale and evolve 
     without compromising existing features.
+    \item \textit{Fit Criterion:} At least 95\% of modifications should not 
+    require changes to core functionalities.
     \item \textit{Related Requirements:} FR-4, FR-12, MSR-2.
   \end{itemize}
 \end{enumerate}
@@ -955,166 +971,182 @@ a system remains functional, efficient, and up-to-date throughout its lifecycle.
 \subsection{Supportability Requirements}
 \begin{enumerate}
   \item[\textbf{MSR-4.}] 
-  The application must have an intuitive user interface that allows users to
+  The application must have an intuitive user interface that allows users to 
   operate it independently without requiring external assistance.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures a user-friendly experience that reduces
+    \item \textit{Rationale:} Ensures a user-friendly experience that reduces 
     the need for help desk support.
-    \item \textit{Fit Criterion:} At least 90\% of users should be able to
-    complete tasks without needing support.
+    \item \textit{Fit Criterion:} At least 85\% of users in a usability test 
+    must be able to complete core tasks without external assistance.
     \item \textit{Related Requirements:} LF-1, LF-2, LF-3, UHR-1, UHR-4.
   \end{itemize}
 
-  \item[\textbf{MSR-5.}] The application must have automated guidance, such as
+  \item[\textbf{MSR-5.}] The application must have automated guidance, such as 
   error messages, to assist users in troubleshooting common issues.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures users can resolve issues on their own,
+    \item \textit{Rationale:} Ensures users can resolve issues on their own, 
     reducing the volume of support requests.
-    \item \textit{Fit Criterion:} The documentation must be updated with every
-    major release and reviewed quarterly to ensure accuracy.
+    \item \textit{Fit Criterion:} At least 80\% of users should be able to 
+    resolve common errors without external support.
     \item \textit{Related Requirements:} FR-12.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Adaptability Requirements}
 \begin{enumerate}
-  \item[\textbf{MSR-6.}] The application must be compatible with modern web
+  \item[\textbf{MSR-6.}] The application must be compatible with modern web 
   browsers to ensure widespread accessibility.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures the application is accessible to a broad
+    \item \textit{Rationale:} Ensures the application is accessible to a broad 
     range of users and devices.
-    \item \textit{Fit Criterion:} The application should at least be able to run
-    on the latest version of Chromium-based web browsers.
+    \item \textit{Fit Criterion:} The application must run without major 
+    functionality issues on the latest stable versions of Chrome, Firefox, Edge, 
+    and Safari.
     \item \textit{Related Requirements:} LF-1, LF-2.
   \end{itemize}
 \end{enumerate}
 \section{Security Requirements}
-Security requirements focus on protecting data, controlling access, ensuring
-integrity, and auditing user actions within the application.
+Security requirements focus on protecting data, controlling access, ensuring 
+integrity, enforcing privacy standards, and auditing user actions within the 
+application.
 
 \subsection{Access Requirements}
 \begin{enumerate}
-  \item[\textbf{SR-1.}] Access to the application must be restricted to
+  \item[\textbf{SR-1.}] Access to the application must be restricted to 
   authorized personnel, with an authentication mechanism.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures that only authorized users can interact
+    \item \textit{Rationale:} Ensures that only authorized users can interact 
     with the application.
-    \item \textit{Fit Criterion:} Only users with valid credentials should
-    access the application.
+    \item \textit{Fit Criterion:} 100\% of login attempts must require valid 
+    credentials, with at most 0.5\% authentication failures due to system errors.
     \item \textit{Related Requirements:} FR-14, SR-2, SR-8, SR-10.
   \end{itemize}
 
-  \item[\textbf{SR-2.}] Only authenticated users should have the ability to
-  query or modify the data, and each user’s access must be limited to their
-  capabilities within the application.
+  \item[\textbf{SR-2.}] Only authenticated users should have the ability to 
+  query or modify the data, and each user’s access must be limited to their 
+  role-based permissions within the application.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures users can only perform actions that align
+    \item \textit{Rationale:} Ensures users can only perform actions that align 
     with their roles.
-    \item \textit{Fit Criterion:} The application should restrict 100\% of
-    actions that are not permitted to the user's level of access.
+    \item \textit{Fit Criterion:} 100\% of unauthorized actions must be blocked, 
+    with role-based access verified in at least 95\% of test cases.
     \item \textit{Related Requirements:} FR-14, SR-1, SR-8.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Integrity Requirements}
 \begin{enumerate}
-  \item[\textbf{SR-3.}] The application must validate data inputs to ensure they
-  conform to expected formats and values before they are processed.
+  \item[\textbf{SR-3.}] The application must validate data inputs to ensure they 
+  conform to expected formats and values before processing.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures only valid data is processed, reducing
+    \item \textit{Rationale:} Ensures only valid data is processed, reducing 
     errors.
-    \item \textit{Fit Criterion:} 100\% of inputs must pass validation checks
-    before processing.
+    \item \textit{Fit Criterion:} 100\% of invalid data entries should 
+    be detected and rejected before processing.
     \item \textit{Related Requirements:} FR-1, FR-2, FR-4.
   \end{itemize}
 
-  \item[\textbf{SR-4.}] The application must not modify the data unnecessarily
-  through its transfer process.
+  \item[\textbf{SR-4.}] The application must not modify the data unnecessarily 
+  during its transfer process.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures the original data remains accurate and
+    \item \textit{Rationale:} Ensures the original data remains accurate and 
     unaltered.
-    \item \textit{Fit Criterion:} Data should remain unchanged unless explicitly
-    modified, with logs confirming its integrity.
+    \item \textit{Fit Criterion:} Data integrity should be maintained in 100\% 
+    of transfer tests, with logs confirming accuracy.
     \item \textit{Related Requirements:} FR-3, FR-4, SR-5, SR-6.
   \end{itemize}
 
-  \item[\textbf{SR-5.}] The application must ensure that any data processed or
+  \item[\textbf{SR-5.}] The application must ensure that any data processed or 
   transferred is free from duplication or inconsistencies.
   \begin{itemize}
     \item \textit{Rationale:} Ensures data consistency and prevents corruption.
-    \item \textit{Fit Criterion:} The application must detect and prevent 100\%
-    of duplicated records.
+    \item \textit{Fit Criterion:} At least 100\% of duplicated records should be 
+    detected and prevented.
     \item \textit{Related Requirements:} FR-3, FR-4, SR-4, SR-6.
   \end{itemize}
 
-  \item[\textbf{SR-6.}] The application must have safeguards in place to
+  \item[\textbf{SR-6.}] The application must have safeguards in place to 
   maintain the accuracy of the transferred data.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures reliable data transfer without loss or
+    \item \textit{Rationale:} Ensures reliable data transfer without loss or 
     error.
-    \item \textit{Fit Criterion:} Transfer operations should maintain 100\% data
-    accuracy, verified by validation tests.
+    \item \textit{Fit Criterion:} Transfer operations should maintain 100\% 
+    data accuracy, verified through checksum validation.
     \item \textit{Related Requirements:} FR-3, FR-4, SR-4, SR-5.
   \end{itemize}
 \end{enumerate}
 
-\subsection{Privacy Requirements}
+\subsection{Privacy and Compliance Requirements}
 \begin{enumerate}
-  \item[\textbf{SR-7.}] All personal information related to experimental
-  participants or stakeholders, if applicable, must be anonymized and handled in
-  accordance with relevant privacy laws and regulations.
+  \item[\textbf{SR-7.}] All personal or research-related data must be handled in 
+  compliance with relevant privacy laws and standards, such as GDPR, HIPAA, or 
+  institutional policies.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures user privacy and legal compliance.
-    \item \textit{Related Requirements:} SR-8.
+    \item \textit{Rationale:} Ensures legal compliance and protection of 
+    sensitive data.
+    \item \textit{Fit Criterion:} At least 100\% of personal or research data 
+    must be stored in an encrypted format, and access must be logged.
+    \item \textit{Related Requirements:} SR-8, SR-9.
   \end{itemize}
 
-  \item[\textbf{SR-8.}] The application must restrict data sharing with external
-  parties unless expressly authorized by stakeholders, and users must be fully
-  informed about the privacy policies.
+  \item[\textbf{SR-8.}] The application must restrict data sharing with external 
+  parties unless explicitly authorized and compliant with privacy regulations.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures transparency and control over data
+    \item \textit{Rationale:} Ensures transparency and control over data 
     sharing.
+    \item \textit{Fit Criterion:} Data-sharing logs must show that at least 99\% 
+    of external data transfers followed approved authorization processes.
     \item \textit{Related Requirements:} FR-14, SR-1, SR-2, SR-7.
+  \end{itemize}
+
+  \item[\textbf{SR-9.}] Users must be informed of data collection, storage, and 
+  usage policies through an explicit consent mechanism.
+  \begin{itemize}
+    \item \textit{Rationale:} Ensures compliance with transparency regulations.
+    \item \textit{Fit Criterion:} 100\% of users must explicitly agree 
+    to data collection policies before using the application.
+    \item \textit{Related Requirements:} SR-7, SR-8.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Audit Requirements}
 \begin{enumerate}
-  \item[\textbf{SR-9.}] The application must maintain a comprehensive audit
-  trail, logging all access and modification events, including timestamps and
+  \item[\textbf{SR-10.}] The application must maintain a comprehensive audit 
+  trail, logging all access and modification events, including timestamps and 
   identities of users performing actions.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures accountability and traceability of
+    \item \textit{Rationale:} Ensures accountability and traceability of 
     actions.
-    \item \textit{Fit Criterion:} 100\% of data access and modification events
-    must be logged and retrievable.
+    \item \textit{Fit Criterion:} At least 80\% of access and modification 
+    events must be recorded in the audit logs.
     \item \textit{Related Requirements:} FR-12, FR-13.
   \end{itemize}
 
-  \item[\textbf{SR-10.}] Audit logs must be securely stored and accessible only
+  \item[\textbf{SR-11.}] Audit logs must be securely stored and accessible only 
   by authorized personnel.
   \begin{itemize}
     \item \textit{Rationale:} Ensures the security and integrity of audit data.
-    \item \textit{Fit Criterion:} Logs must be encrypted and accessible only to
-    users with administrative privileges.
+    \item \textit{Fit Criterion:} 100\% of logs must be encrypted and access 
+    restricted to users with administrative privileges.
     \item \textit{Related Requirements:} FR-14, SR-1.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Immunity Requirements}
 \begin{enumerate}
-  \item[\textbf{SR-11.}] The application must have proactive measures to detect
-  and mitigate suspicious activities, such as repeated unauthorized access
+  \item[\textbf{SR-12.}] The application must have proactive measures to detect 
+  and mitigate suspicious activities, such as repeated unauthorized access 
   attempts, ensuring the application remains secure at all times.
   \begin{itemize}
-    \item \textit{Rationale:} Ensures early detection and prevention of security
+    \item \textit{Rationale:} Ensures early detection and prevention of security 
     breaches.
-    \item \textit{Fit Criterion:} The application must detect and block
-    unauthorized attempts after three failed login attempts, with automated
-    alerts sent to administrators.
+    \item \textit{Fit Criterion:} The system must detect and block at least 95\% 
+    of unauthorized login attempts after three failed tries, with alerts sent to 
+    administrators.
     \item \textit{Related Requirements:} FR-14.
   \end{itemize}
 \end{enumerate}
+
 
 \section{Cultural Requirements}
 \textbf{CR-1.} The product must not be biased towards certain geographic regions or countries and their societal norms.
