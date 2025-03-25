@@ -84,7 +84,7 @@ const UploadArea = memo(
             </div>
 
             <div
-              className={`group relative flex flex-1 w-full flex-col ${
+              className={`group relative flex flex-1 w-full flex-col h-full overflow-hidden ${
                 files.length === 0
                   ? "items-center justify-center"
                   : "items-start justify-start"
@@ -126,7 +126,7 @@ const UploadArea = memo(
                   </div>
                 </div>
               ) : (
-                <div className="h-full w-full p-4 flex flex-col">
+                <div className="h-full w-full p-4 flex flex-col overflow-hidden">
                   <div className="mb-2 flex items-center justify-between">
                     <p className="text-sm font-bold text-gray-700">
                       {files.length} file{files.length !== 1 ? "s" : ""}{" "}
@@ -143,7 +143,7 @@ const UploadArea = memo(
                     </button>
                   </div>
 
-                  <div className="custom-scrollbar flex-1 overflow-y-auto rounded-lg bg-white p-2 shadow-inner">
+                  <div className="custom-scrollbar overflow-y-auto rounded-lg bg-white p-2 shadow-inner flex-1">
                     <ul className="space-y-2">
                       {files.map((file, index) => (
                         <li
@@ -203,9 +203,9 @@ const UploadArea = memo(
               <div className="flex items-start">
                 <WarningIcon className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0 text-blue-600" />
                 <p className="text-xs text-gray-600">
-                  Files will be processed and linked to your experiments. Make
-                  sure your raw data files match the experiment naming convention
-                  for automatic linking.
+                  Make sure your raw data files match the experiment naming
+                  convention for automatic linking. It is not recommended to
+                  upload over 10 files at once.
                 </p>
               </div>
             </div>
