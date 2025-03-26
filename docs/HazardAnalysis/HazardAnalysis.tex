@@ -43,7 +43,13 @@
 25 October 2024 & Jason Tran & Add sections 5 and 6\\
 25 October 2024 & Jennifer Ye & Add sections 1 and 4\\
 26 October 2024 & Sumanya Gulati & Add sections 3 and Appendix - Reflection\\
-26 October 2024 & Jason Tran& Updated to adhere to 
+25 November 2024 & Jennifer Ye & Updated section 4 to adhere to
+\href{https://github.com/SumanyaG/Alkalytics/issues/107}{107},
+\href{https://github.com/SumanyaG/Alkalytics/issues/108}{108},
+\href{https://github.com/SumanyaG/Alkalytics/issues/109}{109}. \\
+29 December 2024 & Kate Min & Updated section 2 to adhere to
+\href{https://github.com/SumanyaG/Alkalytics/issues/157}{157}. \\
+25 March 2025 & Jason Tran & Updated section 5 to adhere to 
 \href{https://github.com/SumanyaG/Alkalytics/issues/111}{111},
 \href{https://github.com/SumanyaG/Alkalytics/issues/158}{158}. \\
 \bottomrule
@@ -71,20 +77,28 @@ in these components, as well as ways to mitigate the risks they impose.
 
 The purpose of the hazard analysis is to identify potential hazards and its
 causes, assess the effects, and set mitigation strategies to eliminate or lessen
-the risk of the hazard. It is important to consider all possible hazards
-associated with the Alkalytics project and its components, as the following
-losses could be incurred from an insufficient hazard assessment:
+the risk of the hazard. This analysis aims to address all relevant hazards
+within the system boundaries and components defined in Section \ref{sec3},
+ensuring the application's functionality, reliability, security, and performance. 
+The hazard analysis will focus on identifying hazards that may lead to the
+following:
 \begin{itemize}
-    \item Data loss: The data gets unintentionally lost, deleted, or corrupted.
-    \item Data integrity: The data is not complete, accurate, nor correct which
+    \item Data loss: Unintentional loss, deletion, or corruption of data.
+    \item Data integrity: Incomplete, inaccurate, and/or incorrect data, which
     can lead to computational errors.
-    \item System availability: Users are unable to access the system due to
-    factors such as unstable internet connection or server crashes.
-    \item Security: If there are no proper measures for authentication,
-    unauthorized access to the data or user information may occur.
+    \item System availability: Users unable to access the system due to
+    factors such as server downtime or system overload.
+    \item Security: Unauthorized access to the data or user information due to
+    insufficient authentication measures.
 \end{itemize}
+In addition to these areas, the analysis will also consider hazards that may
+impact overall user experience, specifically addressing hazards related to
+usability, accessibility, and system interaction.
+The analysis will not consider hazards that may be associated with hardware
+failures or other external dependencies beyond the control of the application
+unless they directly impact the operation of the application. 
 
-\section{System Boundaries and Components}
+\section{System Boundaries and Components} \label{sec3}
 The system boundaries are used to define what is within the scope of the hazard analysis,
 in essence, where the system interacts with external systems, users and hardware. Some key
 boundaries for Alkalytics include:
@@ -131,22 +145,17 @@ The system can be broken down into the following major components:
 
 The following are assumptions made about the software of the system. 
 \begin{itemize}
-    \item The data provided to this system is validated and correctly formatted
-    before system ingestion
-    \begin{itemize}
-        \item Errors can occur from badly formatted or invalid incoming data,
-        which is not something the system can control
-    \end{itemize}
     \item The user of this application is not intentionally trying to misuse it
     \begin{itemize}
         \item This assumption mitigates the risk of someone intentionally
         damaging the system
     \end{itemize}
-    \item Internet connection and server infrastructure will always be
-    available, and will not suddenly go down and compromise the system
+    \item Local server infrastructure will always be available, and will not suddenly
+    go down and compromise the system
     \begin{itemize}
-        \item This assumption mitigates the risk of a failing internet
-        connection or fragile server infrastructure interrupting the system
+        \item This assumption mitigates the risk of local server connections
+        interrupting the system as there can be immidate resolutions and issues
+        will only affect one user uniquely
     \end{itemize}
     \item Users using this application understand how to use the application,
     whether through documentation or a tutorial
@@ -158,12 +167,6 @@ The following are assumptions made about the software of the system.
     \begin{itemize}
         \item This assumption prevents any threats to the system due to poor
         maintenance
-    \end{itemize}
-    \item The system is scalable and possesses enough computational resources to
-    handle any volume of data
-    \begin{itemize}
-        \item This assumption mitigates the risk of the system failing due to
-        lack of resources
     \end{itemize}
 \end{itemize}
 
@@ -425,7 +428,7 @@ prevent corrupted or incomplete data entries.
 The following table outlines a proposed roadmap of when each safety requirement
 will be implemented within the capstone timeline and justifications.
 
-\begin{longtable}[c]{|m{2cm}|m{2.6cm}|m{2cm}|m{3.8cm}|}
+\begin{longtable}[c]{|m{2cm}|m{2.6cm}|m{2.6cm}|m{5.8cm}|}
     \hline
     \textbf{Stage} & \textbf{Req. Category} & \textbf{Req. ID(s)} &
     \textbf{Rationale} \\
@@ -437,9 +440,9 @@ will be implemented within the capstone timeline and justifications.
     & Integrity & SR-5, SR-6, SR-7, SR-8, SR-9 & The database must adhere to
     these requirements for a successful PoC.\\
     \cline{2-4}
-    & Privacy & N/A & Since the PoC plan will\\
-    & Audit & N/A & only have the database\\
-    & Immunity & N/A & these requirements are not applicable.\\
+    & Privacy & N/A & Since the PoC plan will only have the\\
+    & Audit & N/A & database, these requirements are not\\
+    & Immunity & N/A & applicable.\\
     \hline
     Rev0 Demo (Feb 3) & Access & SR-1 & User authentication should be
     implemented during front-end development.\\
@@ -450,8 +453,8 @@ will be implemented within the capstone timeline and justifications.
     & Privacy & SR-10, SR-11 & At this point there will be user access, thus
     these requirements must be implemented.\\
     \cline{2-4}
-    & Audit & N/A & These requirements\\
-    & Immunity & N/A & are not high-priority.\\
+    & Audit & N/A & These requirements are not high-priority.\\
+    & Immunity & N/A & \\
     \hline
     Rev1 Final Demo (Mar 24) & Access & SR-2, SR-3 & User access must be
     extended to permissions and capabilities prior to release.\\
@@ -461,6 +464,7 @@ will be implemented within the capstone timeline and justifications.
     \cline{2-4}
     & Privacy & SR-12 & This requirement is necessary for system availability
     and robustness to extend past capstone.\\
+    \hline
     \cline{2-4}
     & Audit & SR-15 & Client and users must be informed about system issues and
     be able to troubleshoot even without the original development team.\\
