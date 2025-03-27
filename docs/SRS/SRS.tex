@@ -62,53 +62,84 @@
 \newpage
 \section*{Revision History}
 
-  \begin{tabularx}{\textwidth}{p{4cm}p{1.5cm}X} \toprule {\textbf{Date}} &
+\begin{tabularx}{\textwidth}{p{4cm}p{1.5cm}X} \toprule {\textbf{Date}} &
   {\textbf{Version}} & {\textbf{Notes}}\\
   \midrule
   1 October 2024 & 1.0 & Partially completed version shared with supervisors and TA for feedback.\\
   7 October 2024 & 1.1 & Incorporated feedback and presented during informal presentation with TA.\\
   11 October 2024 & 1.2 & Finished document for PoC submission.\\
-  11 November 2024 & 1.3 & Updated document to include peer review changes.\\
-  25 March 2025 & 1.4 & Updated to adhere to 
-\href{https://github.com/SumanyaG/Alkalytics/issues/149}{149}, 
-\href{https://github.com/SumanyaG/Alkalytics/issues/152}{152}, 
-\href{https://github.com/SumanyaG/Alkalytics/issues/154}{154}, and 
-\href{https://github.com/SumanyaG/Alkalytics/issues/155}{155}. \\
+  11 November 2024 & 1.3 & Updated document to adhere to
+  \href{https://github.com/SumanyaG/Alkalytics/issues/91}{91}.\\
+  25 November 2024 & 1.4 & Updated document to adhere to
+  \href{https://github.com/SumanyaG/Alkalytics/issues/89}{89} \\
+  29 December 2024 & 1.5 & Updated document to adhere to
+  \href{https://github.com/SumanyaG/Alkalytics/issues/92}{92},
+  \href{https://github.com/SumanyaG/Alkalytics/issues/151}{151}, and
+  \href{https://github.com/SumanyaG/Alkalytics/issues/153}{153}.\\ 
+  25 March 2025 & 1.6 & Updated to adhere to 
+  \href{https://github.com/SumanyaG/Alkalytics/issues/149}{149}, 
+  \href{https://github.com/SumanyaG/Alkalytics/issues/152}{152}, 
+  \href{https://github.com/SumanyaG/Alkalytics/issues/154}{154}, and 
+  \href{https://github.com/SumanyaG/Alkalytics/issues/155}{155}. \\
+  26 March 2025 & 1.7 & Updated to reflect new changes to requirements.\\
   \bottomrule
-  \end{tabularx}
+\end{tabularx}
 
 ~\\
 
 ~\newpage
+\pagenumbering{arabic}
 \section{Symbolic Parameters}
-The following symbolic parameters are used throughout the document:
+Table \ref{SYM_PAR} outlines the symbolic parameters used throughout the document:
 
-\begin{itemize}
-\item $TIMEOUT\_LIMIT = 60$ (Timeout for processes in seconds)
-\end{itemize}
+\begin{table}[htb]
+  \caption{Symbolic parameters used in requirements}
+  \label{SYM_PAR}
+  \centering
+  \begin{tabular}{c c p{6cm}}
+    \toprule
+    \textbf{parameter} & \textbf{value} & \textbf{description}\\
+    \midrule 
+    USABILITY\_THRESHOLD & 85\% & Minimum percentage of users able to effectively use the system\\
+    TIMEOUT\_LIMIT & 60 & Timeout for processes, in seconds\\
+    QUERY\_TIME\_LIMIT & 3 & Maximum time to retrieve data, in seconds\\
+    UI\_RESPONSE\_TIME & 1 & Interface response time, in seconds\\
+    MAX\_LATENCY & 2 & Maximum latency, in seconds\\
+    GRAPH\_GEN\_TIME & 10 & Maximum time to generate visualizations, in
+    seconds\\
+    PRECISION\_LIMIT & 4 & Minimum number of decimal places\\
+    EXPECTED\_NUM & 300 & Expected number of total experiments conducted\\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Purpose of the Project}
 \subsection{User Business}
 This project aims to aid in the data management and analysis of an ocean
-alkalinity enhancement experiment process. The research is working towards a
-scalable process to capture CO\textsubscript{2} using a combination of electric
-fields and membranes. The experiment's efficient generation process creates a
-very dilute base. As earth’s temperature rises, so does the ocean’s, affects its
-pH balance. The experimental study aims to provide a solution, to decrease the
-ocean's pH levels to be able to absorb more CO\textsubscript{2} which will in
-turn help reduce global temperatures.  As the production process to generate
-this dilute base is still on a small scale, it is currently being perfected
-which means many more experiments must be done to be able to bring it to a
-global scale. However, this requires a massive production operation to do so.
-Optimization of the experimental data is critical to improve process efficiency.
-This is a big data software problem requiring the ability to find and fine-tune
-specific parameters. 
+alkalinity enhancement experiment process. Rising global temperatures are
+impacting the pH balance of the oceans, which in turn affects their natural
+ability to absorb carbon dioxide (CO\textsubscript{2}) from the atmosphere. The
+research is working towards a scalable process to capture CO\textsubscript{2}
+emissions using Bipolar Membrane Electrodialysis (BMED) technology. This process
+separates a salt solution into distinct acid and base components, with the base
+solution meant to be returned to the ocean.
+
+\noindent The goal of the experimental study is to decrease the ocean's pH
+levels to enhance its ability to absorb more CO\textsubscript{2}, helping to
+reduce its warming effect and mitigate global temperature rise. Currently, the
+production process for generating this base is on a small scale and is
+still being refined. A significant number of experiments and data collection
+would be required to scale it up globally, necessitating a more expansive
+production operation. Optimization of the experimental data is critical to
+improve process efficiency. This presents a big data software challenge,
+requiring the ability to identify and fine-tune specific parameters to achieve
+ideal conditions.
 \subsection{Goals of the Project}
 This application will be able to consolidate and organize the data from the
 experiments with proper labeling across all given datasets allowing for a
-centralize method of data storage that is both scalable and maintainable. On the
-application users can request to see certain data points from the inputted data
-sets given any specified order. Once the data is returned to the user the
+centralize method of data storage that is both scalable and maintainable. In the
+application users, can request to see certain data points from the inputted data
+sets given any specified order. Once the data is returned to the user, the
 application can show inter-parameter comparability to better aid data analysis.
 This comparability acts as a starting point to analysis and is by no means show
 a final analysis of the data. This will all be presented in a web interface
@@ -157,7 +188,7 @@ term, the project will be passed back to the research team to maintain.
 \subsection{Personas}
 \label{personas}
 \begin{itemize}
-  \item John Doe is an 23 year old McMaster undergraduate student who has a
+  \item John Doe is a 23 year old McMaster undergraduate student who has a
   research position on the ocean alkalinity research project. They have been
   tasked to aid the experiment data collection process. After being told that
   the data is being stored in a master Excel file; they find that is it hard to
@@ -169,7 +200,7 @@ term, the project will be passed back to the research team to maintain.
   way to manage the data, they know that it is not up to their decision on what
   tools are being used but suggested that there could be another better solution
   to use. 
-  \item Dr.\ Carly Kelvon is a $TIMEOUT\_LIMIT$ years old professor at a university and
+  \item Dr.\ Carly Kelvon is a 60 year old professor at a university and
   is working on her own research project for over five years. She has gathered
   lots of data and thankfully she has always been great at Excel. However, other
   the last two years she has found that Excel is becoming less sustainable. The
@@ -335,23 +366,27 @@ This data in the experiment template is then analysed and the results from the a
 referred to here as `observations' that reords all experiment observations. This observations template also contains additional parameters for each experiment 
 such as membrane, configuration and more wich are entered manually by the user.
 \subsection{The Context of the Work}
-The path highlighted with blue arrows indicates the current process and how the existing data will be migrated.\\
-The path highlighted with green arrows indicates how the product is expected to work after installation.
+Figure \ref{WorkContextModel} shows the Work Context Model for the project. The
+path highlighted with blue arrows indicates the current process and how the
+existing data will be migrated. The path highlighted with green arrows indicates
+how the product is expected to work after installation.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.55]{Diagrams/Work Context Diagram.drawio.png}
   \caption{Work Context Model}
+  \label{WorkContextModel}
 \end{figure}
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
-The diagram represents a business data model that encapsulates all the data that is
+Figure \ref{BusinessDataModel} represents a business data model that encapsulates all the data that is
 created, referenced, updated and deleted by processes in the platform.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.98]{Diagrams/Business Data Model.png}
   \caption{Business Data Model}
+  \label{BusinessDataModel}
 \end{figure}
 
 \subsection{Data Dictionary}
@@ -361,7 +396,7 @@ created, referenced, updated and deleted by processes in the platform.
 The following section will highlight use cases of the product and how users and
 stakeholders will interact with the product.  
 \subsection{Product Boundary}
-Below is a use case diagram involving the two clients and major customers. The
+Figure \ref{UCD} is a use case diagram involving the two clients and major customers. The
 diagram includes the back end database as an actor as it interacts with the
 interface system. Level 1 to 3 labeled actors are part of the research time
 customer mentioned in section 2.2 where depending how the team is structured,
@@ -372,11 +407,13 @@ clarity of the system.
   \centering
   \includegraphics[scale=0.5]{capstoneUseCase.png}
   \caption{Use Case Diagram}
+  \label{UCD}
 \end{figure}
 
 
 \subsection{Product Use Case Table}
-The product use case table (PUC) is an extention of the use case diagram in the pervious section. The table aims to provide more details.
+Table \ref{PUCT} shows a Product Use Case (PUC) table, an extension of the use
+case diagram shown in Figure \ref{UCD}. The table aims to provide more details.
 \begin{table}[htbp]
   \centering
   \begin{tabular}{|p{0.08\linewidth}|p{0.3\linewidth}|l|p{0.4\linewidth}|}
@@ -397,6 +434,7 @@ The product use case table (PUC) is an extention of the use case diagram in the 
     \hline
     \end{tabular}
     \caption{Product Use Cases}
+    \label{PUCT}
 \end{table}  
 
 
@@ -487,6 +525,7 @@ The product use case table (PUC) is an extention of the use case diagram in the 
 \section{Functional Requirements}
 This section outlines the key functionalities the application must satisfy with justifications and fit criteria, as well as proposed phase-in dates.
 \subsection{Data Input Requirements}
+This section outlines requirements related to data input functionality.
   \begin{enumerate}
     \item[\textbf{FR-1.}] The application shall allow the user to input new experiment data or parameters.
     \begin{itemize}
@@ -507,6 +546,7 @@ This section outlines the key functionalities the application must satisfy with 
   \end{enumerate}
 
 \subsection{Data Migration and Organization Requirements}
+This section outlines requirements related to data migration functionality.
   \begin{enumerate}
     \item[\textbf{FR-3.}] The application shall read existing experiment data stored in .CSV files.
     \begin{itemize}
@@ -527,6 +567,8 @@ This section outlines the key functionalities the application must satisfy with 
   \end{enumerate}
 
 \subsection{Data Search and Query Requirements}
+This section outlines requirements related to viewing and searching for certain
+data.
 \begin{enumerate}
   \item[\textbf{FR-5.}] The application shall allow the user to search for specific datasets based on different parameters.
   \begin{itemize}
@@ -555,6 +597,7 @@ This section outlines the key functionalities the application must satisfy with 
 \end{enumerate}
 
 \subsection{Data Visualization Requirements}
+This section outlines requirements related to data visualization functionality.
 \begin{enumerate}
   \item[\textbf{FR-8.}] The application shall generate visual graphs based on selected parameters and datasets.
   \begin{itemize}
@@ -575,6 +618,7 @@ This section outlines the key functionalities the application must satisfy with 
 \end{enumerate}
 
 \subsection{Data Analysis Requirements}
+This section outlines requirements related to data analysis functionality.
 \begin{enumerate}
     \item[\textbf{FR-10.}] The application shall analyze patterns and trends in the experiment data based on the user’s selected parameters.
     \begin{itemize}
@@ -588,63 +632,87 @@ This section outlines the key functionalities the application must satisfy with 
     \begin{itemize}
       \item \textit{Rationale}: Allows for future predictions of data and efficiency when designing future experiments.
       \item \textit{Fit Criterion}: The application shall generate a report of value predictions or interpolate a graph and provide the interpolated data points.
-      \item \textit{Priority}: Medium; Although this is a core functionality for the application, its implementation depends on the successful implementation of many other requirements and thus will be implemented at a later time.
-      \item \textit{Phase-in Date}: Jan 17.
+      \item \textit{Priority}: Low; This has been identified as a \textbf{stretch goal}
+      for the application, thus its implementation will not be considered until all higher priority
+      requirements are satisfied.
+      \item \textit{Phase-in Date}: March 21, if feasible.
       \item \textit{Related Requirements}: FR-2, FR-6, FR-10, PR-6.
     \end{itemize}
 \end{enumerate}
 
 \subsection{Error Tracking Requirements}
-This section outlines functional requirements for one of the project's stretch
-goals.
+This section outlines requirements for error tracking functionality.
 \begin{enumerate}
   \item[\textbf{FR-12.}] The application shall track and log errors in the experiment data.
   \begin{itemize}
     \item \textit{Rationale}: Users need to identify irrelevant or missing parameters.
     \item \textit{Fit Criterion}: Missing values in the input data should be flagged.
-    \item \textit{Priority}: Low; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
-    \item \textit{Phase-in Date}: March 21.
+    \item \textit{Priority}: Low; This has been identified as a \textbf{stretch goal} for
+    the application, thus its implementation will not be considered until all higher
+    priority requirements are satisfied.
+    \item \textit{Phase-in Date}: March 21, if feasible.
     \item \textit{Related Requirements}: FR-13, MSR-3, MSR-5, SR-9.
   \end{itemize}
   \item[\textbf{FR-13.}] The application shall remove data logged as errors.
   \begin{itemize}
     \item \textit{Rationale}: Ensures data is organized and produces accurate results in analysis.
     \item \textit{Fit Criterion}: Flagged data should be removed from the database by the algorithm.
-    \item \textit{Priority}: Low; As this is part of the stretch goals for the application, its implementation will not be considered until all higher priority requirements are satisfied.
-    \item \textit{Phase-in Date}: March 21.
+    \item \textit{Priority}: Low; This has been identified as a \textbf{stretch goal} for
+    the application, thus its implementation will not be considered until all
+    higher priority requirements are satisfied.
+    \item \textit{Phase-in Date}: March 21, if feasible.
     \item \textit{Related Requirements}: FR-12, SR-9.
   \end{itemize}
 \end{enumerate}
 
 \subsection{User Access Management Requirements}
-This section outlines functional requirements for one of the project's stretch
-goals.
+This section outlines requirements for user access functionality.
 \begin{enumerate}
   \item[\textbf{FR-14.}] The application shall allow the user to sign in with valid credentials.
   \begin{itemize}
     \item \textit{Rationale}: Ensures the data can only be accessed and modified by authorized users.
     \item \textit{Fit Criterion}: The user shall be able to log in with a username and password.
-    \item \textit{Priority}: Medium; Although this requirement is part of the
-    stretch goals for the application, its implementation is prioritized over
-    the other stretch goals as role-based access control is critical for
+    \item \textit{Priority}: Medium; Role-based access control is critical for
     preventing unauthorized modifications and ensuring the integrity of the
-    associated data.
+    associated data, however, it is less integral to the core functionalities of
+    the application compared to that of the data input/migration, search,
+    visualization, and analysis functionalities.
     \item \textit{Phase-in Date}: Jan 17.
     \item \textit{Related Requirements}: PR-11, SR-1, SR-2, SR-8, SR-10, SR-11.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Data Export Requirements}
-This section outlines functional requirements for one of the project's stretch
-goals.
+This section outlines requirements for data export functionality.
 \begin{enumerate}
   \item[\textbf{FR-15.}] The application shall generate a report of queries in a session for the user to save or download.
   \begin{itemize}
     \item \textit{Rationale}: Allows user to keep a record of their findings for future use or reference.
     \item \textit{Fit Criterion}: The report should be exported in CSV or PDF format.
-    \item \textit{Priority}: Low; As this is part of the stretch goals for the application, its implementation will not be considered until the higher priority requirements are satisfied.
-    \item \textit{Phase-in Date}: March 21.
+    \item \textit{Priority}: Low; This has been identified as a \textbf{stretch goal} for
+    the application, thus its implementation will not be considered until the
+    higher priority requirements are satisfied.
+    \item \textit{Phase-in Date}: March 21, if feasible.
     \item \textit{Related Requirements}: FR-6.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Additional Requirements}
+This section outlines functional requirements that were introduced after the
+initial completion of this document.
+\begin{enumerate}
+  \item[\textbf{FR-16.}] The application shall perform calculations using
+  pre-defined formulas over sets, or subsets, of the data.
+  \begin{itemize}
+    \item \textit{Rationale}: The formulas, developed and used by the end users,
+    are integral to the analysis of the data. There must be functionality to
+    apply these formulas to the data within the application.
+    \item \textit{Fit Criterion}: The application shall display the results of
+    the calculation to the user in a legible format.
+    \item \textit{Priority}: High; The client has prioritized the implementation
+    of this requirement as it is integral to the analysis of the data.
+    \item \textit{Phase-in Date}: March 21. 
+    \item \textit{Related Requirements}: N/A.
   \end{itemize}
 \end{enumerate}
 
@@ -725,7 +793,7 @@ experience.
 \section{Usability and Humanity Requirements}
 This section outlines the requirements that are intended to make the product usable and ergonomically acceptable to its users.
 \subsection{Ease of Use Requirements}
-\textbf{UHR-1.} The product must be easy to navigate and use for 85\% of individuals with basic computer literacy.
+\textbf{UHR-1.} The product must be easy to navigate and use for \\ $USABILITY\_THRESHOLD$ of individuals with basic computer literacy.
 \begin{itemize}
   \item \emph{Rationale}: The product must be user-friendly. In the context of this project, basic computer literacy is defined to encompass five computer skills - using a keyboard
   to type, using a mouse to navigate, understanding basic software applications such as word processing and spreadsheets, browsing the internet, and managaing files and folders.
@@ -746,7 +814,7 @@ This section outlines the requirements that are intended to make the product usa
 \end{itemize}
 
 \subsection{Learning Requirements}
-\textbf{UHR-4.} 85\% of users must be able to use the product without any formal training and with minimal guidance.
+\textbf{UHR-4.} At least $USABILITY\_THRESHOLD$ of users must be able to use the product without any formal training and with minimal guidance.
 \begin{itemize}
   \item \emph{Rationale}: The product shall be intuitive to use. Users must be able to freely naviagte and experiment with the product after a simple product walkthrough.
   \item \emph{Fit Criterion}: A new user with basic computer literacy skills should be able to upload an input file, enter initial experiment parameters, select fields to be compared and view their graph
@@ -771,26 +839,32 @@ This section outlines the requirements that are intended to make the product usa
 Performance requirements define the measurable standards the application must meet regarding speed, accuracy, robustness, and resource usage to ensure optimal performance of the application's functions.
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}
-\item[\textbf{PR-1.}] The application shall store new data or parameters within $TIMEOUT\_LIMIT$ seconds of input.
+\item[\textbf{PR-1.}] The application shall store new data or parameters within
+\\ $TIMEOUT\_LIMIT$ seconds of input.
   \begin{itemize}
     \item \textit{Rationale}: The speed at which the task can be completed depends on the size of the new data to be inputted or how the addition of a new parameter will affect the existing database structure. The quantified timeframe allows for adequate processing time that aligns with user expectations.
     \item \textit{Related Requirements}: FR-1, FR-2.
   \end{itemize}
-\item[\textbf{PR-2.}] The application shall take a maximum of 3 seconds to retrieve data from the database for search and query requests.
+\item[\textbf{PR-2.}] The application shall take a maximum of $QUERY\_TIME\_LIMIT$
+seconds to retrieve data from the database for search and query requests.
   \begin{itemize}
     \item \textit{Rationale}: The speed at which the task can be completed varies based on internet connectivity and the complexity of the query being executed.
     \item \textit{Related Requirements}: FR-5, FR-6.
   \end{itemize}
-\item[\textbf{PR-3.}] The interaction between the interface and the user shall have an average response time of 1 second under stable internet connection.
+\item[\textbf{PR-3.}] The interaction between the interface and the user shall
+have an average response time of $UI\_RESPONSE\_TIME$ seconds under stable
+internet connection.
   \begin{itemize}
     \item \textit{Rationale}: Ensures a fluid interaction between the user and the application.
     \item \textit{Related Requirements}: FR-7.
   \end{itemize}
-\item[\textbf{PR-4.}] The application shall have a maximum latency of 2 seconds for search and query actions.
+\item[\textbf{PR-4.}] The application shall have a maximum latency of $MAX\_LATENCY$ seconds for search and query actions.
   \begin{itemize}
     \item \textit{Rationale}: Ensures that the delay between a user's request and the application's response is minimized to provide the user with quick feedback and a smoother user experience.
   \end{itemize}
-\item[\textbf{PR-5.}] The application shall generate visualizations of data in an average time of 10 seconds, depending on the size of the dataset being processed.
+\item[\textbf{PR-5.}] The application shall generate visualizations of data in
+an average time of $GRAPH\_GEN_\_TIME$ seconds, depending on the size of the
+dataset being processed.
   \begin{itemize}
     \item \textit{Rationale}: The time required to render a graph will be affected by the number of datapoints included in the plot. Larger datasets will take longer to process and display.
     \item \textit{Related Requirements}: FR-8.
@@ -805,7 +879,8 @@ N/A; the application does not have safety-critical requirements to consider.
 
 \subsection{Precision or Accuracy Requirements}
 \begin{enumerate}
-  \item[\textbf{PR-6.}] All parameter values shall be accurate to four decimal places.
+  \item[\textbf{PR-6.}] All parameter values shall be accurate to at least \\
+  $PRECISION\_LIMIT$ decimal places. 
     \begin{itemize}
       \item \textit{Related Requirements}: FR-2, FR-5, FR-6, FR-10, FR-11.
     \end{itemize}
@@ -813,7 +888,8 @@ N/A; the application does not have safety-critical requirements to consider.
     \begin{itemize}
       \item \textit{Related Requirements}: FR-2, FR-4.
     \end{itemize}
-  \item[\textbf{PR-8.}] Values on visual data plots shall be accurate to four decimal places.
+  \item[\textbf{PR-8.}] Values on visual data plots shall be accurate to at
+  least \\ $PRECISION\_LIMIT$ decimal places.
     \begin{itemize}
         \item \textit{Related Requirements}: FR-8.
     \end{itemize}
@@ -840,7 +916,8 @@ N/A; the application does not have safety-critical requirements to consider.
       \item \textit{Rationale}: The number of anticipated end-users is currently three.
       \item \textit{Related Requirements}: FR-14.
     \end{itemize}
-  \item[\textbf{PR-12.}] The application shall be capable of storing data for up to 300 experiments.
+  \item[\textbf{PR-12.}] The application shall be capable of storing data for up
+  to \\ $EXPECTED\_NUM$ experiments.
     \begin{itemize}
       \item \textit{Rationale}: The application must be capable of storing and processing large amounts of data.
       \item \textit{Related Requirements}: FR-2, FR-3, PR-13.
@@ -1290,7 +1367,8 @@ rotated among team members to share responsibility.
 The milestones provide a structured approach to the project's documentation,
 planning, and demonstration activities. By the deadlines, the team is expected
 to complete and review the documents to ensure accuracy, compliance with project
-requirements, and readiness for subsequent stages.
+requirements, and readiness for subsequent stages. Table \ref{table:milestones} outlines
+these details.
 
 \begin{table}[htbp]
   \centering
@@ -1318,17 +1396,17 @@ requirements, and readiness for subsequent stages.
   \hline
   \end{tabular}
   \caption{Project Decomposition and Deadlines}
-  \label{table:2}
+  \label{table:milestones}
 \end{table}
 
 \subsection{Planning of the Development Phases}
 
-The development phases outline the progression of the project's coding and
+Table \ref{table:phases} shows the development phases, outlining the progression of the project's coding and
 implementation efforts. Each phase is focused on achieving significant technical
 progress that works alongside the milestones to allow for incremental progress
 and continuous refinement.
 
-\begin{table}[htbp]
+\begin{table}[H]
   \centering
   \begin{tabular}{|l|l|l|}
   \hline
@@ -1352,6 +1430,7 @@ and continuous refinement.
   \hline
   \end{tabular}
   \caption{Project Development Phases and Deadlines}
+  \label{table:phases}
 \end{table}
 
 \noindent\textbf{Phase 1} focuses on the Proof of Concept (POC), where the team
@@ -1379,7 +1458,7 @@ This section includes a list of coversion activities that are necessary that are
 The following conversion tasks have been identified as a part of the project planning process.
 \subsubsection{Use of Phased Implementation}
 The system will not be implemented in phases and would be installed as a part of a single process after testing and approval. This would be done following Stage 7 described in table
-\ref{table:2} and Phase 3.
+\ref{table:milestones} and Phase 3.
 
 \subsubsection{Data Conversion}
 \label{data}
@@ -1397,7 +1476,7 @@ The product has been decomposed into the following major components that will be
 
 \subsubsection{Decomissioning the Old Product}
 Based on conversations with primary stakeholders, it has been determined that there is no need to run the new product in parallel with the existing product. After the database is set-up
-by Stage 3 as outlined in table \ref{table:2}, all existing data up until that point will be migrated to the new database. The old product will be used to record data from continued experiments
+by Stage 3 as outlined in table \ref{table:milestones}, all existing data up until that point will be migrated to the new database. The old product will be used to record data from continued experiments
 which will be migrated to the new database at the end of each month post Stage 3 and up until Stage 7.\\
 \newline
 Since the old product is just a collection of spreadsheets, no special effort is needed to decomission them. A visual inspection and testing will be performed by testers and stakeholders 
@@ -1471,8 +1550,9 @@ The following requirements are beyond the sophistication of, or time allowed for
 \end{itemize}
 
 \newpage{}
-\section*{Appendix A --- Traceability}
-This section was added to the Volere template to provide a traceability table for the functional and non-functional requirements.
+\section{Appendix A --- Traceability}
+This section was added to the Volere template to provide a traceability table,
+shown in table \ref{table:trace}, for the functional and non-functional requirements.
 \begin{longtable}[c]{| m{3.4cm} | m{4cm} | m{5.3cm} |}
   \hline
   \textbf{Requirement ID} & \textbf{Dependent on} & \textbf{Traced from} \\ \hline
@@ -1542,16 +1622,17 @@ This section was added to the Volere template to provide a traceability table fo
   SR-10 & FR-14, SR-1 & N/A \\ \hline
   SR-11 & FR-14 & N/A \\ \hline
   \caption{Traceability table of the requirements.}
+  \label{table:trace}
 \end{longtable}
 
 \newpage{}
-\section*{Appendix B --- Reflection}
+\section{Appendix B --- Reflection}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
+% The information in this section will be used to evaluate the team members on the
+% graduate attribute of Lifelong Learning.  Please answer the following questions:
 
 \begin{enumerate}
-  \item What went well while writing this deliverable?\\
+  \item \textbf{What went well while writing this deliverable?}\\
   
   Writing this deliverable gave us greater clarity regarding the project and made us think of questions we hadn't
   considered before such as what our data migration plan would look like, if we need RBAC (Role Based Access Control) and what each role 
@@ -1560,7 +1641,7 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
   Additionally, we had already acquired significant knowledge about our supervisors' needs/expectations for the project before we began the 
   writing process, which gave us a clearer guide on modelling our requirements and allowed us to start earlier rather than later. As a result, 
   we were able to develop an initial draft, which they reviewed and provided feedback on, enabling us to refine our document in an iterative manner.
-  \item What pain points did you experience during this deliverable, and how did you resolve them?\\
+  \item \textbf{What pain points did you experience during this deliverable, and how did you resolve them?}\\
   
   The major pain point for this deliverable was the length and the amount of content that had to be condensed into a single document in such a short
   span of time. With deadline for other courses, coordinating with supervisors and giving them enough time to review our SRS for feedback - most of
@@ -1569,26 +1650,26 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
 
   However, we were able to address our questions and concerns through a meeting that we had scheduled with our TA, on top of the informal review session.
   This helped us gain a better understanding of the expectations for each section we faced difficulties with.
-  \item How many of your requirements were inspired by speaking to you client(s) or proxies (e.g. your peers,
-  stakeholders, potential users)?\\
+  \item \textbf{How many of your requirements were inspired by speaking to you client(s) or proxies (e.g. your peers,
+  stakeholders, potential users)?}\\
 
   Most of our FRs were inspired by our client, primarily our supervisors. Since they do not have a concrete plan for how they want this project implemented
   and instead have an abstract idea of what they would want to see in the product, it gave us a lot more room to be creative and consider multiple scenarios
   for our requirements, ultimately choosing the ones that suit our project the best. Most of the NFRs had to be brainstormed by our team and then validated by
   the stakeholders since they hadn't given much thought to these aspects of the product.
-  \item Which of the courses you have taken, or are currently taking, will help your team be successful with your capstone project?\\
+  \item \textbf{Which of the courses you have taken, or are currently taking, will help your team be successful with your capstone project?}\\
 
   3RA3 or Software Engineering Requirements was very helpful in writing up the SRS because we weren't completely clueless and did not have to spend a lot of time
   researching what an SRS is or what requirements are. This meant we could dive straight into work. Another course that has been helpful is 3DB3 or Databases mostly
   because after taking that course, we've had experience dealing with relational databases and were able to determine very early on how a relational database would
   not be the most suitable for our project and thus, pivot towards NoSQL databases.
-  \item What knowledge and skills will the team collectively need to acquire to
+  \item \textbf{What knowledge and skills will the team collectively need to acquire to
   successfully complete this capstone project?  Examples of possible knowledge
   to acquire include domain specific knowledge from the domain of your
   application, or software engineering knowledge, mechatronics knowledge or
   computer science knowledge.  Skills may be related to technology, or writing,
   or presentation, or team management, etc.  You should look to identify at
-  least one item for each team member.\\
+  least one item for each team member.}\\
 
   This question was answered individually by all the team members and their responses are as follows:\\
   \begin{enumerate}
@@ -1619,10 +1700,10 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
     This is the first project where our team has come up with a merging strategy, naming conventions and more to keep the git history clean and to ensure conformity and proper documentation.
     In terms of technology, I have never worked with NoSQL databases before so I am looking forward to exploring that!
   \end{enumerate}
-  \item For each of the knowledge areas and skills identified in the previous
+  \item \textbf{For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?\\
+  member pursue, and why did they make this choice?}\\
 
   This question was answered individually by all the team members and their responses are as follows:\\
   \begin{enumerate}
