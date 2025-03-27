@@ -94,7 +94,11 @@ Sumanya Gulati & 1\\
 Each team member has been working on an individual, dedicated branch for
 separate features or components of the project. Each subsection refers to the
 commit history of one such branch. Only currently active branches have been
-taken into account.
+considered. Commits made during branch rebasing for merging are not counted. For
+example, if team member X authored a commit and team member Y committed it after
+a rebase, the commit is attributed solely to team member X. Some feature
+branches were branched off from another feature branch, thus commits originating
+from a base branch are not counted in the individual branch.
 
 \subsection{Branch: main}
 It must be noted that the period of interest for this is from January 30, 2025 till 
@@ -106,11 +110,11 @@ March 26, 2025.
 \toprule
 \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
 \midrule
-Total & 41 & 100\% \\
-Jason Tran & 6 & 14.6\% \\
-Jennifer Ye & 11 & 26.8\% \\
-Kate Min & 17 & 41.5\% \\
-Sumanya Gulati & 19 & 46.3\% \\
+Total & 51 & 100\% \\
+Jason Tran & 6 & 11.8\% \\
+Jennifer Ye & 11 & 21.2\% \\
+Kate Min & 15 & 29.4\% \\
+Sumanya Gulati & 19 & 37.2\% \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -141,7 +145,7 @@ Sumanya Gulati & 0 & 0\% \\
 
 Please note that the number of commits here only takes into account the commits \emph{not}
 included in main, i.e., the number of commits that the current branch is ahead when compared 
-to main.
+to main. Furthermore, 54\% (\i.e., 6 out of 11)\ of Kate's commits were minor fixups.
 
 \subsection{Branch: frontend-feat/efficiency-factors}
 
@@ -151,10 +155,10 @@ to main.
 \toprule
 \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
 \midrule
-Total & 10 & 100\% \\
-Jason Tran & 2 & 20\% \\
+Total & 8 & 100\% \\
+Jason Tran & 0 & 0\% \\
 Jennifer Ye & 0 & 0\% \\
-Kate Min & 9 & 90\% \\
+Kate Min & 8 & 100\% \\
 Sumanya Gulati & 0 & 0\% \\
 \bottomrule
 \end{tabular}
@@ -162,7 +166,7 @@ Sumanya Gulati & 0 & 0\% \\
 
 Please note that the number of commits here only takes into account the commits \emph{not}
 included in main, i.e., the number of commits that the current branch is ahead when compared 
-to main.
+to main. This branch was branched off from \texttt{rev-1}.
 
 \subsection{Branch: frontend-feat/graph-modal-sidebar-improvments}
 
@@ -172,10 +176,10 @@ to main.
 \toprule
 \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
 \midrule
-Total & 12 & 100\% \\
-Jason Tran & 2 & 16.7\% \\
-Jennifer Ye & 7 & 58.3\% \\
-Kate Min & 4 & 33.3\% \\
+Total & 8 & 100\% \\
+Jason Tran & 0 & 0\% \\
+Jennifer Ye & 7 & 87.5\% \\
+Kate Min & 1 & 12.5\% \\
 Sumanya Gulati & 0 & 0\% \\
 \bottomrule
 \end{tabular}
@@ -183,7 +187,7 @@ Sumanya Gulati & 0 & 0\% \\
 
 Please note that the number of commits here only takes into account the commits \emph{not}
 included in main, i.e., the number of commits that the current branch is ahead when compared 
-to main.
+to main. This branch was branched off from \texttt{rev-1}.
 
 \subsection{Branch: frontend-feat/column-types-input-validation}
 
@@ -193,10 +197,10 @@ to main.
 \toprule
 \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
 \midrule
-Total & 6 & 100\% \\
-Jason Tran & 6 & 100\% \\
+Total & 5 & 100\% \\
+Jason Tran & 1 & 20\% \\
 Jennifer Ye & 0 & 0\% \\
-Kate Min & 4 & 66.7\% \\
+Kate Min & 4 & 80\% \\
 Sumanya Gulati & 0 & 0\% \\
 \bottomrule
 \end{tabular}
@@ -204,7 +208,7 @@ Sumanya Gulati & 0 & 0\% \\
 
 Please note that the number of commits here only takes into account the commits \emph{not}
 included in main, i.e., the number of commits that the current branch is ahead when compared 
-to main.
+to main. This branch was branched off from \texttt{rev-1}.
 
 \subsection{Branch: documentation/VnV}
 
@@ -214,10 +218,10 @@ to main.
 \toprule
 \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
 \midrule
-Total & 26 & 100\% \\
-Jason Tran & 7 & 26.9\% \\
-Jennifer Ye & 6 & 23.1\% \\
-Kate Min & 12 & 46.2\% \\
+Total & 25 & 100\% \\
+Jason Tran & 7 & 28\% \\
+Jennifer Ye & 6 & 24\% \\
+Kate Min & 12 & 48\% \\
 Sumanya Gulati & 0 & 0\% \\
 \bottomrule
 \end{tabular}
@@ -225,7 +229,7 @@ Sumanya Gulati & 0 & 0\% \\
 
 Please note that the number of commits here only takes into account the commits \emph{not}
 included in main, i.e., the number of commits that the current branch is ahead when compared 
-to main.
+to main. This branch was branched off from \texttt{rev-1}.
 
 \subsection{Branch: frontend-feat/add-data-visualization-page}
 
@@ -238,7 +242,7 @@ to main.
 Total & 22 & 100\% \\
 Jason Tran & 0 & 0\% \\
 Jennifer Ye & 17 & 77.3\% \\
-Kate Min & 22 & 100\% \\
+Kate Min & 1 & 4.5\% \\
 Sumanya Gulati & 4 & 18.2\% \\
 \bottomrule
 \end{tabular}
@@ -246,7 +250,7 @@ Sumanya Gulati & 4 & 18.2\% \\
 
 Please note that the number of commits here only takes into account the commits \emph{not}
 included in main, i.e., the number of commits that the current branch is ahead when compared 
-to main.
+to main. This branch was branched off from \texttt{rev-0} at the time.
 
 \subsection{Branch: frontend-feat/add-analysis-to-graphs}
 
@@ -256,18 +260,19 @@ to main.
 \toprule
 \textbf{Student} & \textbf{Commits} & \textbf{Percent}\\
 \midrule
-Total & 34 & 100\% \\
-Jason Tran & 4 & 11.8\% \\
-Jennifer Ye & 20 & 58.8\% \\
-Kate Min & 6 & 17.7\% \\
-Sumanya Gulati & 4 & 11.8\% \\
+Total & 6 & 100\% \\
+Jason Tran & 0 & 0\% \\
+Jennifer Ye & 0 & 0\% \\
+Kate Min & 6 & 100\% \\
+Sumanya Gulati & 0 & 0\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Please note that the number of commits here only takes into account the commits \emph{not}
 included in main, i.e., the number of commits that the current branch is ahead when compared 
-to main.
+to main. This branch was branched off from
+\texttt{frontend-feat/add-data-visualization-page}.
 
 \subsection{Branch: frontend-feat/add-user-login-auth}
 
