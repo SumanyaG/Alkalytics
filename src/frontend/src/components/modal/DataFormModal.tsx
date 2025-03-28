@@ -159,6 +159,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
   const [activeStep, setActiveStep] = useState(0);
   const [xAxisError, setXAxisError] = useState<string | null>(null);
   const [yAxisError, setYAxisError] = useState<string | null>(null);
+  const [titleError, setTitleError] = useState<string | null>(null);
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
@@ -188,8 +189,9 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
   };
 
   const handleSubmit = () => {
-    if (!validateAxisRange()) {
-      return; // Stop submission if validation fails
+    if (!validateAxisRange() || !setGraphTitle) { // Add title check
+      if (!setGraphTitle) setTitleError("Graph title is required");
+      return;
     }
     setOpenModal(false);
     onSubmit();
@@ -399,8 +401,12 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                   label="Title"
                   margin="dense"
                   variant="outlined"
+                  required
+                  error={!!titleError}
+                  helperText={titleError}
                   onChange={(e) => {
                     setGraphTitle(e.target.value);
+                    if (titleError) setTitleError(null);
                   }}
                 />
               </div>

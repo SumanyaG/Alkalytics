@@ -262,8 +262,8 @@ const DataVisualize: React.FC = () => {
     "max x": maxX ? parseFloat(maxX) : undefined,
     "min y": minY ? parseFloat(minY) : undefined,
     "max y": maxY ? parseFloat(maxY) : undefined,
-    "x label": xLabel,
-    "y label": yLabel,
+    "x label": xLabel || selectedParamX,
+    "y label": yLabel || selectedParamY,
   };
 
   const saveGraph = async () => {
