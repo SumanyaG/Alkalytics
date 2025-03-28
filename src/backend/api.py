@@ -267,6 +267,7 @@ class ExperimentFilter(BaseModel):
     attributes: List[str]
     xValue: Optional[str] = ""
     yValue: Optional[str] = ""
+    getDate: Optional[bool] = False
     analysis: Optional[bool] = False
 
 @app.post("/filterCollectionData")
@@ -334,17 +335,30 @@ async def getFilterCollectionData(payload: ExperimentFilter):
     target_collection, target_client = target_conn["collection"], target_conn["client"]
     attrs = {field: 1 for field in payload.attributes}
     attrs["_id"] = 0
+    attrs["experimentId"] = 1
 
-    try:        
+    try: 
+
         query = build_query(payload.attributes, payload.xValue, payload.yValue)
-
+        if query is None: return {"status": "error", "message": 'Attribute cannot be graphed, does not have numaric values'}
+        
         try:
-            filtered_data = target_collection.find(query, attrs)
+            if payload.getDate is True:
+                filtered_data = target_collection.find(query, {"experimentId": 1, "_id": 0})
+            else:
+                filtered_data = target_collection.find(query, attrs)
             data_list = list(filtered_data)
             data_list = [cleanData(item) for item in data_list]
 
+            if payload.getDate is True:
+                data_list = [date['experimentId'].split()[-1] for date in data_list]
+
             if not data_list:
-                raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
+                if payload.getDate is True:
+                    print("here")
+                    raise HTTPException(status_code=404, detail="There is no date with the given attribute value")
+                else:
+                    raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
             response = {"status": "success", "data": data_list}
         
         except Exception as e:
@@ -409,7 +423,7 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
     latest = collection.find().sort({"_id":-1}).limit(1)
     data_list = list(latest)
     data_list = [cleanData(item) for item in data_list]
-    nextId = data_list[0]["_id"] + 1
+    nextId = 1 if not data_list else data_list[0]["_id"] + 1
     
     graph = {
         "_id": nextId,  
