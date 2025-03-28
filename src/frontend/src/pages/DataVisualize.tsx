@@ -14,11 +14,13 @@ type FormDataType = {
   setSelectedParamX: (value: string) => void;
   selectedParamY: string;
   setSelectedParamY: (value: string) => void;
-  timeMinX: string;
-  setXValue: (value: string) => void;
   xValue: string;
-  setYValue: (value: string) => void;
+  setXValue: (value: string) => void;
   yValue: string;
+  setYValue: (value: string) => void;
+  selectedDates: string[];
+  setSelectedDates: (value: string[]) => void;
+  timeMinX: string;
   setTimeMinX: (value: string) => void;
   timeMaxX: string;
   setTimeMaxX: (value: string) => void;
@@ -57,6 +59,8 @@ const defaultContextValue: FormDataType = {
   setXValue: () => {},
   yValue: "",
   setYValue: () => {},
+  selectedDates: [],
+  setSelectedDates: () => {},
   timeMinX: "",
   setTimeMinX: () => {},
   timeMaxX: "",
@@ -92,6 +96,7 @@ const FILTER_COLLECTDATA = gql`
     $attributes: [String!]!
     $xValue: String
     $yValue: String
+    $getDate: Boolean
     $analysis: Boolean
   ) {
     getFilterCollectionData(
@@ -99,6 +104,7 @@ const FILTER_COLLECTDATA = gql`
       collection: $collection
       xValue: $xValue
       yValue: $yValue
+      getDate: $getDate
       analysis: $analysis
     ) {
       data
@@ -136,6 +142,7 @@ const DataVisualize: React.FC = () => {
   const [selectedParamY, setSelectedParamY] = useState<string>("");
   const [xValue, setXValue] = useState<string>("");
   const [yValue, setYValue] = useState<string>("");
+  const [selectedDates, setSelectedDates] = React.useState<string[]>([]);
   const [timeMinX, setTimeMinX] = useState("");
   const [timeMaxX, setTimeMaxX] = useState("");
   const [timeMinY, setTimeMinY] = useState("");
@@ -165,6 +172,8 @@ const DataVisualize: React.FC = () => {
     setXValue,
     yValue,
     setYValue,
+    selectedDates,
+    setSelectedDates,
     timeMinX,
     setTimeMinX,
     timeMaxX,

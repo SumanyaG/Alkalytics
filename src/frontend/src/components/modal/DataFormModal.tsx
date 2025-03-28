@@ -5,6 +5,7 @@ import SingleDropdown from "../dropdown/SingleDropdown";
 import ExpandableSection from "../expandable/ExpandableSection";
 import { FormDataContext } from "../../pages/DataVisualize";
 import { useQuery, gql } from "@apollo/client";
+import MultipleSelectCheckmarks from "../dropdown/MultiSelectDropDown";
 
 interface GenerateGraphModal {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,6 +54,30 @@ const GET_ATTR_VALUES = gql`
     )
   }
 `;
+
+const FILTER_COLLECTDATA = gql`
+  query GetFilterCollectionData(
+    $collection: String!
+    $attributes: [String!]!
+    $xValue: String
+    $yValue: String
+    $getDate: Boolean
+    $analysis: Boolean
+  ) {
+    getFilterCollectionData(
+      attributes: $attributes
+      collection: $collection
+      xValue: $xValue
+      yValue: $yValue
+      getDate: $getDate
+      analysis: $analysis
+    ) {
+      data
+      analysisRes
+    }
+  }
+`;
+
 const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
   setOpenModal,
   onSubmit,
@@ -71,6 +96,8 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     setXValue,
     yValue,
     setYValue,
+    selectedDates,
+    setSelectedDates,
     timeMinX,
     setTimeMinX,
     timeMaxX,
@@ -155,7 +182,25 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     })
   );
 
-  const steps = ["Graph", "Parameters", "Filter", "Customize"];
+  const { data: filteredDates } = useQuery<{
+    getFilterCollectionData: {
+      data: any[];
+      analysisRes?: any[];
+    };
+  }>(FILTER_COLLECTDATA, {
+    variables: {
+      collection: selectedParamType,
+      attributes: [selectedParamX, selectedParamY],
+      xValue: xValue,
+      yValue: yValue,
+      getDate: true,
+    },
+    skip: !selectedParamType || !selectedParamX || !selectedParamY,
+  });
+
+  const dates = filteredDates?.getFilterCollectionData?.data ?? [];
+
+  const steps = ["Graph", "Parameters", "Filter", "Date", "Customize"];
   const [activeStep, setActiveStep] = useState(0);
   const [xAxisError, setXAxisError] = useState<string | null>(null);
   const [yAxisError, setYAxisError] = useState<string | null>(null);
@@ -175,6 +220,9 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     if (activeStep === 1) {
       return !selectedParamType || !selectedParamX || !selectedParamY;
     }
+    if (activeStep === 3) {
+      return selectedDates.length === 0;
+    }
     return false;
   };
 
@@ -189,7 +237,8 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
   };
 
   const handleSubmit = () => {
-    if (!validateAxisRange() || !setGraphTitle) { // Add title check
+    if (!validateAxisRange() || !setGraphTitle) {
+      // Add title check
       if (!setGraphTitle) setTitleError("Graph title is required");
       return;
     }
@@ -337,7 +386,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                 label="Compare Parameters"
                 description="Select axis parameters"
                 children={
-                  <div>
+                  <div className="flex flex-col text-end">
                     <SingleDropdown
                       options={
                         selectedParamType === "data"
@@ -366,7 +415,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
             </div>
           )}
 
-          {/* Data */}
+          {/* Filter */}
           {activeStep === 2 && (
             <div>
               <Input
@@ -391,9 +440,24 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
               />
             </div>
           )}
+          {/* Date */}
+          {activeStep === 3 && (
+            <Input
+              label="Experiment Dates"
+              description=" Select the experimental date(s) of the datasheet(s)"
+              children={
+                <MultipleSelectCheckmarks
+                  dates={dates}
+                  required={true}
+                  values={selectedDates}
+                  onChange={setSelectedDates}
+                />
+              }
+            />
+          )}
 
           {/* Customize */}
-          {activeStep === 3 && (
+          {activeStep === 4 && (
             <div>
               <div className="flex items-center mb-6 justify-between">
                 <h2 className="text-l pe-2">Graph Title</h2>

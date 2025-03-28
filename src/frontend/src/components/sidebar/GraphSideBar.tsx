@@ -42,6 +42,9 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
     setSelectedParamType,
     setSelectedParamX,
     setSelectedParamY,
+    setXValue,
+    setYValue,
+    setSelectedDates,
     setTimeMinX,
     setTimeMaxX,
     setTimeMinY,
@@ -61,6 +64,9 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
     setSelectedParamType("");
     setSelectedParamX("");
     setSelectedParamY("");
+    setXValue("");
+    setYValue("");
+    setSelectedDates([]);
     setTimeMinX("");
     setTimeMaxX("");
     setTimeMinY("");
