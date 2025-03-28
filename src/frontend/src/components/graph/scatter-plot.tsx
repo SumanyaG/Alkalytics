@@ -38,7 +38,6 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    // Enhanced margins
     const margin = {
       top: 50,
       right: 50,
@@ -58,7 +57,6 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
     const g = svg.append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Calculate domains with 5% padding
     const xDomain = [
       properties["min x"] ?? d3.min(data, d => d.x) ?? 0,
       properties["max x"] ?? d3.max(data, d => d.x) ?? 1
@@ -80,12 +78,10 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
       .range([innerHeight, 0])
       .nice();
 
-    // X Axis with proper typing
     const xAxis = g.append("g")
       .attr("transform", `translate(0,${innerHeight})`)
       .call(d3.axisBottom(xScale));
     
-    // Apply styles to axis elements
     xAxis.selectAll("text")
       .style("font-size", "12px")
       .style("font-family", "sans-serif");
@@ -101,11 +97,9 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
       .style("font-size", "12px")
       .text(properties["x label"] || "");
 
-    // Y Axis with proper typing
     const yAxis = g.append("g")
       .call(d3.axisLeft(yScale));
-    
-    // Apply styles to axis elements
+
     yAxis.selectAll("text")
       .style("font-size", "12px")
       .style("font-family", "sans-serif");
@@ -122,17 +116,44 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
       .style("font-size", "12px")
       .text(properties["y label"] || "");
 
-    // Data points
-    g.selectAll("circle")
+    const circles = g.selectAll("circle")
       .data(data)
       .join("circle")
       .attr("cx", d => xScale(d.x))
       .attr("cy", d => yScale(d.y))
-      .attr("r", 5)
+      .attr("r", 4) 
+      .attr("data-id", d => d.label) 
       .style("fill", "#3b82f6")
-      .style("opacity", 0.8);
+      .style("opacity", 0.7)
+      .style("stroke", "#1e3a8a")
+      .style("stroke-width", 0.8);
 
-    // Title
+    const delaunay = d3.Delaunay.from(
+      data,
+      d => xScale(d.x),
+      d => yScale(d.y)
+    );
+    const voronoi = delaunay.voronoi([0, 0, innerWidth, innerHeight]);
+
+    g.selectAll(".voronoi")
+      .data(data)
+      .join("path")
+      .attr("class", "voronoi")
+      .attr("d", (d,i) => voronoi.renderCell(i))
+      .style("pointer-events", "all")
+      .style("fill", "none")
+
+    if (lineData && lineData.length >= 2) {
+      g.append("line")
+        .attr("x1", xScale(lineData[0].x))
+        .attr("y1", yScale(lineData[0].y))
+        .attr("x2", xScale(lineData[1].x))
+        .attr("y2", yScale(lineData[1].y))
+        .attr("stroke", "#ef4444") 
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", "4 2");
+    }
+
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", 30)
@@ -143,6 +164,8 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
 
   }, [data, properties, width, height, lineData]);
 
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
   return <svg ref={svgRef} style={{
     display: "block",
     margin: "0 auto",
@@ -150,6 +173,8 @@ const ScatterPlot: React.FC<ScatterPlotProps> = ({
     borderRadius: "8px",
     boxShadow: "0 1px 3px rgba(0,0,0,0.12)"
   }} />;
+
+  
 };
 
 export default ScatterPlot;

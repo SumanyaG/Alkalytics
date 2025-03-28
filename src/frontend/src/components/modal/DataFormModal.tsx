@@ -11,13 +11,13 @@ interface GenerateGraphModal {
   onSubmit: any;
 }
 const graphTypes = [
-  { value: "bar", label: "Bar Chart" },
+  { value: "bar", label: "Bar Graph" },
   { value: "line", label: "Line Chart" },
-  { value: "scatter", label: "Single Plot" },
+  { value: "scatter", label: "Scatter Plot" },
 ];
 const paramType = [
-  { value: "data", label: "Data Sheet" },
-  { value: "experiments", label: "Experiment" },
+  { value: "data", label: "Raw Data Sheet" },
+  { value: "experiments", label: "Experiment Log File" },
 ];
 
 const Input: React.FC<{
