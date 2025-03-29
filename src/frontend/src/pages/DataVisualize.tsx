@@ -8,6 +8,12 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 type FormDataType = {
   selectedGraphType: string;
   setSelectedGraphType: (value: string) => void;
+  selectedFilterParamType: string;
+  setSelectedFilterParamType: (value: string) => void;
+  selectedFilterParam: string;
+  setSelectedFilterParam: (value: string) => void;
+  selectedFilterValue: string;
+  setSelectedFilterValue: (value: string) => void;
   selectedParamType: string;
   setSelectedParamType: (value: string) => void;
   selectedParamX: string;
@@ -49,6 +55,12 @@ type FormDataType = {
 const defaultContextValue: FormDataType = {
   selectedGraphType: "",
   setSelectedGraphType: () => {},
+  selectedFilterParamType: "",
+  setSelectedFilterParamType: () => {},
+  selectedFilterParam: "",
+  setSelectedFilterParam: () => {},
+  selectedFilterValue: "",
+  setSelectedFilterValue: () => {},
   selectedParamType: "",
   setSelectedParamType: () => {},
   selectedParamX: "",
@@ -137,6 +149,10 @@ const REMOVE_GRAPH = gql`
 
 const DataVisualize: React.FC = () => {
   const [selectedGraphType, setSelectedGraphType] = useState<string>("");
+  const [selectedFilterParamType, setSelectedFilterParamType] =
+    useState<string>("");
+  const [selectedFilterParam, setSelectedFilterParam] = useState<string>("");
+  const [selectedFilterValue, setSelectedFilterValue] = useState<string>("");
   const [selectedParamType, setSelectedParamType] = useState<string>("");
   const [selectedParamX, setSelectedParamX] = useState<string>("");
   const [selectedParamY, setSelectedParamY] = useState<string>("");
@@ -162,6 +178,12 @@ const DataVisualize: React.FC = () => {
   const contextValue: FormDataType = {
     selectedGraphType,
     setSelectedGraphType,
+    selectedFilterParamType,
+    setSelectedFilterParamType,
+    selectedFilterParam,
+    setSelectedFilterParam,
+    selectedFilterValue,
+    setSelectedFilterValue,
     selectedParamType,
     setSelectedParamType,
     selectedParamX,
