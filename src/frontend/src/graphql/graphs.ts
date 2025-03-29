@@ -11,7 +11,8 @@ export const typeDefs = gql`
 
   type Query {
     getCollectionAttrs(collection: String!): [String!]!
-    getFilterCollectionData(attributes: [String!]!, collection: String!, xValue: String, yValue:String, getDate: Boolean, analysis: Boolean): filterCollectionDataResponse
+    getFilterCollectionData(attributes: [String!]!, collection: String!, dates:[String!], analysis: Boolean): filterCollectionDataResponse
+    getFilterCollectionDates(attribute: String!, collection: String!, filterValue:String!): [String!]!
     getFilterCollectionAttrValues(attribute: String!, collection: String!):[String!]!,
     getLastestGraph(latest:Int):[JSON]
     }
@@ -53,10 +54,10 @@ export const resolvers = {
   
       getFilterCollectionData: async (
         _: undefined,
-        { attributes, collection, xValue, yValue, getDate, analysis }: { attributes: string[]; collection: string, xValue?: string, yValue?:string, getDate?: Boolean, analysis?: Boolean }
+        { attributes, collection, dates, analysis }: { attributes: string[]; collection: string, dates?:string[], analysis?: Boolean }
       ):Promise<filterCollectionDataResponse> => {
         try {
-          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, xValue, yValue, getDate, analysis}, {
+          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, dates, analysis}, {
             headers: { "Content-Type": "application/json" },
           });
           if (response.data.status === "success") {
@@ -68,6 +69,27 @@ export const resolvers = {
                 : []
               : []
             };
+          } else {
+            throw new Error("No data has the given attributes.");
+          }
+        } catch (error) {
+          console.error(
+            "Error fetching experiment with given attributes:",
+            error instanceof Error ? error.message : error
+          );
+          throw new Error("Failed to fetch experiment with given attributes.");
+        }
+      },
+      getFilterCollectionDates: async (
+        _: undefined,
+        { attribute, collection, filterValue }: { attribute: string; collection: string, filterValue?:string}
+      ):Promise<filterCollectionDataResponse> => {
+        try {
+          const response = await axios.post("http://127.0.0.1:8000/getFilterCollectionDates", {attribute, collection, filterValue}, {
+            headers: { "Content-Type": "application/json" },
+          });
+          if (response.data.status === "success") {
+            return response.data.data || [];
           } else {
             throw new Error("No data has the given attributes.");
           }

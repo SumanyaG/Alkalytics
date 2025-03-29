@@ -69,6 +69,12 @@ def cleanData(obj):
         return [cleanData(i) for i in obj]
     return obj
 
+def fetch_and_process_data(collection, query, projection):
+    filtered_data = collection.find(query, projection)
+    data_list = list(filtered_data)
+    data_list = [cleanData(item) for item in data_list]
+    return data_list
+
 @app.post("/upload")
 async def upload(payload: FilesPayload):
     """
@@ -265,9 +271,7 @@ async def getCollectionAttrs(payload:DataAttrs):
 class ExperimentFilter(BaseModel):
     collection: str
     attributes: List[str]
-    xValue: Optional[str] = ""
-    yValue: Optional[str] = ""
-    getDate: Optional[bool] = False
+    dates: List[str]
     analysis: Optional[bool] = False
 
 @app.post("/filterCollectionData")
@@ -310,60 +314,47 @@ async def getFilterCollectionData(payload: ExperimentFilter):
         }
         return [result]
     
-    def get_numeric_value(value: str) -> float | str:
-        """
-        Attempt to convert string to float, return original if fails
-        """
-        try:
-            return float(value)
-        except ValueError:
-            return value
-        
-    def build_query(attributes: List[str], x_value: str, y_value: str):
-        """
-        Construct MongoDB query from input values
-        """
-        query = {}
-        
-        if x_value:
-            query[attributes[0]] = get_numeric_value(x_value)
-        if y_value:
-            query[attributes[1]] = get_numeric_value(y_value)
-            
-        return query
-    target_conn = getConnection(payload.collection)
-    target_collection, target_client = target_conn["collection"], target_conn["client"]
+    # Prepare attributes for projection
     attrs = {field: 1 for field in payload.attributes}
-    attrs["_id"] = 0
-    attrs["experimentId"] = 1
+    attrs["Date"] = 1
 
-    try: 
+    try:
+        # Need to get experimentId from the Dates selected
+        if payload.collection == "data" and payload.dates:
+            # Get experiment IDs from the "experiments" collection
+            experiments_conn = getConnection("experiments")
+            experiments_collection, experiments_client = experiments_conn["collection"], experiments_conn["client"]
 
-        query = build_query(payload.attributes, payload.xValue, payload.yValue)
-        if query is None: return {"status": "error", "message": 'Attribute cannot be graphed, does not have numaric values'}
-        
-        try:
-            if payload.getDate is True:
-                filtered_data = target_collection.find(query, {"experimentId": 1, "_id": 0})
+            experiment_ids = [
+                item["experimentId"]
+                for item in experiments_collection.find(
+                    {"Date": {"$in": payload.dates}}, 
+                    {"experimentId": 1, "_id": 0}
+                )
+            ]
+            experiments_client.close()
+
+            if not experiment_ids:
+                raise HTTPException(status_code=404, detail="No experiments found for the given dates.")
+
+            # Fetch data from the collection using experiment IDs
+            target_conn = getConnection(payload.collection)
+            target_collection, target_client = target_conn["collection"], target_conn["client"]
+
+            query = {"experimentId": {"$in": experiment_ids}}
+            attrs["experimentId"] = 1
+            response = await fetch_and_process_data(target_collection, query, attrs, target_client)
+
+        # Handle all other cases
+        else:
+            target_conn = getConnection(payload.collection)
+            target_collection, target_client = target_conn["collection"], target_conn["client"]
+
+            if len(payload.dates) > 0:
+                query = {"Date": {"$in": payload.dates}}
             else:
-                filtered_data = target_collection.find(query, attrs)
-            data_list = list(filtered_data)
-            data_list = [cleanData(item) for item in data_list]
-
-            if payload.getDate is True:
-                data_list = [date['experimentId'].split()[-1] for date in data_list]
-
-            if not data_list:
-                if payload.getDate is True:
-                    print("here")
-                    raise HTTPException(status_code=404, detail="There is no date with the given attribute value")
-                else:
-                    raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
-            response = {"status": "success", "data": data_list}
-        
-        except Exception as e:
-            response = {"status": "error", "message": str(e)}
-
+                query = {}
+            response = await fetch_and_process_data(target_collection, query, attrs, target_client)
         # Check if analysis is requested
         if payload.analysis:
             try:
@@ -373,6 +364,50 @@ async def getFilterCollectionData(payload: ExperimentFilter):
             except Exception as e:
                 response["analysisRes"] = "error"
                 print(f"Error performing analysis: {e}")
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        response = {"status": "error", "message": str(e)}
+    finally:
+        if target_client:
+            target_client.close()
+    return response
+class ExperimentFilter(BaseModel):
+    collection: str
+    attribute: str
+    filterValue: str
+
+@app.post("/getFilterCollectionDates")
+async def getFilterCollectionDates(payload: ExperimentFilter):
+    """
+    Fetches the dates from filtered value
+    """
+    
+    def get_numeric_value(value: str) -> float | str:
+        """
+        Attempt to convert string to float, return original if fails
+        """
+        try:
+            return float(value)
+        except ValueError:
+            return value
+    
+    target_conn = getConnection(payload.collection)
+    target_collection, target_client = target_conn["collection"], target_conn["client"]
+
+    try: 
+        query = {}
+        query[payload.attribute] = get_numeric_value(payload.filterValue)
+        data_list = fetch_and_process_data(target_collection, query, {"experimentId": 1, "_id": 0})
+        data_list = [date['experimentId'].split()[-1] for date in data_list]
+
+        if not data_list:
+            if payload.getDate is True:
+                print("here")
+                raise HTTPException(status_code=404, detail="There is no date with the given attribute value")
+            else:
+                raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
+        response = {"status": "success", "data": data_list}
     except HTTPException as he:
         raise he
     except Exception as e:
