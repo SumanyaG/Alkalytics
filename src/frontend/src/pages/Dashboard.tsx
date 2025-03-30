@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import useTable from "../hooks/useTable";
+import useGraphs from "../hooks/useGraphs";
 import Table from "../components/table/Table";
 import BarGraph from "../components/graph/bar-graph";
 import ScatterPlot from "../components/graph/scatter-plot";
 import LineGraph from "../components/graph/line-plot";
-import useGraphs from "../hooks/useGraphs";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const {
-    sortedData,
-    tableName,
-    refetchEfficiencies,
-  } = useTable("Efficiency Calculations");
+  const { sortedData, tableName, refetchEfficiencies } = useTable("Efficiency Calculations");
 
   const { latestGraphs, loading, error } = useGraphs(3);
   const validGraphs =
@@ -19,6 +16,7 @@ const Dashboard = () => {
     [];
 
   const [animateGraphs, setAnimateGraphs] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Trigger animation after component mounts
@@ -47,11 +45,44 @@ const Dashboard = () => {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-[1800px]">
         <div className="space-y-8">
+          {/* WELCOME HEADER */}
+          <div className="flex flex-col items-center text-center mt-4 mb-8">
+            <h1 className="text-4xl font-extrabold text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text animate-fade-in">
+              Welcome to Your Dashboard
+            </h1>
+            <p className="mt-4 text-base text-gray-600 max-w-2xl">
+              Explore your data, analyze trends, and visualize insights.
+            </p>
+          </div>
           {/* GENERATED GRAPHS */}
-          <div className="rounded-2xl border border-gray-200 bg-transparent p-6 shadow-md transition-all duration-300">
-            <h2 className="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
-              Generated Graphs
-            </h2>
+          <div className="rounded-2xl border border-gray-200 bg-transparent px-6 py-4 shadow-md transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <h2 className="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
+                Generated Graphs
+              </h2>
+              <button
+                onClick={() => navigate("/graphs")}
+                className="mb-4 group flex items-center space-x-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-blue-600 shadow-sm transition-all duration-200 hover:scale-105 hover:bg-gray-50 focus:outline-none"
+              >
+                <span className="text-sm font-semibold group-hover:text-blue-700">
+                  View All
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-blue-600 group-hover:text-blue-700"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {loading ? (
@@ -92,39 +123,40 @@ const Dashboard = () => {
                       }`}
                       style={{ transitionDelay: `${index * 150}ms` }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-indigo-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                      <div className="absolute z-50 inset-0 bg-gradient-to-br from-blue-100 to-indigo-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
-                      <div className="absolute top-4 left-4 flex items-center space-x-2">
-                        <span className="text-sm font-bold text-blue-600">
-                          {properties[0]?.["graph title"] ||
-                            `${
-                              graphtype.charAt(0).toUpperCase() +
-                              graphtype.slice(1)
-                            } Graph`}
+                      <div className="z-40 absolute top-3.5 left-1/2 transform -translate-x-1/2">
+                        <span className="text-base font-bold text-black">
+                          {properties[0]?.["graph title"] !== ""
+                            ? ""
+                            : `${
+                                graphtype.charAt(0).toUpperCase() +
+                                graphtype.slice(1)
+                              } Graph`}
                         </span>
                       </div>
 
-                      <div className="flex h-full w-full items-center justify-center pt-8">
+                      <div className="flex h-full w-full items-center justify-center">
                         {graphtype === "bar" ? (
                           <BarGraph
                             data={graphData}
                             properties={properties[0]}
-                            width={300}
-                            height={300}
+                            width={400}
+                            height={400}
                           />
                         ) : graphtype === "line" ? (
                           <LineGraph
                             data={graphData}
                             properties={properties[0]}
-                            width={300}
-                            height={300}
+                            width={400}
+                            height={400}
                           />
                         ) : graphtype === "scatter" ? (
                           <ScatterPlot
                             data={graphData}
                             properties={properties[0]}
-                            width={300}
-                            height={300}
+                            width={400}
+                            height={400}
                             lineData={[]}
                           />
                         ) : (
@@ -150,11 +182,33 @@ const Dashboard = () => {
           </div>
 
           {/* DATA TABLE */}
-          <div className="rounded-2xl border border-gray-200 bg-transparent p-6 shadow-md transition-all duration-300">
+          <div className="rounded-2xl border border-gray-200 bg-transparent px-6 py-4 shadow-md transition-all duration-300">
             <div className="flex items-center justify-between">
               <h2 className="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
                 Data Analysis
               </h2>
+              <button
+                className="group flex items-center space-x-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-blue-600 shadow-sm transition-all duration-200 hover:scale-105 hover:bg-gray-50 focus:outline-none"
+                onClick={() => navigate("/table")}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-blue-600 group-hover:text-blue-700"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+                <span className="text-sm font-semibold group-hover:text-blue-700">
+                  View All Data
+                </span>
+              </button>
 
               {/* <div className="relative">
                 <select
