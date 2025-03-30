@@ -75,7 +75,7 @@ const SetColumnTypesModal: React.FC<SetColumnTypesModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div
-        className={`w-full max-w-md overflow-hidden rounded-xl border bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm ${
+        className={`w-full max-w-md overflow-hidden rounded-xl border-4 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm ${
           loading
             ? "border-yellow-500"
             : error

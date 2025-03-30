@@ -81,30 +81,31 @@ const EfficiencyModal: React.FC<EfficiencyModalProps> = ({
     try {
       setLoading(true);
       setError(false);
+      setErrorMessage("");
       const response = await onComputeEfficiencies(
         selectedExperiment,
         selectedEfficiencies,
         selectedTimeInterval
       );
       if (response && response.success) {
-        setLoading(false);
         setIsModalOpen(false);
       } else {
         setLoading(false);
         setError(true);
       }
     } catch (err) {
-      setLoading(false);
       setError(true);
       console.error("Error computing efficiencies:", err);
-      setErrorMessage(String(err));
+      setErrorMessage("An error occurred while computing efficiencies. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div
-        className={`w-full max-w-xl overflow-hidden rounded-xl border bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all ${
+        className={`w-full max-w-xl overflow-hidden rounded-xl border-4 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all ${
           loading
             ? "border-yellow-300/50"
             : error

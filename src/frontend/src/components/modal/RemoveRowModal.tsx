@@ -34,7 +34,7 @@ const RemoveRowModal: React.FC<RemoveRowModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div
-        className={`relative w-full max-w-md overflow-hidden rounded-xl border border-white/20 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all duration-300 ${
+        className={`relative w-full max-w-md overflow-hidden rounded-xl border-4 border-white/20 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all duration-300 ${
           loading
             ? "ring-2 ring-yellow-300"
             : error
