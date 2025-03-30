@@ -59,7 +59,7 @@ const FILTER_COLLECTDATE = gql`
   query GetFilterCollectionDates(
     $collection: String!
     $attribute: String!
-    $filterValue: String!
+    $filterValue: JSON!
   ) {
     getFilterCollectionDates(
       attribute: $attribute

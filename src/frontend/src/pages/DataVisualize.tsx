@@ -104,19 +104,15 @@ export const FormDataContext =
 
 const FILTER_COLLECTDATA = gql`
   query GetFilterCollectionData(
-    $collection: String!
     $attributes: [String!]!
-    $xValue: String
-    $yValue: String
-    $getDate: Boolean
+    $collection: String!
+    $dates: [String]
     $analysis: Boolean
   ) {
     getFilterCollectionData(
       attributes: $attributes
       collection: $collection
-      xValue: $xValue
-      yValue: $yValue
-      getDate: $getDate
+      dates: $dates
       analysis: $analysis
     ) {
       data
@@ -241,6 +237,7 @@ const DataVisualize: React.FC = () => {
     variables: {
       attributes: [selectedParamX, selectedParamY],
       collection: selectedParamType,
+      dates: selectedDates,
       analysis: selectedGraphType === "scatter",
     },
     skip: !submit,
@@ -285,6 +282,7 @@ const DataVisualize: React.FC = () => {
 
   const graphProperties = {
     "graph title": graphTitle,
+    "Selected Dates": selectedDates,
     "x time min": timeMinX ? parseFloat(timeMinX) : undefined,
     "x time max": timeMaxX ? parseFloat(timeMaxX) : undefined,
     "y time min": timeMinY ? parseFloat(timeMinY) : undefined,
@@ -361,14 +359,26 @@ const DataVisualize: React.FC = () => {
         />
         <div className="flex-1 overflow-hidden">
           <div className="p-8 h-full w-full flex items-center justify-center">
-            {loading && <p>Loading...</p>}
-            {error && <p>Error: {error.message}</p>}
             {submit && (
               <div className="w-full h-full max-w-[1200px] aspect-[4/3]">
                 <div
                   ref={containerRef}
                   className="relative w-full h-full p-4 bg-white rounded-lg shadow-lg"
                 >
+                    {loading && (
+                      <div className="flex items-center justify-center h-full">
+                      <p className="text-lg font-semibold text-blue-600 animate-pulse text-center">
+                        Loading...
+                      </p>
+                      </div>
+                    )}
+                    {error && (
+                      <div className="flex items-center justify-center h-full">
+                      <p className="text-lg font-semibold text-red-600 text-center">
+                        Error: {error.message}
+                      </p>
+                      </div>
+                    )}
                   {selectedGraphType === "bar" ? (
                     <BarGraph
                       data={selectedGraphData?.data || graphData}
@@ -385,6 +395,7 @@ const DataVisualize: React.FC = () => {
                     />
                   ) : selectedGraphType === "scatter" ? (
                     <>
+                      <div className="flex flex-col items-center justify-center">
                       <ScatterPlot
                         data={selectedGraphData?.data || graphData}
                         properties={graphProperties}
@@ -393,27 +404,32 @@ const DataVisualize: React.FC = () => {
                         lineData={lineData}
                       />
                       {R_squared ? (
-                        <div className="relative mt-2 p-2">
-                          <h6>
-                            R<sup>2</sup> (coefficient of determination): {""}
-                            {R_squared.toFixed(2)}
-                          </h6>
-                          {R_squared < 0.5 ? (
-                            <p>
-                              The linear model explains less than 50% of the
-                              variability in the data, suggesting a poor fit.
-                            </p>
-                          ) : (
-                            <p>
-                              The linear model explains more than 50% of the
-                              variability in the data, suggesting a moderate to
-                              strong fit.
-                            </p>
-                          )}
+                        <div className="relative mt-2 p-2 text-center">
+                        <h5 className="text-lg font-semibold text-gray-800">
+                          Linear regression line: y = {slope.toFixed(2)}x +{" "}
+                          {intercept.toFixed(2)}
+                        </h5>
+                        <h6 className="text-md font-medium text-gray-700 mt-1">
+                          R<sup>2</sup> (coefficient of determination): {""}
+                          {R_squared.toFixed(2)}
+                        </h6>
+                        {R_squared < 0.5 ? (
+                          <p className="text-sm mt-2 text-gray-600">
+                          The linear model explains less than 50% of the
+                          variability in the data, suggesting a poor fit.
+                          </p>
+                        ) : (
+                          <p className="text-sm mt-2 text-gray-600">
+                          The linear model explains more than 50% of the
+                          variability in the data, suggesting a moderate
+                          to strong fit.
+                          </p>
+                        )}
                         </div>
                       ) : (
                         ""
                       )}
+                      </div>
                     </>
                   ) : null}
                 </div>

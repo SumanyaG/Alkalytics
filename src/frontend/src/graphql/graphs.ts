@@ -11,9 +11,9 @@ export const typeDefs = gql`
 
   type Query {
     getCollectionAttrs(collection: String!): [String!]!
-    getFilterCollectionData(attributes: [String!]!, collection: String!, dates:[String!], analysis: Boolean): filterCollectionDataResponse
-    getFilterCollectionDates(attribute: String!, collection: String!, filterValue:String!): [String!]!
-    getFilterCollectionAttrValues(attribute: String!, collection: String!):[String!]!,
+    getFilterCollectionData(attributes: [String!]!, collection: String!, dates: [String], analysis: Boolean): filterCollectionDataResponse
+    getFilterCollectionDates(attribute: String!, collection: String!, filterValue: JSON!): [String!]!
+    getFilterCollectionAttrValues(attribute: String!, collection: String!): [JSON]
     getLastestGraph(latest:Int):[JSON]
     }
     
@@ -54,14 +54,14 @@ export const resolvers = {
   
       getFilterCollectionData: async (
         _: undefined,
-        { attributes, collection, dates, analysis }: { attributes: string[]; collection: string, dates?:string[], analysis?: Boolean }
+        { attributes, collection, dates, analysis }: { attributes: string[], collection: string, dates: string[], analysis?: Boolean }
       ):Promise<filterCollectionDataResponse> => {
         try {
           const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, dates, analysis}, {
             headers: { "Content-Type": "application/json" },
           });
           if (response.data.status === "success") {
-            return { 
+            return {
               data: response.data.data || [],
               analysisRes: analysis
               ? response.data.analysisRes !== "error" 
@@ -82,8 +82,8 @@ export const resolvers = {
       },
       getFilterCollectionDates: async (
         _: undefined,
-        { attribute, collection, filterValue }: { attribute: string; collection: string, filterValue?:string}
-      ):Promise<filterCollectionDataResponse> => {
+        { attribute, collection, filterValue }: { attribute: string; collection: string, filterValue: string | number }
+      ):Promise<any> => {
         try {
           const response = await axios.post("http://127.0.0.1:8000/getFilterCollectionDates", {attribute, collection, filterValue}, {
             headers: { "Content-Type": "application/json" },
