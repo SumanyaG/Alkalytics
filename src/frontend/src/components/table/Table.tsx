@@ -66,6 +66,8 @@ type TableProps = {
   data: DataRow[];
   isOpen?: boolean;
   refetchData: () => void;
+  refetchExperiments: () => void;
+  refetchEfficiencies: () => void;
   graphType?: string;
 };
 
@@ -73,6 +75,8 @@ const Table: React.FC<TableProps> = ({
   tableName,
   data,
   refetchData,
+  refetchExperiments,
+  refetchEfficiencies,
   graphType,
 }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -142,7 +146,7 @@ const Table: React.FC<TableProps> = ({
       });
 
       if (data.updateData) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error updating rows:", error);
@@ -158,7 +162,7 @@ const Table: React.FC<TableProps> = ({
         variables: { columnName, defaultValue },
       });
       if (data.addColumn) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error adding column:", error);
@@ -172,7 +176,7 @@ const Table: React.FC<TableProps> = ({
         variables: { rowData: newRowData },
       });
       if (data.addRow) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error adding row:", error);
@@ -185,7 +189,7 @@ const Table: React.FC<TableProps> = ({
         variables: { columnName },
       });
       if (data.removeColumn) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error removing column:", error);
@@ -198,7 +202,7 @@ const Table: React.FC<TableProps> = ({
         variables: { experimentIds },
       });
       if (data.removeRow) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error removing row:", error);
@@ -213,7 +217,6 @@ const Table: React.FC<TableProps> = ({
         variables: { newColumnTypes },
       });
       if (data.setColumnTypes) {
-        setIsColumnTypesModalOpen(false);
         refetch();
       }
     } catch (error) {
@@ -227,11 +230,6 @@ const Table: React.FC<TableProps> = ({
     timeInterval: number
   ) => {
     try {
-      console.log("handleCompute: Arguments passed to mutation:", {
-        experimentId,
-        selectedEfficiencies,
-        timeInterval,
-      });
       const { data } = await computeEfficiency({
         variables: { experimentId, selectedEfficiencies, timeInterval },
       });

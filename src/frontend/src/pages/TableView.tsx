@@ -41,13 +41,9 @@ const TableView: React.FC<TableViewProps> = () => {
         <Table
           tableName={tableName}
           data={sortedData}
-          refetchData={
-            selectedExperiment === "Experiment Log"
-              ? refetchExperiments
-              : selectedExperiment === "Efficiency Calculations"
-              ? refetchEfficiencies
-              : refetchData
-          }
+          refetchData={refetchData}
+          refetchExperiments={refetchExperiments}
+          refetchEfficiencies={refetchEfficiencies}
           graphType={selectedExperiment === "Experiment Log" ? "experiment" : "data"}
         />
       </div>

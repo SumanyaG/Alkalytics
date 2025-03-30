@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import useTable from "../hooks/useTable";
 import useGraphs from "../hooks/useGraphs";
 import Table from "../components/table/Table";
@@ -8,12 +8,15 @@ import LineGraph from "../components/graph/line-plot";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const { sortedData, tableName, refetchEfficiencies } = useTable("Efficiency Calculations");
+  const { sortedData, tableName, refetchData, refetchExperiments, refetchEfficiencies } = useTable("Efficiency Calculations");
 
   const { latestGraphs, loading, error } = useGraphs(3);
-  const validGraphs =
-    latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
-    [];
+  const validGraphs = useMemo(
+    () =>
+      latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
+      [],
+    [latestGraphs]
+  );
 
   const [animateGraphs, setAnimateGraphs] = useState(false);
   const navigate = useNavigate();
@@ -241,7 +244,9 @@ const Dashboard = () => {
               <Table
                 tableName={tableName}
                 data={sortedData}
-                refetchData={refetchEfficiencies}
+                refetchData={refetchData}
+                refetchExperiments={refetchExperiments}
+                refetchEfficiencies={refetchEfficiencies}
                 graphType={""}
               />
             </div>
