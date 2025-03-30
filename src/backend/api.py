@@ -34,17 +34,6 @@ app.add_middleware(
 )
 
 
-class FilePayload(BaseModel):
-    filename: str
-    mimetype: str
-    content: str
-
-
-class FilesPayload(BaseModel):
-    experimentFiles: list[FilePayload]
-    dataFiles: list[FilePayload]
-
-
 def getConnection(collection: str):
     mongoUri = os.getenv("CONNECTION_STRING")
     dbName = "alkalyticsDB"
@@ -69,11 +58,16 @@ def cleanData(obj):
         return [cleanData(i) for i in obj]
     return obj
 
-def fetch_and_process_data(collection, query, projection):
-    filtered_data = collection.find(query, projection)
-    data_list = list(filtered_data)
-    data_list = [cleanData(item) for item in data_list]
-    return data_list
+
+class FilePayload(BaseModel):
+    filename: str
+    mimetype: str
+    content: str
+
+
+class FilesPayload(BaseModel):
+    experimentFiles: list[FilePayload]
+    dataFiles: list[FilePayload]
 
 @app.post("/upload")
 async def upload(payload: FilesPayload):
@@ -243,11 +237,12 @@ async def manualUpload(payload: ManualUploadPayload):
             status_code=500, detail=f"Error processing files: {str(e)}"
         )
 
+
 class DataAttrs(BaseModel):
     collection: str
 
 @app.post("/getAttrs")
-async def getCollectionAttrs(payload:DataAttrs):
+async def getCollectionAttrs(payload: DataAttrs):
     """
     Fetches the attributes of the data in a specified collection
     """
@@ -268,6 +263,61 @@ async def getCollectionAttrs(payload:DataAttrs):
     finally:
             client.close()
 
+
+async def fetch_and_process_data(collection, query, projection, client):
+    try:
+        filteredData = collection.find(query, projection)
+        dataList = list(filteredData)
+        dataList = [cleanData(item) for item in dataList]
+
+        if not dataList:
+            raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
+        
+        return {"status": "success", "data": dataList}
+    
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+    
+    finally:
+        client.close()
+
+
+def performAnalysis(data, attributes):
+    if len(attributes) != 2:
+        raise ValueError("The simple linear regression requires 2 variables.")
+
+    # Check if first item in data for specified attributes have numeric values
+    if not isinstance(data[0][attributes[0]], (int, float)) or not isinstance(data[0][attributes[1]], (int, float)):
+        raise TypeError("Data is non-numeric. Linear regression cannot be computed.")
+
+    if len(data) > 5000:
+        print(
+            "Size of data is too large to compute linear regression, "
+            "a sample of the original data will be analyzed."
+        )
+        sample_size = int(len(data) * 0.5)
+        indices = np.random.choice(len(data), size=sample_size, replace=False)
+        data = [data[i] for i in indices]
+
+    # Split and transform data into numpy arrays based on attributes
+    x = np.array([item[attributes[0]] for item in data])
+    y = np.array([item[attributes[1]] for item in data])
+
+    # Perform linear regression
+    coeffs, residuals, _, _, _ = np.polyfit(x, y, 1, full=True)
+
+    # Calculate R-squared coefficient
+    SST = np.sum((y - np.mean(y))**2)
+    SSR = residuals[0] if residuals.size > 0 else 0
+    R_squared = 1 - (SSR / SST) if SST > 0 else 1
+    result = {
+        "slope": coeffs[0],
+        "intercept": coeffs[1],
+        "R_squared": R_squared
+    }
+    return [result]
+
+
 class ExperimentFilter(BaseModel):
     collection: str
     attributes: List[str]
@@ -279,40 +329,6 @@ async def getFilterCollectionData(payload: ExperimentFilter):
     """
     Fetches the data needed to generate graphs
     """
-    def performAnalysis(data, attributes):
-        if len(attributes) != 2:
-            raise ValueError("The simple linear regression requires 2 variables.")
-
-        # Check if first item in data for specified attributes have numeric values
-        if not isinstance(data[0][attributes[0]], (int, float)) or not isinstance(data[0][attributes[1]], (int, float)):
-            raise TypeError("Data is non-numeric. Linear regression cannot be computed.")
-
-        if len(data) > 5000:
-            print(
-                "Size of data is too large to compute linear regression, "
-                "a sample of the original data will be analyzed."
-            )
-            sample_size = int(len(data) * 0.5)
-            indices = np.random.choice(len(data), size=sample_size, replace=False)
-            data = [data[i] for i in indices]
-
-        # Split and transform data into numpy arrays based on attributes
-        x = np.array([item[attributes[0]] for item in data])
-        y = np.array([item[attributes[1]] for item in data])
-
-        # Perform linear regression
-        coeffs, residuals, _, _, _ = np.polyfit(x, y, 1, full=True)
-
-        # Calculate R-squared coefficient
-        SST = np.sum((y - np.mean(y))**2)
-        SSR = residuals[0] if residuals.size > 0 else 0
-        R_squared = 1 - (SSR / SST) if SST > 0 else 1
-        result = {
-            "slope": coeffs[0],
-            "intercept": coeffs[1],
-            "R_squared": R_squared
-        }
-        return [result]
     
     # Prepare attributes for projection
     attrs = {field: 1 for field in payload.attributes}
@@ -364,18 +380,22 @@ async def getFilterCollectionData(payload: ExperimentFilter):
             except Exception as e:
                 response["analysisRes"] = "error"
                 print(f"Error performing analysis: {e}")
+        
+        return response
+    
     except HTTPException as he:
         raise he
     except Exception as e:
-        response = {"status": "error", "message": str(e)}
+        return {"status": "error", "message": str(e)}
     finally:
         if target_client:
             target_client.close()
-    return response
+
+
 class ExperimentFilter(BaseModel):
     collection: str
     attribute: str
-    filterValue: str
+    filterValue: str | int | float
 
 @app.post("/getFilterCollectionDates")
 async def getFilterCollectionDates(payload: ExperimentFilter):
@@ -383,39 +403,23 @@ async def getFilterCollectionDates(payload: ExperimentFilter):
     Fetches the dates from filtered value
     """
     
-    def get_numeric_value(value: str) -> float | str:
-        """
-        Attempt to convert string to float, return original if fails
-        """
-        try:
-            return float(value)
-        except ValueError:
-            return value
-    
     target_conn = getConnection(payload.collection)
     target_collection, target_client = target_conn["collection"], target_conn["client"]
 
     try: 
-        query = {}
-        query[payload.attribute] = get_numeric_value(payload.filterValue)
-        data_list = fetch_and_process_data(target_collection, query, {"experimentId": 1, "_id": 0})
+        query = {payload.attribute: payload.filterValue}
+        data_list = target_collection.find(query, {"experimentId": 1, "_id": 0})
         data_list = [date['experimentId'].split()[-1] for date in data_list]
 
         if not data_list:
-            if payload.getDate is True:
-                print("here")
-                raise HTTPException(status_code=404, detail="There is no date with the given attribute value")
-            else:
-                raise HTTPException(status_code=404, detail="Data has no attributes of that name.")
-        response = {"status": "success", "data": data_list}
+            raise HTTPException(status_code=404, detail="There is no date with the given attribute value")
+        return {"status": "success", "data": data_list}
     except HTTPException as he:
         raise he
-    except Exception as e:
-        response = {"status": "error", "message": str(e)}
     finally:
         if target_client:
             target_client.close()
-    return response
+
 
 class AttributeValues(BaseModel):
     collection: str
@@ -434,12 +438,13 @@ async def getFilterCollectionAttrValues(payload: AttributeValues):
         unique_values = [x for x in unique_values if not (isinstance(x, float) and math.isnan(x))]
         attribute_values = sorted(unique_values)
         if attribute_values:
-            return {"status": "success", "data": unique_values}
+            return {"status": "success", "data": attribute_values}
         else:
             return {"status": "error", "message": "There is no attribute with that name found in the data"}
 
     except Exception as e:
         return {"status": "error", "message": str(e)}
+
 
 class GeneratedGraphs(BaseModel):
     graphType: str
@@ -476,8 +481,10 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
     finally:
         client.close()
 
+
 class GeneratedGraphRequest(BaseModel):
     latest: Optional[int]
+
 @app.post("/generatedGraphs/latest")
 async def getLastestGraph(payload: GeneratedGraphRequest):
     """
@@ -494,6 +501,7 @@ async def getLastestGraph(payload: GeneratedGraphRequest):
         raise HTTPException(status_code=500, detail=f"Error in retreaving latest {payload.latest} graphs: {str(e)}")
     finally:
         client.close()
+
 
 class RemoveGraphRequest(BaseModel):
     graphId: int
@@ -521,7 +529,8 @@ async def removeGraph(payload: RemoveGraphRequest):
         raise HTTPException(status_code=500, detail=f"Error removing graph: {str(e)}")
     finally:
         client.close()
-        
+
+
 class DataRequest(BaseModel):
     experimentId: str
 
