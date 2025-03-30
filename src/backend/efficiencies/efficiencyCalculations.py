@@ -26,8 +26,8 @@ COND_TO_CONC = {
 
 def convertCondtoConc(cond: float, compound: str) -> float:
     """ Converts conductivity (mS/cm) to concentration (M) using interpolation."""
-    x_vals = COND_TO_CONC[compound]
-    y_vals = COND_TO_CONC["conc"]
+    x_vals = np.array(COND_TO_CONC[compound])
+    y_vals = np.array(COND_TO_CONC["conc"])
     ppm = np.interp(cond*1000, x_vals, y_vals)
     return ppm/(MOLAR_MASS[compound]*1000)
 
@@ -67,22 +67,26 @@ def computeCurrentEfficiency(data: list[dict], compound: str, finalVol: float, n
         timeInterval = (i + 1) * 5
 
         if i == 0:
-            initialConc = convertCondtoConc(np.mean([entry[dataField] for entry in group]), compound)
+            initialCondValues = np.array([entry[dataField] for entry in group])
+            initialConc = convertCondtoConc(np.mean(initialCondValues), compound)
             continue
-
-        avgCurr = np.mean([entry[CURRENT] for entry in group])
+        
+        currValues = np.array([entry[CURRENT] for entry in group])
+        avgCurr = np.mean(currValues)
 
         if avgCurr == 0:
             efficiencies.append(0)
             continue
-
-        avgCond = np.mean([entry[dataField] for entry in group])
+        
+        condValues = np.array([entry[dataField] for entry in group])
+        avgCond = np.mean(condValues)
         avgConc = convertCondtoConc(avgCond, compound)
         deltaConc = avgConc - initialConc
         currentEfficiency = (deltaConc * finalVol * FARADAY_CONSTANT) / (numTriplets * timeInterval * avgCurr * 60)
         efficiencies.append(currentEfficiency)
 
-    return np.mean(efficiencies) * 100 if efficiencies else 0
+    overallEfficiency = np.mean(np.array(efficiencies)) * 100 if efficiencies else 0
+    return overallEfficiency
 
 
 def computeVoltageDropEfficiency(data: list[dict]) -> float:
@@ -90,9 +94,11 @@ def computeVoltageDropEfficiency(data: list[dict]) -> float:
     groupedData = groupData(data)
     efficiencies = []
 
-    for group in groupedData:
-        avgUStack = np.mean([entry[VOLTAGE_STACK] for entry in group])
-        avgUTotal = np.mean([entry[VOLTAGE_TOTAL] for entry in group])
+    for i, group in enumerate(groupedData):
+        uStackValues = np.array([entry[VOLTAGE_STACK] for entry in group])
+        avgUStack = np.mean(uStackValues)
+        uTotalValues = np.array([entry[VOLTAGE_TOTAL] for entry in group])
+        avgUTotal = np.mean(uTotalValues)
 
         if avgUTotal == 0:
             efficiencies.append(0)
@@ -101,14 +107,17 @@ def computeVoltageDropEfficiency(data: list[dict]) -> float:
         voltageDropEfficiency = (avgUStack / avgUTotal)
         efficiencies.append(voltageDropEfficiency)
 
-    return np.mean(efficiencies) * 100 if efficiencies else 0
+    overallEfficiency = np.mean(np.array(efficiencies)) * 100 if efficiencies else 0
+    return overallEfficiency
 
 
 def computeReactionEfficiency(data: list[dict], volHCl: float, volNaOH: float) -> float:
     """ Calculates the reaction efficiency (%) for the last 5 minutes of the experiment."""
 
-    avgCondHCl = np.mean([entry[C1_COND] for entry in data])
-    avgCondNaOH = np.mean([entry[C2_COND] for entry in data])
+    condHClValues = np.array([entry[C1_COND] for entry in data])
+    avgCondHCl = np.mean(condHClValues)
+    condNaOHValues = np.array([entry[C2_COND] for entry in data])
+    avgCondNaOH = np.mean(condNaOHValues)
 
     concHCl = convertCondtoConc(avgCondHCl, "HCL")
     concNaOH = convertCondtoConc(avgCondNaOH, "NaOH")

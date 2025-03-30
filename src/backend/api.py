@@ -560,7 +560,7 @@ async def getExperimentIds():
     collection, client = connection["collection"], connection["client"]
 
     try:
-        experiment_ids = collection.find({}, {"experimentId": 1})
+        experiment_ids = collection.find({}, {"experimentId": 1}).sort("#", 1)
         experiment_id_list = [
             doc["experimentId"] for doc in experiment_ids if "experimentId" in doc
         ]
@@ -890,7 +890,7 @@ async def getExperimentData(experimentId: str, interval: int):
         data = dataCollection.find(query, projection).sort({"Time": 1})
         if not data:
             raise HTTPException(status_code=404, detail="No data found for the given experimentId.")
-        datalist = list(data)
+        datalist = list(data)[:-1]      # final recorded data point ignored in calculations
         datalist = [cleanData(item) for item in datalist]
         return datalist
     
