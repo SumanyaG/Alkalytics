@@ -598,12 +598,14 @@ process of the system for the following functional requirements:
           
           Test Case Derivation: This is to ensure the efficency of the querying
           and ensuring the database is only as big as it needs to be. This will
-          also ensure that errors are dealt with by the application and are
-          recorded to document any inconsistencies to increase traceability.
+          also ensure that errors such as missing values or ambiguous types
+          along with ambiguous data sheets are dealt with by the application and
+          are recorded to document any inconsistencies to increase traceability.
                     
           How test will be performed: After loading in a CSV file with some
-          error in the data. A log file will be generated documenting the error
-          after the application attempts to fix it. 
+          error in the data such as missing values or unreadable labels. A log
+          file will be generated documenting the error after the application
+          attempts to fix it. 
           
           \end{enumerate}
 
