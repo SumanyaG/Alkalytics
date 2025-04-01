@@ -52,6 +52,8 @@
 25 March 2025 & Jason Tran & Updated section 5 to adhere to 
 \href{https://github.com/SumanyaG/Alkalytics/issues/111}{111},
 \href{https://github.com/SumanyaG/Alkalytics/issues/158}{158}. \\
+1 April 2025 & Kate Min & Updated section 6 to adhere to
+\href{https://github.com/SumanyaG/Alkalytics/issues/156}{156}. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -171,9 +173,12 @@ The following are assumptions made about the software of the system.
 \end{itemize}
 
 \section{Failure Mode and Effect Analysis}
+Table \ref{table:FMEA} outlines the Failure Modes and Effects Analysis (FMEA)
+for each component of the Alkalytics system.
 \newgeometry{margin=2cm}
 \begin{landscape}
   \begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{4cm}|p{4cm}|p{1.25cm}|p{1cm}|}
+      \caption{Failure Mode and Effect Analysis.} \label{table:FMEA} \\
       \hline
       \textbf{Component} & \textbf{Failure Modes} & \textbf{Effects of Failure}
       & \textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} &
@@ -308,6 +313,7 @@ The following are assumptions made about the software of the system.
       \texttt{} & Overfitting of training data & Model provides unreliable
       results & Training data too specific, lack of generalization & Implement
       regularization, cross-validation & FR-11 & H10-3 \\
+      \cline{1-7}
   \end{longtable}
 \end{landscape}
 
