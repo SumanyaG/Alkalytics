@@ -168,9 +168,22 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
       !selectedFilterParamType || !selectedFilterParam || !selectedFilterValue,
   });
 
-  const dates = filteredDates?.getFilterCollectionDates ?? [];
+  const filterDates = filteredDates?.getFilterCollectionDates ?? [];
 
-  const steps = ["Graph", "Filter", "Date", "Parameters", "Customize"];
+  const { data: dates } = useQuery<{
+    getFilterCollectionDates: any[];
+  }>(FILTER_COLLECTDATE, {
+    variables: {
+      collection: selectedParamType,
+      attribute: "",
+      filterValue: "",
+    },
+    skip: Boolean(selectedFilterParamType),
+  });
+
+  const allDates = dates?.getFilterCollectionDates ?? [];
+
+  const steps = ["Graph", "Filter", "Parameters", "Date", "Customize"];
   const [activeStep, setActiveStep] = useState(0);
   const [xAxisError, setXAxisError] = useState<string | null>(null);
   const [yAxisError, setYAxisError] = useState<string | null>(null);
@@ -196,10 +209,10 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
       );
     }
     if (activeStep === 2) {
-      return selectedDates.length === 0;
+      return !selectedParamType || !selectedParamX || !selectedParamY;
     }
     if (activeStep === 3) {
-      return !selectedParamType || !selectedParamX || !selectedParamY;
+      return selectedDates.length === 0;
     }
     return false;
   };
@@ -393,23 +406,8 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
               />
             </div>
           )}
-          {/* Date */}
-          {activeStep === 2 && (
-            <Input
-              label="Experiment Dates"
-              description=" Select the experimental date(s) of the datasheet(s)"
-              children={
-                <MultipleSelectCheckmarks
-                  dates={dates}
-                  required={true}
-                  values={selectedDates}
-                  onChange={setSelectedDates}
-                />
-              }
-            />
-          )}
           {/* Parameter */}
-          {activeStep === 3 && (
+          {activeStep === 2 && (
             <div>
               <Input
                 label="Parameter Type"
@@ -456,7 +454,21 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
               />
             </div>
           )}
-
+          {/* Date */}
+          {activeStep === 3 && (
+            <Input
+              label="Experiment Dates"
+              description=" Select the experimental date(s) of the datasheet(s)"
+              children={
+                <MultipleSelectCheckmarks
+                  dates={filterDates.length > 0 ? filterDates : allDates}
+                  required={true}
+                  values={selectedDates}
+                  onChange={setSelectedDates}
+                />
+              }
+            />
+          )}
           {/* Customize */}
           {activeStep === 4 && (
             <div>
