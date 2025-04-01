@@ -2,8 +2,9 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{float}
 
-\title{Reflection and Traceability Report on \progname}
+\title{Reflection and Traceability Report on \progname: Alkalytics}
 
 \author{\authname}
 
@@ -16,69 +17,472 @@
 
 \maketitle
 
-\plt{Reflection is an important component of getting the full benefits from a
-learning experience.  Besides the intrinsic benefits of reflection, this
-document will be used to help the TAs grade how well your team responded to
-feedback.  Therefore, traceability between Revision 0 and Revision 1 is and
-important part of the reflection exercise.  In addition, several CEAB (Canadian
-Engineering Accreditation Board) Learning Outcomes (LOs) will be assessed based
-on your reflections.}
+% \plt{Reflection is an important component of getting the full benefits from a
+% learning experience.  Besides the intrinsic benefits of reflection, this
+% document will be used to help the TAs grade how well your team responded to
+% feedback.  Therefore, traceability between Revision 0 and Revision 1 is and
+% important part of the reflection exercise.  In addition, several CEAB (Canadian
+% Engineering Accreditation Board) Learning Outcomes (LOs) will be assessed based
+% on your reflections.}
 
 \section{Changes in Response to Feedback}
+This section summarizes the feedback received on various documents throughout
+the course of the project as well as feedback on the product itself.
 
-\plt{Summarize the changes made over the course of the project in response to
-feedback from TAs, the instructor, teammates, other teams, the project
-supervisor (if present), and from user testers.}
+This information is summarized in tables, with a summary of the feedback in one
+column, the source of the feedback in the next column, the change made in
+response to the feedback in the third column, and a link to the issue in the
+last column. 
 
-\plt{For those teams with an external supervisor, please highlight how the feedback 
-from the supervisor shaped your project.  In particular, you should highlight the 
-supervisor's response to your Rev 0 demonstration to them.}
+For documentation related sections, each item of feedback has a
+link to the issue that addresses the change wih a link to the specific commit.
+For feedback and changes related to code, specific commits or issue links are
+not provided.
 
-\plt{Version control can make the summary relatively easy, if you used issues
-and meaningful commits.  If you feedback is in an issue, and you responded in
-the issue tracker, you can point to the issue as part of explaining your
-changes.  If addressing the issue required changes to code or documentation, you
-can point to the specific commit that made the changes.  Although the links are
-helpful for the details, you should include a label for each item of feedback so
-that the reader has an idea of what each item is about without the need to click
-on everything to find out.}
+% \plt{Summarize the changes made over the course of the project in response to
+% feedback from TAs, the instructor, teammates, other teams, the project
+% supervisor (if present), and from user testers.}
 
-\plt{If you were not organized with your commits, traceability between feedback
-and commits will not be feasible to capture after the fact.  You will instead
-need to spend time writing down a summary of the changes made in response to
-each item of feedback.}
+% \plt{For those teams with an external supervisor, please highlight how the feedback 
+% from the supervisor shaped your project.  In particular, you should highlight the 
+% supervisor's response to your Rev 0 demonstration to them.}
 
-\plt{You should address EVERY item of feedback.  A table or itemized list is
-recommended.  You should record every item of feedback, along with the source of
-that feedback and the change you made in response to that feedback.  The
-response can be a change to your documentation, code, or development process.
-The response can also be the reason why no changes were made in response to the
-feedback.  To make this information manageable, you will record the feedback and
-response separately for each deliverable in the sections that follow.}
+% \plt{Version control can make the summary relatively easy, if you used issues
+% and meaningful commits.  If you feedback is in an issue, and you responded in
+% the issue tracker, you can point to the issue as part of explaining your
+% changes.  If addressing the issue required changes to code or documentation, you
+% can point to the specific commit that made the changes.  Although the links are
+% helpful for the details, you should include a label for each item of feedback so
+% that the reader has an idea of what each item is about without the need to click
+% on everything to find out.}
 
-\plt{If the feedback is general or incomplete, the TA (or instructor) will not
-be able to grade your response to feedback.  In that case your grade on this
-document, and likely the Revision 1 versions of the other documents will be
-low.} 
+% \plt{If you were not organized with your commits, traceability between feedback
+% and commits will not be feasible to capture after the fact.  You will instead
+% need to spend time writing down a summary of the changes made in response to
+% each item of feedback.}
 
-\subsection{SRS and Hazard Analysis}
+% \plt{You should address EVERY item of feedback.  A table or itemized list is
+% recommended.  You should record every item of feedback, along with the source of
+% that feedback and the change you made in response to that feedback.  The
+% response can be a change to your documentation, code, or development process.
+% The response can also be the reason why no changes were made in response to the
+% feedback.  To make this information manageable, you will record the feedback and
+% response separately for each deliverable in the sections that follow.}
 
-\subsection{Design and Design Documentation}
+% \plt{If the feedback is general or incomplete, the TA (or instructor) will not
+% be able to grade your response to feedback.  In that case your grade on this
+% document, and likely the Revision 1 versions of the other documents will be
+% low.}
 
-\subsection{VnV Plan and Report}
+%% DONE %%
+\subsection{Problem Statement and Goals, Development Plan Documentation}
+Table \ref{table:PSGDV} summarizes all feedback received on the Problem
+Statement and Goals and Development Plan documents and the changes made in
+response to the feedback.
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1cm}|}
+    \hline
+    \textbf{Summary of Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    & \textbf{Issue Link} \\
+    \hline
+    Development Plan lists software without describing or justifying their use.
+    & TA & Added justification for the software used in the development plan. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/146}{Issue 146} \\
+    \hline
+    Unclear what the product does from the problem description. Start with the
+    problem and state what you will do to fix it. & TA & Added more detail about
+    the problem and what the product would do to solve it. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/147}{Issue 147} \\
+    \hline
+    Team charter should have quantifiable goals for, e.g. meeting attendance,
+    etc, and describe ways you will remediate or discipline if necessary. & TA &
+    Added quantifiable metrics and detailed remediation method and potential
+    disciplinary action. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/148}{Issue 148} \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for Problem Statement and Goals, Development Plan Documentation}
+\label{table:PSGDV}
+\end{table}
+
+%% SOMEWHAT DONE %%
+\subsection{SRS Documentation}
+Tables \ref{table:SRS1} and \ref{table:SRS2} summarizes all feedback received on
+the SRS document and the changes made in response to that feedback.
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1cm}|}
+    \hline
+    \textbf{Summary of Feedback} & \textbf{Source} & \textbf{Summary of Change} &
+    \textbf{Issue Link} \\
+    \hline
+    Should not have figures without referring to it and explaining it in the
+    document. & TA & Added references to all figures. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/149}{Issue 149} \\
+    \hline
+    Use symbolic parameters all listed in a certain section instead of ``magic
+    numbers''. & TA & Added section for symbolic parameters &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/149}{Issue 149} \\
+    \hline
+    Small grammar/spelling errors & TA & Fixed grammar/spelling errors &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/150}{Issue 150} \\
+    \hline
+    Diagrams should be PDFs. & TA & Changed diagrams to PDFs
+    & \href{https://github.com/SumanyaG/Alkalytics/issues/150}{Issue 150} \\
+    \hline
+    Instead of saying ``traceability'' say something more descriptive, like
+    ``related requirements''. & TA & Reworded to use ``related requirements'' &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/151}{Issue 151} \\
+    \hline
+    Must check all requirements and assess them for verifiability. & TA & Added
+    verifiability assessment for all requirements. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/152}{Issue 152} \\
+    \hline
+    Priority and date on the same line is confusing. Try to make it a bit
+    clearer. & TA & Separated priority and phase-in date into two distinct
+    fields. & \href{https://github.com/SumanyaG/Alkalytics/issues/153}{Issue
+    153} \\
+    \hline
+    Data privacy requirements for research data? Or general laws/privacy
+    standards for web applications? & TA & Added more detail about data privacy
+    requirements and web application standards. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/154}{Issue 154}
+    \\
+    \hline
+    No formalized part of the document. & TA & Added formalization for validation &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/155}{Issue 155} \\
+    \hline
+    Maintenance Requirements: Will there be training and continuity
+    consideration in addition to documentation for my lab and other users? & Dr.
+    de Lannoy & Rephrased maintenance requirements for clarity & No
+    issue link available. \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for SRS Documentation, Part 1}
+\label{table:SRS1}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1cm}|}
+    \hline
+    \textbf{Summary of Feedback} & \textbf{Source} & \textbf{Summary of Change} &
+    \textbf{Issue Link} \\
+    \hline
+    Missing stakeholder: Developers/Testers are considered other stakeholders &
+    Team 1 & No changes made. Refer to issue comments for justification. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/88}{Issue 88}\\
+    \hline
+    Missing customer: For in house development the customer and client are often
+    the same person. In this case, the initial customer would be the client. &
+    Team 1 & Identified client as a customer &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/89}{Issue 89}\\
+    \hline
+    Missing business process models: Lack of business process models as
+    suggested in the volere template guidance. & Team 1 & No changes made. Refer
+    to issue comments for justification. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/90}{Issue
+    90}\\
+    \hline
+    Inconsistency between UHR requirements: Should be specifying same percentage
+    of users & Team 1 & Changed UHR-1 percentage to 85\% to ensure consistency
+    with UHR-4. & \href{https://github.com/SumanyaG/Alkalytics/issues/91}{Issue
+    91}\\
+    \hline
+    OER-5 not verifiable & Team 1 & Added testing percentage metric for
+    verifiability &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/92}{Issue 92} \\
+    \hline
+    Inputs and outputs missing in use case diagram & Team 1 & No changes made.
+    Refer to issue comments for justification. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/93}{Issue 93}\\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for SRS Documentation, Part 2}
+\label{table:SRS2}
+\end{table}
+
+%% DONE %%
+\subsection{Hazard Analysis Documentation}
+Table \ref{table:HA} summarizes all feedback received on the Hazard Analysis
+document and the changes made in response to that feedback.
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
+    \hline
+    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    & \textbf{Issue Link} \\
+    \hline
+    Table doesn't have title or reference in the body of the document. & TA
+    & Added title and reference to the table. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/156}{Issue 156} \\
+    \hline
+    Scope of what's being considered in the hazard analysis isn't clear. & TA &
+    Clarified scope &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/157}{Issue 157} \\
+    \hline
+    Be more specific with some. E.g. H2-2, what exactly happens if it does fail
+    halfway through? & TA & All requirements re-reviewed and made more specific
+    & \href{https://github.com/SumanyaG/Alkalytics/issues/158}{Issue 158} \\
+    \hline
+    Critical Assumption could be a failure mode & Team 1 & Removed the critical
+    assumption & \href{https://github.com/SumanyaG/Alkalytics/issues/106}{Issue
+    106}, \newline
+    \href{https://github.com/SumanyaG/Alkalytics/issues/108}{Issue 108} \\
+    \hline
+    Inconsistency between FMEA and assumptions: Assumes internet connection
+    will be available, but ``network issues, server downtime'' listed as cause
+    of failure. & Team 1 & Modified critical assumption to only consider local
+    server infrastructure. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/107}{Issue
+    107}, \newline
+    \href{https://github.com/SumanyaG/Alkalytics/issues/110}{Issue 110} \\
+    \hline
+    Inconsistency between assumption and requirement: Assumes system will have
+    enough resources, but SR-17 states there must be monitoring and optimization
+    to prevent crashes from too many resources being used. & Team 1 & Removed
+    assumption. & \href{https://github.com/SumanyaG/Alkalytics/issues/109}{Issue
+    109} \\
+    \hline
+    Authentication effect of failure is unclear: Should clarify what ``loss of
+    productivity'' exactly means & Team 1 & Clarified loss of productivity is
+    for users & \href{https://github.com/SumanyaG/Alkalytics/issues/111}{Issue
+    111} \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for Hazard Analysis Documentation}
+\label{table:HA}
+\end{table}
+
+%% NOT DONE %%
+\subsection{Design Documentation}
+Tables \ref{table:Design1} and \ref{table:Design2} summarizes all feedback received on the Design document
+and the changes made in response to that feedback.
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
+    \hline
+    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    & \textbf{Issue Link} \\
+    \hline
+    AC5 and UC1 seem to be contradictory to one another. & TA & Removed &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/250}{Issue 250} \\
+    \hline
+    Change project name and provide description in abbreviations table & TA & X
+    & \href{https://github.com/SumanyaG/Alkalytics/issues/251}{Issue 251} \\
+    \hline
+    Use PDF figures. & TA & Changed figures to PDF &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/251}{Issue 251} \\
+    \hline
+    List possible exceptions for each method in syntax table. Environment vars
+    should be actual vars (with names) that represent things like the local
+    filesystem and should be used by the semantics. & TA & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/252}{Issue 252} \\
+    \hline
+    Data validation module: should be, e.g. ``output := MIN VOLTAGE $\le$ v
+    $\le$ MAX VOLTAGE'', no need for words. & TA & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/252}{Issue 252} \\
+    \hline
+    Output and exceptions are different, should be their own bullet points.
+    Different modules are using different formatting. ``Output'' labels are
+    completely omitted in the data validation module. & TA & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/253}{Issue 253} \\
+    \hline
+    More general validations you may need to do, like if something is the
+    right datatype, format, etc. This module could be more generic. & TA & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/254}{Issue 254} \\
+    \hline
+    Limitations hould be more specific and detailed. Focus on se principles
+    (encapsulation, information hiding, modularity, etc) & TA & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/255}{Issue 255} \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for Design Documentation}
+\label{table:Design1}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
+    \hline
+    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    & \textbf{Issue Link} \\
+    \hline
+    Exported Constants Implementation not very clear & Team 1 & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/173}{Issue 173} \\
+    \hline
+    Unnecessary state variable & Team 1 & X
+    &\href{https://github.com/SumanyaG/Alkalytics/issues/174}{Issue 174} \\
+    \hline
+    Consider defining types for access routines & Team 1 & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/176}{Issue 176} \\
+    \hline
+    Inconsistent outputs in UI Module & Team 1 & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/177}{Issue 177} \\
+    \hline
+    Inconsistencies between anticipated change descriptions and traceability
+    matrix & Team 1 & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/178}{Issue 178} \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for Design Documentation}
+\label{table:Design2}
+\end{table}
+
+\subsection{VnV Plan and Report Documentation}
+Table \ref{table:VnV1} summarizes all feedback received on the VnV Plan document
+and the changes made in response to that feedback, Table \ref{table:VnV2} does
+the same for the VnV Report document.
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
+    \hline
+    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    & \textbf{Issue Link} \\
+    \hline
+    Sentence structure/flow problems, reference tables. & TA & Fixed sentence
+    structure and added references to tables. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/246}{Issue 246} \\
+    \hline
+    System tests should be more specific about what kinds of errors you will
+    detect. & TA & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/247}{Issue 247} \\
+    \hline
+    Not clear how survey data will be collected and analyzed for validation. &
+    TA & Clarified structure for survey data and how it would validate &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/248}{Issue 248} \\
+    \hline
+    Include traceability inside the tests instead of outside. Tests should be
+    made more granular. & TA & X &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/249}{Issue 249} \\
+    \hline
+    Change traceability table to a matrix. & TA & Converted to matrix. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/249}{Issue 249} \\
+    \hline
+    Design verification plan should only include verifying design documents and
+    overall system design, not code-related. & Team 1 & Rephrased verification
+    method & \href{https://github.com/SumanyaG/Alkalytics/issues/135}{Issue 135}
+    \\
+    \hline
+    Make NFR-LF2 test more specific by mentioning what devices will used to test
+    device compatibility & Team 1 & Specified specific devices and dimensions
+    that would be used to test. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/136}{Issue 136} \\
+    \hline
+    FR-ST1 corresponds to 4 different FRS, should split this test in to two,
+    more specific, tests. & Team 1 & Added FR-ST1.1 to make the two tests more
+    specific and granular &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/137}{Issue 137} \\
+    \hline
+    Specified output for FR-ST1 is not really an output, but rather a process
+    that is supposed to happen. & Team 1 & Updated output to be more clear &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/138}{Issue 138} \\
+    \hline
+    All of the tests for functional requirements are manual. & Team 1 & No
+    changes made. Refer to issue comments for justification. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/139}{Issue 139} \\
+    \hline
+    No test for ensuring scenario where incorrect credentials are provided. &
+    Team 1 & No changes made. Refer to issue comments for justification. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/141}{Issue 141} \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for VnV Plan Documentation}
+\label{table:VnV1}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
+    \hline
+    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    & \textbf{Issue Link} \\
+    \hline
+    Expand user pool for usability testing: 2 users is a relatively small user
+    group & Team 1 & No changes made. Refer to issue comments for justification.
+    & \href{https://github.com/SumanyaG/Alkalytics/issues/235}{Issue 235} \\
+    \hline
+    Clarify test result: Should modify the test plan to match the new
+    requirement and mark the new test as pass/fail instead of neutral. & Team 1
+    & No changes made. Refer to issue comments for justification. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/236}{Issue 236} \\
+    \hline
+    Web browser tests: For NFR-OE1, mention which web browsers the system was
+    tested on for clarity. Suggest adding a test for Opera as well. & Team 1 &
+    Clarified which browsers system was tested on for NFR-OE1 &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/237}{Issue 237} \\
+    \hline
+    Make list of tasks for users to complete to be more concrete. & Team 1 &
+    Updated to include this information. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/238}{Issue 238} \\ 
+    \hline
+    Explicitly state the input period of inactivity and the expected period
+    inactivity to cause the user to be logged out. & Team 1 & Updated to include
+    this information. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/239}{Issue 239} \\
+    \hline
+    Include number of sample uploads that were completed to get the average
+    upload time & Team 1 & Updated to include this information. &
+    \href{https://github.com/SumanyaG/Alkalytics/issues/240}{Issue 240} \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for VnV Report Documentation}
+\label{table:VnV2}
+\end{table}
+
+
+\subsection{Supervisor Feedback}
+Table \ref{table:Code} summarizes the feedback received by the supervisors
+regarding the actual product and the changes made in response to that feedback.
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|X|c|X|}
+    \hline
+    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change} \\
+    \hline
+    X & Bassel Adbelkader & X \\
+    \hline
+    Should be able to compute efficiency factors & Dr. de Lannoy & Feature
+    implemented. \\
+    \hline
+    Should be able to filter through the data based on certain criteria, as just
+    selecting data to plot by the experiment's date is not helpful. & Dr. de
+    Lannoy & Feature implemented. \\
+    \hline
+    Various UI changes & Dr. de Lannoy & UI changes made. Refer to
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/UsabilityTestingReport/UsabilityTestingReport.pdf}{Usability
+    Testing Report} for more details. \\
+    \hline
+\end{tabularx}
+\caption{Feedback and Changes Made for Application}
+\label{table:Code}
+\end{table}
 
 \section{Challenge Level and Extras}
+This section outlines the challenge level and extras for the project.
 
 \subsection{Challenge Level}
 
-\plt{State the challenge level (advanced, general, basic) for your project.  Your challenge level should exactly match what is included in your problem statement.  This should be the challenge level agreed on between you and the course instructor.}
+The challenge level for this project is general.
+% \plt{State the challenge level (advanced, general, basic) for your project.  Your challenge level should exactly match what is included in your problem statement.  This should be the challenge level agreed on between you and the course instructor.}
 
 \subsection{Extras}
 
-\plt{Summarize the extras (if any) that were tackled by this project.  Extras
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  Extras should have already
-been approved by the course instructor as included in your problem statement.}
+The extras completed for this project were:
+\begin{itemize}
+    \item[(a)] A usability testing report. This provides documentation for how
+    usability was assessed, the results of the usability testing sessions
+    conducted, and the changes proposed and implemented in response to the
+    feedback received.
+    \item[(b)] A user guide/manual. This provides documentation for users of the
+    product on how to use the application and troubleshoot common issues.
+\end{itemize}
+
+% \plt{Summarize the extras (if any) that were tackled by this project.  Extras
+% can include usability testing, code walkthroughs, user documentation, formal
+% proof, GenderMag personas, Design Thinking, etc.  Extras should have already
+% been approved by the course instructor as included in your problem statement.}
 
 \section{Design Iteration (LO11 (PrototypeIterate))}
 
