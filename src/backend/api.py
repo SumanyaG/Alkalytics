@@ -407,9 +407,15 @@ async def getFilterCollectionDates(payload: ExperimentFilter):
     target_collection, target_client = target_conn["collection"], target_conn["client"]
 
     try: 
-        query = {payload.attribute: payload.filterValue}
+        # Get all dates from given collection 
+        if payload.filterValue == "":
+            query = {}
+        else:
+            query = {payload.attribute: payload.filterValue}
         data_list = target_collection.find(query, {"experimentId": 1, "_id": 0})
         data_list = [date['experimentId'].split()[-1] for date in data_list]
+        data_list = set(data_list)
+        data_list = sorted(list(data_list))
 
         if not data_list:
             raise HTTPException(status_code=404, detail="There is no date with the given attribute value")
