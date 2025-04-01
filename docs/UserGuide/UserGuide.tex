@@ -33,43 +33,20 @@
 \newpage
 
 \section{Introduction}
-\subsection*{Section Overview}
-This section provides an orientation to the Alkalytics application, its purpose,
-and the scope of this documentation.
 
-Welcome to the Alkalytics User Guide. This comprehensive document provides
-complete instructions for installing, configuring, and using all features of the
-Alkalytics web application.
-
-\subsection{Purpose}
-Alkalytics is designed to:
-\begin{itemize}
-\item Manage experimental data efficiently
-\item Provide powerful analysis tools
-\item Generate customizable visualizations
-\item Support collaborative research workflows
-\end{itemize}
+This comprehensive document provides complete instructions for installing,
+configuring, and using all features of the Alkalytics web application.
 
 \section{System Overview}
-\subsection*{Section Overview}
+
 This section describes the technical architecture, components, and requirements
 for running Alkalytics.
 
-\subsection{Architecture}
-Alkalytics is a React and TypeScript-based web application that runs locally for
-security purposes. The system architecture consists of:
-
-\begin{itemize}
-\item \textbf{Frontend}: Built with React and TypeScript
-\item \textbf{Backend}: Python processing with Univcorn server
-\item \textbf{Database}: MongoDB for data storage
-\end{itemize}
-
 \subsection{Detailed Requirements}
-\subsubsection*{Description}
+
 Lists all hardware and software requirements for running the application.
 
-\subsubsection{Hardware Requirements}
+\paragraph{Hardware Requirements}
 \begin{table}[H]
     \centering
     \begin{tabularx}{\textwidth}{llX}
@@ -77,29 +54,14 @@ Lists all hardware and software requirements for running the application.
         \textbf{Component} & \textbf{Minimum} & \textbf{Recommended} \\
         \midrule
         RAM & 8GB & 16GB \\
-        Storage & 10GB & 50GB SSD \\
+        Storage & 5GB & 50GB SSD \\
         Processor & 2 cores & 4 cores \\
         \bottomrule
     \end{tabularx}
 \end{table}
 
-\subsubsection{Software Dependencies}
-\begin{table}[H]
-    \centering
-    \begin{tabularx}{\textwidth}{lXl}
-        \toprule
-        \textbf{Software} & \textbf{Purpose} & \textbf{Version} \\
-        \midrule
-        Node.js & Frontend runtime & 16.x LTS \\
-        MongoDB & Database & 5.0+ \\
-        Python & Backend processing & 3.8+ \\
-        Univcorn & ASGI server & 0.15+ \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
 \section{Installation Guide}
-\subsection*{Section Overview}
+
 This section provides complete step-by-step instructions for setting up the
 Alkalytics environment.
 
@@ -114,8 +76,7 @@ Alkalytics environment.
     
     \item \textbf{Repository Setup}
     \begin{verbatim}
-    git clone https://github.com/your-repo/alkalytics.git
-    cd alkalytics
+    git clone https://github.com/SumanyaG/Alkalytics.git
     \end{verbatim}
     
     \item \textbf{Dependency Installation}
@@ -126,29 +87,22 @@ Alkalytics environment.
     
     \item \textbf{Database Configuration}
     \begin{enumerate}
-        \item Create data directory:
-        \begin{verbatim}
-        mkdir /data/db
-        \end{verbatim}
-        \item Start MongoDB service:
-        \begin{verbatim}
-        mongod --dbpath /data/db --port 27017
-        \end{verbatim}
+        \item KATE HELP
     \end{enumerate}
     
     \item \textbf{Application Launch}
     \begin{enumerate}
         \item Start backend:
         \begin{verbatim}
+            uvicorn api:app --reload --host 127.0.0.1 --port 8000
+        \end{verbatim}
+        \item Start server:
+        \begin{verbatim}
         yarn ts-node src/utils/server.ts
         \end{verbatim}
         \item Start frontend:
         \begin{verbatim}
         yarn start
-        \end{verbatim}
-        \item Launch ASGI server:
-        \begin{verbatim}
-        univcorn --port 8000 main:app
         \end{verbatim}
     \end{enumerate}
 \end{enumerate}
@@ -157,51 +111,119 @@ Alkalytics environment.
 After installation, verify all components are running:
 \begin{enumerate}
     \item Frontend: \texttt{http://localhost:3000}
-    \item Backend: \texttt{http://localhost:8000/healthcheck}
+    \item Server: \texttt{http://localhost:8000/graphql}
+    \item Backend: \texttt{http://localhost:8000/docs}
     \item Database: Check MongoDB connection on port 27017
 \end{enumerate}
 
 \section{User Management}
-\subsection*{Section Overview}
+
 This section details the different user roles (Admin and Researcher) and their
 respective capabilities within the application.
 
 \subsection{Admin Features}
-\subsubsection*{Description}
+
 Administrators have full control over all system functionality including data
 management, user configuration, and system settings.
 
 
 \subsection{Researcher Features}
-\subsubsection*{Description}
+
 Researchers can view data, run analyses, and generate reports but have limited
 system configuration capabilities.
 
 \section{Web Application Pages}
-\subsection*{Section Overview}
-This section covers all data handling operations including uploads, processing,
-and table management.
 
-\subsection{Upload Process}
-\subsubsection*{Description}
-The upload functionality allows users to import experimental data in various
-formats for analysis.
+This section outlines the various pages and functionalities of the web
+application, such as uploads, processing, and table management.
+
+\subsection{Dashboard}
+
+The Dashboard provides a quick, interactive, and structured overview of the most
+recent key data insights through visualizations and tables. It is designed to
+help users analyze trends, monitor performance, and interact with data
+efficiently.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Diagrams/Dashboard.png}
+    \caption{Dashboard Overview}
+\end{figure}
+
+
+\subsubsection{Key Features}
+\begin{itemize}
+    \item \textbf{Graphs}: Displays visual representations of data trends and
+    relationships.
+    \item \textbf{Data Tables}: Organizes numerical and analytical data in a
+    structured format, allowing for sorting, filtering, and searching.
+    \item \textbf{Navigation Panel}: A sidebar with quick access to different
+    sections of the platform, including:
+    \begin{itemize}
+        \item Dashboard
+        \item Data View
+        \item Upload
+        \item Graphs
+        \item Logout
+    \end{itemize}
+\end{itemize}
+
+\subsection{Upload}
+
+The upload functionality allows users to efficiently import files in various
+formats for analysis. This section outlines the steps for uploading files, the
+types of files supported, and best practices to ensure a smooth upload
+experience.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Diagrams/Upload.png}
+    \caption{Upload Files Interface}
+\end{figure}
 
 \subsubsection{Step-by-Step Upload}
+To upload files, follow these steps:
 \begin{enumerate}
-    \item Navigate to Upload Page
-    \item Select file type (Experiment Log or Raw Data)
-    \item Choose upload method:
+    \item Navigate to the Upload Page.
+    \item Select the file type you wish to upload: either \textbf{Experiment
+    Log} or \textbf{Raw Data}.
+    \item Choose your preferred upload method:
     \begin{itemize}
-        \item Drag and drop files
-        \item Browse file system
+        \item \textbf{Drag and Drop}: Drag files directly into the designated
+        upload area.
+        \item \textbf{Browse and Select}: Click on the upload box to open a file
+        browser and select files manually.
     \end{itemize}
-    \item Verify file preview
-    \item Click \textbf{Upload} button
-    \item Monitor progress in notification panel
+    \item Click the \textbf{Upload} button to initiate the upload process.
 \end{enumerate}
 
+\subsubsection{Linking Raw Data Files to Experiments}
+
+In some cases, the migration algorithm may not be able to automatically link a
+raw data file to its corresponding experiment. When this occurs, users will be
+prompted to manually match the data file with the appropriate experiment ID.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Diagrams/DataLinkModal.png}
+    \caption{Link Data Files Prompt}
+\end{figure}
+
+When presented with this prompt, users should:
+
+\begin{enumerate}
+    \item Review the displayed Data ID to ensure it corresponds to the correct
+    file.
+    \item Select the appropriate Experiment ID from the provided options.
+    \item Click the \textbf{Submit} button to confirm the link.
+\end{enumerate}
+
+This manual linking process ensures that all data files are accurately
+associated with their respective experiments, maintaining data integrity and
+facilitating effective analysis.
+
 \subsubsection{File Requirements}
+To ensure successful uploads, please adhere to the following file requirements:
 \begin{table}[H]
     \centering
     \begin{tabularx}{\textwidth}{lX}
@@ -209,56 +231,232 @@ formats for analysis.
         \textbf{Requirement} & \textbf{Specification} \\
         \midrule
         File Size & Maximum 10MB per file \\
-        Columns & Minimum 5 required fields \\
         Date Format & YYYY-MM-DD \\
-        Special Characters & Avoid in header names \\
+        Special Characters & Avoid at all costs \\
         \bottomrule
     \end{tabularx}
 \end{table}
 
-\subsection{Table View}
-
-\subsubsection{Table Editing}
-\begin{enumerate}
-    \item Navigate to Experiment Table
-    \item Click \textbf{Edit} button to enable editing mode
-    \item Modify cell values directly
-    \item Use \textbf{Save} button to commit changes
-\end{enumerate}
-
-\subsubsection{Column Management}
+\subsubsection{File Upload Types}
+The upload interface categorizes files into two primary types to facilitate
+structured data management:
 \begin{itemize}
-    \item \textbf{Adding Columns:}
-    \begin{enumerate}
-        \item Click \textbf{Add Column} button
-        \item Enter column name in dialog
-        \item Select data type from dropdown
-        \item Click \textbf{Add Column} to confirm
-    \end{enumerate}
-    
-    \item \textbf{Removing Columns:}
-    \begin{enumerate}
-        \item Click \textbf{Remove Column} button
-        \item Select column from dropdown
-        \item Confirm deletion
-    \end{enumerate}
+    \item \textbf{Experiment Log Files}: Processed logs containing IDs, dates,
+    and input parameters.
+    \item \textbf{Raw Data Files}: Experimental data outputted by the machine,
+    including IDs, dates, and results.
 \end{itemize}
 
-\subsubsection{Excel Function Bar}
+\subsubsection{Supported File Formats}
+The following file formats are supported for upload:
+\begin{itemize}
+    \item \textbf{CSV (.csv)}: A structured data format using comma-separated
+    values.
+    \item \textbf{Excel (.xlsx)}: A spreadsheet format that supports multiple
+    sheets and structured data.
+\end{itemize}
+
+\subsubsection{Upload Guidelines}
+To maintain system performance and ensure proper data processing, users should
+follow these best practices:
+\begin{itemize}
+    \item Limit uploads to a maximum of 10 files at once.
+    \item Ensure that data structures match the expected formats to prevent
+    processing errors.
+    \item If a file does not meet the required format, the system may issue a
+    warning or reject the upload.
+\end{itemize}
+
+
+\subsection{Data View}
+
+The Data View section provides users with a structured and interactive way to
+explore the data uploaded into the system. 
+
+\subsubsection{Common Functionalities}
+Across all tables, users can utilize the following common functionalities to
+enhance their data exploration experience:
+\begin{itemize}
+    \item \textbf{Search}: Locate specific data points quickly using the dynamic
+    search bar. Users can search across the entire dataset or within a single
+    column by selecting the desired field from the dropdown menu.
+    \item \textbf{Sorting}: Organize data systematically by clicking on any
+    column header to sort entries in ascending or descending order. Sorting
+    indicators (arrows) will reflect the current order.
+    \item \textbf{Highlighting Matches}: Relevant data points are automatically
+    highlighted upon search, drawing immediate attention to key results.
+    \item \textbf{Row Filtering}: Non-matching rows are temporarily removed from
+    view, simplifying the focus on pertinent data.
+    \item \textbf{Column Navigation}: Each column is labeled alphabetically (A,
+    B, C, etc.) for easy reference, ensuring that users can quickly identify and
+    focus on specific data fields.
+\end{itemize}
+
+\subsubsection{Experiment Table}
+The Experiment Table  provides comprehensive oversight of all experiment-related
+data. This table allows full control over data management, including editing and
+deleting entries, making it an essential tool for maintaining data accuracy and
+integrity.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Diagrams/ExperimentTableView.png}
+    \caption{Experiment Table View}
+\end{figure}
+
+\paragraph{Row Selection}
+The Row Selection feature allows users to select one or more rows for bulk
+actions such as editing or deleting.
 \begin{enumerate}
-    \item Select target rows using checkboxes
-    \item Choose destination column
-    \item Enter formula (e.g., \texttt{SUM(A,B)})
-    \item Click \textbf{Apply} to execute
+    \item Click the checkbox next to each row you wish to select.
+    \item Perform the desired bulk action (e.g., editing or deleting) on the
+    selected rows.
 \end{enumerate}
 
+\paragraph{Edit Dropdown Menu}
+The Edit Dropdown Menu enables users to edit the table directly.
+\begin{enumerate}
+    \item Click the "Edit" button to view available options.
+    \item Select the desired option from the dropdown menu.
+\end{enumerate}
+
+\paragraph{Add Column}
+The Add Column feature allows users to introduce a new column into the table for
+additional data entry.
+\begin{enumerate}
+    \item Click the "Add Column" button.
+    \item Enter a name for the new column in the dialog box that appears.
+    \item The new column will be added to the right side of the table.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./Diagrams/AddColumn.png}
+    \caption{Add New Column Dialog}
+\end{figure}
+
+\paragraph{Add Row}
+The Add Row feature enables users to insert a new row into the table for
+additional data entries.
+\begin{enumerate}
+    \item Click the "Add Row" button.
+    \item A form will appear, prompting you to enter values for each column.
+    \item Fill in the required fields and click "Submit" to add the new row.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./Diagrams/AddRow.png}
+    \caption{Add New Row Dialog}
+\end{figure}
+
+\paragraph{Remove Column}
+The Remove Column feature allows users to delete an existing column from the
+table.
+\begin{enumerate}
+    \item Click the "Remove Column" button.
+    \item Select the column you wish to remove from the dropdown menu.
+    \item Confirm your action by clicking "Remove Column." 
+    \item Note that this operation cannot be undone.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./Diagrams/RemoveColumn.png}
+    \caption{Remove Column Dialog}
+\end{figure}
+
+\paragraph{Remove Row}
+The Remove Row feature enables users to delete one or more selected rows from
+the table.
+\begin{enumerate}
+    \item Select one or more rows by checking the boxes next to them.
+    \item Click the "Remove Column" button.
+    \item Click the "Remove Row" button to open a confirmation dialog.
+    \item Review the warning message and click "Remove Row" again to delete the
+    selected rows permanently.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./Diagrams/RemoveRowWithSelectedRow.png}
+    \caption{Remove Row Confirmation Dialog}
+\end{figure}
+
+\paragraph{Set Column Types}
+The Set Column Types feature allows administrators to define the data type for
+each column in the table, ensuring consistency and accuracy.
+\begin{enumerate}
+    \item Navigate to the "Set Column Types" section.
+    \item Select the desired data type (e.g., Number, Date, Text) for each
+    column from the dropdown menu.
+    \item Click "Save Changes" to apply the updates.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./Diagrams/SetColumnType.png}
+    \caption{Set Column Types Dialog}
+\end{figure}
+
+\paragraph{Function Bar}
+The Function Bar at the bottom of the table enables advanced data manipulation
+through calculations.
+\begin{enumerate}
+    \item Select the rows you want to include in the calculation by checking the
+    boxes next to them.
+    \item Choose the target column where the calculated result will be applied.
+    \item Enter a formula using column headers (e.g., SUM(G, I)).
+    \item Click the "Apply" button to calculate and update the target column
+    with the results.
+\end{enumerate}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./Diagrams/FunctionBar.png}
+    \caption{Function Bar}
+\end{figure}
+
+\paragraph{Compute Efficiency Factors}
+The Compute Efficiency Factors tool enables administrators to calculate various
+efficiency metrics based on selected experiments and time intervals.
+\begin{enumerate}
+    \item Click the "Compute $\eta$" button.
+    \item Select an experiment for which you want to compute efficiency factors.
+    \item Define the duration over which the calculations will be performed.
+    \item Select Efficiency Factor to compute.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./Diagrams/ComputeEffFactors.png}
+    \caption{Compute Efficiency Factors Dialog}
+\end{figure}
+
+\subsubsection{Efficiency Table (Read-Only)}
+The Efficiency Table offers a read-only view of efficiency metrics derived from
+the processed data. This table is designed to provide insights into performance
+trends and outcomes, enabling users to understand the effectiveness of their
+experiments without the ability to modify the underlying data.
+
+\subsubsection{Raw Data Table (Read-Only)}
+The Raw Data Table presents a read-only view of the raw experimental data,
+offering users the ability to explore detailed information captured during
+experiments. This table is crucial for users who need to examine individual data
+points and verify the integrity of the uploaded information without altering it.
+
+% \begin{figure}[H] \centering
+%     \includegraphics[width=0.8\textwidth]{./Diagrams/RawDataTable.png}
+%     \caption{Raw Data Table View} \end{figure}
+
 \subsection{Graph Generation}
-\subsection*{Section Overview}
+
 This section provides detailed instructions for creating, customizing, and
 exporting data visualizations.
 
 \subsubsection{Detailed Workflow}
-\subsubsection*{Description}
+
 The five-step process for generating custom graphs from experimental data.
 
 \begin{enumerate}
@@ -297,84 +495,8 @@ The five-step process for generating custom graphs from experimental data.
 \end{enumerate}
 
 \section{Troubleshooting}
-\subsection*{Section Overview}
+
 This section lists common issues, error messages, and their solutions, along
 with advanced diagnostic procedures.
-
-\subsection{Common Issues}
-\begin{table}[H]
-    \centering
-    \begin{tabularx}{\textwidth}{lXl}
-        \toprule
-        \textbf{Issue} & \textbf{Solution} & \textbf{Error Code} \\
-        \midrule
-        Connection refused & Verify all services are running &
-        ERR\_CONN\_REFUSED \\
-        Upload timeout & Check file size and network & 408 \\
-        Graph rendering failed & Validate data selection & VIS\_ERR\_001 \\
-        Database not responding & Restart MongoDB service & DB\_ERR\_503 \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-\subsection{Advanced Diagnostics}
-\subsubsection*{Description}
-Technical procedures for diagnosing and resolving system issues.
-
-\begin{enumerate}
-    \item Check application logs:
-    \begin{verbatim}
-    cat /var/log/alkalytics/app.log
-    \end{verbatim}
-    
-    \item Verify service status:
-    \begin{verbatim}
-    systemctl status mongod
-    yarn run status
-    \end{verbatim}
-    
-    \item Clear cache if needed:
-    \begin{verbatim}
-    yarn cache clean
-    \end{verbatim}
-\end{enumerate}
-
-\section{Appendix}
-\subsection*{Section Overview}
-Additional reference materials including keyboard shortcuts, FAQs, and contact
-information.
-
-\subsection{Keyboard Shortcuts}
-\begin{table}[H]
-    \centering
-    \begin{tabularx}{\textwidth}{lX}
-        \toprule
-        \textbf{Shortcut} & \textbf{Action} \\
-        \midrule
-        Ctrl+E & Toggle edit mode \\
-        Ctrl+S & Save current table \\
-        Ctrl+G & Open graph generator \\
-        Ctrl+F & Focus search bar \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-\subsection{Frequently Asked Questions}
-\begin{itemize}
-    \item \textbf{Q: How to reset my password?}
-    \begin{itemize}
-        \item Contact admin for password reset
-    \end{itemize}
-    
-    \item \textbf{Q: Can I import SQL databases?}
-    \begin{itemize}
-        \item Currently only CSV and Excel supported
-    \end{itemize}
-    
-    \item \textbf{Q: Where are my uploaded files stored?}
-    \begin{itemize}
-        \item In MongoDB under collections: experiments and raw\_data
-    \end{itemize}
-\end{itemize}
 
 \end{document}
