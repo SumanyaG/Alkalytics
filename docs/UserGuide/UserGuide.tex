@@ -163,24 +163,61 @@ After installation, verify all components are running:
 
 \section{User Management}
 \subsection*{Section Overview}
-This section details the different user roles (Admin and Researcher) and their
-respective capabilities within the application.
+This application has different user roles. Each role has a different set of
+permissions and respective capabilities within the application.
 
-\subsection{Admin Features}
-\subsubsection*{Description}
+\subsection{Admin and Researcher Role}
 Administrators have full control over all system functionality including data
-management, user configuration, and system settings.
+management, user configuration, and system settings. Both Admin and Researcher
+roles have the same permissions. \newline \newline
+These features include:
+\begin{itemize}
+    \item Editing tables, including modifying cells, adding/removing rows and columns.
+    \item Setting data types for columns.
+    \item Using the Excel function bar for calculations.
+    \item Computing efficiency metrics.
+    \item Managing bulk data uploads.
+    \item Generating and exporting graphs.
+\end{itemize}
 
+\subsection{Researcher Assistant Role}
+Researcher assistants can view data, run analyses, and generate reports but have limited
+system configuration capabilities. \newline\newline
+These features include:
+\begin{itemize}
+    \item Viewing and searching tables (Experiment, Efficiency, and Raw Data).
+    \item Searching within a specific column or the entire table.
+    \item Generating graphs but with restricted data modification capabilities.
+\end{itemize}
 
-\subsection{Researcher Features}
-\subsubsection*{Description}
-Researchers can view data, run analyses, and generate reports but have limited
-system configuration capabilities.
-
+\newpage
 \section{Web Application Pages}
 \subsection*{Section Overview}
 This section covers all data handling operations including uploads, processing,
 and table management.
+
+\subsection{Login and Sign Up Process}
+When users first load onto the page, they will be greated by a log in screen. 
+If the user has login credentions, log in as normal 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{Images/login .png}
+    \caption{Login Form}
+    \label{fig:example}
+\end{figure}
+
+\subsection{Sign Up Process}
+If users do not have an account, they will need to create one by clicking the
+\textbf{Create one} button at the bottom of the login form. The user must then
+enter an email and desired password. There will be three roles to pick from,
+Admin, Researcher and Research Assistant. After creating a user account, log in
+as normal. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{Images/sign up .png}
+    \caption{Sign Up Form}
+    \label{fig:example}
+\end{figure}
 
 \subsection{Upload Process}
 \subsubsection*{Description}
@@ -257,43 +294,125 @@ formats for analysis.
 This section provides detailed instructions for creating, customizing, and
 exporting data visualizations.
 
+\subsection*{Page Overview}
+The graph page is seperated in two sections. 
+\newline \newline
+\textbf{Side Bar:} \newline
+On the left side of the page is the sidebar where it displays all the recently
+generated graphs and has the generate new graph button.
+\newline\newline
+
+\noindent \textbf{Main Content:}\newline
+On the right is the main content of the page. Here, the generated graph will be
+displayed along with a quick linear regression analysis with a short statement
+of its findings 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Images/graph page .png}
+    \caption{Graph page Seperation Display}
+    \label{fig:example}
+\end{figure}
+
+On the side bar, beside each generated graph item has an icon which signifies
+the type of graph it is. 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+         \textbf{Icon} & \textbf{Definition} \\
+        \hline
+        \includegraphics[width=1.5cm]{Images/graph-line.png} & Line Graph \\
+        \hline
+        \includegraphics[width=1.5cm]{Images/graph-bar.png} & Bar Graph \\
+        \hline
+        \includegraphics[width=1.5cm]{Images/graph-scatter.png} & Scatter Plot \\
+        \hline
+    \end{tabular}
+    \caption{Graph Types and Their Definitions}
+    \label{tab:graphs}
+\end{table}
+
+\noindent \textbf{Generting a New Graph:} \newline
+To create a new graph, click on the \textbf{Generate New Graph} button at the top of the side bar:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{Images/graph-newgraph .png}
+    \caption{Highlights the Generate New Graph Button}
+    \label{fig:example}
+\end{figure}
 \subsubsection{Detailed Workflow}
 \subsubsection*{Description}
-The five-step process for generating custom graphs from experimental data.
+There is a five-step process for generating custom graphs from experimental data.
 
 \begin{enumerate}
-    \item \textbf{Select Graph Type}
+    \item \textbf{Select Graph Type:} \newline
+    The app currently only supports 3 types of graphs. 
     \begin{itemize}
-        \item Line graph for trends
-        \item Bar graph for comparisons
-        \item Scatter plot for correlations
+        \item Line graph 
+        \item Bar graph 
+        \item Scatter plot
     \end{itemize}
-    
-    \item \textbf{Apply Filters}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{Images/graph-form .png}
+        \caption{Highlights the Generate New Graph Button}
+        \label{fig:example}
+    \end{figure}
+
+    \item \textbf{Optional: Apply Filters}: \newline
+    Use this part of the form to filter experiment dates based on a certain
+    attribute. The attribute could be from the Experiment or Raw Data files.
+    \newline
+    \textbf{Note:} Either all form field must be willed out or all must be empty in order
+    to progress to the next stage of the form. 
     \begin{enumerate}
-        \item Choose filter attribute (e.g., "\# of Stacks")
+        \item Choose which data file attribute to filter by
+        \item Choose filter attribute 
         \item Select filter value from dropdown
-        \item Apply date range if needed
     \end{enumerate}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{Images/graph-filter.png}
+        \caption{Sample Input of the Filter Step}
+        \label{fig:example}
+    \end{figure}
+
+    \item \textbf{Selecting Dates}: \newline
+    If no filter is applied, all experiemnt dates wil be listed. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{Images/graph-dates.png}
+        \caption{Sample Input of the Date Step}
+        \label{fig:example}
+    \end{figure}
     
-    \item \textbf{Set Parameters}
-    \begin{itemize}
-        \item X-axis: Typically time or independent variable
-        \item Y-axis: Measurement or dependent variable
-    \end{itemize}
+    \item \textbf{Set Parameters}: \newline
+    Select the attributes for the X and Y axis to plot. The two attributes must
+    be from the same experiment sheet. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.4]{Images/graph-param.png}
+        \caption{Sample Input of the Filter Step}
+        \label{fig:example}
+    \end{figure}
     
-    \item \textbf{Customize Display}
+    \item \textbf{Customize Display}: \newline
+    Users are able to customize the graphs. All fields on this step are
+    optional.If no axis labels are inputted, the axis would be nammed the
+    attribute name selected by default.
+    \newline
+    There are the following options for customization
     \begin{itemize}
-        \item Title: Descriptive graph name
-        \item Axis Labels: Clear units of measurement
-        \item Range: Manual or automatic scaling
+        \item Graph title
+        \item Axis Ranges
+        \item Axis Labels
     \end{itemize}
-    
-    \item \textbf{Generate \& Export}
-    \begin{itemize}
-        \item Click \textbf{Submit} to render
-        \item Use \textbf{Export} button for PNG/PDF
-    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.6]{Images/graph-custom.png}
+        \caption{Sample Input of the Filter Step}
+        \label{fig:example}
+    \end{figure}
 \end{enumerate}
 
 \section{Troubleshooting}
@@ -301,80 +420,22 @@ The five-step process for generating custom graphs from experimental data.
 This section lists common issues, error messages, and their solutions, along
 with advanced diagnostic procedures.
 
-\subsection{Common Issues}
+\subsection{Common Graphing Issues}
+
 \begin{table}[H]
     \centering
     \begin{tabularx}{\textwidth}{lXl}
         \toprule
-        \textbf{Issue} & \textbf{Solution} & \textbf{Error Code} \\
+        \textbf{Issue} & \textbf{Solution} \\
         \midrule
-        Connection refused & Verify all services are running &
-        ERR\_CONN\_REFUSED \\
-        Upload timeout & Check file size and network & 408 \\
-        Graph rendering failed & Validate data selection & VIS\_ERR\_001 \\
-        Database not responding & Restart MongoDB service & DB\_ERR\_503 \\
+        Dropdown options not appearing & There may be no value for the
+        selected combination of attributes or filters. Check to verify inputted
+        options \newline \\
+        Frozen form & There may be a large number of options to select from.
+        Please give the page a few minutes to finishing loading up and
+        displaying all the data \newline \\
+        Rendering failed & Validate data selection \\
         \bottomrule
     \end{tabularx}
 \end{table}
-
-\subsection{Advanced Diagnostics}
-\subsubsection*{Description}
-Technical procedures for diagnosing and resolving system issues.
-
-\begin{enumerate}
-    \item Check application logs:
-    \begin{verbatim}
-    cat /var/log/alkalytics/app.log
-    \end{verbatim}
-    
-    \item Verify service status:
-    \begin{verbatim}
-    systemctl status mongod
-    yarn run status
-    \end{verbatim}
-    
-    \item Clear cache if needed:
-    \begin{verbatim}
-    yarn cache clean
-    \end{verbatim}
-\end{enumerate}
-
-\section{Appendix}
-\subsection*{Section Overview}
-Additional reference materials including keyboard shortcuts, FAQs, and contact
-information.
-
-\subsection{Keyboard Shortcuts}
-\begin{table}[H]
-    \centering
-    \begin{tabularx}{\textwidth}{lX}
-        \toprule
-        \textbf{Shortcut} & \textbf{Action} \\
-        \midrule
-        Ctrl+E & Toggle edit mode \\
-        Ctrl+S & Save current table \\
-        Ctrl+G & Open graph generator \\
-        Ctrl+F & Focus search bar \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-\subsection{Frequently Asked Questions}
-\begin{itemize}
-    \item \textbf{Q: How to reset my password?}
-    \begin{itemize}
-        \item Contact admin for password reset
-    \end{itemize}
-    
-    \item \textbf{Q: Can I import SQL databases?}
-    \begin{itemize}
-        \item Currently only CSV and Excel supported
-    \end{itemize}
-    
-    \item \textbf{Q: Where are my uploaded files stored?}
-    \begin{itemize}
-        \item In MongoDB under collections: experiments and raw\_data
-    \end{itemize}
-\end{itemize}
-
 \end{document}
