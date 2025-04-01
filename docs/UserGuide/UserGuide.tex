@@ -1,35 +1,380 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[center]{caption}
+\usepackage{float}
+\captionsetup{justification=centering}
 
+\hypersetup{ bookmarks=true,         % show bookmarks bar?
+    colorlinks=true,      % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+\newcommand{\lips}{\textit{Insert your content here.}}
 \input{../Comments}
 \input{../Common}
 
-\title{User Guide\\\progname}
-
+\title{User Guide for \progname: Alkalytics} 
 \author{\authname}
-
-\date{}
+\date{\today}
 
 \begin{document}
 
-\begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
-\bottomrule
-\end{tabularx}
-\end{table}
-
+\maketitle
+\newpage
+\tableofcontents
 \newpage
 
-\maketitle
+\section{Introduction}
+\subsection*{Section Overview}
+This section provides an orientation to the Alkalytics application, its purpose,
+and the scope of this documentation.
 
+Welcome to the Alkalytics User Guide. This comprehensive document provides
+complete instructions for installing, configuring, and using all features of the
+Alkalytics web application.
+
+\subsection{Purpose}
+Alkalytics is designed to:
+\begin{itemize}
+\item Manage experimental data efficiently
+\item Provide powerful analysis tools
+\item Generate customizable visualizations
+\item Support collaborative research workflows
+\end{itemize}
+
+\section{System Overview}
+\subsection*{Section Overview}
+This section describes the technical architecture, components, and requirements
+for running Alkalytics.
+
+\subsection{Architecture}
+Alkalytics is a React and TypeScript-based web application that runs locally for
+security purposes. The system architecture consists of:
+
+\begin{itemize}
+\item \textbf{Frontend}: Built with React and TypeScript
+\item \textbf{Backend}: Python processing with Univcorn server
+\item \textbf{Database}: MongoDB for data storage
+\end{itemize}
+
+\subsection{Detailed Requirements}
+\subsubsection*{Description}
+Lists all hardware and software requirements for running the application.
+
+\subsubsection{Hardware Requirements}
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{llX}
+        \toprule
+        \textbf{Component} & \textbf{Minimum} & \textbf{Recommended} \\
+        \midrule
+        RAM & 8GB & 16GB \\
+        Storage & 10GB & 50GB SSD \\
+        Processor & 2 cores & 4 cores \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsubsection{Software Dependencies}
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{lXl}
+        \toprule
+        \textbf{Software} & \textbf{Purpose} & \textbf{Version} \\
+        \midrule
+        Node.js & Frontend runtime & 16.x LTS \\
+        MongoDB & Database & 5.0+ \\
+        Python & Backend processing & 3.8+ \\
+        Univcorn & ASGI server & 0.15+ \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section{Installation Guide}
+\subsection*{Section Overview}
+This section provides complete step-by-step instructions for setting up the
+Alkalytics environment.
+
+\subsection{Step-by-Step Installation}
+\begin{enumerate}
+    \item \textbf{Prerequisite Installation}
+    \begin{enumerate}
+        \item Install Node.js from \url{https://nodejs.org}
+        \item Install MongoDB from \url{https://www.mongodb.com}
+        \item Install Python 3.x from \url{https://www.python.org}
+    \end{enumerate}
+    
+    \item \textbf{Repository Setup}
+    \begin{verbatim}
+    git clone https://github.com/your-repo/alkalytics.git
+    cd alkalytics
+    \end{verbatim}
+    
+    \item \textbf{Dependency Installation}
+    \begin{verbatim}
+    yarn install
+    pip install -r requirements.txt
+    \end{verbatim}
+    
+    \item \textbf{Database Configuration}
+    \begin{enumerate}
+        \item Create data directory:
+        \begin{verbatim}
+        mkdir /data/db
+        \end{verbatim}
+        \item Start MongoDB service:
+        \begin{verbatim}
+        mongod --dbpath /data/db --port 27017
+        \end{verbatim}
+    \end{enumerate}
+    
+    \item \textbf{Application Launch}
+    \begin{enumerate}
+        \item Start backend:
+        \begin{verbatim}
+        yarn ts-node src/utils/server.ts
+        \end{verbatim}
+        \item Start frontend:
+        \begin{verbatim}
+        yarn start
+        \end{verbatim}
+        \item Launch ASGI server:
+        \begin{verbatim}
+        univcorn --port 8000 main:app
+        \end{verbatim}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Verification}
+After installation, verify all components are running:
+\begin{enumerate}
+    \item Frontend: \texttt{http://localhost:3000}
+    \item Backend: \texttt{http://localhost:8000/healthcheck}
+    \item Database: Check MongoDB connection on port 27017
+\end{enumerate}
+
+\section{User Management}
+\subsection*{Section Overview}
+This section details the different user roles (Admin and Researcher) and their
+respective capabilities within the application.
+
+\subsection{Admin Features}
+\subsubsection*{Description}
+Administrators have full control over all system functionality including data
+management, user configuration, and system settings.
+
+
+\subsection{Researcher Features}
+\subsubsection*{Description}
+Researchers can view data, run analyses, and generate reports but have limited
+system configuration capabilities.
+
+\section{Web Application Pages}
+\subsection*{Section Overview}
+This section covers all data handling operations including uploads, processing,
+and table management.
+
+\subsection{Upload Process}
+\subsubsection*{Description}
+The upload functionality allows users to import experimental data in various
+formats for analysis.
+
+\subsubsection{Step-by-Step Upload}
+\begin{enumerate}
+    \item Navigate to Upload Page
+    \item Select file type (Experiment Log or Raw Data)
+    \item Choose upload method:
+    \begin{itemize}
+        \item Drag and drop files
+        \item Browse file system
+    \end{itemize}
+    \item Verify file preview
+    \item Click \textbf{Upload} button
+    \item Monitor progress in notification panel
+\end{enumerate}
+
+\subsubsection{File Requirements}
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Requirement} & \textbf{Specification} \\
+        \midrule
+        File Size & Maximum 10MB per file \\
+        Columns & Minimum 5 required fields \\
+        Date Format & YYYY-MM-DD \\
+        Special Characters & Avoid in header names \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Table View}
+
+\subsubsection{Table Editing}
+\begin{enumerate}
+    \item Navigate to Experiment Table
+    \item Click \textbf{Edit} button to enable editing mode
+    \item Modify cell values directly
+    \item Use \textbf{Save} button to commit changes
+\end{enumerate}
+
+\subsubsection{Column Management}
+\begin{itemize}
+    \item \textbf{Adding Columns:}
+    \begin{enumerate}
+        \item Click \textbf{Add Column} button
+        \item Enter column name in dialog
+        \item Select data type from dropdown
+        \item Click \textbf{Add Column} to confirm
+    \end{enumerate}
+    
+    \item \textbf{Removing Columns:}
+    \begin{enumerate}
+        \item Click \textbf{Remove Column} button
+        \item Select column from dropdown
+        \item Confirm deletion
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Excel Function Bar}
+\begin{enumerate}
+    \item Select target rows using checkboxes
+    \item Choose destination column
+    \item Enter formula (e.g., \texttt{SUM(A,B)})
+    \item Click \textbf{Apply} to execute
+\end{enumerate}
+
+\subsection{Graph Generation}
+\subsection*{Section Overview}
+This section provides detailed instructions for creating, customizing, and
+exporting data visualizations.
+
+\subsubsection{Detailed Workflow}
+\subsubsection*{Description}
+The five-step process for generating custom graphs from experimental data.
+
+\begin{enumerate}
+    \item \textbf{Select Graph Type}
+    \begin{itemize}
+        \item Line graph for trends
+        \item Bar graph for comparisons
+        \item Scatter plot for correlations
+    \end{itemize}
+    
+    \item \textbf{Apply Filters}
+    \begin{enumerate}
+        \item Choose filter attribute (e.g., "\# of Stacks")
+        \item Select filter value from dropdown
+        \item Apply date range if needed
+    \end{enumerate}
+    
+    \item \textbf{Set Parameters}
+    \begin{itemize}
+        \item X-axis: Typically time or independent variable
+        \item Y-axis: Measurement or dependent variable
+    \end{itemize}
+    
+    \item \textbf{Customize Display}
+    \begin{itemize}
+        \item Title: Descriptive graph name
+        \item Axis Labels: Clear units of measurement
+        \item Range: Manual or automatic scaling
+    \end{itemize}
+    
+    \item \textbf{Generate \& Export}
+    \begin{itemize}
+        \item Click \textbf{Submit} to render
+        \item Use \textbf{Export} button for PNG/PDF
+    \end{itemize}
+\end{enumerate}
+
+\section{Troubleshooting}
+\subsection*{Section Overview}
+This section lists common issues, error messages, and their solutions, along
+with advanced diagnostic procedures.
+
+\subsection{Common Issues}
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{lXl}
+        \toprule
+        \textbf{Issue} & \textbf{Solution} & \textbf{Error Code} \\
+        \midrule
+        Connection refused & Verify all services are running &
+        ERR\_CONN\_REFUSED \\
+        Upload timeout & Check file size and network & 408 \\
+        Graph rendering failed & Validate data selection & VIS\_ERR\_001 \\
+        Database not responding & Restart MongoDB service & DB\_ERR\_503 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Advanced Diagnostics}
+\subsubsection*{Description}
+Technical procedures for diagnosing and resolving system issues.
+
+\begin{enumerate}
+    \item Check application logs:
+    \begin{verbatim}
+    cat /var/log/alkalytics/app.log
+    \end{verbatim}
+    
+    \item Verify service status:
+    \begin{verbatim}
+    systemctl status mongod
+    yarn run status
+    \end{verbatim}
+    
+    \item Clear cache if needed:
+    \begin{verbatim}
+    yarn cache clean
+    \end{verbatim}
+\end{enumerate}
+
+\section{Appendix}
+\subsection*{Section Overview}
+Additional reference materials including keyboard shortcuts, FAQs, and contact
+information.
+
+\subsection{Keyboard Shortcuts}
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Shortcut} & \textbf{Action} \\
+        \midrule
+        Ctrl+E & Toggle edit mode \\
+        Ctrl+S & Save current table \\
+        Ctrl+G & Open graph generator \\
+        Ctrl+F & Focus search bar \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Frequently Asked Questions}
+\begin{itemize}
+    \item \textbf{Q: How to reset my password?}
+    \begin{itemize}
+        \item Contact admin for password reset
+    \end{itemize}
+    
+    \item \textbf{Q: Can I import SQL databases?}
+    \begin{itemize}
+        \item Currently only CSV and Excel supported
+    \end{itemize}
+    
+    \item \textbf{Q: Where are my uploaded files stored?}
+    \begin{itemize}
+        \item In MongoDB under collections: experiments and raw\_data
+    \end{itemize}
+\end{itemize}
 
 \end{document}
