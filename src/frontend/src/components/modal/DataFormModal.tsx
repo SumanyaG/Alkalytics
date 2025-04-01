@@ -354,7 +354,6 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                   <SingleDropdown
                     options={paramType}
                     label="Param Type"
-                    required={true}
                     onChange={setSelectedFilterParamType}
                     value={selectedFilterParamType}
                   />
@@ -372,7 +371,6 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                           : experimentParam
                       }
                       label="Filter Attribute"
-                      required={true}
                       onChange={setSelectedFilterParam}
                       value={selectedFilterParam}
                     />
@@ -468,7 +466,6 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                   label="Title"
                   margin="dense"
                   variant="outlined"
-                  required
                   error={!!titleError}
                   helperText={titleError}
                   onChange={(e) => {
