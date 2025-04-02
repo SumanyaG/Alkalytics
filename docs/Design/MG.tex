@@ -9,6 +9,7 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{amssymb}
 
 \hypersetup{
     colorlinks,
@@ -18,8 +19,8 @@
     urlcolor=blue
 }
 
-\input{../../Comments}
-\input{../../Common}
+\input{../Comments}
+\input{../Common}
 
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
@@ -51,6 +52,11 @@
 11 January 2025 & 1.0 & Added initial content for Rev 0.\\
 17 January 2025 & 1.1 & Finalized document for Rev 0 submission.\\
 18 January 2025 & 1.2 & Refined the document.\\
+1 April 2025 & 1.3 & Updated document to adhere to
+\href{https://github.com/SumanyaG/Alkalytics/issues/176}{176},
+\href{https://github.com/SumanyaG/Alkalytics/issues/177}{177},
+\href{https://github.com/SumanyaG/Alkalytics/issues/252}{252}, and
+\href{https://github.com/SumanyaG/Alkalytics/issues/253}{253}. \\
 \bottomrule
 \end{tabularx}
 \\
@@ -244,7 +250,7 @@ The modules are summarized in a hierarchy that follows the principle of informat
 hiding. Each module encapsulates specific secrets, ensuring changes are localized
 and do not affect unrelated parts of the system. These modules are summarized in
 a hierarchy decomposed by secrets in table \ref{TblMH}. This hierarchy represented
-as a directed acyclic graph, shown in \ref{FigMH}, shows relationships betweem
+as a directed acyclic graph, shown in \ref{fig:FigMH}, shows relationships betweem
 higher-level and lower-level modules, with the leaf modules representing those that
 will actually be implemented.
 
@@ -365,26 +371,22 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 
   \begin{table}[h!]
     \centering
-    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.4\textwidth}}
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.375\textwidth}}
     \toprule
     \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \midrule
     
-    \texttt{initializeDB} & - & Boolean & Throws \texttt{DatabaseInitializationError}
-    if the database connection fails.\\
+    \texttt{initializeDB} & - & Boolean & \texttt{DatabaseInitializationError} \\
     \midrule
     
-    \texttt{uploadData} & filePath(string) & Boolean & Throws \texttt{FileNotFoundError}
-    if the file does not exist, or \texttt{DataTransformationError} if the Transformation
-    fails.\\
+    \texttt{uploadData} & filePath(string) & Boolean &
+    \texttt{FileNotFoundError} or \texttt{DataTransformationError} \\
     \midrule
 
-    \texttt{queryData} & query(string) & Data (JSON) & Throws \texttt{QueryExecutionError}
-    if the query is invalid.\\
+    \texttt{queryData} & query(string) & Data (JSON) & \texttt{QueryExecutionError}\\
     \midrule
 
-    \texttt{updateData} & query(string), updates & Boolean & Throws \texttt{UpdateError}
-    if the update fails.\\
+    \texttt{updateData} & query(string), updates & Boolean & \texttt{UpdateError} \\
     \bottomrule
     
     \end{tabular}
@@ -438,7 +440,10 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \item
   \begin{itemize}
     \item \textbf{Output}: Returns \texttt{True} if the database is successfully initialized.
-    Throws a\\ \texttt{DatabaseInitializationError} otherwise.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws a \texttt{DatabaseInitializationError} otherwise.
   \end{itemize}
   \item 
 
@@ -451,8 +456,12 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{FileNotFoundError}
-    if the file does not exist or \texttt{DataTransformationError} if the transformation fails.
+    \item \textbf{Output}: Returns \texttt{True} if successful.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{FileNotFoundError} if the file does not exist or
+    \\ \texttt{DataTransformationError} if the transformation fails.
   \end{itemize}
   \item
 
@@ -465,8 +474,12 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item 
   \begin{itemize}
-    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \texttt{QueryExecutionError}
-    if the query is invalid or fails.
+    \item \textbf{Output}: Returns the retrieved data in JSON format.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{QueryExecutionError} if the query
+    is invalid or fails.
   \end{itemize}
   \item
 
@@ -478,8 +491,11 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{UpdateError}
-    if the operation fails.
+    \item \textbf{Output}: Returns \texttt{True} if successful.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{UpdateError} if the operation fails.
   \end{itemize}
   \item
 
@@ -493,8 +509,12 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \end{itemize}
   \item 
   \begin{itemize}
-    \item \textbf{Output}: Returns a list of JSON objects or throws \texttt{DataTransformationError}
-    if the transformation fails.
+    \item \textbf{Output}: Returns a list of JSON objects.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{DataTransformationError} if the
+    transformation fails.
   \end{itemize}
   \item 
   \texttt{validateConnection()}:
@@ -536,24 +556,23 @@ incoming data is correctly formatted and validated before entering the system.
     \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \midrule
     
-    \texttt{initializeIngestion} & - & Boolean & Throws \texttt{IngestionError}
-    if the process fails.\\
+    \texttt{initializeIngestion} & - & Boolean & \texttt{IngestionError} \\
     \midrule
     
-    \texttt{ingestData} & sourcePath(string) & Boolean & Throws \texttt{FileNotFoundError}
-    if the file does not exist, or \texttt{DataTransformationError} if the Ingestion fails.\\
+    \texttt{ingestData} & sourcePath(string) & Boolean &
+    \texttt{FileNotFoundError} or \texttt{DataTransformationError} \\
     \midrule
 
-    \texttt{validateData} & data(Object) & Boolean & Throws \texttt{DataValidationError}
-    if the data fails validation.\\
+    \texttt{validateData} & data(Object) & Boolean &
+    \texttt{DataValidationError} \\
     \midrule
 
-    \texttt{retrieveAPIData} & apiEndPoint(string) & Data (JSON) & Throws \texttt{APIRequestError}
-    if the API request fails.\\
+    \texttt{retrieveAPIData} & apiEndPoint(string) & Data (JSON) &
+    \texttt{APIRequestError} \\
     \midrule
 
-    \texttt{processData} & rawData(Object) & Object & Throws \texttt{DataProcessingError}
-    if the processing fails.\\
+    \texttt{processData} & rawData(Object) & Object &
+    \texttt{DataProcessingError} \\
     \bottomrule
     
     \end{tabular}
@@ -603,8 +622,12 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns \texttt{True} if initialization is successful. Throws an
-    \\ \texttt{IngestionInitializationError} if initialization fails.
+    \item \textbf{Output}: Returns \texttt{True} if initialization is successful.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws an \texttt{IngestionInitializationError} if
+    initialization fails.
   \end{itemize}
   \item 
 
@@ -616,9 +639,13 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns \texttt{True} if successful. Throws \texttt{FileNotFoundError}
-    if the source path is invalid or does not exist, or \texttt{DataTransformationError} if the
-    transformation process fails.
+    \item \textbf{Output}: Returns \texttt{True} if successful.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{FileNotFoundError} if the source
+    path is invalid or does not exist, or \texttt{DataTransformationError} if
+    the transformation process fails.
   \end{itemize}
   \item
 
@@ -630,8 +657,11 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item 
   \begin{itemize}
-    \item \textbf{Output}: Returns the retrieved data in JSON format. Throws \texttt{APIRequestError} if
-    the request fails.
+    \item \textbf{Output}: Returns the retrieved data in JSON format.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{APIRequestError} if the request fails.
   \end{itemize}
   \item
 
@@ -643,8 +673,11 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns the processed data in the appropriate format. Throws \\
-    \texttt{DataProcessingError} if the processing fails.
+    \item \textbf{Output}: Returns the processed data in the appropriate format.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{DataProcessingError} if the processing fails.
   \end{itemize}
   \item
 
@@ -658,8 +691,12 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item 
   \begin{itemize}
-    \item \textbf{Output}: Returns the transformed data as a JSON object or throws \\
-    \texttt{DataTransformationError} if the transformation fails.
+    \item \textbf{Output}: Returns the transformed data as a JSON object.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{DataTransformationError} if the
+    transformation fails.
   \end{itemize}
   \item 
 
@@ -670,8 +707,12 @@ incoming data is correctly formatted and validated before entering the system.
   \end{itemize}
   \item 
   \begin{itemize}
-    \item \textbf{Output}: Returns \texttt{True} if the connection to the source is valid. Throws \\
-   \texttt{SourceConnectionError} if the connection fails.
+    \item \textbf{Output}: Returns \texttt{True} if the connection to the source is valid.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{SourceConnectionError} if the
+    connection fails.
   \end{itemize}
 \end{description}
 
@@ -695,7 +736,7 @@ clean input data  for dependent modules.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:]
+  \item[Exported Constants and Access Programs:]
   \item 
   \texttt{MAX\_VOLTAGE}: Maximum allowable voltage (e.g., 10 V).
   \item
@@ -708,18 +749,34 @@ clean input data  for dependent modules.
   \texttt{FLOW\_RATE\_THRESHOLD}: Acceptable range for flow rates (e.g., 0.1 to 60 L/min).
   \item
   \texttt{PH\_RANGE}: Acceptable pH range (e.g., 6.0 to 8.5).
-  \item
-  \item[Exported Access Programs:]
-  \item
-  \texttt{validate\_voltage(v:Real) \(\to\) Boolean}
-  \item 
-  \texttt{validate\_current(i:Real) \(\to\) Boolean}
-  \item 
-  \texttt{validate\_flow\_rate(f:Real) \(\to\) Boolean}
-  \item
-  \texttt{validate\_ph(v:Real) \(\to\) Boolean}
-  \item
-  \texttt{get\_error\_flags() \(\to\) Set}
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.2\textwidth} p{0.2\textwidth} p{0.175\textwidth} p{0.3\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{validateVoltage} & v($\mathbb{R}$) & Boolean & - \\
+    \midrule
+    
+    \texttt{validateCurrent} & i($\mathbb{R}$) & Boolean & - \\
+    \midrule
+
+    \texttt{validateFlowRate} & f($\mathbb{R}$) & Data (JSON) & - \\
+    \midrule
+
+    \texttt{validatePH} & ph($\mathbb{R}$) & Boolean & - \\
+
+    \midrule
+    
+    \texttt{getErrorFlags} & - & Set & - \\
+    \bottomrule
+    
+    \end{tabular}
+    \caption{Exported Access Programs for the Data Validation Module}
+    \label{TblEAP_Validation}
+  \end{table}
 \end{description}
 
 \subsubsection{Semantics}
@@ -773,7 +830,7 @@ clean input data  for dependent modules.
 
   \item[Access Routine Semantics:]
   \item
-  \texttt{validate\_voltage(v:Real)}:
+  \texttt{validateVoltage(v:Real)}:
   \item
   \begin{itemize}
     \item If \texttt{MIN\_VOLTAGE} $\leq v \leq$ \texttt{MAX\_VOLTAGE}, return True.
@@ -784,7 +841,7 @@ clean input data  for dependent modules.
   \end{itemize}
   \item 
 
-  \texttt{validate\_current(i:Real)}:
+  \texttt{validateCurrent(i:Real)}:
   \item
   \begin{itemize}
     \item If \texttt{MIN\_CURRENT} $\leq i \leq$ \texttt{MAX\_CURRENT}, return True.
@@ -795,7 +852,7 @@ clean input data  for dependent modules.
   \end{itemize}
   \item 
 
-  \texttt{validate\_flow\_rate(f:Real)}:
+  \texttt{validateFlowRate(f:Real)}:
   \item
   \begin{itemize}
     \item If \texttt{FLOW\_RATE\_THRESHOLD[0]} $\leq f \leq$ \texttt{FLOW\_RATE\_THRESHOLD[1]}, return True.
@@ -806,7 +863,7 @@ clean input data  for dependent modules.
   \end{itemize}
   \item 
 
-  \texttt{validate\_ph(p:Real)}:
+  \texttt{validatePH(p:Real)}:
   \item
   \begin{itemize}
     \item If \texttt{PH\_RANGE[0]} $\leq p \leq$ \texttt{PH\_RANGE[1]}, return True.
@@ -817,7 +874,7 @@ clean input data  for dependent modules.
   \end{itemize}
   \item 
 
-  \texttt{get\_error\_flags()}:
+  \texttt{getErrorFlags()}:
   \item
   \begin{itemize}
     \item \textbf{Output:} Returns the current set of error flags.
@@ -825,7 +882,7 @@ clean input data  for dependent modules.
 
   \item[Local Function:]
   \item
-  \texttt{is\_within\_range(value: Real, range: Tuple[Real, Real])} $\to$ \texttt{Boolean}:\\
+  \texttt{isWithinRange(value: Real, range: Tuple[Real, Real])} $\to$ \texttt{Boolean}:\\
   Checks if a given value lies within a specified range.
 \end{description}
 
@@ -858,23 +915,36 @@ clean input data  for dependent modules.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Operations:]
-  \item
-  \texttt{transformData(inputData)}: Applies predefined transformations to the input data.
-  \item 
-  \texttt{generatedGraphData(transformedData)}: Prepares the data for use by the visualization module.
-  \item
-  \item[Exported Constants:] 
+  \item[Exported Constants and Access Programs:]
   \item
   \texttt{TRANSFORMATION\_TYPE}: Defines the types of transformations available including normalization and filtering.
   \item 
   \texttt{GRAPH\_TYPES}: Constants indicating types of graphs to be generated.
-  \item
-  \item[Exported Access Programs:]
-  \item 
-  \texttt{startTransformation()}: Initializes the transformation process.
-  \item 
-  \texttt{retrieveGraphData()}: Accesses processed data for the visualization module.
+
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{p{0.3\textwidth} p{0.2\textwidth} p{0.175\textwidth} p{0.2\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{transformData} & inputData & transformedData & - \\
+    \midrule
+    
+    \texttt{generatedGraphData} & transformedData & graphData & - \\
+    \midrule
+
+    \texttt{startTransformation} & - & - & - \\
+    \midrule
+
+    \texttt{retrieveGraphData} & - & - & - \\
+    
+    \bottomrule
+    
+    \end{tabular}
+    \caption{Exported Access Programs for the Data Transformation Module}
+    \label{TblEAP_Transformation}
+  \end{table}
 \end{description}
 
 \subsubsection{Semantics}
@@ -912,6 +982,7 @@ clean input data  for dependent modules.
 \end{description}
 
 \subsection{Notifications Module (\mref{mNO})}
+\textbf{OUT OF SCOPE}
 \begin{description}
   \item[Secrets:] Each notification is associated with metadata such as the type of notification 
   (info, warning, error), the recipient and the message content. This means the module uses 
@@ -940,21 +1011,37 @@ clean input data  for dependent modules.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:] 
-  \item \texttt{NOTIFICATION\_TYPES}: Defines the types of notifications (e.g., "info", "warning", "error", etc.)
+  \item[Exported Constants and Access Programs:]
+  \item 
+  \texttt{NOTIFICATION\_TYPES}: Defines the types of notifications (e.g., "info", "warning", "error", etc.)
   \item \texttt{DELIVERY\_METHODS}: Defines the available notification delivery methods.
   \item \texttt{DEFAULT\_PREFERENCES}: Default notification preferences for users including the 
   frequency of notifications and the types of events they wish to be notified about.
-  \item 
-  \item[Exported Access Programs:] 
-  \item \texttt{sendNotification()}: Initiates the process of sending notifications to users.
-  \item \textsl{setNotificationPreferences()}: Access routine to set or modify user preferences
-  regarding notifications.
-  \item \texttt{getPendingNotifications()}: Provides access to the list of pending notifications 
-  for a user.
-  \item \texttt{triggerNotification()}: Access routine to trigger notifications based on system 
-  events.
-  \item
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.375\textwidth} p{0.2\textwidth} p{0.1\textwidth} p{0.2\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    
+    \texttt{sendNotification} & type, recipient, message & - & - \\
+    \midrule
+    
+    \texttt{setNotificationPreferences} & user, preference & - & - \\
+    \midrule
+
+    \texttt{getPendingNotifications} & user & - & - \\
+    \midrule
+
+    \texttt{triggerNotification} & event & - & - \\
+
+    \bottomrule
+    
+    \end{tabular}
+    \caption{Exported Access Programs for the Notifications Module}
+    \label{TblEAP_Notifications}
+  \end{table}
 \end{description}
 
 \subsubsection{Semantics}
@@ -1029,13 +1116,13 @@ positive user experience.
   \item
   \begin{table}[h!]
     \centering
-    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.4\textwidth}}
+    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth} p{0.3\textwidth}}
     \toprule
     \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \midrule
-    \texttt{renderUI} & [components] & - & Throws \texttt{RenderError} if UI rendering fails.\\
+    \texttt{renderUI} & [components] & - & \texttt{RenderError} \\
     \midrule
-    \texttt{updateUI} & component & - & Throws \texttt{UpdateError} if UI components cannot be updated.\\
+    \texttt{updateUI} & component & - & \texttt{UpdateError} \\
     \bottomrule
     \end{tabular}
     \caption{Exported Access Programs for the UI Design Module}
@@ -1063,13 +1150,13 @@ positive user experience.
   \item \texttt{renderUI()}:
   \begin{itemize}
     \item \textbf{Transition}: Renders the components to display on the user interface.
-    \item \textbf{Output}: The rendered interface. Throws \texttt{RenderError} if the UI rendering fails.
+    \item \textbf{Exception}: Throws \texttt{RenderError} if the UI rendering fails.
   \end{itemize}
   
   \item \texttt{updateUI()}:
   \begin{itemize}
     \item \textbf{Transition}: Updates specific components of the UI based on route changes or user interactions.
-    \item \textbf{Output}: The updated UI. Throws \texttt{UpdateError} if updates fail.
+    \item \textbf{Exception}: Throws \texttt{UpdateError} if updates fail.
   \end{itemize}
   
   \item[Local Function:] N/A
@@ -1103,22 +1190,33 @@ positive user experience.
 
 \subsubsection{Syntax}
 \begin{description}
-  \item[Exported Constants:] 
+  \item[Exported Constants and Access Programs:]
   \item \texttt{CHART\_TYPES}: Defines supported chart types.
   \item \texttt{DEFAULT\_STYLES}: Specifies default styles for visualizations including colours, 
   fonts and sizes.
-  \item \texttt{INTERACTION\_MODES}: Defines supported user interaction modes (e.g., "hover", "zoom",
-  "filter", etc.).
-  \item 
-  \item[Exported Access Programs:] 
-  \item \texttt{createChart(data, chartType, options)}: Generates a chart of the specified type using 
-  the provided data and configuration options.
-  \item \texttt{updateChart(chartID, newData)}: Updates an existing chart with new data.
-  \item \texttt{addInteraction(chartID, interactionType)}: Adds an interaction mode to an existing chart.
-  \item \texttt{renderDashboard(dashboardConfig)}: Renders a complete dashboard with multiple visualizations 
-  based on a configuration file.
-  \item \texttt{exportVisualization(chartID, format)}: Exports a visualization in the specified format.
+  \item \texttt{INTERACTION\_MODES}: Defines supported user interaction modes
+  (e.g., ``hover'', ``zoom'', `'`filter'', etc.).
   \item
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.3\textwidth} p{0.2\textwidth} p{0.17\textwidth} p{0.2\textwidth}}
+    \toprule
+    \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+    \midrule
+    \texttt{createChart} & data, chartType, options & chartID & - \\
+    \midrule
+    \texttt{updateChart} & chartID, newData & - & - \\
+    \midrule
+    \texttt{addInteraction} & chartID, interactionType & - & - \\
+    \midrule
+    \texttt{renderDashboard} & dashboardConfig & - & - \\
+    \midrule
+    \texttt{exportVisualization} & chartID, format & - & - \\
+    \bottomrule
+    \end{tabular}
+    \caption{Exported Access Programs for the Visualization Module}
+    \label{TblEAP_Visualization}
+  \end{table}
 \end{description}
 
 \subsubsection{Semantics}
@@ -1250,23 +1348,22 @@ storage and verification.
   
   \begin{table}[H]
     \centering
-    \begin{tabular}{p{0.175\textwidth} p{0.175\textwidth} p{0.175\textwidth}
-    p{0.4\textwidth}}
+    \begin{tabular}{p{0.175\textwidth} p{0.2\textwidth} p{0.175\textwidth}
+    p{0.3\textwidth}}
     \toprule
     \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
     \midrule
     
-    \texttt{createUser} & email(string), password(string), role(string) & dict &
-    Throws \texttt{UserAlreadyExistsError} if the user already exists.\\
+    \texttt{createUser} & email(string), password(string), role(string) &
+    \texttt{USER} & \texttt{UserAlreadyExistsError} \\
     \midrule
     
-    \texttt{validateUser} & email(string), password(string) & dict & Throws
-    \texttt{UserNotFoundError} if the user does not exist or
-    \texttt{IncorrectPasswordError} if the password is incorrect.\\
+    \texttt{validateUser} & email(string), password(string) & Boolean &
+    \texttt{UserNotFoundError} or \texttt{IncorrectPasswordError}\\
     \midrule
 
-    \texttt{getUserAndRole} & email(string) & dict & Throws
-    \texttt{UserNotFoundError} if the user does not exist.\\
+    \texttt{getUserAndRole} & email(string) & \texttt{USER} &
+    \texttt{UserNotFoundError} \\
     \bottomrule
 
     \end{tabular}
@@ -1281,7 +1378,7 @@ storage and verification.
   \item
   \texttt{usersCollection}: Represents the MongoDB collection storing user data.
   \item[Environment Variables:]
-  \item N/A
+  \item \texttt{USER}: The user object containing the user's email and role.
   \item[Assumptions:]
   \item
   \begin{itemize}
@@ -1303,9 +1400,11 @@ storage and verification.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns a dictionary with user email and role if
-    successful. Throws \\
-    \texttt{UserAlreadyExistsError} if the user already exists.
+    \item \textbf{Output}: Returns \texttt{USER} 
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{UserAlreadyExistsError} if the user already exists.
   \end{itemize}
 
   \item
@@ -1317,7 +1416,13 @@ storage and verification.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns a dictionary with user email and role if the password is valid. Throws \texttt{UserNotFoundError} if the user doesn't exist or \texttt{IncorrectPasswordError} if the password is incorrect.
+    \item \textbf{Output}: Returns \texttt{True} if password matches.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{UserNotFoundError} if the user
+    doesn't exist or \\ \texttt{IncorrectPasswordError} if the password is
+    incorrect.
   \end{itemize}
 
   \item
@@ -1329,7 +1434,12 @@ storage and verification.
   \end{itemize}
   \item
   \begin{itemize}
-    \item \textbf{Output}: Returns a dictionary with user email and role if the user exists. Throws \texttt{UserNotFoundError} if the user does not exist.
+    \item \textbf{Output}: Returns \texttt{USER} if the user exists.
+  \end{itemize}
+  \item
+  \begin{itemize}
+    \item \textbf{Exception}: Throws \texttt{UserNotFoundError} if the user
+    doesn't exist.
   \end{itemize}
 
   \item[Local Function:]
@@ -1556,8 +1666,6 @@ tentative time estimates.
 \section*{Appendix --- Reflection}
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Problem Analysis and Design.
-
-\input{../../Reflection.tex}
 
 \begin{enumerate}
   \item \textbf{What went well while writing this deliverable?}\\
