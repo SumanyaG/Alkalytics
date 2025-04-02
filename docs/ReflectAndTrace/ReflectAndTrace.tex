@@ -29,10 +29,10 @@
 This section summarizes the feedback received on various documents throughout
 the course of the project as well as feedback on the product itself.
 
-This information is summarized in tables, with a summary of the feedback in one
-column, the source of the feedback in the next column, the change made in
-response to the feedback in the third column, and a link to the issue in the
-last column. 
+This information is summarized in tables, with the feedback in one
+column (some are paraphrased for conciseness), the source of the feedback in the
+next column, the change made in response to the feedback in the third column,
+and a link to the issue in the last column. 
 
 For documentation related sections, each item of feedback has a
 link to the issue that addresses the change wih a link to the specific commit.
@@ -83,7 +83,7 @@ response to the feedback.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1cm}|}
     \hline
-    \textbf{Summary of Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change}
     & \textbf{Issue Link} \\
     \hline
     Development Plan lists software without describing or justifying their use.
@@ -114,7 +114,7 @@ the SRS document and the changes made in response to that feedback.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1cm}|}
     \hline
-    \textbf{Summary of Feedback} & \textbf{Source} & \textbf{Summary of Change} &
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change} &
     \textbf{Issue Link} \\
     \hline
     Should not have figures without referring to it and explaining it in the
@@ -167,7 +167,7 @@ the SRS document and the changes made in response to that feedback.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1cm}|}
     \hline
-    \textbf{Summary of Feedback} & \textbf{Source} & \textbf{Summary of Change} &
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change} &
     \textbf{Issue Link} \\
     \hline
     Missing stakeholder: Developers/Testers are considered other stakeholders &
@@ -211,7 +211,7 @@ document and the changes made in response to that feedback.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
     \hline
-    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change}
     & \textbf{Issue Link} \\
     \hline
     Table doesn't have title or reference in the body of the document. & TA
@@ -263,7 +263,7 @@ and the changes made in response to that feedback.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
     \hline
-    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change}
     & \textbf{Issue Link} \\
     \hline
     AC5 and UC1 seem to be contradictory to one another. & TA & Removed &
@@ -277,7 +277,8 @@ and the changes made in response to that feedback.
     \hline
     List possible exceptions for each method in syntax table. Environment vars
     should be actual vars (with names) that represent things like the local
-    filesystem and should be used by the semantics. & TA & X &
+    filesystem and should be used by the semantics. & TA & Removed description
+    of exceptions in each access programs table. &
     \href{https://github.com/SumanyaG/Alkalytics/issues/252}{Issue 252} \\
     \hline
     Data validation module: should be, e.g. ``output := MIN VOLTAGE $\le$ v
@@ -286,7 +287,9 @@ and the changes made in response to that feedback.
     \hline
     Output and exceptions are different, should be their own bullet points.
     Different modules are using different formatting. ``Output'' labels are
-    completely omitted in the data validation module. & TA & X &
+    completely omitted in the data validation module. & TA & Separated output
+    and exception into their own bullet point fields. Fixed every modules syntax
+    and semantics structure for consistency. &
     \href{https://github.com/SumanyaG/Alkalytics/issues/253}{Issue 253} \\
     \hline
     More general validations you may need to do, like if something is the
@@ -306,19 +309,25 @@ and the changes made in response to that feedback.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
     \hline
-    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change}
     & \textbf{Issue Link} \\
     \hline
-    Exported Constants Implementation not very clear & Team 1 & X &
+    Exported Constants Implementation: Make pH and Flow Rate have max and
+    min value constants instead of range & Team 1 & X &
     \href{https://github.com/SumanyaG/Alkalytics/issues/173}{Issue 173} \\
     \hline
-    Unnecessary state variable & Team 1 & X
+    Unnecessary state variable: isTransformed seems unnecessary if
+    transformedData has a value & Team 1 & X
     &\href{https://github.com/SumanyaG/Alkalytics/issues/174}{Issue 174} \\
     \hline
-    Consider defining types for access routines & Team 1 & X &
+    Consider defining types for user management module access routines & Team 1
+    & Defined custom \texttt{USER} type as environment variable for better type safety
+    and maintainability &
     \href{https://github.com/SumanyaG/Alkalytics/issues/176}{Issue 176} \\
     \hline
-    Inconsistent outputs in UI Module & Team 1 & X &
+    Inconsistent outputs in UI Module: No outputs in access programs table but
+    redundantly mention them in the semantics & Team 1 & Removed output fields
+    from semantics to be consistent with table. &
     \href{https://github.com/SumanyaG/Alkalytics/issues/177}{Issue 177} \\
     \hline
     Inconsistencies between anticipated change descriptions and traceability
@@ -338,7 +347,7 @@ the same for the VnV Report document.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
     \hline
-    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change}
     & \textbf{Issue Link} \\
     \hline
     Sentence structure/flow problems, reference tables. & TA & Fixed sentence
@@ -346,15 +355,18 @@ the same for the VnV Report document.
     \href{https://github.com/SumanyaG/Alkalytics/issues/246}{Issue 246} \\
     \hline
     System tests should be more specific about what kinds of errors you will
-    detect. & TA & X &
+    detect. & TA & Added more detail about the types of errors that would be
+    detected in the tests &
     \href{https://github.com/SumanyaG/Alkalytics/issues/247}{Issue 247} \\
     \hline
     Not clear how survey data will be collected and analyzed for validation. &
-    TA & Clarified structure for survey data and how it would validate &
+    TA & Clarified structure for survey response collection and added passing
+    criteria/metrics &
     \href{https://github.com/SumanyaG/Alkalytics/issues/248}{Issue 248} \\
     \hline
     Include traceability inside the tests instead of outside. Tests should be
-    made more granular. & TA & X &
+    made more granular. & TA & No changes made. Refer to issue comments for
+    justification. &
     \href{https://github.com/SumanyaG/Alkalytics/issues/249}{Issue 249} \\
     \hline
     Change traceability table to a matrix. & TA & Converted to matrix. &
@@ -396,7 +408,7 @@ the same for the VnV Report document.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|p{1.5cm}|}
     \hline
-    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change}
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change}
     & \textbf{Issue Link} \\
     \hline
     Expand user pool for usability testing: 2 users is a relatively small user
@@ -405,12 +417,14 @@ the same for the VnV Report document.
     \hline
     Clarify test result: Should modify the test plan to match the new
     requirement and mark the new test as pass/fail instead of neutral. & Team 1
-    & No changes made. Refer to issue comments for justification. &
+    & Updated test to reflect changes due to the new requirement (as opposed to
+    modifying the test plan itself). Test now marked as pass. &
     \href{https://github.com/SumanyaG/Alkalytics/issues/236}{Issue 236} \\
     \hline
     Web browser tests: For NFR-OE1, mention which web browsers the system was
     tested on for clarity. Suggest adding a test for Opera as well. & Team 1 &
-    Clarified which browsers system was tested on for NFR-OE1 &
+    Clarified which browser (Google Chrome) system was tested on. Refer to issue
+    comments for further explanation. &
     \href{https://github.com/SumanyaG/Alkalytics/issues/237}{Issue 237} \\
     \hline
     Make list of tasks for users to complete to be more concrete. & Team 1 &
@@ -439,11 +453,13 @@ regarding the actual product and the changes made in response to that feedback.
 \centering
 \begin{tabularx}{\textwidth}{|X|c|X|}
     \hline
-    \textbf{Received Feedback} & \textbf{Source} & \textbf{Summary of Change} \\
+    \textbf{Feedback} & \textbf{Source} & \textbf{Summary of Change} \\
     \hline
-    X & Bassel Adbelkader & X \\
+    Should be able to do direct operations on experiment log data and apply
+    Excel formulas of choosing. & Bassel Adbelkader & CRUD operations for
+    experiment log and Excel function bar implemented. \\
     \hline
-    Should be able to compute efficiency factors & Dr. de Lannoy & Feature
+    Should be able to compute efficiency factors. & Dr. de Lannoy & Feature
     implemented. \\
     \hline
     Should be able to filter through the data based on certain criteria, as just
@@ -454,29 +470,37 @@ regarding the actual product and the changes made in response to that feedback.
     \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/UsabilityTestingReport/UsabilityTestingReport.pdf}{Usability
     Testing Report} for more details. \\
     \hline
+    Various UI changes & Meghna Saha & UI changes made. Refer to
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/UsabilityTestingReport/UsabilityTestingReport.pdf}{Usability
+    Testing Report} for more details. \\
+    \hline
 \end{tabularx}
 \caption{Feedback and Changes Made for Application}
 \label{table:Code}
 \end{table}
 
 \section{Challenge Level and Extras}
-This section outlines the challenge level and extras for the project.
+This section outlines the challenge level and extras for the Alkalytics project.
 
 \subsection{Challenge Level}
 
-The challenge level for this project is general.
+The challenge level for this project has been identified as \textbf{general}.
+This was determined from the domain knowledge, implementation challenges, and
+complexity that the project demands. There was no research component or extra
+domain knowledge required for the project to be considered advanced.
 % \plt{State the challenge level (advanced, general, basic) for your project.  Your challenge level should exactly match what is included in your problem statement.  This should be the challenge level agreed on between you and the course instructor.}
 
 \subsection{Extras}
 
-The extras completed for this project were:
+The two extras completed as part of this project are as follows:
 \begin{itemize}
-    \item[(a)] A usability testing report. This provides documentation for how
-    usability was assessed, the results of the usability testing sessions
-    conducted, and the changes proposed and implemented in response to the
-    feedback received.
-    \item[(b)] A user guide/manual. This provides documentation for users of the
-    product on how to use the application and troubleshoot common issues.
+    \item[(a)] \textbf{Usability Testing Report}: A comprehensive report
+    detailing the assessment of the application's usablity, including the
+    objectives, methodologies, results of the conducted usability testing
+    sessions, and the changes proposed and implemented based on user feedback.
+    \item[(b)] \textbf{User Manual}: A detailed guide outlining the
+    application's features, installation and usage instructions, and
+    troubleshooting steps for common issues.
 \end{itemize}
 
 % \plt{Summarize the extras (if any) that were tackled by this project.  Extras
@@ -518,6 +542,83 @@ users currently exist?}
 \plt{Did you follow your Development plan, with respect to the team meeting plan, 
 team communication plan, team member roles and workflow plan.  Did you use the 
 technology you planned on using?}
+
+\subsubsection{Team Meeting Plan}
+The team held weekly meetings on Fridays during the fall term, as outlined in
+the Development Plan. In the winter term, these meetings were rescheduled to
+Mondays during tutorial time. Most meetings were conducted virtually via
+Microsoft Teams, with additional sessions scheduled as needed, particularly
+leading up to deadlines. Meeting structures followed the Development Plan, with
+a designated chair preparing an agenda and a note taker recording and posting
+meeting minutes to the corresponding issue in the repository.
+
+Meetings with the primary supervisor, Dr. Charles de Lannoy, were infrequent and
+primarily virtual due to scheduling constraints and a mutual decision that
+biweekly meetings were not necessary. During the fall term, most supervisory
+meetings were held with the secondary supervisor, Bassel Abdelkader, who
+provided updates to Dr. de Lannoy, reducing the need for separate meetings.
+
+The team met with Bassel on a weekly basis, transitioning to biweekly meetings
+as the project progressed. These meetings were conducted virtually. Beginning in
+the winter term, Bassel was no longer available, and the team shifted to
+meetings with Dr. de Lannoy instead, with Bassel attending when possible.
+
+Additionally, the team met three times with Meghna Saha, an undergraduate
+student in the research lab whose work aligned with the objectives of
+Alkalytics. These meetings focused on knowledge transfer and conducting a
+usability testing session.
+
+\subsubsection{Team Communication Plan}
+As outlined in the Development Plan, the team primarily communicated through an
+Instagram group chat, supplemented by Microsoft Teams for resource sharing
+(external files, sample works, etc).
+
+GitHub was used for version control and issue tracking. While issues were
+effectively utilized for assigning and tracking most tasks, they were not
+consistently used for all deliverables. Issues were primarily employed for
+meeting logs and managing feedback-related changes. Code-related tasks were not
+tracked through issues; instead, individual branches and pull requests were used
+to manage and review code changes.
+
+
+\subsubsection{Team Member Roles}
+The team largely adhered to the roles and rotation of roles outlined in the
+Development Plan. The meeting chair and notetaker for the stages in the Project
+Decomposition and Scheduling section was roughly as follows:
+
+\begin{itemize}
+    \item \textbf{Stages 1 - 2}
+        \begin{itemize}
+            \item Meeting Chair: Sumanya Gulati
+            \item Notetaker: Jennifer Ye
+        \end{itemize}
+    \item \textbf{Stages 2 - 3}
+        \begin{itemize}
+            \item Meeting Chair: Jason Tran
+            \item Notetaker: Kate Min
+        \end{itemize}
+    \item \textbf{Stages 3 - 5}
+    \item \begin{itemize}
+            \item Meeting Chair: Jennifer Ye
+            \item Notetaker: Sumanya Gulati
+        \end{itemize}
+    \item \textbf{Stages 5 - 7}
+        \begin{itemize}
+            \item Meeting Chair: Kate Min
+            \item Notetaker: Jason Tran
+        \end{itemize}
+\end{itemize}
+
+One deviation from the Development Plan was the decision not to appoint a
+primary reviewer for pull requests, as the team deemed it unnecessary to
+have a single official ``approver'' in order to merge. Instead, pull requests
+were reviewed and approved by team members as needed.
+
+Roles related to implementation remained aligned with the Development Plan, with
+tasks divided based on each team member’s respective strengths, as initially
+outlined.
+
+\subsubsection{Workflow Plan}
 
 \subsection{What Went Well?}
 
