@@ -11,7 +11,7 @@
 
 [Cut to picture of de Lannoy and Abdelkader.]
 
-(Voiceover - Jason): Engineers at the de Lannoy lab at McMaster University led by Dr. Charles de Lannoy and his post-doctoral fellow Bassel A. Abdelkader have been testing a promising carbon removal process.
+(Voiceover - Jason): Researchers at the de Lannoy lab at McMaster University led by Dr. Charles de Lannoy and his post-doctoral fellow Bassel A. Abdelkader have been testing a promising carbon removal process.
 
 [Cut to picture of BMED machine.]
 
