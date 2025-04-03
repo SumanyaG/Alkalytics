@@ -82,8 +82,11 @@ between test cases, the software modules in the
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{Module
 Guide} (MG), and the requirements outlined in the
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software
-Requirements Specification} (SRS). Tests and test procedures are derived from the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnV Plan} document. Additionally, it highlights changes made to the
-implementation based on testing outcomes and user feedback.
+Requirements Specification} (SRS). Tests and test procedures are derived from
+the
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}{VnV
+Plan} document. Additionally, it highlights changes made to the implementation
+based on testing outcomes and user feedback.
 
 \section{Functional Requirements Evaluation}
 This section outlines the manual system tests that were run and their sub-
@@ -167,12 +170,12 @@ Control: Manual
 Initial State: The application's cleared user interface which has not yet been
 used to query data, with no graph showing yet.
 
-Input: \texttt{SAMPLE\_PARAMETERS}: \{Graph: Scatter, Experiment Dates: 2024-09-26,
-Parameter Type: Data Sheet, X Parameter: C1 pH, Y Parameter: C1 Temp, X Axis
-Label: C1 pH, Y Axis Label: C1 Temp\}
+Input: \texttt{SAMPLE\_PARAMETERS}: \{Graph: Scatter, Experiment Dates:
+2024-09-26, Parameter Type: Data Sheet, X Parameter: C1 pH, Y Parameter: C1
+Temp, X Axis Label: C1 pH, Y Axis Label: C1 Temp\}
 
-Expected Output: \st{A small written human-readable paragraph explaining the input
-data.} A regression analysis that provides a visualization of the data's
+Expected Output: \st{A small written human-readable paragraph explaining the
+input data.} A regression analysis that provides a visualization of the data's
 linearity. This was updated from the original VnV Plan after a discussion with
 the client.
 
@@ -264,18 +267,24 @@ the usability survey are at least 'Neither easy nor difficult'; 85\% of users
 navigate the entire application within 10 minutes.
 
 Actual Output: \newline
-The following answers are based on the Usability Survey provided in the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}
+The following answers are based on the Usability Survey provided in the
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}
 {Verification and Validation Plan}. The test was conducted on 2 users.
 \begin{itemize}
   \item Navigation and Ease of Use
   \begin{enumerate}
-    \item \textbf{User 1:} \emph{Very Easy}, \textbf{User 2:} \emph{Somewhat Easy}
-    \item \textbf{User 1:} \emph{Somewhat Easy}, \textbf{User 2:} \emph{Somewhat Easy}
+    \item \textbf{User 1:} \emph{Very Easy}, \textbf{User 2:} \emph{Somewhat
+    Easy}
+    \item \textbf{User 1:} \emph{Somewhat Easy}, \textbf{User 2:} \emph{Somewhat
+    Easy}
   \end{enumerate}
-  Calculated percentage of user responses that are at least `Neither easy nor difficult' = 100\%.
-  \item Time to navigate the application end to end: \textbf{User 1:} 7.63 minutes, \textbf{User 2:} 8.5 minutes.
+  Calculated percentage of user responses that are at least `Neither easy nor
+  difficult' = 100\%.
+  \item Time to navigate the application end to end: \textbf{User 1:} 7.63
+  minutes, \textbf{User 2:} 8.5 minutes.
   
-  Calculated percentage of users that are able to navigate the application in under 10 minutes = 100\%.
+  Calculated percentage of users that are able to navigate the application in
+  under 10 minutes = 100\%.
 \end{itemize}
 
 Result: \textcolor{green}{Pass}
@@ -307,11 +316,11 @@ still reachable, it is not visually apealing. \newline
 \textbf{Login Page}: 0 inconsistancies.
 
 Result: \textcolor{green}{Pass} \newline
-Although there are still inconsistancy, they are
-mainly due to the fact that mobile compatibilityis a nice to have. It is
-expected that almost always users will be using the app on a standard sized
-laptop or monitor. Hence, why there are only inconsistancies present in tablet
-and mobile views and not the laptop or monitor views. \end{enumerate}
+Although there are still inconsistancy, they are mainly due to the fact that
+mobile compatibilityis a nice to have. It is expected that almost always users
+will be using the app on a standard sized laptop or monitor. Hence, why there
+are only inconsistancies present in tablet and mobile views and not the laptop
+or monitor views. \end{enumerate}
 
 \subsection{Usability}
 \begin{enumerate}
@@ -329,10 +338,13 @@ responses to the Learning section of the usability survey are at least 'Neither
 easy nor difficult'.
 
 Actual Output: \newline
-The answers for the Usability Survey have been provided in test output for test \ref{NFR:LF1} in section \ref{NFR-LF}.
+The answers for the Usability Survey have been provided in test output for test
+\ref{NFR:LF1} in section \ref{NFR-LF}.
 
-The users did not have to ask the usability test conductor for help at all. With that said, however, it must be noted 
-that the users had been walked through a virtual demo of the application a couple of weeks prior to the usability testing.
+The users did not have to ask the usability test conductor for help at all. With
+that said, however, it must be noted that the users had been walked through a
+virtual demo of the application a couple of weeks prior to the usability
+testing.
 
 Result: \textcolor{green}{Pass}
 
@@ -362,7 +374,8 @@ Input/Condition: \texttt{SAMPLE\_.CSV\_FILE}
 Expected Output: Error logs from unrecognized characters, or successful upload
 
 Actual Output: The upload csv will still upload the unrecognized symbols without
-any issues. The type will just be a string. As a result, there is nothing to log. 
+any issues. The type will just be a string. As a result, there is nothing to
+log. 
 
 Result: \textcolor{green}{Pass} 
 %if fail, explain why output doesn't meet expectations for pass.
@@ -407,8 +420,8 @@ Expected Output: Average upload duration $\leq$ \texttt{UPLOAD\_TIME}
 
 \texttt{UPLOAD\_TIME} = 60 seconds
 
-Actual Output: File uploaded in 48 seconds on average, satisfying the
-performance requirements.
+Actual Output: File uploaded in 48 seconds on average over 20 sample uploads,
+satisfying the performance requirements.
 
 Result: \textcolor{green}{Pass}
 
@@ -451,7 +464,8 @@ to being uploading. \newline
 \textbf{Graphs Page}: Graph, parameter type drop downs have a response time of
 0.1. Date, x and y parameter drop downs has an average response time of 1.25
 seconds \newline
-\textbf{Login Page}: Login and register button have a reponse time of 0.1 seconds
+\textbf{Login Page}: Login and register button have a reponse time of 0.1
+seconds
 
 Result: \textcolor{green}{Pass} 
 
@@ -526,7 +540,8 @@ Expected Output: Previously generated plots and previous queries still working
 Actual Output:
 \begin{itemize}
   \item Previously generated plots remain visible and interactive.
-  \item Queries executed before disconnection are still accessible and functional.
+  \item Queries executed before disconnection are still accessible and
+  functional.
   \item No errors or crashes observed during the disconnection period.
 \end{itemize}
 
@@ -585,8 +600,8 @@ Input/Condition: Tester engagement
 Expected Output: A list of all discovered issues with the application that arise
 due to environment compatibility
 
-Actual Output: No issues discovered when using Google Chrome. The experience is same as
-the expected.
+Actual Output: No issues discovered when using Google Chrome. The experience is
+same as the expected.
 
 Result: \textcolor{green}{Pass} 
             
@@ -602,9 +617,10 @@ Expected Output: Survey results depicting subjective complexity of onboarding
 process
 
 Actual Output: \newline
-Based on the usability testing results provided in section \ref{NFR-LF} for test \ref{NFR:LF1}, as a 100\% 
-of the users found the navigation process to be at least `somewhat easy', it can be concluded that the onboarding
-process is intuitive and user-friendly.
+Based on the usability testing results provided in section \ref{NFR-LF} for test
+\ref{NFR:LF1}, as a 100\% of the users found the navigation process to be at
+least `somewhat easy', it can be concluded that the onboarding process is
+intuitive and user-friendly.
 
 Result: \textcolor{green}{Pass}
 \end{enumerate}
@@ -627,21 +643,21 @@ Observations from Usability Testing
 \begin{enumerate}
   \item \textbf{User 1:}
   \begin{itemize}
-    \item Successfully completed all assigned tasks such as navigating to the graphs 
-    page, generating a graph etc. without any assistance.
+    \item Successfully completed all assigned tasks such as navigating to the
+    graphs page, generating a graph etc. without any assistance.
     \item Did not ask for help or clarification during the session.
     \item Completed the tasks in 7.63 minutes.
   \end{itemize}
   \item \textbf{User 2:}
   \begin{itemize}
-    \item Successfully completed all assigned tasks such as navigating to the graphs 
-    page, generating a graph etc. without any assistance.
+    \item Successfully completed all assigned tasks such as navigating to the
+    graphs page, generating a graph etc. without any assistance.
     \item Did not ask for help or clarification during the session.
     \item Completed the tasks in 8.5 minutes.
   \end{itemize}
 \end{enumerate}
-Percentage of users who completed tasks without support = 100\%. 
-Average Time to complete tasks = 8.07 minutes.
+Percentage of users who completed tasks without support = 100\%. Average Time to
+complete tasks = 8.07 minutes.
 
 Result: \textcolor{green}{Pass}
 					
@@ -749,8 +765,8 @@ Input/Condition: \texttt{SAMPLE\_DUPLICATE\_RECORD}
 Expected Output: Duplicate records are detected and prevented, and data accuracy
 is maintained during all transfer operations.
 
-Actual Output: Duplicate records are detected and filtered out through indexing, thus data accuracy maintained
-throughout the transfer process.
+Actual Output: Duplicate records are detected and filtered out through indexing,
+thus data accuracy maintained throughout the transfer process.
 
 Result: \textcolor{green}{Pass}
 
@@ -833,47 +849,78 @@ Result: \textcolor{red}{Fail}
 \section{Unit Testing}
 
 The following subsections outline the unit tests relevant to each module. Each
-subsection includes a table or table(s) with a summary of the results for each test,
-where each test includes a link to its corresponding test file in the project repository.
+subsection includes a table or table(s) with a summary of the results for each
+test, where each test includes a link to its corresponding test file in the
+project repository.
 
 \subsection{Data Storage Module}
-Table \ref{UT:DataStorage} provides a summary of the results for each test that is
-relevant to the User Management module.
+Table \ref{UT:DataStorage} provides a summary of the results for each test that
+is relevant to the User Management module.
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|l|l|}
     \hline
     \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
     \hline
-    6.3-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Uploads experiments and data} & Pass \\
+    6.3-UT1 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Uploads
+    experiments and data} & Pass \\
     \hline
-    6.3-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Links data to experiments} & Pass \\
+    6.3-UT2 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Links
+    data to experiments} & Pass \\
     \hline
-    6.3-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Uploads data when experiment exists} & Pass \\
+    6.3-UT3 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Uploads
+    data when experiment exists} & Pass \\
     \hline
-    6.3-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Skips data upload if no experiment exists} & Pass \\
+    6.3-UT4 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Skips
+    data upload if no experiment exists} & Pass \\
     \hline
-    6.1-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Cleans data by removing empty values} & Pass \\
+    6.1-UT5 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Cleans
+    data by removing empty values} & Pass \\
     \hline
-    6.1-UT6 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Checks for duplicate experiments} & Pass \\
+    6.1-UT6 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Checks
+    for duplicate experiments} & Pass \\
     \hline
-    6.1-UT7 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles multiple matching experiments} & Pass \\
+    6.1-UT7 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles
+    multiple matching experiments} & Pass \\
     \hline
-    6.1-UT8 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles no matching experiments} & Pass \\
+    6.1-UT8 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles
+    no matching experiments} & Pass \\
     \hline
-    6.3-UT9 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Runs full migration process} & Pass \\
+    6.3-UT9 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Runs
+    full migration process} & Pass \\
     \hline
-    6.3-UT10 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles experiment upload errors} & Pass \\
+    6.3-UT10 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles
+    experiment upload errors} & Pass \\
     \hline
-    6.3-UT11 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles data upload errors} & Pass \\
+    6.3-UT11 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{Handles
+    data upload errors} & Pass \\
     \hline
-    6.3-UT12 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsxy}{Shows upload status indicators} & Pass \\
+    6.3-UT12 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsxy}{Shows
+    upload status indicators} & Pass \\
     \hline
-    6.3-UT13 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsx}{Handles drag over and drop event with valid file} & Pass \\
+    6.3-UT13 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsx}{Handles
+    drag over and drop event with valid file} & Pass \\
     \hline
-    6.3-UT14 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsx}{Handles file input change event with valid file} & Pass \\
+    6.3-UT14 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/UploadArea.test.tsx}{Handles
+    file input change event with valid file} & Pass \\
     \hline
-    6.2-UT15 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/TableBody.test.tsx}{Handles cell editing} & Pass \\
+    6.2-UT15 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/TableBody.test.tsx}{Handles
+    cell editing} & Pass \\
     \hline
   \end{tabular}
   \caption{Unit tests summary for Data Storage Module}
@@ -883,31 +930,49 @@ relevant to the User Management module.
 
 \newpage
 \subsection{Data Retrieval Module}
-Tables \ref{UT:DataRetrieval1} and \ref{UT:DataRetrieval2} provides a summary of the results for each test that is
-relevant to the Data Retrieval module.
+Tables \ref{UT:DataRetrieval1} and \ref{UT:DataRetrieval2} provides a summary of
+the results for each test that is relevant to the Data Retrieval module.
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|l|l|}
     \hline
     \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
     \hline
-    6.2.1-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Initialize with default values} & Pass \\
+    6.2.1-UT1 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Initialize
+    with default values} & Pass \\
     \hline
-    6.2.1-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch experiment IDs} & Pass \\
+    6.2.1-UT2 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch
+    experiment IDs} & Pass \\
     \hline
-    6.2.1-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch experiments} & Pass \\
+    6.2.1-UT3 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch
+    experiments} & Pass \\
     \hline
-    6.2.1-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch data} & Pass \\
+    6.2.1-UT4 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Fetch
+    data} & Pass \\
     \hline
-    6.2.1-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Handle Apollo error states} & Pass \\
+    6.2.1-UT5 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Handle
+    Apollo error states} & Pass \\
     \hline
-    6.2.1-UT6 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Refetch experiments and data} & Pass \\
+    6.2.1-UT6 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Refetch
+    experiments and data} & Pass \\
     \hline
-    6.2.1-UT7 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Call RefetchExperiments function} & Pass \\
+    6.2.1-UT7 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Call
+    RefetchExperiments function} & Pass \\
     \hline
-    6.2.1-UT8 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Call RefetchData function} & Pass \\
+    6.2.1-UT8 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{Call
+    RefetchData function} & Pass \\
     \hline
-    6.2.1-UT9 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/TableHeader.test.tsx}{Filter data by search keyword} & Pass \\
+    6.2.1-UT9 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/TableHeader.test.tsx}{Filter
+    data by search keyword} & Pass \\
     \hline
   \end{tabular}
   \caption{Unit tests summary for Data Retrieval Module}
@@ -920,17 +985,29 @@ relevant to the Data Retrieval module.
     \hline
     \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
     \hline
-    6.2.2-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Initialize with default step} & Pass \\
+    6.2.2-UT1 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Initialize
+    with default step} & Pass \\
     \hline
-    6.2.2-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Navigate through all steps correctly} & Pass \\
+    6.2.2-UT2 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Navigate
+    through all steps correctly} & Pass \\
     \hline
-    6.2.2-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Validates required fields at each step} & Pass \\
+    6.2.2-UT3 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Validates
+    required fields at each step} & Pass \\
     \hline
-    6.2.2-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Shows error for invalid parameter selection} & Pass \\
+    6.2.2-UT4 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Shows
+    error for invalid parameter selection} & Pass \\
     \hline
-    6.2.2-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Validates axis ranges and shows errors} & Pass \\
+    6.2.2-UT5 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Validates
+    axis ranges and shows errors} & Pass \\
     \hline
-    6.2.2-UT6 & \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Handles form submission successfully} & Pass \\
+    6.2.2-UT6 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/documentation/VnV/src/frontend/test/components/modals/DataFormModel.test.tsx}{Handles
+    form submission successfully} & Pass \\
     \hline
   \end{tabular}
   \caption{Unit tests summary for Data Retrieval Form Module}
@@ -944,11 +1021,17 @@ relevant to the Data Retrieval module.
     \hline
     \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
     \hline
-    6.2.3-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useGraph.test.tsx}{should fetch all graphs when latest=0} & Pass \\
+    6.2.3-UT1 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useGraph.test.tsx}{should
+    fetch all graphs when latest=0} & Pass \\
     \hline
-    6.2.3-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useGraph.test.tsx}{should fetch latest graph when latest=1} & Pass \\
+    6.2.3-UT2 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useGraph.test.tsx}{should
+    fetch latest graph when latest=1} & Pass \\
     \hline
-    6.2.3-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useGraph.test.tsx}{should handle network errors} & Pass \\
+    6.2.3-UT3 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useGraph.test.tsx}{should
+    handle network errors} & Pass \\
     \hline
   \end{tabular}
   \caption{Unit tests summary for Data Retrieval useGraph Hook}
@@ -965,24 +1048,37 @@ relevant to the Data Visualization module.
     \hline
     \textbf{Test ID} & \textbf{Test Name} & \textbf{Result}\\
     \hline
-    6.3-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders without crashing} & Pass \\
+    6.3-UT1 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders
+    without crashing} & Pass \\
     \hline
-    6.3-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders GraphSideBar component} & Pass \\
+    6.3-UT2 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders
+    GraphSideBar component} & Pass \\
     \hline
-    6.3-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders correct graph type} & Skipped \\
+    6.3-UT3 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders
+    correct graph type} & Skipped \\
     \hline
-    6.3-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders with correct graph title} & Skipped \\
+    6.3-UT4 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders
+    with correct graph title} & Skipped \\
     \hline
-    6.3-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders with correct axis labels} & Skipped \\
+    6.3-UT5 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/visualize/visualize.test.tsx}{Renders
+    with correct axis labels} & Skipped \\
     \hline
   \end{tabular}
   \caption{Unit tests summary for Data Visualization Module}
   \label{UT:VM}
 \end{table}
 
-Tests 6.3-UT3, 6.3-UT4, and 6.3-UT5 were skipped due to ongoing debugging and recalibration of the module. Although they are included in the test suite for full test 
-coverage, the team is already aware of the existing issues and is actively addressing them. Running these tests only to deliberately fail them is not meaningful at 
-this stage. The team will rerun the skipped tests once the debugging process is complete and will update their results at that time.
+Tests 6.3-UT3, 6.3-UT4, and 6.3-UT5 were skipped due to ongoing debugging and
+recalibration of the module. Although they are included in the test suite for
+full test coverage, the team is already aware of the existing issues and is
+actively addressing them. Running these tests only to deliberately fail them is
+not meaningful at this stage. The team will rerun the skipped tests once the
+debugging process is complete and will update their results at that time.
 
 \subsection{User Management Module}
 Table \ref{UT:UM} provides a summary of the results for each test that is
@@ -993,35 +1089,65 @@ relevant to the User Management module.
     \hline
     \textbf{Test ID} & \textbf{Test Description} & \textbf{Result}\\
     \hline
-    6.4-UT1 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Creates a new user} & Pass\\
+    6.4-UT1 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Creates
+    a new user} & Pass\\
     \hline
-    6.4-UT2 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Skips user creation if already registered} & Pass\\
+    6.4-UT2 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Skips
+    user creation if already registered} & Pass\\
     \hline
-    6.4-UT3 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Validates login attempt with correct password} & Pass \\
+    6.4-UT3 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Validates
+    login attempt with correct password} & Pass \\
     \hline
-    6.4-UT4 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Invalidates login attempt with incorrect password} & Pass\\
+    6.4-UT4 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Invalidates
+    login attempt with incorrect password} & Pass\\
     \hline
-    6.4-UT5 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Retrieves current user's email and role} & Pass \\
+    6.4-UT5 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Retrieves
+    current user's email and role} & Pass \\
     \hline
-    6.4-UT6 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Creates session information for current user} & Pass\\
+    6.4-UT6 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Creates
+    session information for current user} & Pass\\
     \hline
-    6.4-UT7 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Removes session information for current user} & Pass\\
+    6.4-UT7 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Removes
+    session information for current user} & Pass\\
     \hline
-    6.4-UT8 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Updates current user's password} & Pass\\
+    6.4-UT8 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Updates
+    current user's password} & Pass\\
     \hline
-    6.4-UT9 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Updates current user's role} & Pass\\
+    6.4-UT9 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Updates
+    current user's role} & Pass\\
     \hline
-    6.4-UT10 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Removes existing user} & Pass\\
+    6.4-UT10 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Removes
+    existing user} & Pass\\
     \hline
-    6.4-UT11 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Handles removal of nonexisting user} & Pass\\
+    6.4-UT11 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{Handles
+    removal of nonexisting user} & Pass\\
     \hline
-    6.4-UT13 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/AccountMenu.test.tsx}{Handles logout and user redirected to login page} & Pass\\
+    6.4-UT13 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/AccountMenu.test.tsx}{Handles
+    logout and user redirected to login page} & Pass\\
     \hline
-    6.4-UT14 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/ProtectedRoute.test.tsx}{Handles page access when not logged in} & Pass\\
+    6.4-UT14 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/ProtectedRoute.test.tsx}{Handles
+    page access when not logged in} & Pass\\
     \hline
-    6.4-UT15 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{Checks for session creation when logged in} & Pass\\
+    6.4-UT15 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{Checks
+    for session creation when logged in} & Pass\\
     \hline
-    6.4-UT16 & \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{Checks for session removal when logged out} & Pass\\
+    6.4-UT16 &
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{Checks
+    for session removal when logged out} & Pass\\
     \hline
   \end{tabular}
   \caption{Unit tests summary for User Management Module}
@@ -1046,8 +1172,8 @@ constraints.
 
 %\wss{This section should highlight how feedback from the users and from the
 %supervisor (when one exists) shaped the final product.  In particular the
-%feedback from the Rev 0 demo to the supervisor (or to potential users) should be
-%highlighted.}
+%feedback from the Rev 0 demo to the supervisor (or to potential users) should
+%be highlighted.}
 
 \subsection{Changes Due to Failed Tests}
 The following sections outline changes that will be made to the implementation
@@ -1297,34 +1423,40 @@ implementation, thus this section is omitted.
   \item \textbf{What went well while writing this deliverable?}
 
   Writing the general structure of the report was straightforward as we could
-  refer back to the tests we had written in the VnV Plan. Having detailed system tests 
-  planned out made testing the system a lot easier given that we had a well established
-  jumping ground.
+  refer back to the tests we had written in the VnV Plan. Having detailed system
+  tests planned out made testing the system a lot easier given that we had a
+  well established jumping ground.
 
   \item \textbf{What pain points did you experience during this deliverable, and
   how did you resolve them?}
 
-  Constructing and executing all of our unit tests was the biggest challenge primarily due to
-  time constraints. To combat this, the team lead held regular check-ins to ensure that everyone's
-  individual timelines were aligned.
+  Constructing and executing all of our unit tests was the biggest challenge
+  primarily due to time constraints. To combat this, the team lead held regular
+  check-ins to ensure that everyone's individual timelines were aligned.
 
-  We also ran into the issue of interpreting ambiguous user feedback during the usability testing. This 
-  was resolved by consulting back to our course 4HC3 - Human Computer Interaction and changing the style of the 
-  session so that instead of open-ended feedback, the user is asked to choose from pre-determined options with 
-  the choice to provide additional feedback later on.
+  We also ran into the issue of interpreting ambiguous user feedback during the
+  usability testing. This was resolved by consulting back to our course 4HC3 -
+  Human Computer Interaction and changing the style of the session so that
+  instead of open-ended feedback, the user is asked to choose from
+  pre-determined options with the choice to provide additional feedback later
+  on.
 
   \item \textbf{Which parts of this document stemmed from speaking to your
   client(s) or a proxy (e.g. your peers)? Which ones were not, and why?}
 
-  Most of the non-functional requirements stemmed from speaking to our clients who acted as the users for 
-  the usability test. They were consulted when conducting system tests and ensuring that the outlined tests were 
-  in alignment with the application requirements. 
+  Most of the non-functional requirements stemmed from speaking to our clients
+  who acted as the users for the usability test. They were consulted when
+  conducting system tests and ensuring that the outlined tests were in alignment
+  with the application requirements. 
 
-  The parts of the document related to automated testing and unit testing such as testing the hooks and APIs and more 
-  did not stem from speaking to the clients or peers. This is because most of the tests were to ensure that the system 
-  compiles and functions correctly from a technical perspective rather than focusing on user experience or usability. These 
-  tests were derived from the development team's understanding of the system architecture, coding standards, and best practices 
-  for ensuring reliability, performance and maintainability.
+  The parts of the document related to automated testing and unit testing such
+  as testing the hooks and APIs and more did not stem from speaking to the
+  clients or peers. This is because most of the tests were to ensure that the
+  system compiles and functions correctly from a technical perspective rather
+  than focusing on user experience or usability. These tests were derived from
+  the development team's understanding of the system architecture, coding
+  standards, and best practices for ensuring reliability, performance and
+  maintainability.
 
   \item \textbf{In what ways was the Verification and Validation (VnV) Plan
   different from the activities that were actually conducted for VnV?  If there
@@ -1335,17 +1467,25 @@ implementation, thus this section is omitted.
   evidence that demonstrates the required quality?  (It is expected that most
   teams will have had to deviate from their original VnV Plan.)}
 
-  The primary way in which the VnV Plan is different from the activities that were actually conducted for 
-  the VnV Report is implementation of features. After Revision 0, the scope of the project was changed after consulting the professor 
-  ans given the change in the priority of requirements from the client. This resulted in a number of features now being labelled as 
-  stretch goals which were, at the time of testing, not implemented. Thus, the tests for these features had to be labelled as `Out of Scope'.
+  The primary way in which the VnV Plan is different from the activities that
+  were actually conducted for the VnV Report is implementation of features.
+  After Revision 0, the scope of the project was changed after consulting the
+  professor ans given the change in the priority of requirements from the
+  client. This resulted in a number of features now being labelled as stretch
+  goals which were, at the time of testing, not implemented. Thus, the tests for
+  these features had to be labelled as `Out of Scope'.
 
-  Given more experience in the iterative nature of a software project of this scale, we would like to believe that we can manage the project 
-  expectations better and define a more realistic implementation timeline at the get go, in the future.
+  Given more experience in the iterative nature of a software project of this
+  scale, we would like to believe that we can manage the project expectations
+  better and define a more realistic implementation timeline at the get go, in
+  the future.
 
-  Additionally, for a few features, the scope of implementation had to be reduced. One example is the user management system and authorization 
-  protocols. These were not implemented in as robust a fashion as earlier expected due to the limited resources at the team's disposal. For instance, it was
-  mutually decided that it would be better to allocate the time and effort required to make the protocol more robust to instead implement additional
+  Additionally, for a few features, the scope of implementation had to be
+  reduced. One example is the user management system and authorization
+  protocols. These were not implemented in as robust a fashion as earlier
+  expected due to the limited resources at the team's disposal. For instance, it
+  was mutually decided that it would be better to allocate the time and effort
+  required to make the protocol more robust to instead implement additional
   analysis features.
 \end{enumerate}
 
