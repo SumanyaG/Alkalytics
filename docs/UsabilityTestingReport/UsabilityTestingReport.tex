@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{amssymb}
 
 \input{../Comments}
 \input{../Common}
@@ -24,12 +25,261 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+2 April 2025 & Kate Min & Finalized document\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Executive Summary}
+This report summarizes the findings from the usability testing performed for the
+Alkalytics project. The purpose of this testing was to evaluate the usability of
+the software and determine areas that required further refinement.
+This report includes objectives of the testing, the methodologies used, results,
+conclusions, and a list of proposed changes or modifications to the User
+Interface (UI) and core features. Implemented changes are indicated where
+applicable.
+
+\section{Objectives}
+The primary goals of the usability testing for the Alkalytics project are
+outlined below:
+
+\begin{itemize} 
+    \item Evaluate the learnability of the application.
+    \item Evaluate the navigation and ease of use of the application.
+    \item Evaluate the design of the application.
+    \item Evaluate the overall user satisfaction and whether it meets the user's
+    expectations.
+\end{itemize}
+
+The corresponding minimum success criteria are included where relevant, taken
+from the
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{Software
+Requirements Specification (SRS)} and
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/VnVPlan/VnVPlan.pdf}{Verification
+and Validation (VnV) Plan} documentation:
+
+\section{Test Methodology}
+This section outlines the methodologies used to conduct the usability testing
+sessions. 
+
+\subsection{Test Participants}
+The usability testing was conducted through two separate sessions with the
+main project supervisor and client, Dr. Charles de Lannoy, hereafter referred
+to as \textbf{P1}, and one of the lab's undergraduate research assistants, Meghna Saha,
+hereafter referred to as \textbf{P2}.
+
+Test participants were selected based on the following 3 aspects:
+\begin{itemize}
+    \item[a.] Familiarity with the application's intended use and the data involved,
+    \item[b.] Availability to participate in a testing session \emph{in-person}, and
+    \item[c.] Ability to provide valuable feedback on the usability of the
+    application.
+\end{itemize}
+
+The team determined that asking users outside of the affiliated research team to
+participate in the usability testing would not be a good reflection of the
+representative users and may skew the results in a direction that would not be
+beneficial to the actual end users. Though it is standard practice to have at
+least 5-10 participants, time constraints, participant availability, and the
+aforementioned reasoning led to the testing being conducted with only 2
+participants.
+
+\subsection{Test Environment}
+The usability testing sessions were conducted in a controlled environment, with
+the software installed and running on the test conductor's laptop. The test
+conductor was present to observe the participants, take notes on the elapsed
+time for each task, and provide assistance only if the participant requested it
+or if abnormal behaviours in the application occurred.
+
+\subsection{Test Tasks}
+Each participant was asked to perform a series of tasks using the application,
+listed below.
+\begin{enumerate}
+    \item Upload a data sheet. \label{T1}
+    \item Upload another data sheet with the same experiment date. \label{T2}
+    \item Locate this data sheet in the table view page. \label{T3}
+    \item Navigate to the experiment table and perform the following operations - \label{T4}
+    \begin{enumerate}
+      \item Add a new row.
+      \item Delete an existing row.
+      \item Add a new column.
+      \item Delete an existing column.
+    \end{enumerate}
+    \item Calculate the average of any couple of values in the experiment table. \label{T5}
+    \item \emph{(Optional):} Perform additional excel-based functions on the values in the experiment table.
+    \item Search for a datapoint in the table using the column and value. \label{T6}
+    \item Generate a graph using all available customization options for the experiment data from \textbf{September 26}. \label{T7}
+\end{enumerate}
+
+\subsection{Follow-up Questionnaire}
+Following a usability testing session, the participant was asked to complete a
+questionnaire. A sample survey with all of the questions can be found
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/UsabilityTestingReport/Survey/SampleSurvey.pdf}{here}.
+The questions were designed to gather feedback on the usability of the
+software, focusing on the following five aspects:
+\begin{itemize}
+    \item[a.] Navigation and Ease of Use
+    \item[b.] Visual Appearance
+    \item[c.] Learning
+    \item[d.] Responsiveness
+    \item[e.] Overall Experience
+\end{itemize}
+
+\section{Summarized Results and Statistics}
+This section summarizes the results of the usability testing, including feedback
+from users and resultant metrics.
+
+\subsection{Survey Responses}
+Section 3 in the following documents contain the survey responses for each
+participant:
+\begin{enumerate}
+    \item
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/UsabilityTestingReport/Survey/SurveyResults/CharlesDeLannoy/UsabilityTestingSurveyDeLannoy.pdf}{Survey Results for P1}
+    \item
+    \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/UsabilityTestingReport/Survey/SurveyResults/MeghnaSaha/UsabilityTestingSurveySaha.pdf}{Survey
+    Results for P2}
+\end{enumerate}
+
+Responses that were of particular interest are noted below.
+
+\subsubsection{Navigation and Ease of Use}
+\begin{itemize}
+    \item[(b)] Rate the ease of finding a specific button/feature related to the
+    task you were trying to perform.
+    \item \textbf{\emph{P1}}: Somewhat difficult
+\end{itemize}
+
+\subsubsection{Visual Appearance}
+\begin{itemize}
+    \item[(b)] Is the displayed content (text, tables, graphs) clear, legible
+    and easy to understand?
+    \item \textbf{\emph{P1}}: The text should be larger, especially on the graph axes. The
+    tables are clear and legible and the graphs need to have axes updated
+    with selected parameters.
+    \item \textbf{\emph{P2}}: Yes, very clear except for the queries page that was too
+    cluttered.
+    \item[(d)] Did you encounter any unidentifiable symbols or icons? If yes,
+    please describe them.
+    \item \textbf{\emph{P1}}: Yes, the queries page.
+\end{itemize}
+
+\subsubsection{Learning}
+\begin{itemize}
+    \item[(a)] How easy or difficult was it to learn how to use the different
+    features of the application?
+    \item \textbf{\emph{P1}}: Somewhat difficult as the labels need to better
+    reflect their purpose.
+    \item[(b)] Were there any features or functions you found challenging to
+    understand or figure out? If yes, please describe. 
+    \item \textbf{\emph{P1}}: Performing calculations on the rows and columns
+    was not intuitive. This needed  better layout design. Also, building the
+    graph needs improvement to better select parameters, make edits after a
+    selection was made and identify the proper data to use.
+\end{itemize}
+
+\subsubsection{Overall Experience}
+\begin{itemize}
+    \item[(b)] Do you have any suggestions for improvements to enhance your
+    experience with the application?
+    \item \textbf{\emph{P1}}: It’s on the right track, just a few improvements
+    to organization, label clarifications, and graphical outputs needed.
+    \item \textbf{\emph{P2}}: The dashboard should display a list of previous
+    insights each graph gave along with previous analyses instead. Additionally,
+    there could be a welcome thing added to the very top of the dashboard. Also,
+    just to maintain contextual consistency, all column names should be replaced
+    with their full forms and units should be added for all of them.
+\end{itemize}
+
+\subsection{Conclusions Drawn from Results}
+Overall, the survey results indicated that the application is generally
+user-friendly and visually appealing, with an average rating of 3/5 across both
+participants for overall satisfaction.
+However, some issues were identified, particularly with the Queries page. Both
+participants reported confusion regarding the terminology used, specifically the
+distinction between ``data sheet'' and ``experiment sheet''. Additionally, the
+visual appearance of the Queries page was not intuitive, with both participants
+noting difficulties in locating it within the navigation bar, as well as finding
+and using key features on the page itself.
+
+\section{Summary of Proposed Changes}
+This section summarizes the proposed changes to the user interface and
+functionality of the application based on the results of the usability testing.
+These points are taken and paraphrased from Section 5 of P1's Survey Results and
+Section 4 of P2's Survey Results. 
+
+Changes marked with a check mark ($\checkmark$) are considered high priority and
+should be implemented as soon as possible. Due to time constraints, not all of
+these may be implemented. If it has been implemented in the final product, the
+exact commit implementing the change is hyperlinked in parentheses. Changes
+marked with an $\times$ have been determined as low priority and should be
+implemented if time allows, else it would be deferred to a future developing
+team.
+
+\subsection{Changes to the User Interface}
+
+\begin{itemize}
+    \item[$\checkmark$] Rename `data sheet' to `raw data' and `experiment sheet'
+    to `processed data' or `summarized data/results' in the Upload page and any other
+    subsequent appearances of the two terms. (see
+    \href{https://github.com/SumanyaG/Alkalytics/commit/53ba5521bb378b55e89e74bd13ca00e57eb8eb28}{commit})
+    \item[$\times$] Add a pop-up or a help button to explain that a file ID must be
+    entered in the format \texttt{yyyy-mm-dd}.
+    \item[$\checkmark$] Rename the Queries page and replace its icon in the
+    navigation bar to something more relevant and intuitive. (see
+    \href{https://github.com/SumanyaG/Alkalytics/commit/d3c98b683118b141b05c5a09b3c770c3c03a897c}{commit})
+    \item[$\checkmark$] Re-arrange the different button elements in the Queries
+    page, keeping the calculation bar separate from unrelated buttons. (see
+    \href{https://github.com/SumanyaG/Alkalytics/commit/8a745c4c77a444c449af95b4ebfeed01ffa6b4b6}{commit})
+    \item[$\checkmark$] All column names should be displayed in their full form
+    with units. (see
+    \href{https://github.com/SumanyaG/Alkalytics/commit/db5000a1cb3ff4bc0b9faedc4bab3176df5a1147}{commit})
+    \item[$\checkmark$] The font for the graph should be bigger and units and
+    title should be added for each graph.
+    \item[$\checkmark$] The dashboard should display a list of previous insights
+    or analyses and it could have a welcome message at the top as well. (see
+    \href{https://github.com/SumanyaG/Alkalytics/commit/0a362f9e9cbe2f7c2189a084310a3527440535b9}{commit})
+\end{itemize}
+
+\subsection{Changes to the Functionality}
+\begin{itemize}
+    \item[$\checkmark$] Add date and timestamp for when a data sheet was
+    uploaded. (see
+    \href{https://github.com/SumanyaG/Alkalytics/commit/db5000a1cb3ff4bc0b9faedc4bab3176df5a1147}{commit})
+    \item[$\times$] Allow for more comprehensive search functionality in the
+    Queries page. For example, searching \texttt{1.5*} should display all values
+    that start with 1.5.
+    \item[$\checkmark$] The Excel function bar should have a more detailed usage guide.
+    \item[$\checkmark$] Implement an edit button for graph generation so users
+    can modify parameters for a graph without having to go through the entire
+    form every single time.
+    \item[$\times$] The functionality to add a new row should mimic the one that
+    adds a new column.
+    \item[$\times$] The past 3 graphs in the dashboard could be turned into
+    interactive widgets.
+\end{itemize}
+
+\section{Reassessment of Usability After Changes}
+The usability of the application must be re-evaluated after the proposed
+changes have been implemented. This will help to determine if the changes have
+improved the issues raised during the initial usability testing sessions.
+However, due to time constraints and deadlines, the documentation of this
+reassessment is not included in this report. The team will aim to conduct this
+reassessment for a proper evaluation of the final product, but a comprehensive
+summary of the results will not be available.
+
+\section{Conclusions}
+The usability testing sessions conducted with the two test participants provided
+valuable insights into the usability of the Alkalytics application, highlighting
+several areas for improvement. Although the overall design and functionality
+mostly met the user's expectations, specific aspects of these needed refinement,
+particularly in the navigation and visual appearance of the Queries page. The
+proposed changes to the UI and key features will be taken into account for
+future development.
 
 \end{document}
