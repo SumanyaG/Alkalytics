@@ -86,24 +86,33 @@ Alkalytics environment.
     \end{verbatim}
     
     \item \textbf{Database Configuration}
+    
+    These instructions outline the steps to configure a \textbf{local} MongoDB
+    database.
     \begin{enumerate}
-        \item KATE HELP
+        \item Create a file named \texttt{.env} in the root directory of your
+        project.
+        \item Add the following line to the \texttt{.env} file:
+\begin{verbatim}
+CONNECTION_STRING="mongodb://localhost:27017/"
+\end{verbatim}
+        \item Save the file.
     \end{enumerate}
     
     \item \textbf{Application Launch}
     \begin{enumerate}
         \item Start backend:
-        \begin{verbatim}
-            uvicorn api:app --reload --host 127.0.0.1 --port 8000
-        \end{verbatim}
+\begin{verbatim}
+uvicorn api:app --reload --host 127.0.0.1 --port 8000
+\end{verbatim}
         \item Start server:
-        \begin{verbatim}
-        yarn ts-node src/utils/server.ts
-        \end{verbatim}
+\begin{verbatim}
+yarn ts-node src/utils/server.ts
+\end{verbatim}
         \item Start frontend:
-        \begin{verbatim}
-        yarn start
-        \end{verbatim}
+\begin{verbatim}
+yarn start
+\end{verbatim}
     \end{enumerate}
 \end{enumerate}
 
@@ -123,9 +132,9 @@ permissions and respective capabilities within the application.
 
 \subsection{Admin and Researcher Role}
 Administrators have full control over all system functionality including data
-management, user configuration, and system settings. Both Admin and Researcher
-roles have the same permissions. \newline \newline
-These features include:
+management, user configuration, and system settings. Currently, both Admin and
+Researcher roles have the same permissions. \newline \newline
+Available functionalities include:
 \begin{itemize}
     \item Editing tables, including modifying cells, adding/removing rows and columns.
     \item Setting data types for columns.
@@ -136,39 +145,41 @@ These features include:
 \end{itemize}
 
 \subsection{Researcher Assistant Role}
-Researcher assistants can view data, run analyses, and generate reports but have limited
-system configuration capabilities. \newline\newline
-These features include:
+Researcher assistants can view data, run analyses, and generate reports. This
+role has limited system configuration capabilities. \newline\newline
+Available functionalities include:
 \begin{itemize}
     \item Viewing and searching tables (Experiment, Efficiency, and Raw Data).
     \item Searching within a specific column or the entire table.
+    \item Computing efficiency metrics.
     \item Generating graphs but with restricted data modification capabilities.
 \end{itemize}
 
 \newpage
 \section{Web Application Pages}
 
-\subsection{Login and Sign Up Process}
-When users first load onto the page, they will be greated by a log in screen. 
-If the user has login credentions, log in as normal 
+\subsection{Sign In Process}
+When users first load the application, they will be greeted by a Sign In screen. 
+If the user has registered credentials, sign in as normal.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.55]{./Diagrams/login .png}
-    \caption{Login Form}
-    \label{fig:example}
+    \caption{Sign-in Form}
+    \label{fig:login}
 \end{figure}
 
 \subsection{Sign Up Process}
 If users do not have an account, they will need to create one by clicking the
-\textbf{Create one} button at the bottom of the login form. The user must then
-enter an email and desired password. There will be three roles to pick from,
-Admin, Researcher and Research Assistant. After creating a user account, log in
-as normal. 
+\textbf{Create one} button at the bottom of the sign-in form. The user must then
+enter an email and desired password. There will be two roles to pick from,
+Researcher and Research Assistant. The admin role is not available for sign up
+and is only configured by the developer team for the head of the lab. After
+creating a user account, sign in as normal. 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.55]{./Diagrams/sign up .png}
     \caption{Sign Up Form}
-    \label{fig:example}
+    \label{fig:signup}
 \end{figure}
 
 \subsection{Dashboard}
@@ -180,8 +191,8 @@ efficiently.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{./Diagrams/Dashboard.png}
-    \caption{Dashboard Overview}
+    \includegraphics[width=0.9\textwidth]{./Diagrams/Dashboard.png}
+    \caption{Dashboard Interface}
 \end{figure}
 
 
@@ -211,7 +222,7 @@ experience.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{./Diagrams/Upload.png}
+    \includegraphics[width=1\textwidth]{./Diagrams/Upload.png}
     \caption{Upload Files Interface}
 \end{figure}
 
@@ -334,7 +345,7 @@ integrity.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{./Diagrams/ExperimentTableView.png}
+    \includegraphics[width=1\textwidth]{./Diagrams/ExperimentTableView.png}
     \caption{Experiment Table View}
 \end{figure}
 
@@ -480,10 +491,6 @@ offering users the ability to explore detailed information captured during
 experiments. This table is crucial for users who need to examine individual data
 points and verify the integrity of the uploaded information without altering it.
 
-% \begin{figure}[H] \centering
-%     \includegraphics[width=0.8\textwidth]{./Diagrams/RawDataTable.png}
-%     \caption{Raw Data Table View} \end{figure}
-
 \subsection{Graph Generation}
 
 This section provides detailed instructions for creating, customizing, and
@@ -492,20 +499,18 @@ exporting data visualizations.
 \subsubsection{Page Overview}
 The graph page is seperated in two sections. 
 \newline \newline
-\textbf{Side Bar:} \newline
-On the left side of the page is the sidebar where it displays all the recently
-generated graphs and has the generate new graph button.
-\newline\newline
+\textbf{Side Bar:} On the left side of the page is the sidebar where it displays
+all the recently generated graphs and has the generate new graph button.
+\newline
 
-\noindent \textbf{Main Content:}\newline
-On the right is the main content of the page. Here, the generated graph will be
-displayed along with a quick linear regression analysis with a short statement
-of its findings 
+\noindent \textbf{Main Content:} On the right is the main content of the page.
+Here, the generated graph will be displayed along with a quick linear regression
+analysis with a short statement of its findings.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.3]{./Diagrams/graph page .png}
-    \caption{Graph page Seperation Display}
-    \label{fig:example}
+    \includegraphics[width=1.2\textwidth]{./Diagrams/graph page .png}
+    \caption{Graph Generation Interface, with Sidebar and Main Content sections highlighted in red}
+    \label{fig:graphs}
 \end{figure}
 
 On the side bar, beside each generated graph item has an icon which signifies
@@ -527,13 +532,13 @@ the type of graph it is.
     \label{tab:graphs}
 \end{table}
 
-\noindent \textbf{Generting a New Graph:} \newline
+\noindent \textbf{Generating a New Graph:} \newline
 To create a new graph, click on the \textbf{Generate New Graph} button at the top of the side bar:
 \begin{figure}[H]
     \centering
     \includegraphics[scale=1]{./Diagrams/graph-newgraph .png}
     \caption{Highlights the Generate New Graph Button}
-    \label{fig:example}
+    \label{fig:newgraph}
 \end{figure}
 \subsubsection{Detailed Workflow}
 \subsubsection*{Description}
@@ -551,7 +556,7 @@ There is a five-step process for generating custom graphs from experimental data
         \centering
         \includegraphics[scale=0.4]{./Diagrams/graph-form .png}
         \caption{Highlights the Generate New Graph Button}
-        \label{fig:example}
+        \label{fig:graphtype}
     \end{figure}
 
     \item \textbf{Optional: Apply Filters}: \newline
@@ -569,7 +574,7 @@ There is a five-step process for generating custom graphs from experimental data
         \centering
         \includegraphics[scale=0.4]{./Diagrams/graph-filter.png}
         \caption{Sample Input of the Filter Step}
-        \label{fig:example}
+        \label{fig:filters}
     \end{figure}
     
     \item \textbf{Set Parameters}: \newline
@@ -579,7 +584,7 @@ There is a five-step process for generating custom graphs from experimental data
         \centering
         \includegraphics[scale=0.4]{./Diagrams/graph-param.png}
         \caption{Sample Input of the Filter Step}
-        \label{fig:example}
+        \label{fig:params}
     \end{figure}
 
     \item \textbf{Selecting Dates}: \newline
@@ -588,7 +593,7 @@ There is a five-step process for generating custom graphs from experimental data
         \centering
         \includegraphics[scale=0.4]{./Diagrams/graph-dates.png}
         \caption{Sample Input of the Date Step}
-        \label{fig:example}
+        \label{fig:dates}
     \end{figure}
     
     \item \textbf{Customize Display}: \newline
@@ -606,7 +611,7 @@ There is a five-step process for generating custom graphs from experimental data
         \centering
         \includegraphics[scale=0.6]{./Diagrams/graph-custom.png}
         \caption{Sample Input of the Filter Step}
-        \label{fig:example}
+        \label{fig:custom}
     \end{figure}
 \end{enumerate}
 
