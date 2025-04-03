@@ -29,8 +29,8 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{4cm}p{1.5cm}X} \toprule {\bf Date} & {\bf Version}
-& {\bf Notes}\\
+\begin{tabularx}{\textwidth}{p{4cm}p{1.5cm}X} \toprule {\bf Date} & {\bf
+Version} & {\bf Notes}\\
 \midrule
 4 November 2024 & 1.0 & Add initial draft for PoC.\\
 11 November 2024 & 1.1 & Updated document to adhere to
@@ -117,7 +117,7 @@ critical to the success of the project:
   analysis.
 
   \item \textbf{Usability and Accessibility:} Usability testing will evaluate
-  the interface’s ease of use and intuitive design for a diverse user base on
+  the interface's ease of use and intuitive design for a diverse user base on
   various devices. Feedback will guide any necessary design refinements.
   
   \item \textbf{System Scalability and Reliability:} Testing will confirm the
@@ -138,19 +138,19 @@ enhance the project.
 \subsection{Challenge Level and Extras}
 
 As the project's challenge level is \textbf{general}, the team has chosen to
-extend the project’s scope by including two additional approved components
+extend the project's scope by including two additional approved components
 approved for this project: \textbf{Usability Testing} and \textbf{User
 Documentation}.
 \newline
 
-\noindent Usability testing is crucial for validating the software’s
+\noindent Usability testing is crucial for validating the software's
 accessibility and interface to ensure users with diverse technical backgrounds
 can work effectively. Iterative testing with representative users will provide
 direct feedback on improvements, ensuring the software remains user-friendly and
 efficient. \newline 
 
 \noindent Furthemore, user documentation will be developed to guide users in
-navigating the software’s functionalities, including setup, data upload,
+navigating the software's functionalities, including setup, data upload,
 querying operations, and troubleshooting. The documentation will support the
 research team in maintaining and expanding the software post-development,
 enhancing Alkalytics' impact and longevity.
@@ -170,7 +170,7 @@ serving a distinct role in guiding the testing processes:
     
     \item
     \textbf{\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/HazardAnalysis/HazardAnalysis.pdf}{Hazard
-    Analysis Document}:} This document includes the project’s Failure Modes and
+    Analysis Document}:} This document includes the project's Failure Modes and
     Effects Analysis (FMEA) table, which identifies potential hazards, their
     causes, and effects. As it highlights critical areas of risk, it ensures
     that testing procedures address these hazards, thereby enhancing the safety
@@ -371,8 +371,8 @@ The following methods will be applied to verify the document:
   \item \st{\textbf{Mutation testing}: The team performs mutation testing by
   injecting mutations (i.e., faults) into the tests to evaluate whether the
   tests can detect the mutant and verify if its behaviour is the expected
-  outcome.} This strategy will not be applied to the verification and
-  validation of the VnV Plan due to infeasability.
+  outcome.} This strategy will not be applied to the verification and validation
+  of the VnV Plan due to infeasability.
 \end{itemize}
 The following checklist serves as a guide for verifying the VnV plan:
 \begin{itemize}
@@ -430,10 +430,10 @@ Below is an expansion on the referenced sections:
   development. The team currently has a workflow that runs on all \LaTeX{}
   documentation, and additional workflows for automated testing will be added as
   development progresses. 
-  \item \st{\textbf{Code Coverage Metrics}: Code coverage will be assessed using the
-  appropriate plugins/flags for the respective unit testing frameworks mentioned
-  above (e.g., \texttt{pytest-cov} for Pytest, \texttt{--coverage} in Jest).}
-  Code coverage will not be used as a metric for verification due to a
+  \item \st{\textbf{Code Coverage Metrics}: Code coverage will be assessed using
+  the appropriate plugins/flags for the respective unit testing frameworks
+  mentioned above (e.g., \texttt{pytest-cov} for Pytest, \texttt{--coverage} in
+  Jest).} Code coverage will not be used as a metric for verification due to a
   lack of need for coverage metrics in the project.
 \end{itemize}
 
@@ -464,15 +464,16 @@ ensure adherence to functional and nonfunctional requirements.
     developed functionalities, including usability of the interface and expanded
     features, incorporating stakeholder insights for further optimization.
     \item \textbf{Final Demonstration:} A final end-to-end assessment will
-    confirm the complete workflow’s adherence to requirements, ensuring that the
+    confirm the complete workflow's adherence to requirements, ensuring that the
     application is ready for deployment.
 \end{itemize}
 
-\section{System Tests} \label{systemTests}
-This section covers all tests for different areas of the system. Tables
-\ref{table:traceFR}, \ref{table:traceNFR1}, \ref{table:traceNFR2}, \ref{table:traceNFR3} defines the relationships between functional and
-non-functional requirements defined in the SRS to test cases outlined in this
-document in the form of a traceability matrix.
+\section{System Tests} \label{systemTests} This section covers all tests for
+different areas of the system. Tables \ref{table:traceFR},
+\ref{table:traceNFR1}, \ref{table:traceNFR2}, \ref{table:traceNFR3} defines the
+relationships between functional and non-functional requirements defined in the
+SRS to test cases outlined in this document in the form of a traceability
+matrix.
 
 \subsection{Tests for Functional Requirements}
 
@@ -523,8 +524,7 @@ Test Case Derivation: When the data is sent to the system, the data should be
 stored somewhere and labelled properly before it can be queried.
 					
 How test will be performed: The test can be performed by sending a single data
-point with the correct number of attributes to store in
-the system.
+point with the correct number of attributes to store in the system.
 
 \end{enumerate}
 
@@ -687,10 +687,11 @@ the section.
 \noindent \textbf{User Demo Assessment}: Users will engage in a demo of the
 application, and test conductors will observe how they interact with the
 application with respect to the requirements and criteria defined in the SRS.
-References to survey questions in the \emph{``How test will be performed''} fields
-correspond to the survey in Section \ref{usabilitySurvey}. These responses will
-be collected and aggregated to determine if the usability criteria defined in
-the expected outputs, and the criteria defined in the SRS, were met.
+References to survey questions in the \emph{``How test will be performed''}
+fields correspond to the survey in Section \ref{usabilitySurvey}. These
+responses will be collected and aggregated to determine if the usability
+criteria defined in the expected outputs, and the criteria defined in the SRS,
+were met.
 
 
 \subsubsection{Look and Feel Requirements}
@@ -777,8 +778,8 @@ user demo assessment.
     \item An observer will record how long it takes for them to figure out
     functionality and how to navigate the application
   \end{itemize}
-  {\footnotesize *This refers to asking the developers or the usability survey conductor
-  for assistance.}
+  {\footnotesize *This refers to asking the developers or the usability survey
+  conductor for assistance.}
             
   \item{NFR-UH2 (Language and Localization)\\}
   
@@ -1507,7 +1508,8 @@ nonfunctional requirements and the test cases.
   \centerline{
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
   \hline
-  Test ID \{NFR-\} & LF1 & LF2 & UH1 & UH2 & UH3 & UH4 & OE1 & OE2 & MSR1 & MSR2\\
+  Test ID \{NFR-\} & LF1 & LF2 & UH1 & UH2 & UH3 & UH4 & OE1 & OE2 & MSR1 &
+  MSR2\\
   \hline
   \hline
   LFR-1 & X & & & & & & & & &\\
@@ -1721,19 +1723,46 @@ cases.
 
 The Data Storage Module handles the proper upload and saving of data to the
 database. The unit tests for this module will ensure that data is correctly
-stored and can be retrieved.
+stored and can be retrieved. The tests can be found at
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{migrationServiceTest.py}
+and
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/upload}{migrationServiceTest.py}.
 
 \begin{itemize}
-  \item
+  \item 6.1-UT1: Uploads experiments and data.
+  \item 6.1-UT2: Links data to experiments.
+  \item 6.1-UT3: Uploads data when experiment exists.
+  \item 6.1-UT4: Skips data upload if no experiment exists.
+  \item 6.1-UT5: Cleans data by removing empty values.
+  \item 6.1-UT6: Checks for duplicate experiments.
+  \item 6.1-UT7: Handles multiple matching experiments.
+  \item 6.1-UT8: Handles no matching experiments.
+  \item 6.1-UT9: Runs full migration process.
+  \item 6.1-UT10: Handles experiment upload errors.
+  \item 6.1-UT11: Handles data upload errors.
+  \item 6.1-UT12: Shows upload status indicators.
+  \item 6.1-UT13: Handles drag over and drop event with valid file.
+  \item 6.1-UT14: Handles file input change event with valid file.
+  \item 6.1-UT15: Handles cell editing.
 \end{itemize}
 
 \subsection{Tests for M7: Data Retrieval Module}
 
 The Data Retrieval Module handles querying and fetching data from the database.
-The unit tests will verify the correctness of data retrieval logic.
+The unit tests will verify the correctness of data retrieval logic. The tests
+can be found at
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/hooks/useTable.test.tsx}{useTable.test.tsx}.
 
 \begin{itemize}
-  \item
+  \item 6.2.1-UT1: Initialize with default values.
+  \item 6.2.1-UT2: Fetch experiment IDs.
+  \item 6.2.1-UT3: Fetch experiments.
+  \item 6.2.1-UT4: Fetch data.
+  \item 6.2.1-UT5: Handle Apollo error states.
+  \item 6.2.1-UT6: Refetch experiments and data.
+  \item 6.2.1-UT7: Call RefetchExperiments function.
+  \item 6.2.1-UT8: Call RefetchData function.
+  \item 6.2.1-UT9: Filter data by search keyword.
 \end{itemize}
 
 \subsection{Tests for M12: Visualization Module}
@@ -1752,10 +1781,11 @@ The User Management Module handles user authentication, role-based access
 control (RBAC), and user session management. The unit tests will verify that
 users can register, log in, and interact with the system based on their roles
 and permissions. The tests can be found at
-\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{userServiceTest.py}, 
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/userServiceTest.py}{userServiceTest.py},
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/AccountMenu.test.tsx}{AccountMenu.test.tsx},
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/auth/ProtectedRoute.test.tsx}{ProtectedRoute.test.tsx},
-and \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{authContext.test.tsx}.
+and
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/context/authContext.test.tsx}{authContext.test.tsx}.
 
 \begin{itemize}
   \item 6.4-UT1: Registers a new user with a valid email and password.
@@ -1781,8 +1811,8 @@ and \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/con
 \end{itemize}
 
 \subsection{Traceability Between Test Cases and Modules}
-Table \ref{table:modTrace1} shows the traceability between the
-modules and the system tests.
+Table \ref{table:modTrace1} shows the traceability between the modules and the
+system tests.
 
 \begin{table}[H]
   \centering
@@ -1847,14 +1877,14 @@ cases and their respective values.
 \subsection{Usability Survey Questions} \label{usabilitySurvey}
 
 Users will be asked the following questions to gauge the usability of the
-application during a user demo assessment. These questions relate to
-the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
+application during a user demo assessment. These questions relate to the
+assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
 
 \subsubsection*{\textbf{Navigation and Ease of Use}}
   \begin{itemize}
-    \item[(a)] How easy or difficult was it to navigate through the
-    application? \textit{(Very easy - Somewhat easy - Neither easy nor difficult
-    - Somewhat difficult - Very difficult)}
+    \item[(a)] How easy or difficult was it to navigate through the application?
+    \textit{(Very easy - Somewhat easy - Neither easy nor difficult - Somewhat
+    difficult - Very difficult)}
     \item[(b)] Rate the ease of finding a specific button/feature related to the
     task you were trying to perform. \textit{(Very easy - Somewhat easy -
     Neither easy nor difficult - Somewhat difficult - Very difficult)}
@@ -1868,8 +1898,8 @@ the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
     appealing)}
     \item[(b)] Is the displayed content (text, tables, graphs) clear, legible
     and easy to understand?
-    \item[(c)] Did the design and layout appear consistent to you across
-    the entire application? If no, please point out any inconsistencies you noticed.
+    \item[(c)] Did the design and layout appear consistent to you across the
+    entire application? If no, please point out any inconsistencies you noticed.
     \item[(d)] Did you encounter any unidentifiable symbols or icons? If yes,
     please describe them.
   \end{itemize}
@@ -1921,12 +1951,12 @@ the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
   \item \textbf{What pain points did you experience during this deliverable, and
   how did you resolve them?}
 
-  The most challenging part of this deliverable was writing the system tests
-  for the non-functional requirements. As we had over 50 non-functional
-  requirements to consider, ensuring all of the requirements were covered in our
-  test cases required significant effort and planning. It was also difficult to
-  define appropriate test cases and the "right" expected outputs when we did not
-  yet have a clear design/implementation. We struggled with defining precise
+  The most challenging part of this deliverable was writing the system tests for
+  the non-functional requirements. As we had over 50 non-functional requirements
+  to consider, ensuring all of the requirements were covered in our test cases
+  required significant effort and planning. It was also difficult to define
+  appropriate test cases and the "right" expected outputs when we did not yet
+  have a clear design/implementation. We struggled with defining precise
   criteria for some tests related to usability and security. However, referring
   back to the SRS and Hazard Analysis documents provided a better understanding.
   The FMEA table in the Hazard Analysis clarified the necessary security tests,
@@ -1971,9 +2001,9 @@ the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
         Through my past co-ops, I have had a chance to use static and dynamic
         testing techniques but I have never had the chance to use automated
         testing and continuous integration. Since we plan on using linters for
-        this project, I would like to use this opportunity to build proficiency in
-        setting up and running linters to improve testing efficiency by diagnosing
-        and automatically resolving technical issues. 
+        this project, I would like to use this opportunity to build proficiency
+        in setting up and running linters to improve testing efficiency by
+        diagnosing and automatically resolving technical issues. 
 
       \item \textbf{Kate Min}
       
@@ -1986,9 +2016,9 @@ the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
     \end{enumerate}
 
   \smallskip
-  \item \textbf{For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
+  \item \textbf{For each of the knowledge areas and skills identified in the
+  previous question, what are at least two approaches to acquiring the knowledge
+  or mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?}
 
     This question was answered individually by each team member. Their responses
@@ -2011,25 +2041,26 @@ the assessment of non-functional tests NFR-LF1, NFR-UH1, NFR-OE2, and NFR-MS1.
 
       \item \textbf{Jason Tran}
       
-        To acquire my dynamic testing skills, I will focus on two main approaches,
-        mentoring and online resources. By helping a less experienced teammate, I
-        will reaffirm my understanding of dynamic testing concepts and techniques
-        through teaching and collaboration. Moreover, I will use online resources
-        such as tutorials and documentation to explore advanced topics and stay
-        updated on best practices.
+        To acquire my dynamic testing skills, I will focus on two main
+        approaches, mentoring and online resources. By helping a less
+        experienced teammate, I will reaffirm my understanding of dynamic
+        testing concepts and techniques through teaching and collaboration.
+        Moreover, I will use online resources such as tutorials and
+        documentation to explore advanced topics and stay updated on best
+        practices.
 
       \item \textbf{Sumanya Gulati}
       
         One approach to do this is by setting up a linter in a development
-        environment and applying it to existing codebases. This hands-on approach
-        will help me become familiar with the specific rules, configurations, and
-        output of the linter. Another approach can be to enrol in an online course
-        that focuses on setting up and using popular linters, covering topics like
-        configuring rules, enforcing best practices, and automating linting as
-        part of CI/CD pipelines. Of these, two, I would choose the former approach
-        as I believe this approach builds familiarity with real-world usage and
-        configuration of linters, making it easier to customize and apply them
-        effectively.
+        environment and applying it to existing codebases. This hands-on
+        approach will help me become familiar with the specific rules,
+        configurations, and output of the linter. Another approach can be to
+        enrol in an online course that focuses on setting up and using popular
+        linters, covering topics like configuring rules, enforcing best
+        practices, and automating linting as part of CI/CD pipelines. Of these,
+        two, I would choose the former approach as I believe this approach
+        builds familiarity with real-world usage and configuration of linters,
+        making it easier to customize and apply them effectively.
 
       \item \textbf{Kate Min}
 
