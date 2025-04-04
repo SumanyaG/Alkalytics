@@ -6,20 +6,18 @@ import BarGraph from "../components/graph/bar-graph";
 import { useQuery, gql, useMutation } from "@apollo/client";
 
 type FormDataType = {
-  selectedGraphType: string;
-  setSelectedGraphType: (value: string) => void;
-  selectedFilterParamType: string;
-  setSelectedFilterParamType: (value: string) => void;
-  selectedFilterParam: string;
-  setSelectedFilterParam: (value: string) => void;
-  selectedFilterValue: string;
-  setSelectedFilterValue: (value: string) => void;
-  selectedParamType: string;
-  setSelectedParamType: (value: string) => void;
-  selectedParamX: string;
-  setSelectedParamX: (value: string) => void;
-  selectedParamY: string;
-  setSelectedParamY: (value: string) => void;
+  graphType: string;
+  setGraphType: (value: string) => void;
+  filterParam: string;
+  setFilterParam: (value: string) => void;
+  filterValue: string;
+  setFilterValue: (value: string) => void;
+  paramType: string;
+  setParamType: (value: string) => void;
+  paramX: string;
+  setParamX: (value: string) => void;
+  paramY: string;
+  setParamY: (value: string) => void;
   xValue: string;
   setXValue: (value: string) => void;
   yValue: string;
@@ -53,20 +51,18 @@ type FormDataType = {
 };
 
 const defaultContextValue: FormDataType = {
-  selectedGraphType: "",
-  setSelectedGraphType: () => {},
-  selectedFilterParamType: "",
-  setSelectedFilterParamType: () => {},
-  selectedFilterParam: "",
-  setSelectedFilterParam: () => {},
-  selectedFilterValue: "",
-  setSelectedFilterValue: () => {},
-  selectedParamType: "",
-  setSelectedParamType: () => {},
-  selectedParamX: "",
-  setSelectedParamX: () => {},
-  selectedParamY: "",
-  setSelectedParamY: () => {},
+  graphType: "",
+  setGraphType: () => {},
+  filterParam: "",
+  setFilterParam: () => {},
+  filterValue: "",
+  setFilterValue: () => {},
+  paramType: "",
+  setParamType: () => {},
+  paramX: "",
+  setParamX: () => {},
+  paramY: "",
+  setParamY: () => {},
   xValue: "",
   setXValue: () => {},
   yValue: "",
@@ -144,17 +140,18 @@ const REMOVE_GRAPH = gql`
 `;
 
 const DataVisualize: React.FC = () => {
-  const [selectedGraphType, setSelectedGraphType] = useState<string>("");
-  const [selectedFilterParamType, setSelectedFilterParamType] =
-    useState<string>("");
-  const [selectedFilterParam, setSelectedFilterParam] = useState<string>("");
-  const [selectedFilterValue, setSelectedFilterValue] = useState<string>("");
-  const [selectedParamType, setSelectedParamType] = useState<string>("");
-  const [selectedParamX, setSelectedParamX] = useState<string>("");
-  const [selectedParamY, setSelectedParamY] = useState<string>("");
+  const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
+  const [removeGraph] = useMutation(REMOVE_GRAPH);
+
+  const [graphType, setGraphType] = useState<string>("");
+  const [filterParam, setFilterParam] = useState<string>("");
+  const [filterValue, setFilterValue] = useState<string>("");
+  const [paramType, setParamType] = useState<string>("");
+  const [paramX, setParamX] = useState<string>("");
+  const [paramY, setParamY] = useState<string>("");
   const [xValue, setXValue] = useState<string>("");
   const [yValue, setYValue] = useState<string>("");
-  const [selectedDates, setSelectedDates] = React.useState<string[]>([]);
+  const [selectedDates, setSelectedDates] = useState<string[]>([]);
   const [timeMinX, setTimeMinX] = useState("");
   const [timeMaxX, setTimeMaxX] = useState("");
   const [timeMinY, setTimeMinY] = useState("");
@@ -166,26 +163,32 @@ const DataVisualize: React.FC = () => {
   const [graphTitle, setGraphTitle] = useState("");
   const [xLabel, setXLabel] = useState("");
   const [yLabel, setYLabel] = useState("");
-  const [submit, setSubmit] = useState(false);
+
+  const [selectedGraph, setSelectedGraph] = useState<boolean>(false);
   const [selectedGraphData, setSelectedGraphData] = useState<any>(null);
+  const [selectedGraphProperties, setSelectedGraphProperties] = useState<any>(null);
+  const [selectedGraphType, setSelectedGraphType] = useState<string | null>(null);
+
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [submit, setSubmit] = useState<boolean>(false);
+
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const containerRef = useRef<HTMLDivElement>(null);
 
   const contextValue: FormDataType = {
-    selectedGraphType,
-    setSelectedGraphType,
-    selectedFilterParamType,
-    setSelectedFilterParamType,
-    selectedFilterParam,
-    setSelectedFilterParam,
-    selectedFilterValue,
-    setSelectedFilterValue,
-    selectedParamType,
-    setSelectedParamType,
-    selectedParamX,
-    setSelectedParamX,
-    selectedParamY,
-    setSelectedParamY,
+    graphType,
+    setGraphType,
+    filterParam,
+    setFilterParam,
+    filterValue,
+    setFilterValue,
+    paramType,
+    setParamType,
+    paramX,
+    setParamX,
+    paramY,
+    setParamY,
     xValue,
     setXValue,
     yValue,
@@ -217,16 +220,6 @@ const DataVisualize: React.FC = () => {
     submit,
     setSubmit,
   };
-  const [removeGraph] = useMutation(REMOVE_GRAPH);
-  const handleRemoveGraph = async (graphId: number) => {
-    try {
-      const { data } = await removeGraph({
-        variables: { graphId },
-      });
-    } catch (error) {
-      console.error("Error removing graph:", error);
-    }
-  };
 
   const { data, loading, error } = useQuery<{
     getFilterCollectionData: {
@@ -235,27 +228,23 @@ const DataVisualize: React.FC = () => {
     };
   }>(FILTER_COLLECTDATA, {
     variables: {
-      attributes: [selectedParamX, selectedParamY],
-      collection: selectedParamType,
+      attributes: [paramX, paramY],
+      collection: paramType,
       dates: selectedDates,
-      analysis: selectedGraphType === "scatter",
+      analysis: graphType === "scatter",
     },
-    skip: !submit,
+    skip: !submit || selectedGraph,
   });
 
-  const transformDataForScatter = (rawData: any[]) => {
+  const transformData = (rawData: any[], xParam: string, yParam: string) => {
     return rawData.map((item, index) => ({
       label: `Point ${index + 1}`,
-      x: parseFloat(item[selectedParamX]),
-      y: parseFloat(item[selectedParamY]),
+      x: parseFloat(item[xParam]),
+      y: parseFloat(item[yParam]),
     }));
   };
 
-  const graphData = data?.getFilterCollectionData?.data
-    ? transformDataForScatter(data.getFilterCollectionData.data)
-    : [];
-
-  const validateAndTransformAnalysis = (slope: number, intercept: number) => {
+  const validateAndTransformRegression = (slope: number, intercept: number) => {
     const xValues = graphData.map((d) => d.x);
     const xMin = Math.min(...xValues);
     const xMax = Math.max(...xValues);
@@ -269,16 +258,18 @@ const DataVisualize: React.FC = () => {
     ];
   };
 
+  const graphData = data?.getFilterCollectionData?.data
+    ? transformData(data.getFilterCollectionData.data, paramX, paramY)
+    : [];
+
   const analysisRes =
-    selectedGraphType === "scatter"
+    graphType === "scatter"
       ? data?.getFilterCollectionData?.analysisRes ?? []
       : [];
 
   const { slope, intercept, R_squared } = analysisRes[0] || {};
   const lineData =
-    slope && intercept ? validateAndTransformAnalysis(slope, intercept) : [];
-
-  const [addGeneratedGraphs] = useMutation(SAVE_GRAPH);
+    slope && intercept ? validateAndTransformRegression(slope, intercept) : [];
 
   const graphProperties = {
     "graph title": graphTitle,
@@ -291,18 +282,18 @@ const DataVisualize: React.FC = () => {
     "max x": maxX ? parseFloat(maxX) : undefined,
     "min y": minY ? parseFloat(minY) : undefined,
     "max y": maxY ? parseFloat(maxY) : undefined,
-    "x label": xLabel || selectedParamX,
-    "y label": yLabel || selectedParamY,
+    "x label": xLabel || paramX,
+    "y label": yLabel || paramY,
   };
 
   const saveGraph = async () => {
     try {
       await addGeneratedGraphs({
         variables: {
-          graphType: selectedGraphType,
+          graphType: graphType,
           data: data?.getFilterCollectionData?.data ?? [],
           properties: [graphProperties],
-          attributes: [selectedParamX, selectedParamY],
+          attributes: [paramX, paramY],
         },
       });
     } catch (error) {
@@ -310,20 +301,40 @@ const DataVisualize: React.FC = () => {
     }
   };
 
+  const handleRemoveGraph = async (graphId: number) => {
+    try {
+      await removeGraph({variables: { graphId }});
+    } catch (error) {
+      console.error("Error removing graph:", error);
+    }
+  };
+
   const handleGraphData = async () => {
+    setSelectedGraph(false);
+    setSelectedGraphType(null);
+    setSelectedGraphData(null);
+    setSelectedGraphProperties(null);
+    setSelectedGraphType(null);
     setSubmit(true);
   };
 
-  const handleGraphSelect = (graphData: any) => {
-    const transformedData = graphData.data
-      ? transformDataForScatter(graphData.data)
-      : [];
+  const handleGraphSelect = (graph: {
+    data: any[];
+    graphtype: string;
+    properties: any;
+    attributes: string[];
+  }) => {
+    setSubmit(false)
+    const transformedData = transformData(graph.data, graph.attributes[0], graph.attributes[1]);
+    setSelectedGraphType(graph.graphtype);
     setSelectedGraphData(transformedData);
-    setSubmit(true);
+    setSelectedGraphProperties(graph.properties[0]);
+    setSelectedGraphType(graph.graphtype);
+    setSelectedGraph(true);
   };
 
   React.useEffect(() => {
-    if (!loading && !selectedGraphData && submit) {
+    if (!loading && !selectedGraph && submit) {
       saveGraph();
     }
   }, [loading, submit, data?.getFilterCollectionData?.data]);
@@ -347,7 +358,7 @@ const DataVisualize: React.FC = () => {
 
   return (
     <FormDataContext.Provider value={contextValue}>
-      <div className="relative flex min-h-screen bg-white">
+      <div className="flex bg-white">
         {/* Background elements */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(6,23,97,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(6,23,97,0.05)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-blue-200 blur-3xl"></div>
@@ -356,79 +367,101 @@ const DataVisualize: React.FC = () => {
           onSubmit={handleGraphData}
           onGraphSelect={handleGraphSelect}
           deleteGraph={handleRemoveGraph}
+          isOpen={isOpen}
+          onToggleSidebar={setIsOpen}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
         />
-        <div className="flex-1 overflow-hidden">
+        <div
+          className="transition-all duration-300 w-full"
+          style={{
+            maxWidth: `calc(100% - ${isOpen ? "18rem" : "5rem"})`,
+          }}
+        >
           <div className="p-8 h-full w-full flex items-center justify-center">
-            {submit && (
+            {(submit || selectedGraph) && !isModalOpen && (
               <div className="w-full h-full max-w-[1200px] aspect-[4/3]">
                 <div
                   ref={containerRef}
-                  className="relative w-full h-full p-4 bg-white rounded-lg shadow-lg"
+                  className={`relative w-full h-full p-4 bg-white rounded-lg shadow-lg transition-all duration-300 ${
+                    (submit || selectedGraph) ? "opacity-100" : "opacity-0"
+                  }`}
                 >
-                    {loading && (
-                      <div className="flex items-center justify-center h-full">
+                  {loading && (
+                    <div className="flex items-center justify-center h-full">
                       <p className="text-lg font-semibold text-blue-600 animate-pulse text-center">
                         Loading...
                       </p>
-                      </div>
-                    )}
-                    {error && (
-                      <div className="flex items-center justify-center h-full">
+                    </div>
+                  )}
+                  {error && (
+                    <div className="flex items-center justify-center h-full">
                       <p className="text-lg font-semibold text-red-600 text-center">
                         Error: {error.message}
                       </p>
-                      </div>
-                    )}
-                  {selectedGraphType === "bar" ? (
+                    </div>
+                  )}
+                  {selectedGraphType === "bar" || graphType === "bar" ? (
                     <BarGraph
-                      data={selectedGraphData?.data || graphData}
-                      properties={graphProperties}
+                      data={selectedGraph ? selectedGraphData : graphData}
+                      properties={
+                        selectedGraph
+                          ? selectedGraphProperties
+                          : graphProperties
+                      }
                       width={dimensions.width}
                       height={dimensions.height}
                     />
-                  ) : selectedGraphType === "line" ? (
+                  ) : selectedGraphType === "line" || graphType === "line" ? (
                     <LineGraph
-                      data={selectedGraphData?.data || graphData}
-                      properties={graphProperties}
+                      data={selectedGraph ? selectedGraphData : graphData}
+                      properties={
+                        selectedGraph ? selectedGraphProperties : graphData
+                      }
                       width={dimensions.width}
                       height={dimensions.height}
                     />
-                  ) : selectedGraphType === "scatter" ? (
+                  ) : selectedGraphType === "scatter" ||
+                    graphType === "scatter" ? (
                     <>
                       <div className="flex flex-col items-center justify-center">
-                      <ScatterPlot
-                        data={selectedGraphData?.data || graphData}
-                        properties={graphProperties}
-                        width={dimensions.width}
-                        height={dimensions.height}
-                        lineData={lineData}
-                      />
-                      {R_squared ? (
-                        <div className="relative mt-2 p-2 text-center">
-                        <h5 className="text-lg font-semibold text-gray-800">
-                          Linear regression line: y = {slope.toFixed(2)}x +{" "}
-                          {intercept.toFixed(2)}
-                        </h5>
-                        <h6 className="text-md font-medium text-gray-700 mt-1">
-                          R<sup>2</sup> (coefficient of determination): {""}
-                          {R_squared.toFixed(2)}
-                        </h6>
-                        {R_squared < 0.5 ? (
-                          <p className="text-sm mt-2 text-gray-600">
-                          The linear model explains less than 50% of the
-                          variability in the data, suggesting a poor fit.
-                          </p>
+                        <ScatterPlot
+                          data={selectedGraph ? selectedGraphData : graphData}
+                          properties={
+                            selectedGraph
+                              ? selectedGraphProperties
+                              : graphProperties
+                          }
+                          width={dimensions.width}
+                          height={dimensions.height}
+                          lineData={lineData ? lineData : []}
+                        />
+                        {R_squared ? (
+                          <div className="relative mt-2 p-2 text-center">
+                            <h5 className="text-lg font-semibold text-gray-800">
+                              Linear regression line: y = {slope.toFixed(2)}x +{" "}
+                              {intercept.toFixed(2)}
+                            </h5>
+                            <h6 className="text-md font-medium text-gray-700 mt-1">
+                              R<sup>2</sup> (coefficient of determination): {""}
+                              {R_squared.toFixed(2)}
+                            </h6>
+                            {R_squared < 0.5 ? (
+                              <p className="text-sm mt-2 text-gray-600">
+                                The linear model explains less than 50% of the
+                                variability in the data, suggesting a poor fit.
+                              </p>
+                            ) : (
+                              <p className="text-sm mt-2 text-gray-600">
+                                The linear model explains more than 50% of the
+                                variability in the data, suggesting a moderate
+                                to strong fit.
+                              </p>
+                            )}
+                          </div>
                         ) : (
-                          <p className="text-sm mt-2 text-gray-600">
-                          The linear model explains more than 50% of the
-                          variability in the data, suggesting a moderate
-                          to strong fit.
-                          </p>
+                          ""
                         )}
-                        </div>
-                      ) : (
-                        ""
-                      )}
                       </div>
                     </>
                   ) : null}

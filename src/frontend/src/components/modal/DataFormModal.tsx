@@ -7,7 +7,7 @@ import { FormDataContext } from "../../pages/DataVisualize";
 import { useQuery, gql } from "@apollo/client";
 import MultipleSelectCheckmarks from "../dropdown/MultiSelectDropDown";
 
-interface GenerateGraphModal {
+interface GenerateGraphModalProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit: any;
 }
@@ -16,7 +16,7 @@ const graphTypes = [
   { value: "line", label: "Line Chart" },
   { value: "scatter", label: "Scatter Plot" },
 ];
-const paramType = [
+const paramTypes = [
   { value: "data", label: "Raw Data Sheet" },
   { value: "experiments", label: "Experiment Log File" },
 ];
@@ -69,26 +69,24 @@ const FILTER_COLLECTDATE = gql`
   }
 `;
 
-const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
+const GenerateGraphModal: React.FC<GenerateGraphModalProps> = ({
   setOpenModal,
   onSubmit,
 }) => {
   // Imported states
   const {
-    selectedGraphType,
-    setSelectedGraphType,
-    selectedFilterParamType,
-    setSelectedFilterParamType,
-    selectedFilterParam,
-    setSelectedFilterParam,
-    selectedFilterValue,
-    setSelectedFilterValue,
-    selectedParamType,
-    setSelectedParamType,
-    selectedParamX,
-    setSelectedParamX,
-    selectedParamY,
-    setSelectedParamY,
+    graphType,
+    setGraphType,
+    filterParam,
+    setFilterParam,
+    filterValue,
+    setFilterValue,
+    paramType,
+    setParamType,
+    paramX,
+    setParamX,
+    paramY,
+    setParamY,
     selectedDates,
     setSelectedDates,
     timeMinX,
@@ -143,10 +141,10 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     getFilterCollectionAttrValues: any[];
   }>(GET_ATTR_VALUES, {
     variables: {
-      collection: selectedFilterParamType,
-      attribute: selectedFilterParam,
+      collection: "experiments",
+      attribute: filterParam,
     },
-    skip: !selectedFilterParamType || !selectedFilterParam,
+    skip: !filterParam
   });
 
   const filterValues = (filterVals?.getFilterCollectionAttrValues ?? []).map(
@@ -160,12 +158,11 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     getFilterCollectionDates: any[];
   }>(FILTER_COLLECTDATE, {
     variables: {
-      collection: selectedFilterParamType,
-      attribute: selectedFilterParam,
-      filterValue: selectedFilterValue,
+      collection: "experiments",
+      attribute: filterParam,
+      filterValue: filterValue,
     },
-    skip:
-      !selectedFilterParamType || !selectedFilterParam || !selectedFilterValue,
+    skip: !filterParam || !filterValue,
   });
 
   const filterDates = filteredDates?.getFilterCollectionDates ?? [];
@@ -174,11 +171,11 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     getFilterCollectionDates: any[];
   }>(FILTER_COLLECTDATE, {
     variables: {
-      collection: selectedParamType,
+      collection: "experiments",
       attribute: "",
       filterValue: "",
     },
-    skip: Boolean(selectedFilterParamType),
+    skip: Boolean(filterParam),
   });
 
   const allDates = dates?.getFilterCollectionDates ?? [];
@@ -198,18 +195,17 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
   const isNextDisabled = () => {
     // Disable Next button based on the required fields for the current step
     if (activeStep === 0) {
-      return !selectedGraphType;
+      return !graphType;
     }
     if (activeStep === 1) {
       return !(
-        (!selectedFilterParam &&
-          !selectedFilterParamType &&
-          !selectedFilterValue) ||
-        (selectedFilterParam && selectedFilterParamType && selectedFilterValue)
+        (!filterParam &&
+          !filterValue) ||
+        (filterParam && filterValue)
       );
     }
     if (activeStep === 2) {
-      return !selectedParamType || !selectedParamX || !selectedParamY;
+      return !paramType || !paramX || !paramY;
     }
     if (activeStep === 3) {
       return selectedDates.length === 0;
@@ -273,7 +269,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     let isValid = true;
 
     // Validate X Axis
-    if (selectedParamX === "Time") {
+    if (paramX === "Time") {
       const timeMinXSeconds = timeStringToSeconds(timeMinX);
       const timeMaxXSeconds = timeStringToSeconds(timeMaxX);
       if (timeMinXSeconds > timeMaxXSeconds) {
@@ -292,7 +288,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
     }
 
     // Validate Y Axis
-    if (selectedParamY === "Time") {
+    if (paramY === "Time") {
       const timeMinYSeconds = timeStringToSeconds(timeMinY);
       const timeMaxYSeconds = timeStringToSeconds(timeMaxY);
       if (timeMinYSeconds > timeMaxYSeconds) {
@@ -319,7 +315,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
   };
 
   return (
-    <div className="w-screen h-screen bg-gray-200 bg-opacity-50 fixed flex justify-center items-center">
+    <div className="fixed flex justify-center items-center inset-0 z-50 bg-gray-200 bg-opacity-50">
       <div className="max-w-xl w-full bg-white rounded-lg shadow-lg flex flex-col p-5 ">
         <div className="flex justify-between items-center border-b">
           <h1 className="text-xl">Generate Graph</h1>
@@ -350,8 +346,8 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                   options={graphTypes}
                   label="Graph Type"
                   required={true}
-                  onChange={setSelectedGraphType}
-                  value={selectedGraphType}
+                  onChange={setGraphType}
+                  value={graphType}
                 />
               }
             />
@@ -360,46 +356,33 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
           {/* Filter */}
           {activeStep === 1 && (
             <div>
+              <p className="text-sm text-gray-600 font-medium -mt-4 mb-6 mx-6">
+                Filter out experiments by an attribute in the experiment log. If no filter is selected, all experiments will be included when selecting experiment dates.
+              </p> 
               <Input
-                label="Parameter Type"
-                description="Filter with datasheet or experiment attributes"
-                children={
-                  <SingleDropdown
-                    options={paramType}
-                    label="Param Type"
-                    onChange={setSelectedFilterParamType}
-                    value={selectedFilterParamType}
-                  />
-                }
-              />
-              <Input
-                label="Filter Parameters"
-                description="Narrow down the data points with an attribute"
+                label="Filter Condition"
+                description="Select an attribute from the experiment log to filter by"
                 children={
                   <div className="flex flex-col text-end">
                     <SingleDropdown
-                      options={
-                        selectedFilterParamType === "data"
-                          ? datasheetParam
-                          : experimentParam
-                      }
+                      options={experimentParam}
                       label="Filter Attribute"
-                      onChange={setSelectedFilterParam}
-                      value={selectedFilterParam}
+                      onChange={setFilterParam}
+                      value={filterParam}
                     />
                   </div>
                 }
               />
               <Input
-                label="Filter Parameters"
-                description="Filter by a value"
+                label="Filter Value"
+                description="Select a value for the selected attribute to filter by"
                 children={
                   <div>
                     <SingleDropdown
                       options={filterValues}
                       label="Attribute Value"
-                      onChange={setSelectedFilterValue}
-                      value={selectedFilterValue}
+                      onChange={setFilterValue}
+                      value={filterValue}
                     />
                   </div>
                 }
@@ -414,11 +397,11 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                 description="Filter with datasheet or experiment attributes"
                 children={
                   <SingleDropdown
-                    options={paramType}
+                    options={paramTypes}
                     label="Param Type"
                     required={true}
-                    onChange={setSelectedParamType}
-                    value={selectedParamType}
+                    onChange={setParamType}
+                    value={paramType}
                   />
                 }
               />
@@ -429,25 +412,25 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                   <div className="flex flex-col text-end">
                     <SingleDropdown
                       options={
-                        selectedParamType === "data"
+                        paramType === "data"
                           ? datasheetParam
                           : experimentParam
                       }
                       label="X"
                       required={true}
-                      onChange={setSelectedParamX}
-                      value={selectedParamX}
+                      onChange={setParamX}
+                      value={paramX}
                     />
                     <SingleDropdown
                       options={
-                        selectedParamType === "data"
+                        paramType === "data"
                           ? datasheetParam
                           : experimentParam
                       }
                       label="Y"
                       required={true}
-                      onChange={setSelectedParamY}
-                      value={selectedParamY}
+                      onChange={setParamY}
+                      value={paramY}
                     />
                   </div>
                 }
@@ -505,7 +488,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                           <p className="text-red-500 text-sm">{xAxisError}</p>
                         )}
                       </div>
-                      {selectedParamX === "Time" ? (
+                      {paramX === "Time" ? (
                         <div className="flex justify-between">
                           <TextField
                             sx={{ maxWidth: 120, marginRight: 4 }}
@@ -557,7 +540,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModal> = ({
                           <p className="text-red-500 text-sm">{yAxisError}</p>
                         )}
                       </div>
-                      {selectedParamY === "Time" ? (
+                      {paramY === "Time" ? (
                         <div className="flex justify-between">
                           <TextField
                             sx={{ maxWidth: 120, marginRight: 4 }}

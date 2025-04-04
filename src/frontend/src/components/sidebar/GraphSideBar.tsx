@@ -1,16 +1,12 @@
 import type React from "react";
-
 import { useContext, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import {
-  Add,
-  KeyboardDoubleArrowRight,
-  BarChart,
-  ScatterPlot,
-  ShowChart,
-  History,
-} from "@mui/icons-material";
-import Button from "@mui/material/Button";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import AddIcon from "@mui/icons-material/Add";
+import HistoryIcon from "@mui/icons-material/History";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
+import ScatterPlotIcon from "@mui/icons-material/ScatterPlot";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GenerateGraphModal from "../modal/DataFormModal";
 import { FormDataContext } from "../../pages/DataVisualize";
@@ -20,12 +16,20 @@ type GraphSideBarProps = {
   onSubmit: () => void;
   onGraphSelect: (graphData: any) => void;
   deleteGraph: (graphId: number) => Promise<void>;
-};
+  isOpen: boolean;
+  onToggleSidebar: (value: boolean) => void;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const GraphSideBar: React.FC<GraphSideBarProps> = ({
   onSubmit,
   onGraphSelect,
   deleteGraph,
+  isOpen,
+  onToggleSidebar,
+  isModalOpen,
+  setIsModalOpen,
 }) => {
   const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
 
@@ -34,14 +38,11 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
     latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
     [];
 
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [modalOpen, setModalOpen] = useState(false);
-
   const {
-    setSelectedGraphType,
-    setSelectedParamType,
-    setSelectedParamX,
-    setSelectedParamY,
+    setGraphType,
+    setParamType,
+    setParamX,
+    setParamY,
     setXValue,
     setYValue,
     setSelectedDates,
@@ -60,10 +61,10 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
   } = useContext(FormDataContext);
 
   const resetFields = () => {
-    setSelectedGraphType("");
-    setSelectedParamType("");
-    setSelectedParamX("");
-    setSelectedParamY("");
+    setGraphType("");
+    setParamType("");
+    setParamX("");
+    setParamY("");
     setXValue("");
     setYValue("");
     setSelectedDates([]);
@@ -81,36 +82,18 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
     setSubmit(false);
   };
 
-  const handleGraphData = (graphData: any) => {
-    setSelectedGraphType(graphData.graphtype);
-    setGraphTitle(graphData.properties[0]?.["graph title"] || "");
-    setTimeMinX(graphData.properties[0]?.["x time min"] || "");
-    setTimeMaxX(graphData.properties[0]?.["x time max"] || "");
-    setTimeMinY(graphData.properties[0]?.["y time min"] || "");
-    setTimeMaxY(graphData.properties[0]?.["y time max"] || "");
-    setMinX(graphData.properties[0]?.["min x"] || "");
-    setMaxX(graphData.properties[0]?.["max x"] || "");
-    setMinY(graphData.properties[0]?.["min y"] || "");
-    setMaxY(graphData.properties[0]?.["max y"] || "");
-    setXLabel(graphData.properties[0]?.["x label"] || "");
-    setYLabel(graphData.properties[0]?.["y label"] || "");
-
-    onGraphSelect(graphData);
-    setSubmit(true);
-  };
-
   const handleSelectGraph = (id: number) => {
     setSelectedGraphId(id);
-    const selectedGraph = latestGraphs.find((graph) => graph._id === id);
-    if (selectedGraph) {
-      handleGraphData(selectedGraph);
+    const graphData = latestGraphs.find((graph) => graph._id === id);
+    if (graphData) {
+      onGraphSelect(graphData);
     }
   };
 
   return (
-    <div className="flex">
+    <>
       <div
-        className={`${
+        className={`sidebar ${
           isOpen ? "min-w-72" : "min-w-20"
         } relative h-screen overflow-hidden rounded-r-xl border-r border-white/20 bg-white/95 p-5 pt-2 shadow-[5px_0_30px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-all duration-300`}
       >
@@ -121,37 +104,36 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
         {/* Toggle button */}
         <IconButton
           color="primary"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => onToggleSidebar(!isOpen)}
           className={`absolute -right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md transition-all hover:bg-blue-50 ${
             !isOpen && "rotate-180"
           } transform transition-transform ${
             !isOpen ? "left-1/2 -translate-x-1/2 transform" : "left-auto"
           }`}
         >
-          <KeyboardDoubleArrowRight className="text-blue-500" />
+          <KeyboardDoubleArrowRightIcon className="text-blue-500" />
         </IconButton>
 
         {/* Content */}
         <div className="relative z-10 flex flex-col h-[calc(100%-20px)] pt-6">
           {/* New Graph Button Section */}
           <div className="mb-4">
-            <div
-              className={`flex items-center ${isOpen ? "justify-between" : ""}`}
-            >
+            <div className="flex items-center justify-between">
               <div className="flex items-center pl-[0.65rem]">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
-                  <Add className="text-blue-600" />
+                  <AddIcon className="text-blue-600" />
                 </div>
                 {isOpen && (
-                  <Button
-                    className="ml-2 text-sm font-semibold text-blue-900 hover:bg-blue-50/70"
+                  <button
+                    className="text-sm font-bold text-blue-500 hover:bg-blue-50/70 
+                    rounded-md px-1 py-2 transition-all"
                     onClick={() => {
-                      setModalOpen(true);
+                      setIsModalOpen(true);
                       resetFields();
                     }}
                   >
-                    Generate New Graph
-                  </Button>
+                    GENERATE NEW GRAPH
+                  </button>
                 )}
               </div>
             </div>
@@ -159,78 +141,80 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
 
           {/* Recent Graphs Section */}
           <div className="flex-1 flex flex-col mt-2 overflow-hidden">
-            <div
-              className={`flex items-center ${isOpen ? "justify-between" : ""}`}
-            >
+            <div className="flex items-center justify-between">
               <div className="flex items-center pl-[0.65rem]">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
-                  <History className="text-blue-600" />
+                  <HistoryIcon className="text-blue-600" />
                 </div>
                 {isOpen && (
-                  <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
-                    RECENTLY GENERATED GRAPHS
+                  <span className="ml-2 text-xs font-semibold text-blue-500">
+                    RECENT GRAPHS
                   </span>
                 )}
               </div>
             </div>
 
             {/* Graphs List - scrollable area */}
-            <div className="flex-1 overflow-y-auto pl-[0.9rem] pr-1 mt-1">
+            <div className="flex-1 overflow-y-auto pl-[0.9rem] pr-1 scrollbar-thin">
               <ul className="pb-4">
                 {loading ? (
-                  <li className="text-sm font-semibold text-blue-400">
+                  <li className="flex justify-between rounded-lg my-2 text-sm  font-semibold text-blue-600 animate-pulse whitespace-nowrap overflow-hidden text-ellipsis">
                     LOADING...
                   </li>
                 ) : error ? (
-                  <li className="text-sm font-semibold text-red-500">
-                    Error fetching graphs
+                  <li className="flex justify-between rounded-lg my-2 text-sm font-semibold
+                  text-red-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                    Error Fetching Graphs
                   </li>
                 ) : (
-                  validGraphs.map((r) => (
+                  validGraphs.map((graph, index) => (
                     <li
-                      key={r._id}
-                      onClick={() => handleSelectGraph(r._id)}
-                      className={` group flex justify-between ${
-                        isOpen ? "gap-2" : ""
-                      } cursor-pointer items-center rounded-lg p-1 mb-0.5 transition-all duration-200 hover:bg-blue-50/70 ${
-                        selectedGraphId === r._id
+                      key={`graph-${index}`}
+                      onClick={() => handleSelectGraph(graph._id)}
+                      className={`group flex items-center ${
+                        isOpen ? "justify-between" : "justify-center"
+                      } cursor-pointer rounded-lg p-1 my-2 transition-all duration-200
+                      hover:bg-blue-50/70 ${
+                        selectedGraphId === graph._id
                           ? "bg-blue-100/70 shadow-sm"
                           : ""
                       }`}
                     >
-                      <div>
-                        {r.graphtype === "bar" ? (
-                          <BarChart
+                      <div className="flex items-center">
+                        {graph.graphtype === "bar" ? (
+                          <BarChartIcon
                             className="text-blue-600"
                             fontSize="small"
                           />
-                        ) : r.graphtype === "line" ? (
-                          <ShowChart
+                        ) : graph.graphtype === "line" ? (
+                          <ShowChartIcon
                             className="text-blue-600"
                             fontSize="small"
                           />
-                        ) : r.graphtype === "scatter" ? (
-                          <ScatterPlot
+                        ) : graph.graphtype === "scatter" ? (
+                          <ScatterPlotIcon
                             className="text-blue-600"
                             fontSize="small"
                           />
                         ) : null}
                         {isOpen && (
-                          <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
-                            {r.properties[0]?.["graph title"] === ""
-                              ? r.graphtype + " Graph"
-                              : r.properties[0]?.["graph title"]}
+                          <span className="ml-2 text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {graph.properties[0]?.["graph title"] === ""
+                              ? graph.graphtype + " Graph"
+                              : graph.properties[0]?.["graph title"]}
                           </span>
                         )}
                       </div>
-                      <DeleteIcon
-                        className="invisible group-hover:visible text-gray-600"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteGraph(r._id);
-                          refetch();
-                        }}
-                      ></DeleteIcon>
+                      {isOpen && (
+                        <DeleteIcon
+                          className="invisible group-hover:visible text-blue-900"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteGraph(graph._id);
+                            refetch();
+                          }}
+                        />
+                      )}
                     </li>
                   ))
                 )}
@@ -239,10 +223,12 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
           </div>
         </div>
       </div>
-      {modalOpen && (
-        <GenerateGraphModal setOpenModal={setModalOpen} onSubmit={onSubmit} />
-      )}
-    </div>
+      <div>
+        {isModalOpen && (
+          <GenerateGraphModal setOpenModal={setIsModalOpen} onSubmit={onSubmit} />
+        )}
+      </div>
+    </>
   );
 };
 
