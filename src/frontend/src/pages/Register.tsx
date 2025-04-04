@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 
-const REGISTER_MUTATION = gql`
+const REGISTER = gql`
   mutation register($email: String!, $password: String!, $role: String!) {
     register(email: $email, password: $password, role: $role) {
       status
@@ -19,7 +19,7 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [register] = useMutation(REGISTER_MUTATION);
+  const [register] = useMutation(REGISTER);
 
   const navigate = useNavigate();
 
@@ -202,7 +202,6 @@ const Register = () => {
                   <option value="" disabled>
                     Select a role
                   </option>
-                  <option value="admin">Admin</option>
                   <option value="researcher">Researcher</option>
                   <option value="assistant">Research Assistant</option>
                 </select>

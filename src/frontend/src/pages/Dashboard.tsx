@@ -126,8 +126,6 @@ const Dashboard = () => {
                       }`}
                       style={{ transitionDelay: `${index * 150}ms` }}
                     >
-                      <div className="absolute z-50 inset-0 bg-gradient-to-br from-blue-100 to-indigo-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-
                       <div className="z-40 absolute top-3.5 left-1/2 transform -translate-x-1/2">
                         <span className="text-base font-bold text-black">
                           {properties[0]?.["graph title"] !== ""

@@ -1,13 +1,25 @@
 import { useState } from "react";
-import Person from "@mui/icons-material/Person";
 import { ClickAwayListener } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useAuth } from "../../context/authContext";
+
+const LOGOUT = gql`
+  mutation logout($token: String!) {
+    logout(token: $token) {
+      status
+      message
+    }
+  }
+`;
 
 const AccountMenu = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { handleLogout } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { cookies, handleLogout } = useAuth();
+  const [logout] = useMutation(LOGOUT);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,9 +29,21 @@ const AccountMenu = () => {
     setIsMenuOpen(false);
   };
 
-  const handleSubmit = () => {
-    handleLogout();
-    navigate("/");
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const { data } = await logout({
+        variables: { token: cookies.session },
+      });
+      if (data?.logout?.status === "success") {
+        handleLogout();
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,12 +68,13 @@ const AccountMenu = () => {
 
       {isMenuOpen && (
         <ClickAwayListener onClickAway={handleClickOutside}>
-          <div className="absolute mb-2 left-16 bg-white shadow-lg rounded-lg w-20 z-auto text-red-700">
+          <div className="absolute flex w-auto p-1 mb-2 left-16 bg-white shadow-lg rounded-lg z-auto text-red-700 whitespace-nowrap text-lg">
             <button
               onClick={handleSubmit}
-              className="block w-full py-2 px-4 cursor-pointer text-left hover:bg-gray-200"
+              className="py-2 px-4 cursor-pointer text-left rounded-lg hover:bg-gray-200 transition-all disabled:bg-white"
+              disabled={loading}
             >
-              Logout
+              {loading ? <span>Logging out...</span> : <span>Logout</span>}
             </button>
           </div>
         </ClickAwayListener>

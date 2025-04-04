@@ -12,6 +12,7 @@ const GET_CURRENT_USER = gql`
 `;
 
 interface AuthContextType {
+  cookies: { session?: any };
   isLoggedIn: boolean;
   userRole: { email: string; role: string };
   handleLogin: (token: string) => void;
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     role: string;
   }>({ email: "", role: "" });
 
-  const { data, loading, error } = useQuery(GET_CURRENT_USER, {
+  const { data, error } = useQuery(GET_CURRENT_USER, {
     variables: { token: cookies.session },
     skip: !cookies.session || Boolean(userRole.email),
   });
@@ -43,6 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
       } else if (error) {
         setUserRole({ email: "", role: "" });
+        setIsLoggedIn(false);
       }
     } else {
       setIsLoggedIn(false);
@@ -51,12 +53,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   const handleLogin = (token: string) => {
-    setCookies("session", token, { path: "/", secure: true, sameSite: "none" });
+    setCookies("session", token, { path: "/", secure: true, sameSite: "lax", expires: new Date(Date.now() + 1800 * 1000) }); // 30min expiration
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    removeCookie("session", { path: "/", secure: true, sameSite: "none" });
+    removeCookie("session");
     setUserRole({ email: "", role: "" });
     setIsLoggedIn(false);
   };
@@ -64,6 +66,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthContext.Provider
       value={{
+        cookies,
         isLoggedIn,
         userRole,
         handleLogin,

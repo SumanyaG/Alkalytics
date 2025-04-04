@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import { useAuth } from "../context/authContext";
 
-const LOGIN_MUTATION = gql`
+const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       status
@@ -21,7 +21,7 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [login] = useMutation(LOGIN_MUTATION);
+  const [login] = useMutation(LOGIN);
   const { handleLogin } = useAuth();
 
   const navigate = useNavigate();
@@ -99,12 +99,6 @@ const Login = () => {
               >
                 Password
               </label>
-              <a
-                href="/login"
-                className="text-xs text-blue-400/90 hover:text-blue-300"
-              >
-                Forgot password?
-              </a>
               </div>
               <div className="group relative">
               <input
