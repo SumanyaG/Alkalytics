@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import GenerateGraphModal from "../modal/DataFormModal";
 import { FormDataContext } from "../../pages/DataVisualize";
 import useGraphs from "../../hooks/useGraphs";
+import RemoveGraphModal from "../modal/RemoveGraphModal";
 
 type GraphSideBarProps = {
   onSubmit: () => void;
@@ -32,8 +33,11 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
   setIsModalOpen,
 }) => {
   const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const[ error, setError] = useState(false);
 
-  const { latestGraphs, loading, error, refetch } = useGraphs(0);
+  const { latestGraphs, loading : graphsLoading, error : graphsError, refetch } = useGraphs(0);
   const validGraphs =
     latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
     [];
@@ -89,6 +93,28 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
       onGraphSelect(graphData);
     }
   };
+
+  const handleRemoveGraph = async () => {
+    if (selectedGraphId === null) return;
+
+    setLoading(true);
+    setError(false);
+
+    if (selectedGraphId !== null) {
+      try {
+        await deleteGraph(selectedGraphId);
+        setIsRemoveModalOpen(false);
+        setSelectedGraphId(null);
+        refetch();
+      } catch (error) {
+        setError(true);
+        console.error("Error deleting graph:", error);
+      }
+      finally {
+        setLoading(false);
+      }
+    }
+  }
 
   return (
     <>
@@ -157,11 +183,11 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
             {/* Graphs List - scrollable area */}
             <div className="flex-1 overflow-y-auto pl-[0.9rem] pr-1 scrollbar-thin">
               <ul className="pb-4">
-                {loading ? (
+                {graphsLoading ? (
                   <li className="flex justify-between rounded-lg my-2 text-sm  font-semibold text-blue-600 animate-pulse whitespace-nowrap overflow-hidden text-ellipsis">
                     LOADING...
                   </li>
-                ) : error ? (
+                ) : graphsError ? (
                   <li className="flex justify-between rounded-lg my-2 text-sm font-semibold
                   text-red-500 whitespace-nowrap overflow-hidden text-ellipsis">
                     Error Fetching Graphs
@@ -210,8 +236,8 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
                           className="invisible group-hover:visible text-blue-900"
                           onClick={(e) => {
                             e.stopPropagation();
-                            deleteGraph(graph._id);
-                            refetch();
+                            setSelectedGraphId(graph._id);
+                            setIsRemoveModalOpen(true);
                           }}
                         />
                       )}
@@ -227,6 +253,10 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
         {isModalOpen && (
           <GenerateGraphModal setOpenModal={setIsModalOpen} onSubmit={onSubmit} />
         )}
+      </div>
+      <div>
+        {isRemoveModalOpen && (
+          <RemoveGraphModal setIsModalOpen={setIsRemoveModalOpen} onConfirm={handleRemoveGraph} isLoading={loading} error={error} />)}
       </div>
     </>
   );
