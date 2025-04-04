@@ -25,7 +25,7 @@ const SetColumnTypesModal: React.FC<SetColumnTypesModalProps> = ({
   const [newColumnTypes, setNewColumnTypes] = useState<Record<string, string>>(
     () =>
       filteredColumns.reduce((acc, column) => {
-        acc[column] = columnTypes[0][column] || "none";
+        acc[column] = columnTypes[0]?.[column] || "none";
         return acc;
       }, {} as Record<string, string>)
   );
@@ -38,21 +38,21 @@ const SetColumnTypesModal: React.FC<SetColumnTypesModalProps> = ({
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
+    setError(false);
+
     try {
-      setLoading(true);
-      setError(false);
       const response = await onUpdateColumnTypes(newColumnTypes);
-      if (response && response.success) {
-        setLoading(false);
+      if (response) {
         setIsModalOpen(false);
       } else {
         setError(true);
-        setLoading(false);
       }
     } catch (err) {
-      setLoading(false);
       setError(true);
       console.error("Error updating column types:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,14 +60,14 @@ const SetColumnTypesModal: React.FC<SetColumnTypesModalProps> = ({
     const hasChanges = Object.keys(newColumnTypes).some(
       (column) =>
         newColumnTypes[column] !== "none" &&
-        newColumnTypes[column] !== columnTypes[0][column]
+        newColumnTypes[column] !== columnTypes[0]?.[column]
     );
     setIsChanged(hasChanges);
 
     const warningCols = filteredColumns.filter(
       (column) =>
         newColumnTypes[column] !== "none" &&
-        newColumnTypes[column] !== columnTypes[0][column]
+        newColumnTypes[column] !== columnTypes[0]?.[column]
     );
     setWarningColumns(warningCols);
   }, [newColumnTypes, columnTypes]);
@@ -77,9 +77,9 @@ const SetColumnTypesModal: React.FC<SetColumnTypesModalProps> = ({
       <div
         className={`w-full max-w-md overflow-hidden rounded-xl border-4 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm ${
           loading
-            ? "border-yellow-500"
+            ? "border-yellow-500/50"
             : error
-            ? "border-red-500"
+            ? "border-red-500/50"
             : "border-white/20"
         }`}
       >
@@ -111,7 +111,7 @@ const SetColumnTypesModal: React.FC<SetColumnTypesModalProps> = ({
                   key={column}
                   className={`flex items-center justify-between gap-x-4 rounded-lg border p-3 transition-all ${
                     newColumnTypes[column] !== "none" &&
-                    newColumnTypes[column] !== columnTypes[0][column]
+                    newColumnTypes[column] !== columnTypes[0]?.[column]
                       ? "border-blue-100 bg-blue-50/50"
                       : "border-blue-50 bg-blue-50/30 hover:border-blue-100 hover:bg-blue-50/50"
                   }`}

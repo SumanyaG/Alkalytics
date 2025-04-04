@@ -87,8 +87,8 @@ const Table: React.FC<TableProps> = ({
   const [isRemoveColumnModalOpen, setIsRemoveColumnModalOpen] = useState(false);
   const [isRemoveRowModalOpen, setIsRemoveRowModalOpen] = useState(false);
   const [isColumnTypesModalOpen, setIsColumnTypesModalOpen] = useState(false);
-  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [isEfficiencyModalOpen, setIsEfficiencyModalOpen] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
 
   const [addColumn] = useMutation(ADD_COLUMN);
   const [addRow] = useMutation(ADD_ROW);
@@ -117,7 +117,7 @@ const Table: React.FC<TableProps> = ({
 
     const keys = Object.keys(data[data.length - 1]);
     return keys
-      .filter((k) => k !== "Notes")
+      .filter((k) => k !== "Notes" && k!== "_id")
       .concat(keys.includes("Notes") ? ["Notes"] : []);
   }, [data]);
 
@@ -209,9 +209,7 @@ const Table: React.FC<TableProps> = ({
     }
   };
 
-  const handleSetColumnTypes = async (
-    newColumnTypes: Record<string, string>
-  ) => {
+  const handleSetColumnTypes = async (newColumnTypes: Record<string, string>) => {
     try {
       const { data } = await setColumnTypes({
         variables: { newColumnTypes },
@@ -225,17 +223,17 @@ const Table: React.FC<TableProps> = ({
   };
 
   const handleCompute = async (
-    experimentId: string,
+    selectedExperiment: string,
     selectedEfficiencies: string[],
-    timeInterval: number
+    selectedTimeInterval: number
   ) => {
     try {
       const { data } = await computeEfficiency({
-        variables: { experimentId, selectedEfficiencies, timeInterval },
+        variables: { experimentId: selectedExperiment, selectedEfficiencies: selectedEfficiencies, timeInterval: selectedTimeInterval},
       });
       if (data.computeEfficiency) {
         setIsEfficiencyModalOpen(false);
-        refetchData();
+        refetchEfficiencies();
       }
     } catch (error) {
       console.error("Error computing efficiencies:", error);

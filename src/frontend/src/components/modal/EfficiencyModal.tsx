@@ -78,25 +78,28 @@ const EfficiencyModal: React.FC<EfficiencyModalProps> = ({
   }, [selectedExperiment]);
 
   const handleSubmit = async () => {
+    setLoading(true);
+    setError(false);
+    setErrorMessage("");
+
     try {
-      setLoading(true);
-      setError(false);
-      setErrorMessage("");
       const response = await onComputeEfficiencies(
         selectedExperiment,
         selectedEfficiencies,
         selectedTimeInterval
       );
-      if (response && response.success) {
+      if (response) {
         setIsModalOpen(false);
       } else {
-        setLoading(false);
         setError(true);
+        setErrorMessage("An error occurred while computing efficiencies.");
       }
     } catch (err) {
       setError(true);
       console.error("Error computing efficiencies:", err);
-      setErrorMessage("An error occurred while computing efficiencies. Please try again.");
+      setErrorMessage(
+        "An error occurred while computing efficiencies."
+      );
     } finally {
       setLoading(false);
     }
@@ -170,8 +173,8 @@ const EfficiencyModal: React.FC<EfficiencyModalProps> = ({
               </select>
               {selectedTimeInterval === 0 && (
                 <p className="text-sm mt-1">
-                  This will calculate the selected efficiency factors across all
-                  experiment data.
+                  This will calculate the selected efficiency factors across the
+                  entire experiment duration.
                 </p>
               )}
               {selectedTimeInterval > 0 && (
@@ -218,7 +221,7 @@ const EfficiencyModal: React.FC<EfficiencyModalProps> = ({
             </div>
           </section>
 
-          {error && <p className="text-red-600 text-sm">{errorMessage}</p>}
+          {error ? <p className="text-red-600 text-sm">{errorMessage}</p> : ""}
 
           <div className="flex justify-end space-x-4 mt-6">
             <button
@@ -232,7 +235,7 @@ const EfficiencyModal: React.FC<EfficiencyModalProps> = ({
             <button
               onClick={handleSubmit}
               disabled={
-                !selectedExperiment || !selectedEfficiencies.length || loading
+                !selectedExperiment || !selectedEfficiencies.length || loading || error
               }
               className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:shadow-lg disabled:opacity-50 disabled:shadow-none"
             >

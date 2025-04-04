@@ -93,9 +93,9 @@ const AddRowModal: React.FC<AddRowModalProps> = ({
       <div
         className={`w-full max-w-xl overflow-hidden rounded-xl border-4 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-all ${
           loading
-            ? "border-yellow-300/50"
+            ? "border-yellow-500/50"
             : error
-            ? "border-red-300/50"
+            ? "border-red-500/50"
             : "border-white/20"
         }`}
       >

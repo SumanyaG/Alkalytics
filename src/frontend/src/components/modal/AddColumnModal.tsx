@@ -64,7 +64,6 @@ const AddColumnModal: React.FC<AddColumnModalProps> = ({
                 placeholder="Enter column name"
                 disabled={loading}
               />
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/10 to-blue-500/5 opacity-0 blur transition-opacity duration-300 group-hover:opacity-100"></div>
             </div>
             {error && (
               <p className="mt-2 flex items-center text-sm text-red-500">

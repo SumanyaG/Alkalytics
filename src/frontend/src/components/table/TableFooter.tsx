@@ -318,8 +318,8 @@ const TableFooter: React.FC<TableFooterProps> = ({
           </div>
         )}
 
-        {graphType === "experiment" && userRole.role !== "assistant" && (
-          <div className="flex relative">
+        {graphType === "experiment" && (
+          <div className="flex items-center">
             <button
               onClick={handleComputeEff}
               className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-bold text-white shadow-md transition-all duration-200 hover:shadow-lg"

@@ -3,9 +3,7 @@ import Table from "../components/table/Table";
 import ListSidebar from "../components/sidebar/ListSidebar";
 import useTable from "../hooks/useTable";
 
-type TableViewProps = {};
-
-const TableView: React.FC<TableViewProps> = () => {
+const TableView: React.FC = () => {
   const {
     ids,
     selectedExperiment,
