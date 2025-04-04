@@ -7,24 +7,17 @@ interface DataPoint {
   y: number;
 }
 
-interface GraphProperties {
-  "graph title"?: string;
-  "Selected Dates"?: string[];
-  "x time min"?: number;
-  "x time max"?: number;
-  "y time min"?: number;
-  "y time max"?: number;
-  "min x"?: number;
-  "max x"?: number;
-  "min y"?: number;
-  "max y"?: number;
-  "x label"?: string;
-  "y label"?: string;
-}
-
 interface LineGraphProps {
   data: DataPoint[];
-  properties?: GraphProperties;
+  properties?: {
+    "graph title"?: string;
+    "x label"?: string;
+    "y label"?: string;
+    "min x"?: number;
+    "max x"?: number;
+    "min y"?: number;
+    "max y"?: number;
+  };
   width?: number;
   height?: number;
 }
@@ -32,49 +25,66 @@ interface LineGraphProps {
 const LineGraph: React.FC<LineGraphProps> = ({ 
   data, 
   properties = {},
-  width = 928,
-  height = 600
+  width = 800,
+  height = 500
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!data || data.length === 0 || !svgRef.current) return;
 
-    d3.select(svgRef.current).selectAll("*").remove();
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove();
 
-    const margin = {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 40
-    };
-
+    const margin = { top: 50, right: 50, bottom: 70, left: 70 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const svg = d3.select(svgRef.current)
+    svg
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .style("overflow", "visible");
 
     const g = svg.append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     const sortedData = [...data].sort((a, b) => a.x - b.x);
 
-    const xMin = properties["min x"] ?? d3.min(data, d => d.x) ?? 0;
-    const xMax = properties["max x"] ?? d3.max(data, d => d.x) ?? 0;
-    const yMin = properties["min y"] ?? d3.min(data, d => d.y) ?? 0;
-    const yMax = properties["max y"] ?? d3.max(data, d => d.y) ?? 0;
+    const xDomain = [
+      properties["min x"] ?? d3.min(data, d => d.x) ?? 0,
+      properties["max x"] ?? d3.max(data, d => d.x) ?? 1
+    ];
+    const yDomain = [
+      properties["min y"] ?? d3.min(data, d => d.y) ?? 0,
+      properties["max y"] ?? d3.max(data, d => d.y) ?? 1
+    ];
 
-    const xScale = d3.scaleUtc()
-      .domain([xMin, xMax])
-      .range([margin.left, width - margin.right])
+    const xScale = d3.scaleLinear()
+      .domain([xDomain[0] - (xDomain[1] - xDomain[0]) * 0.05, 
+               xDomain[1] + (xDomain[1] - xDomain[0]) * 0.05])
+      .range([0, innerWidth])
       .nice();
 
     const yScale = d3.scaleLinear()
-      .domain([yMin, yMax])
-      .range([height - margin.bottom, margin.top])
+      .domain([yDomain[0] - (yDomain[1] - yDomain[0]) * 0.05, 
+               yDomain[1] + (yDomain[1] - yDomain[0]) * 0.05])
+      .range([innerHeight, 0])
       .nice();
+
+    g.append("g")
+      .attr("class", "grid")
+      .attr("transform", `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(xScale)
+        .tickSize(-innerHeight)
+        .tickFormat("" as any));
+
+    g.append("g")
+      .attr("class", "grid")
+      .call(d3.axisLeft(yScale)
+        .tickSize(-innerWidth)
+        .tickFormat("" as any));
 
     const line = d3.line<DataPoint>()
       .x(d => xScale(d.x))
@@ -84,53 +94,98 @@ const LineGraph: React.FC<LineGraphProps> = ({
     g.append("path")
       .datum(sortedData)
       .attr("fill", "none")
-      .attr("stroke", "#4299e1")
+      .attr("stroke", "#3b82f6")
       .attr("stroke-width", 2)
       .attr("d", line);
 
-    g.selectAll("circle")
+    const circles = g.selectAll("circle")
       .data(sortedData)
       .join("circle")
       .attr("cx", d => xScale(d.x))
       .attr("cy", d => yScale(d.y))
       .attr("r", 4)
-      .attr("fill", "#4299e1")
-      .append("title")
-      .text(d => d.label);
+      .style("fill", "#3b82f6")
+      .style("opacity", 0.7)
+      .style("stroke", "#1e40af")
+      .style("stroke-width", 1)
 
-    g.append("g")
-      .attr("transform", `translate(0,${height - margin.bottom})`)
-      .call(d3.axisBottom(xScale))
-      .call(g => g.append("text")
-        .attr("x", width - margin.right)
-        .attr("y", -6)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "end")
-        .text(properties["x label"] || ""));
+    const xAxis = g.append("g")
+      .attr("transform", `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(xScale));
+    
+    xAxis.selectAll("text")
+      .style("font-size", "12px")
+      .style("font-family", "sans-serif");
+    
+    xAxis.selectAll("path, line")
+      .style("stroke", "#64748b");
 
-    // Add Y axis
-    g.append("g")
-      .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(yScale))
-      .call(g => g.append("text")
-        .attr("x", 6)
-        .attr("y", margin.top)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "start")
-        .text(properties["y label"] || ""));
+    xAxis.append("text")
+      .attr("x", innerWidth / 2)
+      .attr("y", 35)
+      .attr("fill", "currentColor")
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .text(properties["x label"] || "");
 
-    if (properties["graph title"]) {
-      svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", margin.top / 2)
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .text(properties["graph title"]);
-    }
+    const yAxis = g.append("g")
+      .call(d3.axisLeft(yScale));
+    
+    yAxis.selectAll("text")
+      .style("font-size", "12px")
+      .style("font-family", "sans-serif");
+    
+    yAxis.selectAll("path, line")
+      .style("stroke", "#64748b");
+
+    yAxis.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -50)
+      .attr("x", -innerHeight / 2)
+      .attr("fill", "currentColor")
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .text(properties["y label"] || "");
+
+    svg.append("text")
+      .attr("x", width / 2)
+      .attr("y", 30)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .text(properties["graph title"] || "");
 
   }, [data, properties, width, height]);
 
-  return <svg ref={svgRef}></svg>;
+  return (
+    <div style={{ position: "relative" }}>
+      <svg 
+        ref={svgRef} 
+        style={{
+          display: "block",
+          margin: "0 auto",
+          backgroundColor: "#ffffff",
+          borderRadius: "8px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12)"
+        }}
+      />
+      <div
+        ref={tooltipRef}
+        style={{
+          position: "absolute",
+          padding: "8px",
+          background: "rgba(0, 0, 0, 0.8)",
+          color: "white",
+          borderRadius: "4px",
+          pointerEvents: "none",
+          opacity: 0,
+          transition: "opacity 0.2s",
+          fontSize: "14px",
+          zIndex: 10
+        }}
+      />
+    </div>
+  );
 };
 
 export default LineGraph;

@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import type React from "react";
 import IconButton from "@mui/material/IconButton";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import DatasetOutlined from "@mui/icons-material/DatasetOutlined";
+import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
 
 interface ListSidebarProps {
   experimentIds: string[];
   experimentSheets?: string[];
+  efficiencies?: string[];
   selectedExperiment: string | null;
   onSelectExperiment: (experimentId: string) => void;
   isOpen: boolean;
@@ -15,7 +17,8 @@ interface ListSidebarProps {
 
 const ListSidebar: React.FC<ListSidebarProps> = ({
   experimentIds,
-  experimentSheets = ["Exp"],
+  experimentSheets = ["Experiment Log"],
+  efficiencies = ["Efficiency Calculations"],
   selectedExperiment,
   onSelectExperiment,
   isOpen,
@@ -25,97 +28,146 @@ const ListSidebar: React.FC<ListSidebarProps> = ({
     <div
       className={`sidebar ${
         isOpen ? "min-w-72" : "min-w-20"
-      } bg-white text-blue-900 h-screen p-5 pt-2 relative shadow-lg rounded-lg duration-200 transition-all overflow-hidden`}
+      } relative h-screen overflow-hidden rounded-r-xl border-r border-white/20 bg-white/95 p-5 pt-2 shadow-[5px_0_30px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-all duration-300`}
     >
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(219,234,254,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(219,234,254,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-70"></div>
+      <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent"></div>
+
+      {/* Toggle button */}
       <IconButton
-        color="inherit"
+        color="primary"
         onClick={() => onToggleSidebar(!isOpen)}
-        className={`absolute top-4 right-0 w-7 transform ${
+        className={`absolute -right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md transition-all hover:bg-blue-50 ${
           !isOpen && "rotate-180"
-        } transition-transform ${
-          !isOpen ? "left-1/2 transform -translate-x-1/2" : "left-auto"
+        } transform transition-transform ${
+          !isOpen ? "left-1/2 -translate-x-1/2 transform" : "left-auto"
         }`}
       >
-        <KeyboardDoubleArrowRightIcon />
+        <KeyboardDoubleArrowRightIcon className="text-blue-500" />
       </IconButton>
 
-      <ul className="h-[95%]">
-        <li className="relative mt-8 mb-2 h-[5%]">
+      {/* Content */}
+      <div className="relative z-10 flex flex-col h-[calc(100%-20px)] pt-6">
+        {/* Experiments Section */}
+        <div className="mb-2">
           <div
             className={`flex items-center ${isOpen ? "justify-between" : ""}`}
           >
-            <div className="pl-[0.65rem]">
-              <DescriptionOutlinedIcon />
+            <div className="flex items-center pl-[0.65rem]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                <DescriptionOutlinedIcon className="text-blue-600" />
+              </div>
               {isOpen && (
-                <span
-                  className="font-bold text-xs text-blue-900 ml-2 whitespace-nowrap overflow-hidden text-ellipsis"
-                >
-                  EXPERIMENTS
+                <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                  SUMMARIZED DATA
                 </span>
               )}
             </div>
           </div>
-          <div className="overflow-y-auto max-h-[90%] h-full pl-[0.9rem]">
+          <div className="max-h-24 overflow-y-auto pl-[0.9rem] scrollbar-thin">
             <ul className="mt-1">
               {experimentSheets.map((item, index) => (
                 <li
-                  key={`data-${index}`}
+                  key={`experiments-${index}`}
                   onClick={() => onSelectExperiment(item)}
                   className={`flex ${
-                    isOpen ? "gap-3" : ""
-                  } items-center p-1 cursor-pointer hover:bg-blue-100 rounded-lg h-6`}
+                    isOpen ? "gap-2" : ""
+                  } h-6 cursor-pointer items-center rounded-lg p-1 transition-all duration-200 hover:bg-blue-50/70 ${
+                    selectedExperiment === item
+                      ? "bg-blue-100/70 shadow-sm"
+                      : ""
+                  }`}
                 >
-                  <span className="w-1.5 h-1.5 bg-blue-900 rounded-full"></span>
-                  <span
-                    className="text-sm whitespace-nowrap overflow-hidden text-ellipsis"
-                  >
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
+                  <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
                     {isOpen ? item : undefined}
                   </span>
                 </li>
               ))}
             </ul>
           </div>
-        </li>
+        </div>
 
-        <li className="relative mt-4 h-[90%]">
+        {/* Efficiencies Section */}
+        <div className="my-2">
           <div
             className={`flex items-center ${isOpen ? "justify-between" : ""}`}
           >
-            <div className="pl-[0.65rem] mt-2">
-              <DatasetOutlined className="" />
+            <div className="flex items-center pl-[0.65rem]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                <CalculateOutlinedIcon className="text-blue-600" />
+              </div>
               {isOpen && (
-                <span
-                  className="font-bold text-xs text-blue-900 ml-2 whitespace-nowrap overflow-hidden text-ellipsis"
-                >
-                  DATA
+                <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                  EFFICIENCIES
                 </span>
               )}
             </div>
           </div>
-          <div className="overflow-y-auto max-h-[90%] h-full pl-[0.9rem]">
-            <ul className="mt-2">
+          <div className="max-h-24 overflow-y-auto pl-[0.9rem] scrollbar-thin">
+            <ul className="mt-1">
+              {efficiencies.map((item, index) => (
+                <li
+                  key={`experiments-${index}`}
+                  onClick={() => onSelectExperiment(item)}
+                  className={`flex ${
+                    isOpen ? "gap-2" : ""
+                  } h-6 cursor-pointer items-center rounded-lg p-1 transition-all duration-200 hover:bg-blue-50/70 ${
+                    selectedExperiment === item
+                      ? "bg-blue-100/70 shadow-sm"
+                      : ""
+                  }`}
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
+                  <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
+                    {isOpen ? item : undefined}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex-1 flex flex-col mt-2 overflow-hidden">
+          <div
+            className={`flex items-center ${isOpen ? "justify-between" : ""}`}
+          >
+            <div className="flex items-center pl-[0.65rem]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                <DatasetOutlined className="text-blue-600" />
+              </div>
+              {isOpen && (
+                <span className="ml-2 text-xs font-bold text-blue-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                  RAW DATA
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex-1 overflow-y-auto pl-[0.9rem] pr-1 mt-1">
+            <ul className="pb-4">
               {experimentIds.map((item, index) => (
                 <li
                   key={`data-${index}`}
                   onClick={() => onSelectExperiment(item)}
                   className={`flex ${
-                    isOpen ? "gap-3" : ""
-                  } items-center p-1 cursor-pointer hover:bg-blue-100 rounded-lg h-6 ${
-                    selectedExperiment === item ? "bg-blue-200" : ""
+                    isOpen ? "gap-2" : ""
+                  } h-6 cursor-pointer items-center rounded-lg p-1 mb-0.5 transition-all duration-200 hover:bg-blue-50/70 ${
+                    selectedExperiment === item
+                      ? "bg-blue-100/70 shadow-sm"
+                      : ""
                   }`}
                 >
-                  <span className="w-1.5 h-1.5 bg-blue-900 rounded-full"></span>
-                  <span
-                    className="text-sm whitespace-nowrap overflow-hidden text-ellipsis"
-                  >
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
+                  <span className="text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
                     {isOpen ? item : undefined}
                   </span>
                 </li>
               ))}
             </ul>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   );
 };

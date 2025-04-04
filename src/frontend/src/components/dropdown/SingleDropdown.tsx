@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 interface SelectAutoWidthProps {
   options: { value: string; label: string }[];
   label: string;
+  value: string;
   onChange: any;
   required?: boolean;
   error?: boolean;
@@ -15,6 +16,7 @@ interface SelectAutoWidthProps {
 const SingleDropdown: React.FC<SelectAutoWidthProps> = ({
   options,
   label,
+  value,
   onChange,
   required = false,
   error = false,
@@ -31,6 +33,7 @@ const SingleDropdown: React.FC<SelectAutoWidthProps> = ({
         <Select
           autoWidth
           label={label}
+          value={value}
           onChange={(e) => {
             onChange(e.target.value);
           }}

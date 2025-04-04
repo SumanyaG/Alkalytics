@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import TableBody from "./TableBody";
 import TableFooter from "./TableFooter";
 import AddColumnModal from "../modal/AddColumnModal";
@@ -8,6 +8,8 @@ import RemoveColumnModal from "../modal/RemoveColumnModal";
 import RemoveRowModal from "../modal/RemoveRowModal";
 import TableHeader from "./TableHeader";
 import SetColumnTypesModal from "../modal/SetColumnTypesModal";
+import EfficiencyModal from "../modal/EfficiencyModal";
+import useTable from "../../hooks/useTable";
 
 export type DataRow = Record<string, string | number | undefined | null>;
 
@@ -42,8 +44,20 @@ export const UPDATE_DATA = gql`
 `;
 
 export const SET_COLUMN_TYPES = gql`
-  mutation SetColumnTypes($columnTypes: JSON!) {
-    setColumnTypes(columnTypes: $columnTypes)
+  mutation SetColumnTypes($newColumnTypes: JSON!) {
+    setColumnTypes(newColumnTypes: $newColumnTypes)
+  }
+`;
+
+export const COMPUTE_EFF = gql`
+  mutation ComputeEfficiency($experimentId: String!, $selectedEfficiencies: [String!]!, $timeInterval: Int!) {
+    computeEfficiency(experimentId: $experimentId, selectedEfficiencies: $selectedEfficiencies, timeInterval: $timeInterval)
+  }
+`;
+
+const GET_COLUMN_TYPES = gql`
+  query GetColumnTypes {
+    getColumnTypes
   }
 `;
 
@@ -52,6 +66,8 @@ type TableProps = {
   data: DataRow[];
   isOpen?: boolean;
   refetchData: () => void;
+  refetchExperiments: () => void;
+  refetchEfficiencies: () => void;
   graphType?: string;
 };
 
@@ -59,6 +75,8 @@ const Table: React.FC<TableProps> = ({
   tableName,
   data,
   refetchData,
+  refetchExperiments,
+  refetchEfficiencies,
   graphType,
 }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -68,8 +86,8 @@ const Table: React.FC<TableProps> = ({
   const [isRowModalOpen, setIsRowModalOpen] = useState(false);
   const [isRemoveColumnModalOpen, setIsRemoveColumnModalOpen] = useState(false);
   const [isRemoveRowModalOpen, setIsRemoveRowModalOpen] = useState(false);
-  const [isSetColumnTypesModalOpen, setIsSetColumnTypesModalOpen] =
-    useState(false);
+  const [isColumnTypesModalOpen, setIsColumnTypesModalOpen] = useState(false);
+  const [isEfficiencyModalOpen, setIsEfficiencyModalOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
 
   const [addColumn] = useMutation(ADD_COLUMN);
@@ -78,6 +96,14 @@ const Table: React.FC<TableProps> = ({
   const [removeRow] = useMutation(REMOVE_ROW);
   const [updateData] = useMutation(UPDATE_DATA);
   const [setColumnTypes] = useMutation(SET_COLUMN_TYPES);
+  const [computeEfficiency] = useMutation(COMPUTE_EFF);
+
+  const { ids } = useTable("Experiment Log");
+
+  const { data: columnTypesData, refetch } = useQuery<{
+    getColumnTypes: Record<string, string>[];
+  }>(GET_COLUMN_TYPES);
+  const columnTypes = columnTypesData?.getColumnTypes || [];
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -89,33 +115,11 @@ const Table: React.FC<TableProps> = ({
   const columns = useMemo(() => {
     if (data.length === 0) return [];
 
-    const keys = Object.keys(data[0]);
+    const keys = Object.keys(data[data.length - 1]);
     return keys
-      .filter((k) => k !== "Notes")
+      .filter((k) => k !== "Notes" && k!== "_id")
       .concat(keys.includes("Notes") ? ["Notes"] : []);
   }, [data]);
-
-  const columnTypes = {
-    //hardcoded until fetch from db
-    "#": "number",
-    "Date": "date",
-    "Membrane": "text",
-    "Configuration": "text",
-    "# of Stacks": "number",
-    "Flow Rate (L/H)": "number",
-    "Potential Diff (V)": "number",
-    "Current Limit (A)": "number",
-    "NaCL": "number",
-    "NaHCO3": "number",
-    "NaOH": "number",
-    "HCL": "number",
-    "Na2So4": "number",
-    "NaHCO3.1": "number",
-    "Total": "number",
-    "t2": "number",
-    "t3": "number",
-    "Notes": "text",
-  };
 
   const filteredData = useMemo(() => {
     if (!debouncedKeyword) return data;
@@ -142,7 +146,7 @@ const Table: React.FC<TableProps> = ({
       });
 
       if (data.updateData) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error updating rows:", error);
@@ -158,7 +162,7 @@ const Table: React.FC<TableProps> = ({
         variables: { columnName, defaultValue },
       });
       if (data.addColumn) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error adding column:", error);
@@ -172,7 +176,7 @@ const Table: React.FC<TableProps> = ({
         variables: { rowData: newRowData },
       });
       if (data.addRow) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error adding row:", error);
@@ -185,7 +189,7 @@ const Table: React.FC<TableProps> = ({
         variables: { columnName },
       });
       if (data.removeColumn) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error removing column:", error);
@@ -198,26 +202,41 @@ const Table: React.FC<TableProps> = ({
         variables: { experimentIds },
       });
       if (data.removeRow) {
-        refetchData();
+        refetchExperiments();
       }
     } catch (error) {
       console.error("Error removing row:", error);
     }
   };
 
-  const handleSetColumnTypes = async (
-    newColumnTypes: Record<string, string>
-  ) => {
-    setIsSetColumnTypesModalOpen(false);
+  const handleSetColumnTypes = async (newColumnTypes: Record<string, string>) => {
     try {
       const { data } = await setColumnTypes({
         variables: { newColumnTypes },
       });
-      if (data) {
-        refetchData();
+      if (data.setColumnTypes) {
+        refetch();
       }
     } catch (error) {
-      console.error("Error removing column:", error);
+      console.error("Error updating column types:", error);
+    }
+  };
+
+  const handleCompute = async (
+    selectedExperiment: string,
+    selectedEfficiencies: string[],
+    selectedTimeInterval: number
+  ) => {
+    try {
+      const { data } = await computeEfficiency({
+        variables: { experimentId: selectedExperiment, selectedEfficiencies: selectedEfficiencies, timeInterval: selectedTimeInterval},
+      });
+      if (data.computeEfficiency) {
+        setIsEfficiencyModalOpen(false);
+        refetchEfficiencies();
+      }
+    } catch (error) {
+      console.error("Error computing efficiencies:", error);
     }
   };
 
@@ -233,47 +252,57 @@ const Table: React.FC<TableProps> = ({
   };
 
   return (
-    <div className="h-screen flex flex-col items-center min-h-screen w-full p-8 text-blue-900">
-      <div className="w-full shadow-lg rounded-lg flex flex-col overflow-hidden border-gray-300 bg-white h-full">
-        <TableHeader
-          columns={columns}
-          tableName={tableName}
-          selectedColumn={selectedColumn}
-          setSelectedColumn={setSelectedColumn}
-          searchKeyword={searchKeyword}
-          setSearchKeyword={setSearchKeyword}
-          onSetColumnTypes={() => setIsSetColumnTypesModalOpen(true)}
-          graphType={graphType}
-        />
-        <div style={{ flex: 1, overflow: "hidden" }}>
-          <TableBody
+    <div className="flex h-screen min-h-screen w-full flex-col items-center p-8 text-blue-900">
+      <div className="relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-white/20 bg-white/95 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(219,234,254,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(219,234,254,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-70"></div>
+        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent"></div>
+        <div className="absolute right-0 top-0 h-full w-1 bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent"></div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col h-full">
+          <TableHeader
             columns={columns}
-            data={filteredData}
-            highlightKeyword={debouncedKeyword}
+            tableName={tableName}
+            selectedColumn={selectedColumn}
+            setSelectedColumn={setSelectedColumn}
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
             graphType={graphType}
+          />
+          <div style={{ flex: 1, overflow: "hidden" }}>
+            <TableBody
+              columns={columns}
+              columnTypes={columnTypes}
+              data={filteredData}
+              highlightKeyword={debouncedKeyword}
+              graphType={graphType}
+              selectedRows={selectedRows}
+              setSelectedRows={handleRowSelectionChange}
+              onUpdateCell={handleUpdateData}
+            />
+          </div>
+          <TableFooter
+            data={data}
+            columns={columns}
+            onAddColumn={() => setIsColumnModalOpen(true)}
+            onAddRow={() => setIsRowModalOpen(true)}
+            onRemoveColumn={() => setIsRemoveColumnModalOpen(true)}
+            onRemoveRow={() => setIsRemoveRowModalOpen(true)}
+            onSetColumnTypes={() => setIsColumnTypesModalOpen(true)}
             selectedRows={selectedRows}
-            setSelectedRows={handleRowSelectionChange}
-            onUpdateCell={handleUpdateData}
+            graphType={graphType}
+            onApplyFunction={handleUpdateData}
+            onComputeEfficiency={() => setIsEfficiencyModalOpen(true)}
           />
         </div>
-        <TableFooter
-          data={data}
-          columns={columns}
-          onAddColumn={() => setIsColumnModalOpen(true)}
-          onAddRow={() => setIsRowModalOpen(true)}
-          onRemoveColumn={() => setIsRemoveColumnModalOpen(true)}
-          onRemoveRow={() => setIsRemoveRowModalOpen(true)}
-          selectedRows={selectedRows}
-          graphType={graphType}
-          onApplyFunction={handleUpdateData}
-        />
       </div>
 
-      {isSetColumnTypesModalOpen && (
+      {isColumnTypesModalOpen && (
         <SetColumnTypesModal
           columns={columns}
           columnTypes={columnTypes}
-          setIsModalOpen={setIsSetColumnTypesModalOpen}
+          setIsModalOpen={setIsColumnTypesModalOpen}
           onUpdateColumnTypes={handleSetColumnTypes}
         />
       )}
@@ -291,6 +320,7 @@ const Table: React.FC<TableProps> = ({
         <AddRowModal
           data={data}
           columns={columns}
+          columnTypes={columnTypes}
           setIsModalOpen={setIsRowModalOpen}
           onAddRow={handleAddRow}
         />
@@ -312,6 +342,14 @@ const Table: React.FC<TableProps> = ({
           selectedRows={selectedRows}
           onRemoveRow={handleRemoveRow}
         />
+      )}
+
+      {/* Efficiency Modal */}
+      {isEfficiencyModalOpen && (
+        <EfficiencyModal 
+          setIsModalOpen={setIsEfficiencyModalOpen}
+          experiments={ids}
+          onComputeEfficiencies={handleCompute}/>
       )}
     </div>
   );

@@ -7,24 +7,17 @@ interface DataPoint {
   y: number;
 }
 
-interface GraphProperties {
-  "graph title"?: string;
-  "Selected Dates"?: string[];
-  "x time min"?: number;
-  "x time max"?: number;
-  "y time min"?: number;
-  "y time max"?: number;
-  "min x"?: number;
-  "max x"?: number;
-  "min y"?: number;
-  "max y"?: number;
-  "x label"?: string;
-  "y label"?: string;
-}
-
 interface BarGraphProps {
   data: DataPoint[];
-  properties?: GraphProperties;
+  properties?: {
+    "graph title"?: string;
+    "x label"?: string;
+    "y label"?: string;
+    "min x"?: number;
+    "max x"?: number;
+    "min y"?: number;
+    "max y"?: number;
+  };
   width?: number;
   height?: number;
 }
@@ -32,110 +25,177 @@ interface BarGraphProps {
 const BarGraph: React.FC<BarGraphProps> = ({ 
   data, 
   properties = {},
-  width = 928,
-  height = 600
+  width = 800,
+  height = 500
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!data || data.length === 0 || !svgRef.current) return;
 
-    d3.select(svgRef.current).selectAll("*").remove();
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove();
 
-    const margin = {
-      top: 20,
-      right: 20,
-      bottom: 30,
-      left: 40
-    };
-
+    const margin = { top: 70, right: 50, bottom: 100, left: 70 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const svg = d3.select(svgRef.current)
+    svg
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .style("overflow", "visible");
 
     const g = svg.append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     const sortedData = [...data].sort((a, b) => a.x - b.x);
 
-    const xMin = properties["min x"] ?? d3.min(data, d => d.x) ?? 0;
-    const xMax = properties["max x"] ?? d3.max(data, d => d.x) ?? 0;
-    const yMin = properties["min y"] ?? 0; 
-    const yMax = properties["max y"] ?? d3.max(data, d => d.y) ?? 0;
+    const xDomain = sortedData.map(d => d.x.toString());
+    const yDomain = [
+      properties["min y"] ?? 0,
+      properties["max y"] ?? d3.max(data, d => d.y) ?? 1
+    ];
 
-    const barPadding = 0.2;
-    const barWidth = (innerWidth / data.length) * (1 - barPadding);
-
-    const xScale = d3.scaleUtc()
-      .domain([xMin, xMax])
-      .range([margin.left, width - margin.right]);
+    const xScale = d3.scaleBand()
+      .domain(xDomain)
+      .range([0, innerWidth])
+      .padding(0.4);
 
     const yScale = d3.scaleLinear()
-      .domain([yMin, yMax])
-      .range([height - margin.bottom, margin.top])
+      .domain([yDomain[0], yDomain[1] + (yDomain[1] - yDomain[0]) * 0.05])
+      .range([innerHeight, 0])
       .nice();
 
-    g.selectAll("rect")
+    g.append("g")
+      .attr("class", "grid")
+      .call(d3.axisLeft(yScale)
+        .tickSize(-innerWidth)
+        .tickFormat("" as any));
+
+    const bars = g.selectAll("rect")
       .data(sortedData)
       .join("rect")
-      .attr("x", d => xScale(d.x) - barWidth / 2)
+      .attr("x", d => xScale(d.x.toString()) || 0)
       .attr("y", d => yScale(d.y))
-      .attr("width", barWidth)
-      .attr("height", d => height - margin.bottom - yScale(d.y))
-      .attr("fill", "#4299e1")
-      .attr("opacity", 0.8)
-      .append("title")
-      .text(d => d.label);
-
-    g.append("g")
-      .attr("transform", `translate(0,${height - margin.bottom})`)
-      .call(d3.axisBottom(xScale))
-      .call(g => g.append("text")
-        .attr("x", width - margin.right)
-        .attr("y", -6)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "end")
-        .text(properties["x label"] || ""));
-
-    g.append("g")
-      .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(yScale))
-      .call(g => g.append("text")
-        .attr("x", 6)
-        .attr("y", margin.top)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "start")
-        .text(properties["y label"] || ""));
-
-    if (properties["graph title"]) {
-      svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", margin.top / 2)
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .text(properties["graph title"]);
-    }
-
-    g.selectAll("rect")
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => innerHeight - yScale(d.y))
+      .attr("fill", "#3b82f6")
+      .attr("rx", 2)
+      .attr("ry", 2)
+      .style("opacity", 0.8)
       .on("mouseover", function(event, d) {
         d3.select(this)
-          .transition()
-          .duration(200)
-          .attr("opacity", 1);
+          .style("opacity", 1)
+          .attr("fill", "#2563eb");
+
+        if (tooltipRef.current) {
+          tooltipRef.current.style.opacity = "1";
+          tooltipRef.current.style.left = `${event.pageX + 10}px`;
+          tooltipRef.current.style.top = `${event.pageY + 10}px`;
+          tooltipRef.current.innerHTML = `
+            <div><strong>${d.label || "Bar"}</strong></div>
+            <div>Value: ${d.y.toFixed(2)}</div>
+          `;
+        }
       })
-      .on("mouseout", function(event, d) {
+      .on("mouseout", function() {
         d3.select(this)
-          .transition()
-          .duration(200)
-          .attr("opacity", 0.8);
+          .style("opacity", 0.8)
+          .attr("fill", "#3b82f6");
+
+        if (tooltipRef.current) {
+          tooltipRef.current.style.opacity = "0";
+        }
       });
+
+    const xAxis = g.append("g")
+      .attr("transform", `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(xScale).tickSize(0)); 
+
+    /*
+    xAxis.selectAll("text")
+      .style("font-size", "12px")
+      .style("font-family", "sans-serif")
+      .attr("transform", "rotate(-45)") // Rotate labels to prevent overlap
+      .attr("text-anchor", "end")
+      .attr("dx", "-0.8em")
+      .attr("dy", "0.15em");  
+    */
+
+    xAxis.selectAll("text")
+      .style("display", "none"); // Hide x-axis labels
+    
+    xAxis.selectAll("path")
+      .style("stroke", "#64748b");
+
+    xAxis.append("text")
+      .attr("x", innerWidth / 2)
+      .attr("y", 60)
+      .attr("fill", "currentColor")
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .text(properties["x label"] || "");
+
+    const yAxis = g.append("g")
+      .call(d3.axisLeft(yScale));
+    
+    yAxis.selectAll("text")
+      .style("font-size", "12px")
+      .style("font-family", "sans-serif");
+    
+    yAxis.selectAll("path, line")
+      .style("stroke", "#64748b");
+
+    yAxis.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -50)
+      .attr("x", -innerHeight / 2)
+      .attr("fill", "currentColor")
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .text(properties["y label"] || "");
+
+    svg.append("text")
+      .attr("x", width / 2)
+      .attr("y", 40)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .text(properties["graph title"] || "");
 
   }, [data, properties, width, height]);
 
-  return <svg ref={svgRef}></svg>;
+  return (
+    <div style={{ position: "relative" }}>
+      <svg 
+        ref={svgRef} 
+        style={{
+          display: "block",
+          margin: "0 auto",
+          backgroundColor: "#ffffff",
+          borderRadius: "8px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12)"
+        }}
+      />
+      <div
+        ref={tooltipRef}
+        style={{
+          position: "absolute",
+          padding: "8px",
+          background: "rgba(0, 0, 0, 0.8)",
+          color: "white",
+          borderRadius: "4px",
+          pointerEvents: "none",
+          opacity: 0,
+          transition: "opacity 0.2s",
+          fontSize: "14px",
+          zIndex: 10
+        }}
+      />
+    </div>
+  );
 };
 
 export default BarGraph;

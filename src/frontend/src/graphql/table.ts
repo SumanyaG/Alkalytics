@@ -5,16 +5,43 @@ import { DataRow } from "../components/table/Table";
 export const typeDefs = gql`
   scalar JSON
 
+  type Query {
+    getColumnTypes: [JSON]!
+  }
+
   type Mutation {
     updateData(updatedData: JSON!): String!
     addColumn(columnName: String!, defaultValue: JSON): String!
     addRow(rowData: JSON!): String!
     removeColumn(columnName: String!): String!
     removeRow(experimentIds: [String]!): String!
+    setColumnTypes(newColumnTypes: JSON!): String!
+    computeEfficiency(experimentId: String!, selectedEfficiencies: [String!]!, timeInterval: Int!): String!
   }
 `;
 
 export const resolvers = {
+  Query: {
+    getColumnTypes: async (): Promise<Record<string, string>[]> =>  {
+      try {
+        const response = await axios.get(
+          "http://127.0.0.1:8000/columntypes",
+          { headers: { "Content-Type": "application/json" }}
+        )
+        if (response.data.status === "success") {
+          return response.data.data;
+        } else {
+          throw new Error("Failed to retrieve column types.");
+        }
+      } catch (error) {
+        console.error(
+          "Error retrieving column types: ", 
+          error instanceof Error ? error.message : error
+        );
+        throw new Error("Failed to retrieve column types.");
+      }
+    }
+  },
   Mutation: {
     updateData: async (
       _: undefined,
@@ -148,5 +175,51 @@ export const resolvers = {
         throw new Error("Failed to remove row.");
       }
     },
+
+    setColumnTypes: async (
+      _: undefined,
+      { newColumnTypes }: { newColumnTypes: Record<string, string> }
+    ): Promise<string> => {
+      try {
+        const response = await axios.put(
+          "http://127.0.0.1:8000/update-column-types",
+          { newColumnTypes },
+          { headers: { "Content-Type": "application/json" } }
+        );
+
+        if (response.data.status === "success") {
+          return response.data.message;
+        } else {
+          throw new Error("Failed to update column types.");
+        }
+      } catch (error) {
+        console.error(
+          "Error updating column types:",
+          error instanceof Error ? error.message : error
+        );
+        throw new Error("Failed to update column types.");
+      }
+    },
+
+    computeEfficiency: async (
+      _: undefined,
+      { experimentId, selectedEfficiencies, timeInterval }: { experimentId: string, selectedEfficiencies: string[], timeInterval: number }
+    ): Promise<string> => {
+      try {
+        const response = await axios.post("http://127.0.0.1:8000/calculate-efficiencies",
+          { experimentId, selectedEfficiencies, timeInterval },
+          { headers: { "Content-Type": "application/json" }}
+        );
+
+        if (response.data.status === "success" || response.data.status === "repeated") {
+          return response.data.message;
+        } else {
+          throw new Error("Failed to compute efficiencies.");
+        }
+      } catch (error) {
+        console.error("Error computing efficiencies: ", error instanceof Error ? error.message : error);
+        throw new Error("Failed to compute efficiencies.")
+      };
+    }
   },
 };

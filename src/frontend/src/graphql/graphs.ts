@@ -11,12 +11,15 @@ export const typeDefs = gql`
 
   type Query {
     getCollectionAttrs(collection: String!): [String!]!
-    getFilterCollectionData(attributes: [String!]!, collection: String!, dates:[String], analysis: Boolean): filterCollectionDataResponse
+    getFilterCollectionData(attributes: [String!]!, collection: String!, dates: [String], analysis: Boolean): filterCollectionDataResponse
+    getFilterCollectionDates(attribute: String!, collection: String!, filterValue: JSON!): [String!]!
+    getFilterCollectionAttrValues(attribute: String!, collection: String!): [JSON]
     getLastestGraph(latest:Int):[JSON]
     }
     
     type Mutation {
       addGeneratedGraphs(graphType: String!, data:[JSON]!, properties:[JSON]!, attributes: [String!]!): String!
+      removeGraph(graphId: Int!): String!
    }
 `;
 
@@ -51,14 +54,14 @@ export const resolvers = {
   
       getFilterCollectionData: async (
         _: undefined,
-        { attributes, collection, dates, analysis }: { attributes: string[]; collection: string, dates: string[], analysis?: Boolean }
+        { attributes, collection, dates, analysis }: { attributes: string[], collection: string, dates: string[], analysis?: Boolean }
       ):Promise<filterCollectionDataResponse> => {
         try {
           const response = await axios.post("http://127.0.0.1:8000/filterCollectionData", {attributes, collection, dates, analysis}, {
             headers: { "Content-Type": "application/json" },
           });
           if (response.data.status === "success") {
-            return { 
+            return {
               data: response.data.data || [],
               analysisRes: analysis
               ? response.data.analysisRes !== "error" 
@@ -77,6 +80,49 @@ export const resolvers = {
           throw new Error("Failed to fetch experiment with given attributes.");
         }
       },
+      getFilterCollectionDates: async (
+        _: undefined,
+        { attribute, collection, filterValue }: { attribute: string; collection: string, filterValue: string | number }
+      ):Promise<any> => {
+        try {
+          const response = await axios.post("http://127.0.0.1:8000/getFilterCollectionDates", {attribute, collection, filterValue}, {
+            headers: { "Content-Type": "application/json" },
+          });
+          if (response.data.status === "success") {
+            return response.data.data || [];
+          } else {
+            throw new Error("No data has the given attributes.");
+          }
+        } catch (error) {
+          console.error(
+            "Error fetching experiment with given attributes:",
+            error instanceof Error ? error.message : error
+          );
+          throw new Error("Failed to fetch experiment with given attributes.");
+        }
+      },
+      getFilterCollectionAttrValues: async (
+        _: undefined,
+        { attribute, collection}: { attribute: string; collection: string}
+      ):Promise<any> => {
+        try {
+          const response = await axios.post("http://127.0.0.1:8000/filterCollectionData/attrValues", {attribute, collection}, {
+            headers: { "Content-Type": "application/json" },
+          });
+          if (response.data.status === "success") {
+            return response.data.data || []
+          } else {
+            throw new Error("No data has the given attributes.");
+          }
+        } catch (error) {
+          console.error(
+            "Error fetching experiment with given attributes:",
+            error instanceof Error ? error.message : error
+          );
+          throw new Error("Failed to fetch experiment with given attributes.");
+        }
+      },
+
         getLastestGraph: async(
           _:undefined,
           {latest}:{latest:Number}):Promise<any> => {
@@ -119,6 +165,32 @@ export const resolvers = {
               error instanceof Error ? error.message : error
             );
             throw new Error("Failed to fetch experiment with given attributes.");
+          }
+        },
+        removeGraph: async (
+          _: undefined,
+          { graphId }: { graphId: number }
+        ): Promise<string> => {
+          try {
+            const response = await axios.delete(
+              "http://127.0.0.1:8000/generatedGraphs/remove-graph",
+              {
+                data: { graphId },
+                headers: { "Content-Type": "application/json" },
+              }
+            );
+    
+            if (response.data.status === "success") {
+              return response.data.message;
+            } else {
+              throw new Error("Failed to remove graph.");
+            }
+          } catch (error) {
+            console.error(
+              "Error removing graph:",
+              error instanceof Error ? error.message : error
+            );
+            throw new Error("Failed to remove graph.");
           }
         },
     }

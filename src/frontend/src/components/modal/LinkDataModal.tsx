@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";
 import { gql, useMutation } from "@apollo/client";
 
@@ -35,7 +36,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
   setAmbiguousData,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [manualUploadFiles] = useMutation(MANUAL_UPLOAD);
 
   const handleMatchChange = (dataId: string, experimentId: string) => {
@@ -55,7 +56,7 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
   };
 
   const handleSubmit = async () => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const linkedData = ambiguousData.map((data) => {
         return {
@@ -80,126 +81,140 @@ const LinkDataModal: React.FC<LinkDataModalProps> = ({
     } catch (e) {
       console.error("Error during file upload:", e);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
-      <div className="bg-white rounded-lg shadow-lg max-w-xl w-full p-6">
-        <h1 className="text-xl font-bold text-blue-900 mb-2">Warning</h1>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+      <div className="relative w-full max-w-xl overflow-hidden rounded-xl border border-white/20 bg-white/95 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(219,234,254,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(219,234,254,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-70"></div>
+        <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-orange-400/20 via-orange-500/20 to-transparent"></div>
 
-        <div className="rounded-md bg-orange-50 p-4 flex">
-          <WarningIcon
-            className="h-5 w-5 text-orange-400 flex-shrink-0"
-            aria-hidden="true"
-          />
-          <div className="ml-3">
-            <h2 className="text-sm font-semibold text-orange-800">
-              Ambiguous Data Requires Matching
+        {/* Content */}
+        <div className="relative z-10">
+          <h1 className="mb-4 text-xl font-bold text-blue-900">
+            Link Data Files
+          </h1>
+
+          <div className="mb-6 rounded-lg bg-orange-50 p-4">
+            <div className="flex">
+              <WarningIcon
+                className="h-5 w-5 flex-shrink-0 text-orange-400"
+                aria-hidden="true"
+              />
+              <div className="ml-3">
+                <h2 className="text-sm font-semibold text-orange-800">
+                  Ambiguous Data Requires Matching
+                </h2>
+                <p className="mt-1 text-sm text-orange-700">
+                  Please match each data file with the corresponding experiment
+                  id.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <section className="mt-4">
+            <h2 className="mb-2 text-sm font-semibold text-blue-900">
+              Data Id
             </h2>
-            <p className="mt-1 text-sm text-orange-700">
-              Please match each data file with the corresponding experiment id.
-            </p>
-          </div>
-        </div>
+            <div className="rounded-lg bg-blue-50/50 p-4 shadow-sm">
+              <p className="text-sm text-blue-900">
+                {ambiguousData[currentIndex]?.dataId}
+              </p>
+            </div>
+          </section>
 
-        <section className="mt-4">
-          <h2 className="text-sm text-blue-900 font-semibold mb-1">Data Id</h2>
-          <div className="bg-slate-50 p-4 rounded-lg shadow-sm">
-            <p className="text-sm text-gray-900">
-              {ambiguousData[currentIndex]?.dataId}
-            </p>
-          </div>
-        </section>
+          <section className="mt-4">
+            <h2 className="mb-2 text-sm font-semibold text-blue-900">
+              Possible Matching Experiment Id
+            </h2>
+            <div className="flex flex-wrap justify-center gap-3 rounded-lg bg-blue-50/50 p-4 shadow-sm">
+              {ambiguousData[currentIndex]?.matchingExp.map((expId) => (
+                <button
+                  key={expId}
+                  onClick={() =>
+                    handleMatchChange(ambiguousData[currentIndex].dataId, expId)
+                  }
+                  className={`rounded-lg px-4 py-2 text-sm font-semibold transition-all ${
+                    matchingMap[ambiguousData[currentIndex].dataId] === expId
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "bg-white text-blue-900 ring-1 ring-inset ring-blue-200 hover:bg-blue-50"
+                  }`}
+                >
+                  {expId}
+                </button>
+              ))}
+            </div>
+          </section>
 
-        <section className="mt-4">
-          <h2 className="text-sm text-blue-900 font-semibold mb-1">
-            Possible Matching Experiment Id
-          </h2>
-          <div className="bg-slate-50 p-4 rounded-lg shadow-sm flex flex-wrap justify-center gap-3">
-            {ambiguousData[currentIndex]?.matchingExp.map((expId) => (
+          {/* Progress Bar */}
+          <div className="mt-8 flex justify-center">
+            <div className="relative h-1 w-full rounded-full bg-blue-100">
+              <div
+                className="absolute top-0 left-0 h-1 rounded-full bg-blue-500"
+                style={{
+                  width: `${
+                    ((currentIndex + 1) / ambiguousData.length) * 100
+                  }%`,
+                }}
+              ></div>
+            </div>
+          </div>
+          <div className="mt-2 text-center text-xs text-blue-500">
+            {currentIndex + 1} of {ambiguousData.length}
+          </div>
+
+          <div
+            className={`mt-6 flex ${
+              currentIndex !== 0 ? "justify-between" : "justify-end"
+            } items-center w-full`}
+          >
+            {currentIndex !== 0 && (
               <button
-                key={expId}
-                onClick={() =>
-                  handleMatchChange(ambiguousData[currentIndex].dataId, expId)
-                }
-                className={`px-4 py-2 border rounded-md ${
-                  matchingMap[ambiguousData[currentIndex].dataId] === expId
-                    ? "bg-blue-600 text-white"
-                    : "border-gray-400"
-                }`}
+                onClick={handlePrev}
+                className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-blue-900 shadow-sm ring-1 ring-inset ring-blue-100 transition-all hover:bg-blue-50"
               >
-                {expId}
+                Previous
               </button>
-            ))}
+            )}
+
+            {currentIndex !== ambiguousData.length - 1 ? (
+              <button
+                onClick={handleNext}
+                className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:shadow-lg"
+              >
+                <span className="relative z-10">Next</span>
+                <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
+              </button>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                disabled={
+                  loading ||
+                  Object.keys(matchingMap).length !== ambiguousData.length
+                }
+                className="group relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:shadow-lg disabled:opacity-50 disabled:shadow-none"
+              >
+                <span className="relative z-10 flex items-center">
+                  {loading ? (
+                    <>
+                      <svg
+                        className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
+                        viewBox="0 0 24 24"
+                      />
+                      <span>Submitting...</span>
+                    </>
+                  ) : (
+                    <span>Submit</span>
+                  )}
+                </span>
+                <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-disabled:opacity-0"></span>
+              </button>
+            )}
           </div>
-        </section>
-
-        {/* Divider and Progress Bar */}
-        <div className="flex justify-center">
-          <div className="relative mt-6 h-[1px] w-[95%] bg-slate-300">
-            <div
-              className="absolute top-0 left-0 h-[1px] bg-blue-600"
-              style={{
-                width: `${((currentIndex + 1) / ambiguousData.length) * 100}%`,
-              }}
-            ></div>
-          </div>
-        </div>
-
-        <div
-          className={`flex ${
-            currentIndex !== 0 ? "justify-between" : "justify-end"
-          } items-center w-full mt-6`}
-        >
-          {currentIndex !== 0 && (
-            <button
-              onClick={handlePrev}
-              className={`py-2 px-4 rounded-lg ${
-                currentIndex === 0
-                  ? "bg-slate-300 cursor-not-allowed"
-                  : "bg-blue-600 text-white hover:bg-blue-700"
-              }`}
-            >
-              Previous
-            </button>
-          )}
-
-          {currentIndex !== ambiguousData.length - 1 ? (
-            <button
-              onClick={handleNext}
-              className={`py-2 px-4 rounded-lg ${
-                currentIndex === ambiguousData.length - 1
-                  ? "bg-slate-300 cursor-not-allowed"
-                  : "bg-blue-600 text-white hover:bg-blue-700"
-              }`}
-            >
-              Next
-            </button>
-          ) : (
-            <button
-              onClick={handleSubmit}
-              disabled={
-                loading ||
-                Object.keys(matchingMap).length !== ambiguousData.length
-              }
-              className={`py-2 px-4 rounded-lg flex items-center justify-center ${
-                loading
-                  ? "bg-slate-300 cursor-not-allowed"
-                  : "bg-indigo-600 text-white hover:bg-indigo-700"
-              } transition`}
-            >
-              {loading ? (
-                <div className="flex items-center space-x-2">
-                  <span className="w-4 h-4 border-2 border-t-2 border-gray-600 rounded-full animate-spin"></span>
-                  <span>Submitting...</span>
-                </div>
-              ) : (
-                "Submit"
-              )}
-            </button>
-          )}
         </div>
       </div>
     </div>

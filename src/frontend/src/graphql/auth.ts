@@ -25,6 +25,7 @@ export const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!) : LoginResponse
     register(email: String!, password: String!, role: String!) : AuthResponse
+    logout(token: String!): AuthResponse
   }
 `;
 
@@ -112,6 +113,28 @@ export const resolvers = {
       } catch (error: any) {
         throw new Error("Error creating account.");
       }
-    }
+    },
+
+    logout: async (
+      _: any,
+      { token }: { token: string; },
+    ): Promise<AuthResponse> => {
+      try {
+        const response = await axios.post(
+          "http://127.0.0.1:8000/logout",
+          { token },
+          { withCredentials: true,
+            headers: { "Content-Type": "application/json" }, 
+          }
+        );
+
+        return { 
+          status: response.data.status,
+          message: response.data.message,
+        };
+      } catch (error: any) {
+        throw new Error("Error logging out.");
+      }
+    },
   },
 };

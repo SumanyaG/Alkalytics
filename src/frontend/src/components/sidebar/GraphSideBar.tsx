@@ -1,38 +1,55 @@
+import type React from "react";
 import { useContext, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import {
-  Add,
-  KeyboardDoubleArrowRight,
-  BarChart,
-  ScatterPlot,
-  ShowChart,
-  History,
-} from "@mui/icons-material";
-import Button from "@mui/material/Button";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import AddIcon from "@mui/icons-material/Add";
+import HistoryIcon from "@mui/icons-material/History";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
+import ScatterPlotIcon from "@mui/icons-material/ScatterPlot";
+import DeleteIcon from "@mui/icons-material/Delete";
 import GenerateGraphModal from "../modal/DataFormModal";
 import { FormDataContext } from "../../pages/DataVisualize";
 import useGraphs from "../../hooks/useGraphs";
+import RemoveGraphModal from "../modal/RemoveGraphModal";
 
 type GraphSideBarProps = {
   onSubmit: () => void;
   onGraphSelect: (graphData: any) => void;
-};
+  deleteGraph: (graphId: number) => Promise<void>;
+  isOpen: boolean;
+  onToggleSidebar: (value: boolean) => void;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) => {
+const GraphSideBar: React.FC<GraphSideBarProps> = ({
+  onSubmit,
+  onGraphSelect,
+  deleteGraph,
+  isOpen,
+  onToggleSidebar,
+  isModalOpen,
+  setIsModalOpen,
+}) => {
   const [selectedGraphId, setSelectedGraphId] = useState<number | null>(null);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const[ error, setError] = useState(false);
 
-  const { latestGraphs, loading, error } = useGraphs(0);
-  const validGraphs = latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ?? [];
-
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [modalOpen, setModalOpen] = useState(false);
+  const { latestGraphs, loading : graphsLoading, error : graphsError, refetch } = useGraphs(0);
+  const validGraphs =
+    latestGraphs?.filter((graph) => graph !== null && graph !== undefined) ??
+    [];
 
   const {
-    setSelectedGraphType,
+    setGraphType,
+    setParamType,
+    setParamX,
+    setParamY,
+    setXValue,
+    setYValue,
     setSelectedDates,
-    setSelectedParamType,
-    setSelectedParamX,
-    setSelectedParamY,
     setTimeMinX,
     setTimeMaxX,
     setTimeMinY,
@@ -48,11 +65,13 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
   } = useContext(FormDataContext);
 
   const resetFields = () => {
-    setSelectedGraphType("");
+    setGraphType("");
+    setParamType("");
+    setParamX("");
+    setParamY("");
+    setXValue("");
+    setYValue("");
     setSelectedDates([]);
-    setSelectedParamType("");
-    setSelectedParamX("");
-    setSelectedParamY("");
     setTimeMinX("");
     setTimeMaxX("");
     setTimeMinY("");
@@ -67,129 +86,179 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({ onSubmit, onGraphSelect }) 
     setSubmit(false);
   };
 
-  const handleGraphData = (graphData: any) => {
-    setSelectedGraphType(graphData.graphtype);
-    setGraphTitle(graphData.properties[0]?.["graph title"] || "");
-    setSelectedDates(graphData.properties[0]?.["Selected Dates"] || []);
-    setTimeMinX(graphData.properties[0]?.["x time min"] || "");
-    setTimeMaxX(graphData.properties[0]?.["x time max"] || "");
-    setTimeMinY(graphData.properties[0]?.["y time min"] || "");
-    setTimeMaxY(graphData.properties[0]?.["y time max"] || "");
-    setMinX(graphData.properties[0]?.["min x"] || "");
-    setMaxX(graphData.properties[0]?.["max x"] || "");
-    setMinY(graphData.properties[0]?.["min y"] || "");
-    setMaxY(graphData.properties[0]?.["max y"] || "");
-    setXLabel(graphData.properties[0]?.["x label"] || "");
-    setYLabel(graphData.properties[0]?.["y label"] || "");
-
-    onGraphSelect(graphData);
-    setSubmit(true);
-  };
-
   const handleSelectGraph = (id: number) => {
     setSelectedGraphId(id);
-    const selectedGraph = latestGraphs.find((graph) => graph._id === id);
-    if (selectedGraph) {
-      handleGraphData(selectedGraph);
+    const graphData = latestGraphs.find((graph) => graph._id === id);
+    if (graphData) {
+      onGraphSelect(graphData);
     }
   };
 
+  const handleRemoveGraph = async () => {
+    if (selectedGraphId === null) return;
+
+    setLoading(true);
+    setError(false);
+
+    if (selectedGraphId !== null) {
+      try {
+        await deleteGraph(selectedGraphId);
+        setIsRemoveModalOpen(false);
+        setSelectedGraphId(null);
+        refetch();
+      } catch (error) {
+        setError(true);
+        console.error("Error deleting graph:", error);
+      }
+      finally {
+        setLoading(false);
+      }
+    }
+  }
+
   return (
-    <div className="flex">
+    <>
       <div
-        className={`${
-          isOpen ? "w-72" : "w-20"
-        } bg-white text-blue-900 h-screen p-5 pt-2 relative shadow-lg rounded-lg duration-200 transition-all`}
+        className={`sidebar ${
+          isOpen ? "min-w-72" : "min-w-20"
+        } relative h-screen overflow-hidden rounded-r-xl border-r border-white/20 bg-white/95 p-5 pt-2 shadow-[5px_0_30px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-all duration-300`}
       >
-        <ul className="gap-x-2 pt-6">
-          <li>
-            <IconButton
-              color="inherit"
-              onClick={() => setIsOpen(!isOpen)}
-              className={`absolute -top-2 right-0 w-7 transform ${
-                !isOpen && "rotate-180"
-              } transition-transform ${
-                !isOpen ? "left-1/2 transform -translate-x-1/2" : "left-auto"
-              }`}
-            >
-              <KeyboardDoubleArrowRight />
-            </IconButton>
-          </li>
-          <div className={`relative mt-3 mb-8 items-center ${isOpen ? "" : "ml-3"}`}>
-            <li className="flex rounded-md hover:bg-light-white text-sm items-center gap-x-4">
-              <Button
-                startIcon={<Add />}
-                color="inherit"
-                className="absolute top-0 left-1/2 transform -translate-x-1/2"
-                onClick={() => {
-                  setModalOpen(true);
-                  resetFields();
-                }}
-              >
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(219,234,254,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(219,234,254,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-70"></div>
+        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent"></div>
+
+        {/* Toggle button */}
+        <IconButton
+          color="primary"
+          onClick={() => onToggleSidebar(!isOpen)}
+          className={`absolute -right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 shadow-md transition-all hover:bg-blue-50 ${
+            !isOpen && "rotate-180"
+          } transform transition-transform ${
+            !isOpen ? "left-1/2 -translate-x-1/2 transform" : "left-auto"
+          }`}
+        >
+          <KeyboardDoubleArrowRightIcon className="text-blue-500" />
+        </IconButton>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col h-[calc(100%-20px)] pt-6">
+          {/* New Graph Button Section */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center pl-[0.65rem]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                  <AddIcon className="text-blue-600" />
+                </div>
                 {isOpen && (
-                  <span
-                    className="text-base pl-2 transition-all duration-200 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
+                  <button
+                    className="text-sm font-bold text-blue-500 hover:bg-blue-50/70 
+                    rounded-md px-1 py-2 transition-all"
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      resetFields();
+                    }}
                   >
-                    Generate New Graph
+                    GENERATE NEW GRAPH
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Recent Graphs Section */}
+          <div className="flex-1 flex flex-col mt-2 overflow-hidden">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center pl-[0.65rem]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100/50">
+                  <HistoryIcon className="text-blue-600" />
+                </div>
+                {isOpen && (
+                  <span className="ml-2 text-xs font-semibold text-blue-500">
+                    RECENT GRAPHS
                   </span>
                 )}
-              </Button>
-            </li>
+              </div>
+            </div>
+
+            {/* Graphs List - scrollable area */}
+            <div className="flex-1 overflow-y-auto pl-[0.9rem] pr-1 scrollbar-thin">
+              <ul className="pb-4">
+                {graphsLoading ? (
+                  <li className="flex justify-between rounded-lg my-2 text-sm  font-semibold text-blue-600 animate-pulse whitespace-nowrap overflow-hidden text-ellipsis">
+                    LOADING...
+                  </li>
+                ) : graphsError ? (
+                  <li className="flex justify-between rounded-lg my-2 text-sm font-semibold
+                  text-red-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                    Error Fetching Graphs
+                  </li>
+                ) : (
+                  validGraphs.map((graph, index) => (
+                    <li
+                      key={`graph-${index}`}
+                      onClick={() => handleSelectGraph(graph._id)}
+                      className={`group flex items-center ${
+                        isOpen ? "justify-between" : "justify-center"
+                      } cursor-pointer rounded-lg p-1 my-2 transition-all duration-200
+                      hover:bg-blue-50/70 ${
+                        selectedGraphId === graph._id
+                          ? "bg-blue-100/70 shadow-sm"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        {graph.graphtype === "bar" ? (
+                          <BarChartIcon
+                            className="text-blue-600"
+                            fontSize="small"
+                          />
+                        ) : graph.graphtype === "line" ? (
+                          <ShowChartIcon
+                            className="text-blue-600"
+                            fontSize="small"
+                          />
+                        ) : graph.graphtype === "scatter" ? (
+                          <ScatterPlotIcon
+                            className="text-blue-600"
+                            fontSize="small"
+                          />
+                        ) : null}
+                        {isOpen && (
+                          <span className="ml-2 text-sm text-blue-900 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {graph.properties[0]?.["graph title"] === ""
+                              ? graph.graphtype + " Graph"
+                              : graph.properties[0]?.["graph title"]}
+                          </span>
+                        )}
+                      </div>
+                      {isOpen && (
+                        <DeleteIcon
+                          className="invisible group-hover:visible text-blue-900"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedGraphId(graph._id);
+                            setIsRemoveModalOpen(true);
+                          }}
+                        />
+                      )}
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
           </div>
-          <div className={`relative mt-0 mb-4 items-center ${isOpen ? "ml-1" : "ml-2"}`}>
-            <li className="flex text-sm items-center">
-              <History />
-              {isOpen && (
-                <span
-                  className="text-xs pl-2 transition-all duration-200 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
-                >
-                  RECENTLY GENERATED GRAPHS
-                </span>
-              )}
-            </li>
-          </div>
-          <div className={`relative items-center ${isOpen ? "-ml-0" : "-ml-3"}`}>
-            {loading ? (
-              <li className="flex ml-2 font-semibold text-sm">LOADING...</li>
-            ) : error ? (
-              <li className="flex ml-2 font-semibold text-sm">Error fetching graphs</li>
-            ) : validGraphs.map((r) => (
-            <li
-              key={r._id}
-              className={`flex rounded-md hover:bg-light-white text-sm items-center gap-x-4 mb-2 
-                ${
-                selectedGraphId === r._id ? "bg-blue-100" : ""
-              }`}
-            >
-              <Button color="inherit" className="flex" onClick={() => handleSelectGraph(r._id)}>
-                <span>
-                  {r.graphtype === "bar" ? (
-                    <BarChart />
-                  ) : r.graphtype === "line" ? (
-                    <ShowChart />
-                  ) : r.graphtype === "scatter" ? (
-                    <ScatterPlot />
-                  ) : null}
-                </span>
-                {isOpen && (
-                <span
-                  className="text-sm pl-2 origin-left transition-all duration-200 font-medium whitespace-nowrap overflow-hidden text-ellipsis"
-                >
-                  {r.properties[0]?.["graph title"] === ""
-                    ? r.graphtype + " Graph"
-                    : r.properties[0]?.["graph title"]}{" "}
-                </span>
-              )}
-              </Button>
-            </li>
-          ))}
-          </div>
-        </ul>
+        </div>
       </div>
-      {modalOpen && (
-        <GenerateGraphModal setOpenModal={setModalOpen} onSubmit={onSubmit} />
-      )}
-    </div>
+      <div>
+        {isModalOpen && (
+          <GenerateGraphModal setOpenModal={setIsModalOpen} onSubmit={onSubmit} />
+        )}
+      </div>
+      <div>
+        {isRemoveModalOpen && (
+          <RemoveGraphModal setIsModalOpen={setIsRemoveModalOpen} onConfirm={handleRemoveGraph} isLoading={loading} error={error} />)}
+      </div>
+    </>
   );
 };
 

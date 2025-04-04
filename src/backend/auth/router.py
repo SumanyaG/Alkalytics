@@ -1,27 +1,23 @@
 import os
 import secrets
+
 from dotenv import load_dotenv
 from fastapi import HTTPException, APIRouter
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 
+from auth.models import LoginData, UserModel, UserRequest
 from services.userService import UserService
 
 router = APIRouter()
 
 load_dotenv()
-mongoUri = os.getenv("CONNECTION_STRING")
-dbName = "alkalyticsDB"
-
-
-class LoginData(BaseModel):
-    email: str
-    password: str
 
 
 @router.post("/login")
 async def login(req: LoginData):
-    userService = UserService(mongoUri, dbName)
+    MONGO_URI = os.getenv("CONNECTION_STRING")
+    DB_NAME = "alkalyticsDB"
+    userService = UserService(MONGO_URI, DB_NAME)
     try:
         user = await userService.validateUser(req.email, req.password)
         if user:
@@ -54,15 +50,11 @@ async def login(req: LoginData):
     return response
 
 
-class UserModel(BaseModel):
-    email: str
-    password: str
-    role: str
-
-
 @router.post("/register")
 async def register(req: UserModel):
-    userService = UserService(mongoUri, dbName)
+    MONGO_URI = os.getenv("CONNECTION_STRING")
+    DB_NAME = "alkalyticsDB"
+    userService = UserService(MONGO_URI, DB_NAME)
     try:
         user = await userService.createUser(req.email, req.password, req.role)
         if user:
@@ -82,17 +74,15 @@ async def register(req: UserModel):
     return response
 
 
-class UserRequest(BaseModel):
-    token: str
-
-
 @router.post("/auth")
 async def getCurrentUser(request: UserRequest):
     sessionToken = request.token
     if not sessionToken:
         raise HTTPException(status_code=401, detail="Not authorized")
     try:
-        userService = UserService(mongoUri, dbName)
+        MONGO_URI = os.getenv("CONNECTION_STRING")
+        DB_NAME = "alkalyticsDB"
+        userService = UserService(MONGO_URI, DB_NAME)
         user = await userService.getCurrentUserAndRole(sessionToken)
         return JSONResponse(content={
             "email": user["email"],
@@ -110,7 +100,9 @@ async def logout(request: UserRequest):
     if not sessionToken:
         raise HTTPException(status_code=401, detail="Not authorized")
     try:
-        userService = UserService(mongoUri, dbName)
+        MONGO_URI = os.getenv("CONNECTION_STRING")
+        DB_NAME = "alkalyticsDB"
+        userService = UserService(MONGO_URI, DB_NAME)
         await userService.endSession(sessionToken)
         response = JSONResponse(content={
             "status": "success",
