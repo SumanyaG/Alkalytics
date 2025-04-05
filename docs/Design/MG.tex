@@ -407,16 +407,8 @@ perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
   \item
   \texttt{transformationRules}: Defines the set of rules for transforming CSV data to
   JSON format.
-  \item[Environment Variables:]
-  \item
-  \begin{itemize}
-    \item Interacts with the local file system to access CSV files.
-  \end{itemize}
-  \item 
-  \begin{itemize}
-    \item Connects to an external NoSQL database, MongoDB to be specific.
-  \end{itemize}
-  \item 
+  
+  \item[Environment Variables:] N/A
 
   \item[Assumptions:]
   \item
@@ -592,11 +584,7 @@ incoming data is correctly formatted and validated before entering the system.
   \item
   \texttt{dataFormat}: Defines the expected format of incoming data (CSV, in this case).
 
-  \item[Environment Variables:]
-  \item
-  \begin{itemize}
-    \item Interacts with the local file system to access CSV files.
-  \end{itemize}
+  \item[Environment Variables:] N/A
 
   \item[Assumptions:]
   \item
@@ -811,16 +799,8 @@ clean input data  for dependent modules.
     \begin{itemize}
       \item \texttt{error\_flags}: Set of flags indicating validation failures.
     \end{itemize}
-
-  \item[Environment Variables:]
-  \item
-    \begin{itemize}
-      \item Sensor input streams.
-    \end{itemize}
-    \item
-    \begin{itemize}
-      \item System clock for time-based validation.
-    \end{itemize}
+  
+  \item[Environment Variables:] N/A
 
   \item[Assumptions:]
   \item
@@ -836,57 +816,46 @@ clean input data  for dependent modules.
       \item Input data is numeric and within hardware limits.
     \end{itemize}
 
-  \item[Access Routine Semantics:]
-  \item
-  \texttt{validateVoltage(v:Real)}:
-  \item
+\item[Access Routine Semantics:]
+\item
   \begin{itemize}
-    \item If \texttt{MIN\_VOLTAGE} $\leq v \leq$ \texttt{MAX\_VOLTAGE}, return True.
+    \item \texttt{validateVoltage(v: Real)}:
+      \begin{itemize}
+        \item output := \texttt{MIN\_VOLTAGE} $\leq v \leq$ \texttt{MAX\_VOLTAGE}
+        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{Voltage\_Error}$
+      \end{itemize}
   \end{itemize}
   \item
   \begin{itemize}
-    \item Else, add \texttt{Voltage\_Error} to \texttt{error\_flags} and return False.
-  \end{itemize}
-  \item 
-
-  \texttt{validateCurrent(i:Real)}:
-  \item
-  \begin{itemize}
-    \item If \texttt{MIN\_CURRENT} $\leq i \leq$ \texttt{MAX\_CURRENT}, return True.
+    \item \texttt{validateCurrent(i: Real)}:
+      \begin{itemize}
+        \item output := \texttt{MIN\_CURRENT} $\leq i \leq$ \texttt{MAX\_CURRENT}
+        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{Current\_Error}$
+      \end{itemize} 
   \end{itemize}
   \item
   \begin{itemize}
-    \item Else, add \texttt{Current\_Error} to \texttt{error\_flags} and return False.
-  \end{itemize}
-  \item 
-
-  \texttt{validateFlowRate(f:Real)}:
-  \item
-  \begin{itemize}
-    \item If \texttt{FLOW\_RATE\_THRESHOLD[0]} $\leq f \leq$ \texttt{FLOW\_RATE\_THRESHOLD[1]}, return True.
+    \item \texttt{validateFlowRate(f: Real)}:
+      \begin{itemize}
+        \item output := \texttt{FLOW\_RATE\_THRESHOLD}[0] $\leq f \leq$ \texttt{FLOW\_RATE\_THRESHOLD}[1]
+        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{Flow\_Rate\_Error}$
+      \end{itemize}
   \end{itemize}
   \item
   \begin{itemize}
-    \item Else, add \texttt{Flow\_Rate\_Error} to \texttt{error\_flags} and return False.
-  \end{itemize}
-  \item 
-
-  \texttt{validatePH(p:Real)}:
-  \item
-  \begin{itemize}
-    \item If \texttt{PH\_RANGE[0]} $\leq p \leq$ \texttt{PH\_RANGE[1]}, return True.
+    \item \texttt{validatePH(p: Real)}:
+      \begin{itemize}
+        \item output := \texttt{PH\_RANGE}[0] $\leq p \leq$ \texttt{PH\_RANGE}[1]
+        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{PH\_Error}$
+      \end{itemize}
   \end{itemize}
   \item
   \begin{itemize}
-    \item Else, add \texttt{PH\_Error} to \texttt{error\_flags} and return False.
-  \end{itemize}
-  \item 
-
-  \texttt{getErrorFlags()}:
-  \item
-  \begin{itemize}
-    \item \textbf{Output:} Returns the current set of error flags.
-  \end{itemize}
+    \item \texttt{getErrorFlags()}:
+      \begin{itemize}
+        \item output := \texttt{error\_flags}
+      \end{itemize}
+  \end{itemize}  
 
   \item[Local Function:]
   \item
@@ -959,11 +928,7 @@ clean input data  for dependent modules.
 \begin{description}
   \item[State Variables:]
   \item \texttt{transformedData}: Holds the data after transformation, ready for graphing.
-  \item
-  \item[Environment Variables:]
-  \item \texttt{DATA\_SOURCE}: The location or source from which raw input data is retrieved.
-  \item \texttt{GRAPH\_OUTPUT\_PATH}: Path where the generated graphs are stored or streamed to.
-  \item 
+  \item[Environment Variables:] N/A
 
   \item[Assumptions:]
   \item
@@ -1059,12 +1024,7 @@ clean input data  for dependent modules.
   \item \texttt{userPreferences}: Stores user-specific notification preferences such as preferred 
   delivery method and event types they want to be notified about.
   \item \texttt{notificationQueue}: A queue that holds notifications waiting to be delivered.
-  \item
-  \item[Environment Variables:] 
-  \item \texttt{SMTP\_SERVER}: The email server used for delivering email notifications.
-  \item \texttt{PUSH\_NOTIFICATION\_SERVER}: Endpoint or server for delivering push notifications
-  to users.
-  \item
+  \item[Environment Variables:] N/A
   \item[Assumptions:] 
   \item
   \begin{itemize}
@@ -1141,11 +1101,7 @@ positive user experience.
 \begin{description}
   \item[State Variables:] N/A
   
-  \item[Environment Variables:]
-  \item
-  \begin{itemize}
-    \item Interacts with the frontend framework (i.e., React) for rendering UI components.
-  \end{itemize}
+  \item[Environment Variables:] N/A
   
   \item[Assumptions:]
   \item
