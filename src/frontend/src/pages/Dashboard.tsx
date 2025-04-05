@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: Dashboard
+// Purpose: Main dashboard page for displaying graphs and data analysis.
+// -----------------------------------------------------------------------------
+
 import { useState, useEffect, useMemo } from "react";
 import useTable from "../hooks/useTable";
 import useGraphs from "../hooks/useGraphs";

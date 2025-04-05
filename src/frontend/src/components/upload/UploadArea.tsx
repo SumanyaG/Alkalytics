@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: UploadArea
+// Purpose: Component for uploading files in Upload page.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import { useState, memo, useEffect } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";

@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: ListSidebar
+// Purpose: Sidebar component for displaying and managing experiments,
+// efficiencies, and data.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import IconButton from "@mui/material/IconButton";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";

@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jennifer Y
+// Contributors: Sumanya G, Kate M
+// Year: 2025
+// Component: DataVisualize
+// Purpose: Main graph generation page for viewing and generating graphs.
+// -----------------------------------------------------------------------------
+
 import React, { useState, useRef } from "react";
 import GraphSideBar from "../components/sidebar/GraphSideBar";
 import ScatterPlot from "../components/graph/scatter-plot";

@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Primary author: Kate M
+# Year: 2025
+# Purpose: Service class for handling user information in MongoDB and use RBAC.
+# -----------------------------------------------------------------------------
+
 import bcrypt
 import logging
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -152,14 +158,14 @@ class UserService:
             return False
 
     async def updateRole(self, email: str, newRole: str):
-        user_data = await self.getUser(email)
-        if not user_data:
+        userData = await self.getUser(email)
+        if not userData:
             logging.error(
                 f"Account with email {email} does not exist."
             )
             return False
 
-        oldRole = user_data["role"]
+        oldRole = userData["role"]
 
         if oldRole == newRole:
             logging.error(

@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: Login
+// Purpose: Main login page for signing in.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

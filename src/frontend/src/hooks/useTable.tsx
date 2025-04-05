@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: useTable
+// Purpose: Custom hook for managing table data and state.
+// -----------------------------------------------------------------------------
+
 import { useState, useMemo } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { DataRow } from "../components/table/Table";

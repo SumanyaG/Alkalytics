@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: RemoveRowModal
+// Purpose: Modal component for removing a new column from Table.
+// -----------------------------------------------------------------------------
+
 import React, { useState } from "react";
 
 type RemoveRowModalProps = {

@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: AddRowModal
+// Purpose: Modal component for adding a new row to Table.
+// -----------------------------------------------------------------------------
+
 import React, { useState, useEffect } from "react";
 import { DataRow } from "../table/Table";
 

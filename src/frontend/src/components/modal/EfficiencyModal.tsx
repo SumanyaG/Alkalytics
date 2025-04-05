@@ -1,5 +1,13 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: EfficiencyModal
+// Purpose: Modal component for computing efficiency factors for experiments.
+// -----------------------------------------------------------------------------
+
 import React, { useState, useEffect, useMemo } from "react";
 
+//TODO: Pass custom Experiment type to enable dynamic time intervals
 // type Experiment = {
 //   id: string;
 //   startTime: string;
@@ -54,24 +62,11 @@ const EfficiencyModal: React.FC<EfficiencyModalProps> = ({
     );
   };
 
-  // const calculateIntervals = (start: string, end: string) => {
-  //   const startDate = new Date(start);
-  //   const endDate = new Date(end);
-  //   const maxDuration = Math.floor(
-  //     (endDate.getTime() - startDate.getTime()) / 60000
-  //   );
-
-  //   const validTimeRanges: number[] = [];
-  //   for (let i = 15; i <= maxDuration; i += 15) {
-  //     validTimeRanges.push(i);
-  //   }
-  //   setTimeRanges(validTimeRanges);
-  // };
-
   useEffect(() => {
     if (selectedExperiment) {
       const experiment = experiments.find((exp) => exp === selectedExperiment);
       if (experiment) {
+        //TODO: Implement once Experiment type is defined
         //calculateIntervals(experiment.startTime, experiment.endTime);
       }
     }

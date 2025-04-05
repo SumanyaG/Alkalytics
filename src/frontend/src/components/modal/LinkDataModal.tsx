@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: LinkDataModal
+// Purpose: Modal component for linking data files to experiments.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import { useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";

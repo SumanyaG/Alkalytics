@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: authContext
+// Purpose: Context for managing authentication state and user roles.
+// -----------------------------------------------------------------------------
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useCookies } from "react-cookie";

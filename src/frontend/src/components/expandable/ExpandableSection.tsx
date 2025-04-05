@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jennifer Y
+// Year: 2025
+// Component: ExpandableSection
+// Purpose: Custom MUI expandable component for displaying expandable sections.
+// -----------------------------------------------------------------------------
+
 import React, { useState, useRef } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 

@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jennifer Y
+// Year: 2025
+// Component: SingleDropdown
+// Purpose: Custom MUI dropdown component for selecting single option.
+// -----------------------------------------------------------------------------
+
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";

@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: AccountMenu
+// Purpose: Provides logout action.
+// -----------------------------------------------------------------------------
+
 import { useState } from "react";
 import { ClickAwayListener } from "@mui/material";
 import { useNavigate } from "react-router-dom";

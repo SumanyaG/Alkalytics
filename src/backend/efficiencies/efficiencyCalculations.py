@@ -1,22 +1,30 @@
+# -----------------------------------------------------------------------------
+# Primary author: Kate M
+# Year: 2025
+# Purpose: Functions to calculate various efficiency metrics, including current
+# voltage drop, reaction, and overall efficiency. Calculation logic is based
+# formulas that were developed by the overseeing research team. 
+# -----------------------------------------------------------------------------
+
 import numpy as np
 
 from datetime import datetime
 
-# field constants
+# Field constants
 C1_COND = "C1 Cond"
 C2_COND = "C2 Cond"
 CURRENT = "I Cmm"
 VOLTAGE_STACK = "U Stac"
 VOLTAGE_TOTAL = "U Cmm"
 
-# conversion constants
+# Conversion constants
 FARADAY_CONSTANT = 96485
 MOLAR_MASS = {
     "HCL": 36.4609,
     "NaOH": 39.997
 }
 
-# lookup tables to interpolate conductivity -> concentration
+# Lookup tables to interpolate conductivity -> concentration
 COND_TO_CONC = {
     "conc": [1, 3, 10, 30, 100, 300, 1000, 3000, 10000, 30000, 50000, 100000, 200000],
     "HCL": [11.7, 35, 116, 340, 1140, 3390, 11100, 32200, 103000, 283000, 432000, 709000, 850000], 
@@ -26,9 +34,9 @@ COND_TO_CONC = {
 
 def convertCondtoConc(cond: float, compound: str) -> float:
     """ Converts conductivity (mS/cm) to concentration (M) using interpolation."""
-    x_vals = np.array(COND_TO_CONC[compound])
-    y_vals = np.array(COND_TO_CONC["conc"])
-    ppm = np.interp(cond*1000, x_vals, y_vals)
+    xVals = np.array(COND_TO_CONC[compound])
+    yVals = np.array(COND_TO_CONC["conc"])
+    ppm = np.interp(cond*1000, xVals, yVals)
     return ppm/(MOLAR_MASS[compound]*1000)
 
 
@@ -42,15 +50,15 @@ def groupData(data: list[dict], interval: int = 5) -> list[list[dict]]:
         entry["ElapsedTime"] = (datetime.strptime(entry["Time"], "%Y/%m/%d %H:%M:%S") - startTime).total_seconds() / 60
 
     intervals = []
-    current_group = []
+    currentGroup = []
     for entry in data:
-        current_group.append(entry)
+        currentGroup.append(entry)
         if entry["ElapsedTime"] >= len(intervals) * interval + interval:
-            intervals.append(current_group[:])
-            current_group = []
+            intervals.append(currentGroup[:])
+            currentGroup = []
     
-    if current_group:
-        intervals.append(current_group)
+    if currentGroup:
+        intervals.append(currentGroup)
     
     return intervals
 

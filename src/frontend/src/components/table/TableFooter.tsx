@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: TableFooter
+// Purpose: Table footer component, providing button functionalities for
+// adding/removing rows/columns, applying functions, and computing efficiencies.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import { useMemo, useState } from "react";
 // @ts-ignore

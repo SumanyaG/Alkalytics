@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jennifer Y
+// Year: 2025
+// Component: MultiSelectDropDown
+// Purpose: Custom MUI dropdown component for selecting multiple dates with checkboxes.
+// -----------------------------------------------------------------------------
+
 import * as React from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";

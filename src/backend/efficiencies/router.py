@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Primary author: Kate M
+# Year: 2025
+# Purpose: Efficiency factors-related API endpoints.
+# -----------------------------------------------------------------------------
+
 from datetime import datetime, timedelta
 
 from fastapi import HTTPException, APIRouter

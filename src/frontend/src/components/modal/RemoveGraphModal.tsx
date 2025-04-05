@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: RemoveGraphModal
+// Purpose: Modal component for removing a graph from list of graphs.
+// -----------------------------------------------------------------------------
+
 import React from "react";
 
 type RemoveGraphModalProps = {

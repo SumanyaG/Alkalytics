@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jennifer Y
+// Year: 2025
+// Component: useGraphs
+// Purpose: Custom hook for fetching and managing graph data.
+// -----------------------------------------------------------------------------
+
 import { gql, useQuery } from "@apollo/client";
 
 const GET_GRAPH = gql`

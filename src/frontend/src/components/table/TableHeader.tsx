@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: TableHeader
+// Purpose: Table header component for displaying table name, column selection,
+// and search input.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import { Search } from "@mui/icons-material";
 

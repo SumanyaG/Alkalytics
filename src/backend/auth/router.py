@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Primary author: Kate M
+# Year: 2025
+# Purpose: Authentication-related API endpoints.
+# -----------------------------------------------------------------------------
+
 import os
 import secrets
 

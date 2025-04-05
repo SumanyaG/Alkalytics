@@ -1,10 +1,18 @@
+# -----------------------------------------------------------------------------
+# Primary author: Jason T
+# Contributors: Jennifer Y
+# Year: 2025
+# Purpose: Migration algorithm for importing experimental data.
+# -----------------------------------------------------------------------------
+
 import os
 import logging
+import re
+from datetime import datetime
+
+import numpy as np
 import pandas as pd
 from motor.motor_asyncio import AsyncIOMotorClient
-from datetime import datetime
-import re
-import numpy as np
 
 
 class MigrationService:
@@ -45,42 +53,42 @@ class MigrationService:
         df = df.replace({np.nan: None})
         return df
     
-    def handle_duplicate_columns(self, df):
+    def handleDuplicateColumns(self, df):
         """
         Handle duplicate column names by appending (1), (2), etc.
         Preserves special columns like Notes without creating duplicates.
         """
-        col_names = list(df.columns)
+        colNames = list(df.columns)
         seen = {}
-        special_columns_mapping = {
+        specialColsMapping = {
             'notes': 'Notes',
             '#': '#',
             'date': 'Date',
             'time': 'Time'
         }
         
-        for i, name in enumerate(col_names):
-            name_str = str(name).lower().strip()
+        for i, name in enumerate(colNames):
+            nameStr = str(name).lower().strip()
             
             # Special handling for notes-like columns
-            if name_str in special_columns_mapping:
+            if nameStr in specialColsMapping:
                 # Standardize the name
-                col_names[i] = special_columns_mapping[name_str]
+                colNames[i] = specialColsMapping[nameStr]
                 continue
                 
             # Now handle real duplicates
             if name in seen:
                 j = 1
-                base_name = name
-                while f"{base_name} ({j})" in seen:
+                baseName = name
+                while f"{baseName} ({j})" in seen:
                     j += 1
-                new_name = f"{base_name} ({j})"
-                col_names[i] = new_name
-                seen[new_name] = True
+                newName = f"{baseName} ({j})"
+                colNames[i] = newName
+                seen[newName] = True
             else:
                 seen[name] = True
                 
-        df.columns = col_names
+        df.columns = colNames
         return df
 
     async def isExpDuplicate(self, experimentId):
@@ -101,14 +109,14 @@ class MigrationService:
             # Normalize date format to ensure consistent matching
             if isinstance(date, str):
                 # Try to parse as ISO date format
-                parsed_date = pd.to_datetime(date).strftime("%Y-%m-%d")
+                parsedDate = pd.to_datetime(date).strftime("%Y-%m-%d")
             else:
-                parsed_date = date.strftime("%Y-%m-%d")
+                parsedDate = date.strftime("%Y-%m-%d")
                 
-            self.logger.info(f"Looking for experiment with date: {parsed_date}")
+            self.logger.info(f"Looking for experiment with date: {parsedDate}")
             
             matchingExperiments = await self.experimentsCollection.find(
-                {"Date": parsed_date}
+                {"Date": parsedDate}
             ).to_list(None)
 
             if len(matchingExperiments) == 1:
@@ -124,7 +132,7 @@ class MigrationService:
                 )
                 return None
             else:
-                self.logger.warning(f"No matching experiment found for date: {parsed_date}")
+                self.logger.warning(f"No matching experiment found for date: {parsedDate}")
                 return None
         except Exception as e:
             self.logger.error(f"Error finding experiment: {e}")
@@ -143,25 +151,25 @@ class MigrationService:
                 )
                 
                 # Combine the two header rows in a smart way
-                new_columns = []
+                newCols = []
                 for col in expDf.columns:
                     col0, col1 = str(col[0]), str(col[1])
                     
                     # Handle Notes column specially
                     if 'notes' in col0.lower() or 'notes' in col1.lower():
-                        new_columns.append('Notes')
+                        newCols.append('Notes')
                         continue
                     
                     # Handle empty or unnamed columns
                     if pd.isna(col1) or col1.startswith("Unnamed"):
-                        new_columns.append(col0)
+                        newCols.append(col0)
                     elif pd.isna(col0) or col0.startswith("Unnamed"):
-                        new_columns.append(col1)
+                        newCols.append(col1)
                     else:
                         # Both columns have content, combine them
-                        new_columns.append(f"{col0} {col1}")
+                        newCols.append(f"{col0} {col1}")
                 
-                expDf.columns = new_columns
+                expDf.columns = newCols
                 
             except Exception as e:
                 self.logger.warning(f"Could not process with multi-index headers, trying single header: {e}")
@@ -169,7 +177,7 @@ class MigrationService:
                 expDf = pd.read_excel(experimentFilePath, sheet_name=0)
             
             # Handle duplicate column names
-            expDf = self.handle_duplicate_columns(expDf)
+            expDf = self.handleDuplicateColumns(expDf)
             
             # Clean the data without removing any columns
             expDf = self.cleanData(expDf)
@@ -182,8 +190,8 @@ class MigrationService:
                     self.logger.warning(f"Could not convert Date column to datetime: {e}")
             
             # Add upload timestamp column
-            upload_time = datetime.now()
-            expDf['Upload Date'] = upload_time
+            uploadTime = datetime.now()
+            expDf['Upload Date'] = uploadTime
             
             # Print the columns for debugging
             self.logger.info(f"Experiment sheet columns after processing: {expDf.columns.tolist()}")
@@ -191,26 +199,26 @@ class MigrationService:
             experiments = []
             for _, row in expDf.iterrows():
                 # Skip rows without date
-                date_col = None
+                dateCol = None
                 for col in expDf.columns:
                     if isinstance(col, str) and 'date' in col.lower() and 'upload' not in col.lower():
-                        date_col = col
+                        dateCol = col
                         break
                 
-                if date_col is None:
-                    date_col = 'Date'
+                if dateCol is None:
+                    dateCol = 'Date'
                 
-                if date_col not in row or pd.isna(row[date_col]):
+                if dateCol not in row or pd.isna(row[dateCol]):
                     continue
 
                 experimentData = row.to_dict()
                 
                 # Create a unique ID using # column and date if available
                 if '#' in row and pd.notna(row['#']):
-                    experimentId = f"#{row['#']} {row[date_col]}"
+                    experimentId = f"#{row['#']} {row[dateCol]}"
                 else:
                     # Generate a fallback ID if # column doesn't exist
-                    experimentId = f"EXP-{row[date_col]}-{len(experiments) + 1}"
+                    experimentId = f"EXP-{row[dateCol]}-{len(experiments) + 1}"
 
                 if await self.isExpDuplicate(experimentId):
                     self.logger.info(
@@ -274,7 +282,7 @@ class MigrationService:
             dataDf = pd.read_excel(dataFilePath, sheet_name=0)
             
             # Handle duplicate column names
-            dataDf = self.handle_duplicate_columns(dataDf)
+            dataDf = self.handleDuplicateColumns(dataDf)
             
             dataDf = self.cleanData(dataDf)
             
@@ -282,14 +290,14 @@ class MigrationService:
             if 'Time' in dataDf.columns and len(dataDf) > 0:
                 try:
                     # Get the date from the first non-null Time entry
-                    first_valid_time = None
-                    for time_val in dataDf['Time']:
-                        if pd.notna(time_val):
-                            first_valid_time = time_val
+                    firstValidTime = None
+                    for timeValue in dataDf['Time']:
+                        if pd.notna(timeValue):
+                            firstValidTime = timeValue
                             break
                     
-                    if first_valid_time is not None:
-                        date = pd.to_datetime(first_valid_time).date().isoformat()
+                    if firstValidTime is not None:
+                        date = pd.to_datetime(firstValidTime).date().isoformat()
                     else:
                         self.logger.warning("Could not find valid time value in Time column")
                         date = None
@@ -299,11 +307,11 @@ class MigrationService:
             else:
                 # Try to extract date from filename as fallback
                 filename = os.path.basename(dataFilePath)
-                date_match = re.search(r'(\d{4}-\d{2}-\d{2}|\d{2}-\d{2}-\d{4}|\d{4}/\d{2}/\d{2})', filename)
-                if date_match:
-                    date_str = date_match.group(1)
+                dateMatch = re.search(r'(\d{4}-\d{2}-\d{2}|\d{2}-\d{2}-\d{4}|\d{4}/\d{2}/\d{2})', filename)
+                if dateMatch:
+                    dateStr = dateMatch.group(1)
                     try:
-                        date = pd.to_datetime(date_str).date().isoformat()
+                        date = pd.to_datetime(dateStr).date().isoformat()
                     except:
                         date = None
                 else:
@@ -365,8 +373,8 @@ class MigrationService:
         if dataFilePaths:
             for path in dataFilePaths:
                 try:
-                    data_records = await self.importDataSheet(path)
-                    if data_records:
+                    dataRecords = await self.importDataSheet(path)
+                    if dataRecords:
                         results["data_sheets_imported"] += 1
                 except Exception as e:
                     self.logger.error(f"Failed to import data file {path}: {e}")

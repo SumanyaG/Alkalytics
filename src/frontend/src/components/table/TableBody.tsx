@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: TableBody
+// Purpose: Table body component for displaying and editing data rows.
+// -----------------------------------------------------------------------------
+
 import React, { useState, useRef, useEffect } from "react";
 import { ArrowUpward, ArrowDownward, UnfoldMore } from "@mui/icons-material";
 import { IconButton } from "@mui/material";

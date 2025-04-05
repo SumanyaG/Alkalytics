@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: SetColumnTypesModal
+// Purpose: Modal component for setting column types in Table.
+// -----------------------------------------------------------------------------
+
 import React, { useEffect, useState } from "react";
 
 type SetColumnTypesModalProps = {

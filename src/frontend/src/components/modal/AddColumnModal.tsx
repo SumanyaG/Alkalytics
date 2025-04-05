@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: AddColumnModal
+// Purpose: Modal component for adding a new column to Table.
+// -----------------------------------------------------------------------------
+
 import React, { useState } from "react";
 
 type AddColumnModalProps = {

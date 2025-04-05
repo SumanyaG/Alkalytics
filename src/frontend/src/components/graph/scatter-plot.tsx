@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Sumanya G
+// Year: 2025
+// Component: scatter-plot
+// Purpose: D3 Scatter Plot component for displaying data points.
+// -----------------------------------------------------------------------------
+
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 

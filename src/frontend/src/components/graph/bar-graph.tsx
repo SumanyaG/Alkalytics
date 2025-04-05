@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Sumanya G
+// Year: 2025
+// Component: bar-graph
+// Purpose: D3 Bar Graph component for displaying data points.
+// -----------------------------------------------------------------------------
+
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 

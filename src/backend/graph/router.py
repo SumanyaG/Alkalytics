@@ -1,3 +1,10 @@
+# -----------------------------------------------------------------------------
+# Primary author: Jennifer Y
+# Contributors: Kate M
+# Year: 2025
+# Purpose: Graphing-related API endpoints for the Alkalytics app.
+# -----------------------------------------------------------------------------
+
 import math
 
 import numpy as np
@@ -53,8 +60,8 @@ def performAnalysis(data, attributes):
             "Size of data is too large to compute linear regression, "
             "a sample of the original data will be analyzed."
         )
-        sample_size = int(len(data) * 0.5)
-        indices = np.random.choice(len(data), size=sample_size, replace=False)
+        sampleSize = int(len(data) * 0.5)
+        indices = np.random.choice(len(data), size=sampleSize, replace=False)
         data = [data[i] for i in indices]
 
     # Split and transform data into numpy arrays based on attributes
@@ -67,11 +74,11 @@ def performAnalysis(data, attributes):
     # Calculate R-squared coefficient
     SST = np.sum((y - np.mean(y))**2)
     SSR = residuals[0] if residuals.size > 0 else 0
-    R_squared = 1 - (SSR / SST) if SST > 0 else 1
+    RSquared = 1 - (SSR / SST) if SST > 0 else 1
     result = {
         "slope": coeffs[0],
         "intercept": coeffs[1],
-        "R_squared": R_squared
+        "R_squared": RSquared
     }
     return [result]
 
@@ -111,39 +118,39 @@ async def getFilterCollectionData(payload: DataFilter):
         # Need to get experimentId from the Dates selected
         if payload.collection == "data" and payload.dates:
             # Get experiment IDs from the "experiments" collection
-            experiments_conn = getConnection("experiments")
-            experiments_collection, experiments_client = experiments_conn["collection"], experiments_conn["client"]
+            experimentsConn = getConnection("experiments")
+            experimentsCollection, experimentsClient = experimentsConn["collection"], experimentsConn["client"]
 
-            experiment_ids = [
+            experimentIds = [
                 item["experimentId"]
-                for item in experiments_collection.find(
+                for item in experimentsCollection.find(
                     {"Date": {"$in": payload.dates}}, 
                     {"experimentId": 1, "_id": 0}
                 )
             ]
-            experiments_client.close()
+            experimentsClient.close()
 
-            if not experiment_ids:
+            if not experimentIds:
                 raise HTTPException(status_code=404, detail="No experiments found for the given dates.")
 
             # Fetch data from the collection using experiment IDs
-            target_conn = getConnection(payload.collection)
-            target_collection, target_client = target_conn["collection"], target_conn["client"]
+            targetConn = getConnection(payload.collection)
+            targetCollection, targetClient = targetConn["collection"], targetConn["client"]
 
-            query = {"experimentId": {"$in": experiment_ids}}
+            query = {"experimentId": {"$in": experimentIds}}
             attrs["experimentId"] = 1
-            response = await fetchData(target_collection, query, attrs, target_client)
+            response = await fetchData(targetCollection, query, attrs, targetClient)
 
         # Handle all other cases
         else:
-            target_conn = getConnection(payload.collection)
-            target_collection, target_client = target_conn["collection"], target_conn["client"]
+            targetConn = getConnection(payload.collection)
+            targetCollection, targetClient = targetConn["collection"], targetConn["client"]
 
             if len(payload.dates) > 0:
                 query = {"Date": {"$in": payload.dates}}
             else:
                 query = {}
-            response = await fetchData(target_collection, query, attrs, target_client)
+            response = await fetchData(targetCollection, query, attrs, targetClient)
         # Check if analysis is requested
         if payload.analysis:
             try:
@@ -161,7 +168,7 @@ async def getFilterCollectionData(payload: DataFilter):
     except Exception as e:
         return {"status": "error", "message": str(e)}
     finally:
-        target_client.close()
+        targetClient.close()
 
 
 @router.post("/getFilterCollectionDates")
@@ -169,8 +176,8 @@ async def getFilterCollectionDates(payload: ExperimentFilter):
     """
     Fetches the dates from filtered value.
     """
-    target_conn = getConnection(payload.collection)
-    target_collection, target_client = target_conn["collection"], target_conn["client"]
+    targetConn = getConnection(payload.collection)
+    targetCollection, targetClient = targetConn["collection"], targetConn["client"]
 
     try: 
         # Get all dates from given collection 
@@ -179,17 +186,17 @@ async def getFilterCollectionDates(payload: ExperimentFilter):
         else:
             query = {payload.attribute: payload.filterValue}
         
-        data_list = target_collection.find(query, {"experimentId": 1, "_id": 0})
-        data_list = [date['experimentId'].split()[-1] for date in data_list]
-        data_list = set(data_list)
-        data_list = sorted(list(data_list))
-        if not data_list:
+        dataList = targetCollection.find(query, {"experimentId": 1, "_id": 0})
+        dataList = [date['experimentId'].split()[-1] for date in dataList]
+        dataList = set(dataList)
+        dataList = sorted(list(dataList))
+        if not dataList:
             raise HTTPException(status_code=404, detail="There is no date with the given attribute value")
-        return {"status": "success", "data": data_list}
+        return {"status": "success", "data": dataList}
     except HTTPException as he:
         raise he
     finally:
-        target_client.close()
+        targetClient.close()
 
 
 @router.post("/filterCollectionData/attrValues")
@@ -197,15 +204,15 @@ async def getFilterCollectionAttrValues(payload: AttributeValues):
     """
     Fetches all values of a certain attribute in a collection.
     """
-    target_conn = getConnection(payload.collection)
-    target_collection = target_conn["collection"]
-    attribute_values = []
+    targetConn = getConnection(payload.collection)
+    targetCollection = targetConn["collection"]
+    attributeValues = []
     try:
-        unique_values = target_collection.distinct(payload.attribute)
-        unique_values = [x for x in unique_values if not (isinstance(x, float) and math.isnan(x))]
-        attribute_values = sorted(unique_values)
-        if attribute_values:
-            return {"status": "success", "data": attribute_values}
+        uniqueValues = targetCollection.distinct(payload.attribute)
+        uniqueValues = [x for x in uniqueValues if not (isinstance(x, float) and math.isnan(x))]
+        attributeValues = sorted(uniqueValues)
+        if attributeValues:
+            return {"status": "success", "data": attributeValues}
         else:
             return {"status": "error", "message": "There is no attribute with that name found in the data"}
 
@@ -222,9 +229,9 @@ async def addGeneratedGraphs(payload: GeneratedGraphs):
     collection, client = connection["collection"], connection["client"]
 
     latest = collection.find().sort({"_id":-1}).limit(1)
-    data_list = list(latest)
-    data_list = [cleanData(item) for item in data_list]
-    nextId = 1 if not data_list else data_list[0]["_id"] + 1
+    dataList = list(latest)
+    dataList = [cleanData(item) for item in dataList]
+    nextId = 1 if not dataList else dataList[0]["_id"] + 1
     
     graph = {
         "_id": nextId,  

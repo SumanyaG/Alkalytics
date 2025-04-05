@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: TableView
+// Purpose: Main table view page for displaying and managing experiments,
+// efficiencies, and data, and performing table operations,
+// -----------------------------------------------------------------------------
+
 import React, { useState } from "react";
 import Table from "../components/table/Table";
 import ListSidebar from "../components/sidebar/ListSidebar";

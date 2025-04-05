@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: Sidebar
+// Purpose: Main navigation sidebar component for the application.
+// -----------------------------------------------------------------------------
+
 import Tooltip from "@mui/material/Tooltip";
 import { Link, useLocation } from "react-router-dom";
 import AccountMenu from "../auth/AccountMenu";

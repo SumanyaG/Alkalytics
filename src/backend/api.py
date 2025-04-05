@@ -1,19 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from auth.router import router as auth_router
-from efficiencies.router import router as efficiencies_router
-from upload.router import router as upload_router
-from table.router import router as table_router
-from graph.router import router as graph_router
+from auth.router import router as authRouter
+from efficiencies.router import router as efficienciesRouter
+from upload.router import router as uploadRouter
+from table.router import router as tableRouter
+from graph.router import router as graphRouter
 
 app = FastAPI(docs_url="/docs")
 
-app.include_router(auth_router)
-app.include_router(efficiencies_router)
-app.include_router(upload_router)
-app.include_router(table_router)
-app.include_router(graph_router)
+app.include_router(authRouter)
+app.include_router(efficienciesRouter)
+app.include_router(uploadRouter)
+app.include_router(tableRouter)
+app.include_router(graphRouter)
 
 app.add_middleware(
     CORSMiddleware,

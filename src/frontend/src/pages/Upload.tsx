@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: Upload
+// Purpose: Main upload page for uploading experiment and data files.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import { useState, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";

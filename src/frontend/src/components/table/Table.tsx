@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jason T
+// Year: 2025
+// Component: Table
+// Purpose: Main table component for displaying and managing data.
+// -----------------------------------------------------------------------------
+
 import React, { useState, useMemo, useEffect } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import TableBody from "./TableBody";

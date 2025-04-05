@@ -1,3 +1,9 @@
+# -----------------------------------------------------------------------------
+# Primary author: Jason T
+# Year: 2025
+# Purpose: Upload-related API routes for handling file uploads and processing.
+# -----------------------------------------------------------------------------
+
 import os
 import base64
 
@@ -26,17 +32,17 @@ def sanitizeFilename(filename: str) -> str:
 def decodeAndSave(filePayload: FilePayload) -> str:
     """Decode the base64 content of the file and saves it to a temporary location."""
     try:
-        file_content = base64.b64decode(filePayload.content)
+        fileContent = base64.b64decode(filePayload.content)
     except Exception as decode_error:
         raise HTTPException(
             status_code=400,
             detail=f"Invalid base64 content for file: {filePayload.filename}",) from decode_error
 
-    sanitized_filename = sanitizeFilename(filePayload.filename)
-    tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
+    sanitizedFilename = sanitizeFilename(filePayload.filename)
+    tempFilePath = os.path.join(os.getcwd(), sanitizedFilename)
 
-    with open(tempFilePath, "wb") as temp_file:
-        temp_file.write(file_content)
+    with open(tempFilePath, "wb") as tempFile:
+        tempFile.write(fileContent)
 
     return tempFilePath
 
@@ -45,18 +51,18 @@ def decodeAndSaveLinked(filePayload: LinkedDataPayload) -> dict:
     """Decode the base64 content of the data file and saves it to a temporary
     location with its linked ID."""
     try:
-        file_content = base64.b64decode(filePayload.content)
+        fileContent = base64.b64decode(filePayload.content)
     except Exception as decode_error:
         raise HTTPException(
             status_code=400,
             detail=f"Invalid base64 content for file: {filePayload.filename}",
         ) from decode_error
 
-    sanitized_filename = sanitizeFilename(filePayload.filename)
-    tempFilePath = os.path.join(os.getcwd(), sanitized_filename)
+    sanitizedFilename = sanitizeFilename(filePayload.filename)
+    tempFilePath = os.path.join(os.getcwd(), sanitizedFilename)
 
-    with open(tempFilePath, "wb") as temp_file:
-        temp_file.write(file_content)
+    with open(tempFilePath, "wb") as tempFile:
+        tempFile.write(fileContent)
 
     return {"path": tempFilePath, "linkedId": filePayload.linkedId}
 
@@ -83,23 +89,23 @@ async def upload(payload: FilesPayload):
                 status_code=400, detail="No valid files provided."
             )
 
-        mongoUri = os.getenv("CONNECTION_STRING")
-        dbName = "alkalyticsDB"
-        migrationService = MigrationService(mongoUri, dbName)
+        MONGO_URI = os.getenv("CONNECTION_STRING")
+        DB_NAME = "alkalyticsDB"
+        migrationService = MigrationService(MONGO_URI, DB_NAME)
 
         try:
-            ambiguous_data = await migrationService.migrate(
+            ambiguousData = await migrationService.migrate(
                 experimentFilePaths=tempExperimentFiles,
                 dataFilePaths=tempDataFiles,
             )
         finally:
             await migrationService.closeConnection()
 
-        file_map = {file.filename: file for file in payload.dataFiles}
+        fileMap = {file.filename: file for file in payload.dataFiles}
 
-        for data in ambiguous_data:
-            if data["dataId"] in file_map:
-                data["dataFile"] = file_map[data["dataId"]]
+        for data in ambiguousData:
+            if data["dataId"] in fileMap:
+                data["dataFile"] = fileMap[data["dataId"]]
 
         # Clean up temporary files
         for tempFile in tempExperimentFiles:
@@ -110,7 +116,7 @@ async def upload(payload: FilesPayload):
         return {
             "status": "success",
             "message": "Files processed successfully.",
-            "ambiguousData": ambiguous_data,
+            "ambiguousData": ambiguousData,
         }
 
     except HTTPException as e:
@@ -144,9 +150,9 @@ async def manualUpload(payload: ManualUploadPayload):
         for file in payload.linkedData:
             tempLinkedDataFiles.append(decodeAndSaveLinked(file))
 
-        mongoUri = os.getenv("CONNECTION_STRING")
-        dbName = "alkalyticsDB"
-        migrationService = MigrationService(mongoUri, dbName)
+        MONGO_URI = os.getenv("CONNECTION_STRING")
+        DB_NAME = "alkalyticsDB"
+        migrationService = MigrationService(MONGO_URI, DB_NAME)
 
         try:
             for tempData in tempLinkedDataFiles:

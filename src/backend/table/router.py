@@ -1,3 +1,10 @@
+# -----------------------------------------------------------------------------
+# Primary author: Jason T
+# Contributors: Kate M
+# Year: 2025
+# Purpose: Table-related API endpoints for handling data and experiment retrieval.
+# -----------------------------------------------------------------------------
+
 from fastapi import APIRouter, HTTPException
 
 from database import getConnection
@@ -48,11 +55,11 @@ async def getExperimentIds():
     collection, client = connection["collection"], connection["client"]
 
     try:
-        experiment_ids = collection.find({}, {"experimentId": 1}).sort("#", 1)
-        experiment_id_list = [
-            doc["experimentId"] for doc in experiment_ids if "experimentId" in doc
+        experimentIds = collection.find({}, {"experimentId": 1}).sort("#", 1)
+        experimentIdList = [
+            doc["experimentId"] for doc in experimentIds if "experimentId" in doc
         ]
-        return {"status": "success", "experimentIds": experiment_id_list}
+        return {"status": "success", "experimentIds": experimentIdList}
     except Exception as e:
         return {"error": str(e)}
     finally:
@@ -86,7 +93,7 @@ async def getExperiments():
 
 
 @router.put("/update-data")
-async def update_data(payload: UpdateDataPayload):
+async def updateData(payload: UpdateDataPayload):
     """
     Updates multiple rows in the 'data' collection based on experiment IDs.
     Each experiment ID maps to a dictionary of fields to update.
@@ -95,37 +102,37 @@ async def update_data(payload: UpdateDataPayload):
     collection, client = connection["collection"], connection["client"]
 
     try:
-        total_modified_count = 0
+        totalModifiedCount = 0
 
-        for experiment_id, update_fields in payload.updatedData.items():
-            processed_fields = {}
-            for key, value in update_fields.items():
+        for experimentId, updateFields in payload.updatedData.items():
+            processedFields = {}
+            for key, value in updateFields.items():
                 if isinstance(value, str):
                     try:
-                        num_value = float(value)
-                        processed_fields[key] = (
-                            int(num_value) if num_value.is_integer() else num_value
+                        numValue = float(value)
+                        processedFields[key] = (
+                            int(numValue) if numValue.is_integer() else numValue
                         )
                     except ValueError:
-                        processed_fields[key] = value
+                        processedFields[key] = value
                 else:
-                    processed_fields[key] = value
+                    processedFields[key] = value
 
             result = collection.update_one(
-                {"experimentId": experiment_id}, {"$set": processed_fields}
+                {"experimentId": experimentId}, {"$set": processedFields}
             )
 
             if result.matched_count == 0:
                 raise HTTPException(
                     status_code=404,
-                    detail=f"No experiment found with ID: {experiment_id}",
+                    detail=f"No experiment found with ID: {experimentId}",
                 )
 
-            total_modified_count += result.modified_count
+            totalModifiedCount += result.modified_count
 
         return {
             "status": "success",
-            "message": f"Updated {total_modified_count} rows successfully.",
+            "message": f"Updated {totalModifiedCount} rows successfully.",
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error updating data: {str(e)}")
@@ -134,7 +141,7 @@ async def update_data(payload: UpdateDataPayload):
 
 
 @router.put("/experiments/add-column")
-async def add_column(payload: AddColumnRequest):
+async def addColumn(payload: AddColumnRequest):
     """
     Adds a new column to all documents in the 'experiments' collection.
     """
@@ -156,7 +163,7 @@ async def add_column(payload: AddColumnRequest):
 
 
 @router.post("/experiments/add-row")
-async def add_row(payload: AddRowRequest):
+async def addRow(payload: AddRowRequest):
     """
     Adds a new row (document) to the 'experiments' collection.
     """
@@ -173,7 +180,7 @@ async def add_row(payload: AddRowRequest):
 
 
 @router.put("/experiments/remove-column")
-async def remove_column(payload: RemoveColumnRequest):
+async def removeColumn(payload: RemoveColumnRequest):
     """
     Removes a column from all documents in the 'experiments' collection.
     """
@@ -193,7 +200,7 @@ async def remove_column(payload: RemoveColumnRequest):
 
 
 @router.delete("/experiments/remove-rows")
-async def remove_rows(payload: RemoveRowRequest):
+async def removeRows(payload: RemoveRowRequest):
     """
     Removes one or more rows (documents) from the 'experiments' collection by experimentIds.
     """

@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jennifer Y
+// Contributors: Kate M
+// Year: 2025
+// Component: GraphSidebar
+// Purpose: Sidebar component for displaying and managing graphs.
+// -----------------------------------------------------------------------------
+
 import type React from "react";
 import { useContext, useState } from "react";
 import IconButton from "@mui/material/IconButton";

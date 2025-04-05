@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Jennifer Y
+// Year: 2025
+// Component: DataFormModal
+// Purpose: Modal component for creating a new graph.
+// -----------------------------------------------------------------------------
+
 import React, { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Stepper, Step, StepLabel, TextField, IconButton } from "@mui/material";

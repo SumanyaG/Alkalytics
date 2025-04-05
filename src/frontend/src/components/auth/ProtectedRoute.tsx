@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------------
+// Primary Author: Kate M
+// Year: 2025
+// Component: ProtectedRoute
+// Purpose: Provides a protected route for authenticated users.
+// -----------------------------------------------------------------------------
+
 import { useAuth } from "../../context/authContext";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
