@@ -249,8 +249,8 @@ Result: \textcolor{red}{Fail}
 \end{enumerate}
 
 \section{Nonfunctional Requirements Evaluation}
-This section outlines the manual system tests that were run and their sub-
-sequent results and outputs for all listed non-functional requirements.
+This section outlines the manual system tests that were run and their subsequent
+results and outputs for all listed non-functional requirements.
 \subsection{Look and Feel} \label{NFR-LF}
 \begin{enumerate}
 \item{\textbf{NFR-LF1}} \label{NFR:LF1}
@@ -301,25 +301,25 @@ Input/Condition: Manual tester's engagement with application
 Expected Output: Number of inconsistencies found across all devices $\leq$ 10.
 
 Actual Output: \newline
-\textbf{Dashbaord}: 2 inconsistancies on mobile, 1 inconsistancy on tablet. Not
+\textbf{Dashboard}: 2 inconsistencies on mobile, 1 inconsistency on tablet. Not
 full screen cuts off half way on both tablet and mobile. Table quick view is not
 mobile compatible as the table is squished and not readable.\newline
-\textbf{Query Page}: 4 inconsistancies on mobile, 1 inconsistancy on tablet. The
+\textbf{Query Page}: 4 inconsistencies on mobile, 1 inconsistency on tablet. The
 table is not horizontally scrollable on mobile view as such cannot see the
 search bar and column drop down. Also cannot type in the equations field to
-apply them to the table. On tablet view there is abit of the table that is cut
+apply them to the table. On tablet view there is a bit of the table that is cut
 off on the right. \newline
-\textbf{Upload Page}: No inconsistancies.\newline
-\textbf{Graphs Page}: 1 inconsistancy on mobile. The modal is cut off on the
+\textbf{Upload Page}: No inconsistencies.\newline
+\textbf{Graphs Page}: 1 inconsistency on mobile. The modal is cut off on the
 right. Although it does not affect the functionality as all the buttons are
-still reachable, it is not visually apealing. \newline
-\textbf{Login Page}: 0 inconsistancies.
+still reachable, it is not visually appealing. \newline
+\textbf{Login Page}: 0 inconsistencies.
 
 Result: \textcolor{green}{Pass} \newline
-Although there are still inconsistancy, they are mainly due to the fact that
+Although there are still inconsistency, they are mainly due to the fact that
 mobile compatibilityis a nice to have. It is expected that almost always users
 will be using the app on a standard sized laptop or monitor. Hence, why there
-are only inconsistancies present in tablet and mobile views and not the laptop
+are only inconsistencies present in tablet and mobile views and not the laptop
 or monitor views. \end{enumerate}
 
 \subsection{Usability}
@@ -392,18 +392,18 @@ Expected Output: List of accessibility issues in accordance to Web Content
 Accessibility Guidelines (WCAG), and checklists for if page is screen-readable
 
 Actual Output:\newline
-\textbf{Dashbaord}: All buttons and form fields are do not have alt texts or
+\textbf{Dashboard}: All buttons and form fields are do not have alt text or
 context. \newline
-\textbf{Query Page}:All buttons and form fields are do not have alt texts or
+\textbf{Query Page}:All buttons and form fields are do not have alt text or
 context. Scrolling is also not possible from keyboard shortcuts. \newline
 \textbf{Upload Page}: Upload button does not have alt text.\newline
-\textbf{Graphs Page}: All buttons and form fields are do not have alt texts or
+\textbf{Graphs Page}: All buttons and form fields are do not have alt text or
 context.\newline
 \textbf{Login Page}: Is accessible
 
 Result: \textcolor{red}{Fail} \newline
 Most pages do not comply with the WCAG guidelines. Many of the components and
-buttons are missing alt texts which makes the page screen readable. 
+buttons are missing alt text which makes the page screen readable. 
  \end{enumerate}
 
 \subsection{Performance}
@@ -455,7 +455,7 @@ Expected Output: Average response time of buttons on website $\leq$
 \texttt{RESPONSE\_TIME} = 2 seconds
 
 Actual Output: \newline
-\textbf{Dashbaord}: Dropdowns have a response time of 0.1 seconds \newline
+\textbf{Dashboard}: Dropdowns have a response time of 0.1 seconds \newline
 \textbf{Query Page}:All buttons and form fields are do not have alt texts or
 context. Scrolling is also not possible from keyboard shortcuts. \newline
 \textbf{Upload Page}: Upload button takes about 2 seconds if there is an error
@@ -464,7 +464,7 @@ to being uploading. \newline
 \textbf{Graphs Page}: Graph, parameter type drop downs have a response time of
 0.1. Date, x and y parameter drop downs has an average response time of 1.25
 seconds \newline
-\textbf{Login Page}: Login and register button have a reponse time of 0.1
+\textbf{Login Page}: Login and register button have a response time of 0.1
 seconds
 
 Result: \textcolor{green}{Pass} 
@@ -555,7 +555,7 @@ Initial State: Three devices ready to run application
 
 Input/Condition: \texttt{SAMPLE\_QUERY}: \{\}
 
-Expected Output: System response time while under load $\leq$
+Expected Output: System response time while under load $\leq$ \\
 \texttt{RESPONSE\_TIME\_THRESHOLD}
 
 Actual Output: \newline
@@ -855,7 +855,7 @@ project repository.
 
 \subsection{Data Storage Module}
 Table \ref{UT:DataStorage} provides a summary of the results for each test that
-is relevant to the User Management module.
+is relevant to the Data Storage Module.
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|l|l|}
@@ -930,7 +930,7 @@ is relevant to the User Management module.
 
 \newpage
 \subsection{Data Retrieval Module}
-Tables \ref{UT:DataRetrieval1} and \ref{UT:DataRetrieval2} provides a summary of
+Tables \ref{UT:DataRetrieval1}, \ref{UT:DataRetrieval2}, and \ref{UT:DataRetrieval3} provide a summary of
 the results for each test that is relevant to the Data Retrieval module.
 \begin{table}[H]
   \centering
@@ -1155,6 +1155,10 @@ relevant to the User Management module.
 \end{table}
 
 \section{Changes Due to Testing}
+This section outlines all of the changes that should be made to the
+implementation based on the results of the testing. This includes changes from
+the supervisor's feedback and from failed tests.
+
 \subsection{Changes Due to Supervisor Feedback}
 
 Our supervisor suggested the current data visualization form intake could be
@@ -1184,7 +1188,7 @@ requirements that failed.
 out the user after a period of inactivity. This was due to the lack of a session
 timeout manager, which will be implemented in the final product.
 
-\subsubsection{\hyperref[NFR:UH4]{NFR-UH4}} The system was not complient to with
+\subsubsection{\hyperref[NFR:UH4]{NFR-UH4}} The system was not compliant to with
 the WCAG standards. This is due to the fact that the current research team using
 the project does not need any accessibility considerations when using the app.
 However this may not be true in the future, as such, updates to the current
@@ -1198,6 +1202,10 @@ coverage metrics, making automated testing more efficient and flexible. Jest was
 used as the automated testing framework for React components.
 		
 \section{Trace to Requirements}
+
+Tables \ref{table:traceFR}, \ref{table:traceNFR1}, \ref{table:traceNFR2}, and
+\ref{table:traceNFR3} provide a traceability matrix for the functional and
+nonfunctional requirements to the test cases.
 
 \begin{table}[H]
   \centering
@@ -1378,7 +1386,9 @@ used as the automated testing framework for React components.
   \label{table:traceNFR3}
 \end{table}
 		
-\section{Trace to Modules}		
+\section{Trace to Modules}
+Table \ref{table:modTrace1} provides a traceability matrix for the system test
+cases to the modules.
 \begin{table}[H]
   \centering
   \centerline{
@@ -1470,7 +1480,7 @@ implementation, thus this section is omitted.
   The primary way in which the VnV Plan is different from the activities that
   were actually conducted for the VnV Report is implementation of features.
   After Revision 0, the scope of the project was changed after consulting the
-  professor ans given the change in the priority of requirements from the
+  professor and given the change in the priority of requirements from the
   client. This resulted in a number of features now being labelled as stretch
   goals which were, at the time of testing, not implemented. Thus, the tests for
   these features had to be labelled as `Out of Scope'.

@@ -125,7 +125,7 @@ emissions using Bipolar Membrane Electrodialysis (BMED) technology. This process
 separates a salt solution into distinct acid and base components, with the base
 solution meant to be returned to the ocean.
 
-\noindent The goal of the experimental study is to decrease the ocean's pH
+\noindent The goal of the experimental study is to increase the ocean's pH
 levels to enhance its ability to absorb more CO\textsubscript{2}, helping to
 reduce its warming effect and mitigate global temperature rise. Currently, the
 production process for generating this base is on a small scale and is
@@ -137,41 +137,40 @@ requiring the ability to identify and fine-tune specific parameters to achieve
 ideal conditions.
 \subsection{Goals of the Project}
 This application will be able to consolidate and organize the data from the
-experiments with proper labeling across all given datasets allowing for a
-centralize method of data storage that is both scalable and maintainable. In the
-application users, can request to see certain data points from the inputted data
-sets given any specified order. Once the data is returned to the user, the
+experiments with proper labeling across all given datasets, allowing for a
+centralized method of data storage that is both scalable and maintainable. In the
+application, users can request to view specific data from the stored datasets
+given any specified order. Once the data is returned to the user, the
 application can show inter-parameter comparability to better aid data analysis.
-This comparability acts as a starting point to analysis and is by no means show
-a final analysis of the data. This will all be presented in a web interface
-where all the user functions will be displayed and can be shared among those
-involved in the experiment.   
+This comparability acts as a starting point to analysis and is by no means a
+final analysis of the data. This will all be presented in a web interface
+where all the user functions are displayed and can be accessed by those
+involved in the research study.
 \section{Stakeholders}
 
 \subsection{Client}
-Dr. Charles de Lannoy serves as the main client for this project as he is the
+Dr.\ Charles de Lannoy serves as the main client for this project as he is the
 lead supervisor of the research study. This solution directly affects his work and
-is intended to be a custom solution for the problem. Bassel Abdelkader is
-another client of this project as he is the person that works directly with the
-research data. One of his responsibilities is to record the experimental data and
-upload them to their current data storage system, Microsoft Excel. 
-\subsection{Customer}
-Since this project is an in-house solution development the inital customer is
-also the client. As Dr. Charles de Lannoy is both directing this project and is
-also the end user. As such, he is also considered to be the customer.\newline 
+is intended to be customized for the problem. Bassel Abdelkader is
+another client of this project as he is one of the lead researchers that works
+directly with the experimental data. One of his responsibilities is to manage
+the data and upload them to their current data storage system, Microsoft Excel.
+\subsection{Customer} \label{sec:customer}
+For in-house development, the initial customer is also the client. Dr.\ de
+Lannoy is overseeing this project as a client, but he is also one of the end
+users. As such, he is considered to be the customer.\newline 
 Although this project is a tailored solution to one research study, its
 application can still be extended to any other situation where large sets of
 data is involved. This could be shared among other researchers to aid in their
 data management and analysis. Depending on the research team's structure, there
 could also be different levels of permissions that can be obtained.
 \subsection{Other Stakeholders}
-Current student assistants and members of the lab working on the study is can also be
+Current student assistants and members of the lab working on the study can also be
 considered stakeholders for the same reasons as the clients. However, since they
-will only be working with the study for a short amount of time without daily or
-consistent interaction, they do not serve as a main stakeholder. The founder of
-the study, who is currently funding the research project is another stakeholder.
-However, since they do not work directly with the processes of the study rather
-oversee the process, they may not have strong interest in the details of the solution. 
+may not be working with the data for an extended period of time, they do not
+serve as a main stakeholder. Funders of the research project may be other
+stakeholders. However, since they do not work directly with the experimental
+data, they may not have strong interest in the details of the solution.
 \subsection{Hands-On Users of the Project}
 \label{sec:2.4}
 The following is a special type of stakeholder as after this capstone project
@@ -183,14 +182,15 @@ term, the project will be passed back to the research team to maintain.
   \item Subject matter experience: Master knowledge on the goals of the research
   project. Master knowledge on how the experiment processes work. 
   \item Technical knowledge: Novice knowledge on the technology stack being
-  used in this project, Python, MongoDB, JavaScript, other front-end frameworks 
+  used in this project: Python, MongoDB, JavaScript, other front-end frameworks.
 \end{itemize}
 
 \subsection{Personas}
 \label{personas}
 \begin{itemize}
-  \item John Doe is a 23 year old McMaster undergraduate student who has a
-  research position on the ocean alkalinity research project. They have been
+  \item John Doe is a 23 year old undergraduate student at McMaster who has a
+  research position with the de Lannoy Lab, working on the ocean alkalinity
+  enhancement experiment. They have been
   tasked to aid the experiment data collection process. After being told that
   the data is being stored in a master Excel file; they find that is it hard to
   use. Being an engineering student without much experience with Excel, they
@@ -202,24 +202,24 @@ term, the project will be passed back to the research team to maintain.
   tools are being used but suggested that there could be another better solution
   to use. 
   \item Dr.\ Carly Kelvon is a 60 year old professor at a university and
-  is working on her own research project for over five years. She has gathered
-  lots of data and thankfully she has always been great at Excel. However, other
+  has been working on her own research project for over five years. She has gathered
+  lots of data and thankfully she has always been great at Excel. However, over
   the last two years she has found that Excel is becoming less sustainable. The
-  queries are a lot slower and sifting through pages and pages of data is
+  queries are a lot slower and sifting through hundreds of files is
   wasting a lot of her time. She sees this more evidently through those that
-  work along side her as they are also facing the same struggles with even less
-  Excel experience as her. She wants to find a more scalable solution but she
-  fears that her lack of digital knowledge will do her more harm than good, as a
-  result she fears that if she introduces a new application to serve her needs
-  better that she will find it hard and confusing to use. 
+  work alongside her as they face the same struggles with even less
+  Excel experience. She wants to find a more scalable solution but she
+  fears that her lack of digital knowledge will do her more harm than good. As a
+  result, she fears that if she introduces a new application to serve her needs
+  better, she will find it harder and more confusing to use. 
   \item Dr.\ Alex Stark is a 30 year old associate professor who has recently
   gotten funding for his innovative research idea and has been dedicating all
   his time on perfecting its methodology. It has only been one year since his
   research started but had recently found a great application of his ideas to
   reach far more people and be more impactful that he had originally thought.
-  But with his current data management set up, he quickly realises that it is not
-  sustainable. He finds that there are many other solutions on the market but
-  they do not exactly meet his needs and cost a lot more than what he can spend
+  But with his current data management set-up, he quickly realizes that it is not
+  sustainable. He finds that there are many other solutions in the market but
+  they do not perfectly align with his needs and cost a lot more than what he can spend
   on a tool. He decided that the best way is to create his own tool but lacks
   the software knowledge to create something stable and reliable. 
 \end{itemize}
@@ -227,7 +227,7 @@ term, the project will be passed back to the research team to maintain.
 \subsection{Priorities Assigned to Users}
 \subsubsection{Primary Users}
 \begin{itemize}
-  \item Dr. Charles de Lannoy
+  \item Dr.\ Charles de Lannoy
   \item Bassel Abdelkader
   \item Student Assistant working on the experiment 
 \end{itemize}
@@ -238,11 +238,11 @@ term, the project will be passed back to the research team to maintain.
   \item The founder of the study
 \end{itemize}
 \subsection{User Participation}
-Since this project is a personalized solution for a research team, there is no
-other user participants other than the research time and others teams with a
+Since this project is a personalized solution for a research team, there are no
+other participants other than the research team and potentially other teams with a
 similar need. 
 \subsection{Maintenance Users and Service Technicians}
-Not a relevant section 
+\emph{N/A}
 
 \section{Mandated Constraints}
 The following constraints highlight the restrictions and limitations imposed by the stakeholders, impacting the implementation of the product. 
@@ -264,7 +264,7 @@ The following constraints highlight the restrictions and limitations imposed by 
 \emph{N/A}
 
 \subsection{Anticipated Workplace Environment}
-\textbf{MC-3.} The product shall be used in the Chemical Engineering Lab run by Dr. Charles de Lannoy, Bassel Abdelkader and their team of researchers.
+\textbf{MC-3.} The product shall be used in the Chemical Engineering Lab run by Dr.\ Charles de Lannoy, Bassel Abdelkader and their team of researchers.
 
 \subsection{Partner or Collaborative Applications}
 \emph{N/A}
@@ -299,6 +299,9 @@ documentation to ensure clarity and consistency in communication.
 \begin{itemize}
     \item \textbf{Alkalinity Enhancement}: A process in ocean engineering to
     increase the ocean's ability to absorb CO\textsubscript{2}.
+    \item \textbf{Bipolar Membrane Electrodialysis (BMED)}: A process that uses
+    electric fields to drive ion movement through membranes, facilitating the
+    generation of the dilute base.
     \item \textbf{CO\textsubscript{2}}: Carbon Dioxide, a greenhouse gas that
     contributes to global warming.
     \item \textbf{Ion Exchange}: The process of exchanging ions between the
@@ -307,9 +310,6 @@ documentation to ensure clarity and consistency in communication.
     assessing the effectiveness of the alkalinity enhancement process.
     \item \textbf{Buffering Capacity}: The ability of seawater to resist changes
     in pH, essential for maintaining stable conditions during experiments.
-    \item \textbf{Electrodialysis}: A process that uses electric fields to drive
-    ion movement through membranes, facilitating the generation of the dilute
-    base.
     \item \textbf{Oceans' Carbon Cycle}: The natural process by which carbon is
     exchanged between the ocean, atmosphere, and land, impacting global climate.
     \item \textbf{POC (Proof of Concept)}: A demonstration used to verify that a
@@ -359,12 +359,12 @@ Currently, two sources of data input are used -
 \section{The Scope of the Work}
 This section determines the boundaries of the project to be studied and outlines how it fits into its environment.
 \subsection{The Current Situation}
-Currently, a system of excel template files is used to store and manage the data. CSV files are generated by the lab apparatus
-which are then downloaded and copied onto an `experiment' excel template. This step involves getting rid of redundant data when a single CSV file is
-split into multiple excel files and removing inaccurate data (such as rows of zeroes).\\
+Currently, a system of Excel template files is used to store and manage the data. CSV files are generated by the lab apparatus,
+which are then downloaded and copied onto an `experiment' Excel template. This step involves getting rid of redundant data when a single CSV file is
+split into multiple Excel files and removing inaccurate data (such as rows of zeroes).\\
 \newline
-This data in the experiment template is then analysed and the results from the analysis of each experiment is then added to another consolidated excel template,
-referred to here as `observations' that reords all experiment observations. This observations template also contains additional parameters for each experiment 
+This data in the experiment template is then analyzed and the results from the analysis of each experiment is added to another consolidated Excel template,
+referred to here as `observations' that records all experiment observations. This observations template also contains additional parameters for each experiment 
 such as membrane, configuration and more wich are entered manually by the user.
 \subsection{The Context of the Work}
 Figure \ref{WorkContextModel} shows the Work Context Model for the project. The
@@ -398,10 +398,10 @@ The following section will highlight use cases of the product and how users and
 stakeholders will interact with the product.  
 \subsection{Product Boundary}
 Figure \ref{UCD} is a use case diagram involving the two clients and major customers. The
-diagram includes the back end database as an actor as it interacts with the
-interface system. Level 1 to 3 labeled actors are part of the research time
-customer mentioned in section 2.2 where depending how the team is structured,
-there are differnt use cases for different level actors. These are added for
+diagram includes the back-end database as an actor as it interacts with the
+interface system. Levels 1 to 3 labelled actors are part of the research team
+mentioned in Section \ref{sec:customer}, where depending on how the team is structured,
+there are different use cases for different level actors. These are added for
 clarity of the system.
 \begin{figure}[H]
   \centering
@@ -414,9 +414,9 @@ clarity of the system.
 \subsection{Product Use Case Table}
 Table \ref{PUCT} shows a Product Use Case (PUC) table, an extension of the use
 case diagram shown in Figure \ref{UCD}. The table aims to provide more details.
-\begin{table}[htbp]
+\begin{table}[H]
   \centering
-  \begin{tabular}{|p{0.08\linewidth}|p{0.3\linewidth}|l|p{0.4\linewidth}|}
+  \begin{tabular}{|p{0.08\linewidth}|p{0.2\linewidth}|l|p{0.4\linewidth}|}
     \hline
     \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor/s} & \textbf{Input \& Output}\\
     \hline
@@ -442,9 +442,9 @@ case diagram shown in Figure \ref{UCD}. The table aims to provide more details.
 \subsubsection{Output CSV}
 \begin{itemize}
   \item Description: The user can export/output the data that they have received
-  from any function on the website system
+  from any function on the website system.
   \item Pre-condition: There must be some data in the database. The information
-  the user wants to output must also be able to be stored in a CSV file 
+  the user wants to output must also be able to be stored in a CSV file.
   \item Post-condition: The user will get to download the desired CSV file
   containing data from the database. If the download file has been sent to the
   system, the user will receive a success or failure message.
@@ -510,8 +510,8 @@ case diagram shown in Figure \ref{UCD}. The table aims to provide more details.
 \begin{itemize}
   \item Description: The user will want to get data from their past experiments.
   To do so, they will need to decide what they want. This is one of the main use
-  case for any user/actor. 
-  \item Pre-condition: The database must have the some data. The user's query
+  cases for any user/actor. 
+  \item Pre-condition: The database must have some data. The user's query
   request must be filled in through the input fields. The fields can range from
   dates, to strings, to constraints. 
   \item Post-condition: The returned data will be shown to the user through a
@@ -717,8 +717,8 @@ initial completion of this document.
 \end{enumerate}
 
 \section{Look and Feel Requirements}
-This section will highlight the look and feel of the web interface for the
-project involving the appearance and the style of the user interface and
+This section outlines the look and feel requirements of the web interface for the
+project, detailing the appearance and the style of the user interface and
 experience.
 \subsection{Appearance Requirements}
 \begin{enumerate}
@@ -750,7 +750,7 @@ experience.
     understand and recognize the functions to minimize confusion and improve
     efficiency.
     \item \textit{Fit Criterion:} A user should be able to answer questions
-    about what the purpose of all buttons without needing to ask questions.
+    about the purpose of every button without needing to ask for clarification.
   \end{itemize}
   
   \item[\textbf{LFR-4.}] The produced plot from the data shall be properly labeled.
@@ -773,7 +773,7 @@ experience.
     see that there is unity among all the icons on the website. 
   \end{itemize}
   
-  \item[\textbf{LFR-6.}] All colors must match the theme of the website.
+  \item[\textbf{LFR-6.}] All colours must match the theme of the website.
   \begin{itemize}
     \item \textit{Rationale:} Applying a theme will ensure users have
     an engaging visual experience.
@@ -785,7 +785,9 @@ experience.
   \begin{itemize}
     \item \textit{Rationale:} Consistent fonts will increase readability,
     ensuring users can focus on the functionalities that matter on the page rather than inconsistencies. 
-    \item \textit{Fit Criterion:} After a user's first encounter with the product, the user should answer that there are 0 fonts do not belong on the website. 
+    \item \textit{Fit Criterion:} After a user's first encounter with the
+    product, the user should answer that there are 0 fonts that do not belong on the
+    website. 
   \end{itemize}
 \end{enumerate}
 
@@ -795,7 +797,7 @@ This section outlines the requirements that are intended to make the product usa
 \textbf{UHR-1.} The product must be easy to navigate and use for \\ $USABILITY\_THRESHOLD$ of individuals with basic computer literacy.
 \begin{itemize}
   \item \emph{Rationale}: The product must be user-friendly. In the context of this project, basic computer literacy is defined to encompass five computer skills - using a keyboard
-  to type, using a mouse to navigate, understanding basic software applications such as word processing and spreadsheets, browsing the internet, and managaing files and folders.
+  to type, using a mouse to navigate, understanding basic software applications such as word processing and spreadsheets, browsing the internet, and managing files and folders.
   \item \emph{Fit Criterion}: An individual with basic computer literacy, such as John Doe as described in \nameref{personas} must be able to launch the application and upload an input file
   without any assistance from the administrator.
 \end{itemize}
@@ -1236,7 +1238,8 @@ application.
 \emph{N/A} as no relevant standard compliance and legal requirements could be identified.
 
 \section{Open Issues}
-\lips
+\emph{N/A}
+
 \section{Off-the-Shelf Solutions}
 
 Off-the-shelf solutions are evaluated to explore whether existing products can
@@ -1452,7 +1455,7 @@ efforts, with a fully functioning product that meets all requirements.
 Ultimately, it highlights the project's readiness for production.
 
 \section{Migration to the New Product}
-This section includes a list of coversion activities that are necessary that are necessary for the project planning process and outlines a rough timeline for their implementation.
+This section includes a list of conversion activities that are necessary that are necessary for the project planning process and outlines a rough timeline for their implementation.
 \subsection{Requirements for Migration to the New Product}
 The following conversion tasks have been identified as a part of the project planning process.
 \subsubsection{Use of Phased Implementation}
@@ -1461,15 +1464,15 @@ The system will not be implemented in phases and would be installed as a part of
 
 \subsubsection{Data Conversion}
 \label{data}
-Currently, the files are stored in CSV format. In order to make them compatiable for migration to the new database, the files must be converted into the appropriate format, likely, 
+Currently, the files are stored in CSV format. In order to make them compatible for migration to the new database, the files must be converted into the appropriate format, likely, 
 JavaScript Object Notaion (JSON) format. This means that a special program must be written to transport the data as the new system will only accept JSON files. 
 The goal is, when a file is inputted to the new system (in CSV format), the program will convert it to JSON so that the data can be entered into the database.
 
 \subsubsection{Major Components}
 The product has been decomposed into the following major components that will be put in place based on this timeline - 
 \begin{itemize}
-  \item Database with migrated data and funtionality to compare parameters by the Proof of Concept Demonstration
-  \item Interface that allows inputting data and adding new parametersby the end of December 2024
+  \item Database with migrated data and functionality to compare parameters by the Proof of Concept Demonstration
+  \item Interface that allows inputting data and adding new parameters by the end of December 2024
   \item Dashboard that allows analysis of data and visualizing graphs by the end of January 2025
 \end{itemize}
 
@@ -1482,17 +1485,18 @@ Since the old product is just a collection of spreadsheets, no special effort is
 each time the data is migrated to the new product to ensure its accuracy and integrity.
 
 \subsection{Data That Has to be Modified or Translated for the New System}
+The following section outlines whether, and how, the data that is currently in use will be modified or translated for the new system.
 \subsubsection{Current Technology}
-Currently the data is retreived in the form of CSV files and copied onto existing Excel templates that are used to clean, sort and analyse 
-the data. Although the templates are sophisticated and well-deisgned, a lot of manual work is involved to flag incorrect data (rows of zeroes for 
+Currently the data is retrieved in the form of CSV files and copied onto existing Excel templates that are used to clean, sort and analyze 
+the data. Although the templates are sophisticated and well-designed, a lot of manual work is involved to flag incorrect data (rows of zeroes for 
 all parameters), remove redundant data (the data file is sometimes split into multiple CSV files that might contain some overlapping data) and more.\\
 \newline
-Some of the collected paramteric data is also inaccurate (such as the power voltage and density module) and so those columns of data are ignored.
+Some of the collected parametric data is also inaccurate (such as the power voltage and density module) and so those columns of data are ignored.
 To compare different experiments, the user is required to switch between experiment files to view their respective graphs. This is cumbersome and as 
 the number of experiments increase, unsustainable in the long-term.
 
 \subsubsection{Data Translation}
-A scirpt will be written to automate the translation of files from CSV to JSON format. This has been described in detail in the \nameref{data} section.
+A script will be written to automate the translation of files from CSV to JSON format. This has been described in detail in the \nameref{data} section.
 
 \section{Costs}
 \emph{N/A}

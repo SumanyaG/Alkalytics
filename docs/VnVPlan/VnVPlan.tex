@@ -61,25 +61,25 @@ testing descriptions for Module 13. \\
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  VnV & Verification and Validation\\
-  SRS & Software Requirements Specification\\
-  PoC & Proof of Concept\\
-  TA & Teaching Assistant\\
-  FR & Functional Requirement\\
-  NFR & Nonfunctional Requirement\\
-  PR & Performance Requirement\\
-  LFR & Look and Feel Requirement\\
-  UHR & Usability and Humanity Requirement\\
-  OER & Operational and Environmental Requirement\\
-  MSR & Maintainability and Support Requirement\\
-  SR & Security Requirement\\
-  MG & Module Guide\\
-  MIS & Module Interface Specification\\
   CI & Continuous Integration\\
-  WCAG & Web Content Accessibility Guidelines\\
   CSV & Comma-Separated Values\\
   FMEA & Failure Modes and Effects Analysis\\
+  FR & Functional Requirement\\
+  LFR & Look and Feel Requirement\\
+  MG & Module Guide\\
+  MIS & Module Interface Specification\\
+  MSR & Maintainability and Support Requirement\\
+  NFR & Nonfunctional Requirement\\
   NVDA & NonVisual Desktop Access (screen reader)\\
+  OER & Operational and Environmental Requirement\\
+  PoC & Proof of Concept\\
+  PR & Performance Requirement\\
+  SR & Security Requirement\\
+  SRS & Software Requirements Specification\\
+  TA & Teaching Assistant\\
+  UHR & Usability and Humanity Requirement\\
+  VnV & Verification and Validation\\
+  WCAG & Web Content Accessibility Guidelines\\
   \bottomrule
 \end{tabular}\\
 
@@ -89,7 +89,7 @@ testing descriptions for Module 13. \\
 \pagenumbering{arabic}
 
 \section{General Information}
-An overview of the project's verification and validation (VnV) plan, outlining
+An overview of the project's Verification and Validation (VnV) plan, outlining
 key objectives, scope, and relevant documentation.
 \subsection{Summary}
 
@@ -191,8 +191,8 @@ serving a distinct role in guiding the testing processes:
 This section outlines the Verification and Validation (VnV) responsibilities of
 each team member and the team supervisor. It presents comprehensive verification
 plans for the
-\href{https://github.com/SumanyaG/Alkalytics/blob/f856af96669275cc29428a8f2cd4b863e4523ff6/docs/SRS/SRS.pdf}{SRS},
-design documents (including the MG), the VnV plan itself, and the system
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/SRS/SRS.pdf}{SRS},
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/Design/MG.pdf}{MG}, the VnV plan itself, and the system
 implementation.\\
 \newline Additionally, the automated testing and verification tools intended for
 use in the VnV process have been specified. Verification tasks will be carried
@@ -312,9 +312,8 @@ ensure that the design aligns with the intended requirements and effectively
 mitigates potential hazards identified by the VnV team.
 
 \subsubsection{Document Review}
-After the completion of the initial draft of the design documentation (including
-the Management Guide (MG), Management Information System (MIS), and System
-Design documents), each member of the testing team will conduct a comprehensive
+After the completion of the initial draft of the design documentation, the Module
+Guide (MG), each member of the testing team will conduct a comprehensive
 review before submission. The objectives of this review process are to:
 \begin{itemize}
   \item Ensure that the system design aligns with all functional and
@@ -480,8 +479,8 @@ matrix.
 The subsections below covers each major functional of the application, from
 uploading data to the various outputs of post query analysis. Many of the
 functions come from the same user flow. By testing the subsections below
-guarintees that all possible user flows involving the main application
-functioanlities are working as expected. 
+guarantees that all possible user flows involving the main application
+functionalities are working as expected. 
 
 \subsubsection{Data Input and Storage}
 The tests below provide a way to evaluate the correctness of data input and
@@ -529,7 +528,7 @@ point with the correct number of attributes to store in the system.
 \end{enumerate}
 
 \subsubsection{Data Querying and Results}
-Th tests below provide a way to evaluate the data querying and visualization
+The tests below provide a way to evaluate the data querying and visualization
 process of the system for the following functional requirements:
 \begin{itemize}
   \item FR-5, FR-6, FR-7, FR-8, FR-9
@@ -547,7 +546,7 @@ process of the system for the following functional requirements:
   queried on
             
   Output: A human-readable and customizable visualization of correct results
-  corresponding to the selected paramters from the input
+  corresponding to the selected parameters from the input
   
   Test Case Derivation: The expected output of the system is based on the query
   parameters selected. A user expects the data analysis to match with what they
@@ -555,12 +554,12 @@ process of the system for the following functional requirements:
             
   How test will be performed: The database will be queried using multiple
   combinations of parameters, and the results will be compared against the
-  expected output. The outputted visualization will then be tested for
-  customizability.
+  expected output. The output visualization will then be tested for
+  customization functionality.
   
   \end{enumerate}
 
-\subsubsection{Data analysis}
+\subsubsection{Data Analysis}
     The tests below provide a way to evaluate the data analysis in the
     application for the following functional requirements:
     \begin{itemize}
@@ -612,7 +611,7 @@ process of the system for the following functional requirements:
           Output: A log file documenting errors found in the input data and/or
           removals of missing data.
           
-          Test Case Derivation: This is to ensure the efficency of the querying
+          Test Case Derivation: This is to ensure the efficiency of the querying
           and ensuring the database is only as big as it needs to be. This will
           also ensure that errors such as missing values or ambiguous types
           along with ambiguous data sheets are dealt with by the application and
@@ -1160,7 +1159,7 @@ misconfigurations within the environment.
     passwords, unregistered usernames) to ensure that the system properly
     restricts access.
     \item The tester will also verify the application's response to unauthorized
-    access attempts, noting any error messages or behavior.
+    access attempts, noting any error messages or behaviour.
     \item The testing will include attempts to access the application without
     logging in to ensure the login mechanism is enforced.
   \end{itemize}
@@ -1694,7 +1693,7 @@ example, \texttt{migrationServiceTest.py} is a test for
 \texttt{useTable.test.tsx} is a test for the \texttt{useTable} hook, which is
 part of the M7: Data Retrieval Module. \\
 
-\noindent For backend testing, each test case in a singlular file is named
+\noindent For backend testing, each test case in a singular file is named
 according to the function being tested, prefixed with \texttt{test}, for
 example: \texttt{def test\_get\_data()}. For frontend components, each test case
 is prefixed with \texttt{test}, following a description of the component being
@@ -1726,7 +1725,7 @@ database. The unit tests for this module will ensure that data is correctly
 stored and can be retrieved. The tests can be found at
 \href{https://github.com/SumanyaG/Alkalytics/blob/main/src/backend/test/migrationServiceTest.py}{migrationServiceTest.py}
 and
-\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/upload}{migrationServiceTest.py}.
+\href{https://github.com/SumanyaG/Alkalytics/blob/main/src/frontend/test/components/upload/UploadArea.test.tsx}{UploadArea.test.tsx}.
 
 \begin{itemize}
   \item 6.1-UT1: Uploads experiments and data.
