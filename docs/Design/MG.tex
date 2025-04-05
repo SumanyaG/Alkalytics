@@ -816,46 +816,58 @@ clean input data  for dependent modules.
       \item Input data is numeric and within hardware limits.
     \end{itemize}
 
-\item[Access Routine Semantics:]
-\item
-  \begin{itemize}
-    \item \texttt{validateVoltage(v: Real)}:
-      \begin{itemize}
-        \item output := \texttt{MIN\_VOLTAGE} $\leq v \leq$ \texttt{MAX\_VOLTAGE}
-        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{Voltage\_Error}$
-      \end{itemize}
-  \end{itemize}
+  \item[Access Routine Semantics:]
   \item
-  \begin{itemize}
-    \item \texttt{validateCurrent(i: Real)}:
+    \begin{itemize}
+      \item \texttt{validateVoltage(v: Any)}:
       \begin{itemize}
-        \item output := \texttt{MIN\_CURRENT} $\leq i \leq$ \texttt{MAX\_CURRENT}
-        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{Current\_Error}$
-      \end{itemize} 
-  \end{itemize}
-  \item
-  \begin{itemize}
-    \item \texttt{validateFlowRate(f: Real)}:
-      \begin{itemize}
-        \item output := \texttt{FLOW\_RATE\_THRESHOLD}[0] $\leq f \leq$ \texttt{FLOW\_RATE\_THRESHOLD}[1]
-        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{Flow\_Rate\_Error}$
+        \item output := \texttt{isReal(v)} $\land$ \texttt{MIN\_VOLTAGE} $\leq$ \texttt{toReal(v)} $\leq$ \texttt{MAX\_VOLTAGE}
+        \item if $\lnot$ \texttt{isReal(v)}: \texttt{error\_flags} $\mathrel{+}= \texttt{Voltage\_Type\_Error}$
+        \item else if $\lnot$ (\texttt{MIN\_VOLTAGE} $\leq$ \texttt{toReal(v)} $\leq$ \texttt{MAX\_VOLTAGE}): \texttt{error\_flags} $\mathrel{+}= \texttt{Voltage\_Range\_Error}$
       \end{itemize}
-  \end{itemize}
-  \item
-  \begin{itemize}
-    \item \texttt{validatePH(p: Real)}:
+    \end{itemize}
+
+    \item
+    
+    \begin{itemize}
+      \item \texttt{validateCurrent(i: Any)}:
       \begin{itemize}
-        \item output := \texttt{PH\_RANGE}[0] $\leq p \leq$ \texttt{PH\_RANGE}[1]
-        \item if $\lnot$ output: \texttt{error\_flags} $\mathrel{+}= \texttt{PH\_Error}$
+        \item output := \texttt{isReal(i)} $\land$ \texttt{MIN\_CURRENT} $\leq$ \texttt{toReal(i)} $\leq$ \texttt{MAX\_CURRENT}
+        \item if $\lnot$ \texttt{isReal(i)}: \texttt{error\_flags} $\mathrel{+}= \texttt{Current\_Type\_Error}$
+        \item else if $\lnot$ (\texttt{MIN\_CURRENT} $\leq$ \texttt{toReal(i)} $\leq$ \texttt{MAX\_CURRENT}): \texttt{error\_flags} $\mathrel{+}= \texttt{Current\_Range\_Error}$
       \end{itemize}
-  \end{itemize}
-  \item
-  \begin{itemize}
-    \item \texttt{getErrorFlags()}:
+    \end{itemize}
+    
+    \item 
+    
+    \begin{itemize}
+    \item \texttt{validateFlowRate(f: Any)}:
       \begin{itemize}
-        \item output := \texttt{error\_flags}
+        \item output := \texttt{isReal(f)} $\land$ \texttt{FLOW\_RATE\_THRESHOLD}[0] $\leq$ \texttt{toReal(f)} $\leq$ \texttt{FLOW\_RATE\_THRESHOLD}[1]
+        \item if $\lnot$ \texttt{isReal(f)}: \texttt{error\_flags} $\mathrel{+}= \texttt{FlowRate\_Type\_Error}$
+        \item else if $\lnot$ (\texttt{FLOW\_RATE\_THRESHOLD}[0] $\leq$ \texttt{toReal(f)} $\leq$ \texttt{FLOW\_RATE\_THRESHOLD}[1]): \texttt{error\_flags} $\mathrel{+}= \texttt{FlowRate\_Range\_Error}$
       \end{itemize}
-  \end{itemize}  
+    \end{itemize}
+    
+    \item
+
+    \begin{itemize}
+      \item \texttt{validatePH(p: Any)}:
+      \begin{itemize}
+        \item output := \texttt{isReal(p)} $\land$ \texttt{PH\_RANGE}[0] $\leq$ \texttt{toReal(p)} $\leq$ \texttt{PH\_RANGE}[1]
+        \item if $\lnot$ \texttt{isReal(p)}: \texttt{error\_flags} $\mathrel{+}= \texttt{PH\_Type\_Error}$
+        \item else if $\lnot$ (\texttt{PH\_RANGE}[0] $\leq$ \texttt{toReal(p)} $\leq$ \texttt{PH\_RANGE}[1]): \texttt{error\_flags} $\mathrel{+}= \texttt{PH\_Range\_Error}$
+      \end{itemize}
+    \end{itemize}
+    
+    \item 
+    
+    \begin{itemize}
+      \item \texttt{getErrorFlags()}:
+        \begin{itemize}
+          \item output := \texttt{error\_flags}
+        \end{itemize}
+    \end{itemize}    
 
   \item[Local Function:]
   \item
@@ -1679,12 +1691,30 @@ graduate attribute of Problem Analysis and Design.
   \item \textbf{What are the limitations of your solution?  Put another way, given
   unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)}\\
   \newline
-  Given unlimited resources, especially, more time and manpower, our team can implement the orange leaf modules 
-  shown in figure \ref{fig:FigMH}. As described earlier in this document, these modules are necessary for the system 
-  but will not be implemented for Rev 0 due to timing constraints. These modules have been identified as important 
-  functionalities that would be great inclusions to the existing Alkalytics system. In addition to this, we would also 
-  implement our stretch goals identified in the \href{https://github.com/SumanyaG/Alkalytics/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem Statement and Goals}
-  document last semester.
+  Given unlimited resources—particularly additional time, personnel, and development support—our team would address several current 
+  limitations in the Alkalytics system, especially those related to modularity, completeness, and maintainability.\\
+  \newline
+  Currently, several critical components—represented as orange leaf modules in \ref{fig:FigMH}—are not implemented in Revision 0 due 
+  to strict timeline constraints. These include modules responsible for advanced data visualization, automatic calibration routines, 
+  and persistent cloud-based data storage. Their absence limits the overall functionality, real-time responsiveness, and scalability of 
+  the system.\\
+  \newline
+  From a software engineering standpoint, the current implementation exhibits tight coupling between certain components, particularly 
+  between data parsing, validation, and processing. This violates the principle of separation of concerns and makes future updates or 
+  substitutions (e.g., using a different input format) more difficult. With more resources, we would refactor these modules to follow 
+  stricter encapsulation—ensuring each component has a well-defined interface and hides its internal logic.\\
+  \newline
+  Additionally, validation logic is currently focused on domain-specific checks and lacks a fully generic, extensible validation framework.
+  A more modular design could support pluggable validation rules, improving reusability across different datasets or future input types. 
+  We would also strengthen information hiding practices by isolating error handling and logging mechanisms from the core logic, making the 
+  system easier to test and debug.\\
+  \newline
+  Finally, our stretch goals from the Problem Statement and Goals document—such as automated alert systems, remote monitoring integration, 
+  and user customization support—would be implemented. These features require additional layers of abstraction and service integration that 
+  would benefit greatly from a well-modularized and extensible codebase.\\
+  \newline
+  In summary, with additional resources, we would improve the system's modularity, promote cleaner separation of concerns, enhance 
+  extensibility, and better align with industry-standard software engineering practices.\\
 
   \item \textbf{Give a brief overview of other design solutions you considered.  What
   are the benefits and tradeoffs of those other designs compared with the chosen
