@@ -57,6 +57,15 @@
 \href{https://github.com/SumanyaG/Alkalytics/issues/177}{177},
 \href{https://github.com/SumanyaG/Alkalytics/issues/252}{252}, and
 \href{https://github.com/SumanyaG/Alkalytics/issues/253}{253}. \\
+4 April 2025 & 1.4 & Updated document to adhere to 
+\href{https://github.com/SumanyaG/Alkalytics/issues/173}{173},
+\href{https://github.com/SumanyaG/Alkalytics/issues/174}{174},
+\href{https://github.com/SumanyaG/Alkalytics/issues/178}{178},
+\href{https://github.com/SumanyaG/Alkalytics/issues/250}{250},
+\href{https://github.com/SumanyaG/Alkalytics/issues/251}{251},
+\href{https://github.com/SumanyaG/Alkalytics/issues/252}{252},
+\href{https://github.com/SumanyaG/Alkalytics/issues/254}{254} and 
+\href{https://github.com/SumanyaG/Alkalytics/issues/255}{255}. \\
 \bottomrule
 \end{tabularx}
 \\
@@ -161,7 +170,7 @@ are encapsulated within specific modules to ensure the system's adaptability.
 \begin{description}
   \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] \textbf{Hardware Configuration} - 
   The software may need to run on a different hardware platform like a server or on a 
-  cloud solution. Changes in hardware specifications will primarily affect the Hardware-Hiding 
+  cloud solution. Changes in hardware specifications will primarily affect the System Interface 
   Module, isolating their imoact.
   
   \item[\refstepcounter{acnum} \actheacnum \label{acProcessing}:] \textbf{Data Processing Algorithms} - 
@@ -179,11 +188,6 @@ are encapsulated within specific modules to ensure the system's adaptability.
   In the future, however, modifications may have to be made to accommodate different file 
   formats (such as JavaScript Object Notation (JSON), Extensible Markup Language (XML) etc)
   which will be handled by the Data Ingestion Module without impacting other parts of the system.
-
-  \item[\refstepcounter{acnum} \actheacnum \label{acSource}:] \textbf{Data Source Integration} - 
-  New data sources such as third-party application programming interfaces (APIs), Internet of Things
-  (IoT) devices may have to be added in the future. The Data Ingestion Module will have to be 
-  redesigned to handle the integration of these new sources.
 
   \item[\refstepcounter{acnum} \actheacnum \label{acScaling}:] \textbf{Scaling Data Volume} - 
   As the number of experiments increases, the system may need to handle increasing data volumes
@@ -255,8 +259,8 @@ higher-level and lower-level modules, with the leaf modules representing those t
 will actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Behaviour-Hiding Module
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] System Interface Module
+\item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Logic Encapsulation Module
 \item [\refstepcounter{mnum} \mthemnum \label{mIN}:] Interface Module 
 \item [\refstepcounter{mnum} \mthemnum \label{mAD}:] Administration Module 
 \item [\refstepcounter{mnum} \mthemnum \label{mDA}:] Data Acquisition Module 
@@ -284,13 +288,13 @@ will actually be implemented.
 \textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ & ~ \\
+{System Interface Module} & ~ & ~ \\
 & Data Acquisition Module & \\
 & Data Storage Module & \\
 & Data Retrieval Module & \\
 \midrule
 
-{Behaviour-Hiding Module} & Input Module & Data Ingestion Module\\
+{Logic Encapsulation Module} & Input Module & Data Ingestion Module\\
 & & Data Validation Module\\
 & Processing Module & Data Transformation Module\\
 & & Machine Learning Module\\
@@ -313,7 +317,7 @@ will actually be implemented.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{Diagrams/DAG.png}
+  \includegraphics[scale=0.5,angle=-90]{Diagrams/DAG.pdf}
   \caption{A DAG representing the implemented module hierarchy of Alkalytics.}
   \label{fig:FigMH}
 \end{figure}
@@ -355,7 +359,7 @@ Alkalytics have been provided below.
 \end{description}
 
 \subsubsection{Uses}
-This module is used by the Behavior-Hiding and Interface Module to interact
+This module is used by the Logic Encapsulation and Interface Module to interact
 with the stored data. It provides mechanisms transform the CSV data, and
 perform CRUD (Create, Read, Update, Delete) operations on the NoSQL database.
 
@@ -746,9 +750,13 @@ clean input data  for dependent modules.
   \item
   \texttt{MIN\_CURRENT}: Minimum allowable current (e.g., 0 A).
   \item
-  \texttt{FLOW\_RATE\_THRESHOLD}: Acceptable range for flow rates (e.g., 0.1 to 60 L/min).
+  \texttt{MAX\_FLOW\_RATE\_THRESHOLD}: Maximum flow rate (e.g., 0.1 L/min).
   \item
-  \texttt{PH\_RANGE}: Acceptable pH range (e.g., 6.0 to 8.5).
+  \texttt{MIN\_FLOW\_RATE\_THRESHOLD}: Minimum flow rate (e.g., 60 L/min).
+  \item
+  \texttt{MIN\_PH}: Minimum pH range (e.g., 6.0).
+  \item
+  \texttt{MAX\_PH}: Maximum pH range (e.g., 8.5).
 
   \begin{table}[H]
     \centering
@@ -950,7 +958,6 @@ clean input data  for dependent modules.
 \subsubsection{Semantics}
 \begin{description}
   \item[State Variables:]
-  \item \texttt{isTransformed}: Boolean indicating whether the data has been transformed.
   \item \texttt{transformedData}: Holds the data after transformation, ready for graphing.
   \item
   \item[Environment Variables:]
@@ -1337,7 +1344,7 @@ positive user experience.
 \end{description}
 
 \subsubsection{Uses}
-This module interacts with the Hardware-Hiding Module for user credential
+This module interacts with the System Interface Module for user credential
 storage and verification.
 
 \subsubsection{Syntax}
@@ -1497,7 +1504,7 @@ FR-15 & \mref{mDT} \\
 \acref{acHardware} & \mref{mHH}\\
 \acref{acProcessing} & \mref{mPR}\\
 \acref{acInput} & \mref{mPR}\\
-\acref{acInterface} & \mref{mIN}\\
+\acref{acInterface} & \mref{mDI}\\
 \acref{acInput} & \mref{mIN}\\
 \acref{acSource} & \mref{mIN}\\
 \acref{acScaling} & \mref{mDS}\\
@@ -1525,7 +1532,7 @@ essentially simpler because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{Diagrams/uses hierarchy.png}
+\includegraphics[angle=-90,scale=0.6]{Diagrams/uses hierarchy.pdf}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
