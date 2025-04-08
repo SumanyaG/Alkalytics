@@ -259,7 +259,7 @@ const GraphSideBar: React.FC<GraphSideBarProps> = ({
       </div>
       <div>
         {isModalOpen && (
-          <GenerateGraphModal setOpenModal={setIsModalOpen} onSubmit={onSubmit} />
+          <GenerateGraphModal setOpenModal={setIsModalOpen} onSubmit={onSubmit} onClose={resetFields} />
         )}
       </div>
       <div>

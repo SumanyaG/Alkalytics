@@ -17,6 +17,7 @@ import MultipleSelectCheckmarks from "../dropdown/MultiSelectDropDown";
 interface GenerateGraphModalProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit: any;
+  onClose: any;
 }
 const graphTypes = [
   { value: "bar", label: "Bar Graph" },
@@ -79,6 +80,7 @@ const FILTER_COLLECTDATE = gql`
 const GenerateGraphModal: React.FC<GenerateGraphModalProps> = ({
   setOpenModal,
   onSubmit,
+  onClose,
 }) => {
   // Imported states
   const {
@@ -329,6 +331,7 @@ const GenerateGraphModal: React.FC<GenerateGraphModalProps> = ({
           <IconButton
             onClick={() => {
               setOpenModal(false);
+              onClose();
             }}
           >
             <CloseIcon />
