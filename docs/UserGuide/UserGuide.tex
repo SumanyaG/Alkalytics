@@ -63,8 +63,8 @@ Lists all hardware and software requirements for running the application.
 \section{Installation Guide}
 
 This section provides complete step-by-step instructions for setting up the
-Alkalytics environment.
-
+Alkalytics environment. We recommend using an Integrated Development Environment (IDE)
+such as \href{https://code.visualstudio.com/}{VS Code} for ease of handling the application.
 \subsection{Step-by-Step Installation}
 \begin{enumerate}
     \item \textbf{Prerequisite Installation}
@@ -100,16 +100,19 @@ CONNECTION_STRING="mongodb://localhost:27017/"
     \end{enumerate}
     
     \item \textbf{Application Launch}
-    \begin{enumerate}
-        \item Start backend:
+    
+    Tip: To switch between directories use the command \verb|cd <directory_name>| to 
+    naviagte to a specific directory or \verb|cd ..| to go back one level.
+\begin{enumerate}
+        \item With \verb|src/backend| as your current directory, start backend:
 \begin{verbatim}
 uvicorn api:app --reload --host 127.0.0.1 --port 8000
 \end{verbatim}
-        \item Start server:
+        \item With \verb|src/frontend| as your current directory, start server:
 \begin{verbatim}
 yarn ts-node src/utils/server.ts
 \end{verbatim}
-        \item Start frontend:
+        \item With \verb|src/frontend| as your current directory, start frontend:
 \begin{verbatim}
 yarn start
 \end{verbatim}
